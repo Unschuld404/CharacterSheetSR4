@@ -93,7 +93,7 @@
 }
 
 .confirm:active {
-    background-color: var(--background-color);
+    background-color: var(--accent-color);
     color: var(--font-color);
 }
 

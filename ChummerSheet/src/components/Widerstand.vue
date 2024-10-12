@@ -12,27 +12,27 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
       <div class="resistance">
         <div class="resistance-category">Ballist.</div>
-        <button v-if="data" class="total-value" @click="openModal">{{ data.armori }}</button>
+        <button v-if="data" class="total-value">{{ data.armori }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Stoß</div>
-        <button v-if="data" class="total-value" @click="openModal">{{ data.armorb }}</button>
+        <button v-if="data" class="total-value">{{ data.armorb }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Körperl.</div>
-        <button v-if="data" class="total-value" @click="openModal">{{ getTotalValueByName('BOD') }}</button>
+        <button v-if="data" class="total-value">{{ getTotalValueByName('BOD') }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Wille</div>
-        <button v-if="data" class="total-value" @click="openModal">{{ getTotalValueByName('WIL') }}</button>
+        <button v-if="data" class="total-value">{{ getTotalValueByName('WIL') }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Entzug</div>
-        <button v-if="data" class="total-value" @click="openModal">{{ +getTotalValueByName('WIL') + +getTotalValueByName('CHA') }}</button>
+        <button v-if="data" class="total-value">{{ +getTotalValueByName('WIL') + +getTotalValueByName('CHA') }}</button>
       </div>
 
     </div>

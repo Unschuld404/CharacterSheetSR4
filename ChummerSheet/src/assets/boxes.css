@@ -10,7 +10,7 @@
     height: 90%;
     margin-top: 3vh;  -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
-
+/* wenn es in einer Box sein soll */
 }
 
 .flex-scroll {
@@ -43,6 +43,7 @@
 
 .item {
     display: flex;
+    justify-content: space-between;
     margin-left: 2vh;
     margin-right: 2vh;
     border-bottom: 1px solid var(--background-color);

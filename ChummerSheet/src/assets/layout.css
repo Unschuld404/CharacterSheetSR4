@@ -5,3 +5,8 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+.column {
+    display: flex;
+    flex-direction: column;
+}

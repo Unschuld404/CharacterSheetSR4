@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import MainView from '@/views/MainView.vue'
-import SkillView from '@/views/SkillView.vue'
-import WeaponView from '@/views/WeaponView.vue'
-import SpellView from '@/views/MagicView.vue'
-import VehicleView from '@/views/VehicleView.vue'
+import Hub from "@/views/Hub.vue";
+import Fertigkeiten from "@/views/Fertigkeiten.vue";
+import Waffen from "@/views/Waffen.vue";
+import Magie from "@/views/Magie.vue";
+import Fahrzeuge from "@/views/Fahrzeuge.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,32 +11,32 @@ const router = createRouter({
     {
       path: '/',
       name: 'root',
-      component: MainView
+      component: Hub
     },
     {
-      path: '/main',
-      name: 'main',
-      component: MainView
+      path: '/Hub',
+      name: 'Hub',
+      component: Hub
     },
     {
-      path: '/skills',
-      name: 'skills',
-      component: SkillView
+      path: '/Fertigkeiten',
+      name: 'Fertigkeiten',
+      component: Fertigkeiten
     },
     {
-      path: '/weapons',
-      name: 'weapons',
-      component: WeaponView
+      path: '/Waffen',
+      name: 'Waffen',
+      component: Waffen
     },
     {
-      path: '/spells',
-      name: 'spells',
-      component: SpellView
+      path: '/Magie',
+      name: 'Magie',
+      component: Magie
     },
     {
-      path: '/vehicles',
-      name: 'vehicles',
-      component: VehicleView
+      path: '/Fahrzeuge',
+      name: 'Fahrzeuge',
+      component: Fahrzeuge
     },
   ]
 })

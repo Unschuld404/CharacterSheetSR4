@@ -4,6 +4,7 @@
 @import './checkboxes.css';
 @import './boxes.css';
 @import 'layout.css';
+@import './fonts.css';
 
 #app {
   margin: 0 auto;

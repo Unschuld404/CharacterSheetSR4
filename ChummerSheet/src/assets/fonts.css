@@ -1,0 +1,14 @@
+.header {
+    height: 5vh;
+    font-size: 3vh;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.formula {
+    width: 20%;
+}
+
+strong {
+    font-size: 3vh;
+}

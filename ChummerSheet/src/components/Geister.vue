@@ -14,11 +14,11 @@ const spirits = computed(() => {
     <ul>
       <li v-for="(spirit, index) in spirits" :key="index">
         <div class="box">
-          <div class="name">{{ spirit.crittername }}</div>
+          <div v-if="data" class="header">{{ spirit.crittername }}</div>
           <div class="info">
-            <div class="value">Kraft: {{ spirit.force }}</div>
-            <div class="value">Dienste: {{ spirit.services }}</div>
-            <div class="value">{{ spirit.bound ? 'Gebunden' : 'Frei' }}</div>
+            <div v-if="data" class="value">Kraft: {{ spirit.force }}</div>
+            <div v-if="data" class="value">Dienste: {{ spirit.services }}</div>
+            <div v-if="data" class="value">{{ spirit.bound ? 'Gebunden' : 'Frei' }}</div>
           </div>
         </div>
       </li>
@@ -38,14 +38,6 @@ const spirits = computed(() => {
     padding-right: 4vh;
   }
 
-  .name {
-    height: 5vh;
-    font-size: 3vh;
-    font-weight: bold;
-    color: var(--accent-color);
-    border-bottom: 1px solid var(--font-color);
-  }
-
   .info {
     display: flex;
     justify-content: space-between;
@@ -54,7 +46,7 @@ const spirits = computed(() => {
   .value {
     width: 30%;
     text-align: center;
-    line-height: 9vh;
+    line-height: 6vh;
   }
 
   button {
