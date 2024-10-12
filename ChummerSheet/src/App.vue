@@ -1,8 +1,50 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router';
+import { routerList } from "@/router/routes";
 import { onMounted } from 'vue';
 import {fetchData} from "@/scripts/Fetch";
 import { data } from "@/scripts/Data";
+
+const router = useRouter();
+const route = useRoute();
+
+function routerLeft()
+{
+  const routeNames = routerList.map((r) => r.name).filter(Boolean) as string[];
+  const currentIndex = routeNames.indexOf(route.name as string);
+  if (currentIndex > 0)
+  {
+    const targetRouteName = routeNames[currentIndex - 1];
+    router.push({
+      name: targetRouteName
+    })
+  }
+}
+
+function routerRight()
+{
+  const routeNames = routerList.map((r) => r.name).filter(Boolean) as string[];
+  const currentIndex = routeNames.indexOf(route.name as string);
+  if (currentIndex < routeNames.length - 1)
+  {
+    const targetRouteName = routeNames[currentIndex + 1];
+    router.push({
+      name: targetRouteName
+    })
+  }
+}
+
+const onSwipeLeft = () => {
+
+  console.log("on swipe left");
+  routerRight();
+}
+
+function onSwipeRight(): void
+{
+  console.log("on swipe right");
+  routerLeft();
+}
 
 onMounted(() => {
   fetchData();
@@ -20,11 +62,8 @@ onMounted(() => {
 
       <nav class="navbar">
         <ul>
-          <li><RouterLink to="Fahrzeuge" class="nav-link"><i class='bx bxs-invader'></i></RouterLink></li>
-          <li><RouterLink to="Waffen" class="nav-link"><i class='bx bxs-backpack'></i></RouterLink></li>
-          <li><RouterLink to="Hub" class="nav-link"><i class='bx bx-street-view'></i></RouterLink></li>
-          <li><RouterLink to="Fertigkeiten" class="nav-link"><i class='bx bxs-joystick'></i></RouterLink></li>
-          <li><RouterLink to="Magie" class="nav-link"><i class='bx bxs-magic-wand'></i></RouterLink></li>
+          <li v-for="item in routerList">
+            <RouterLink :to="item.path" class="nav-link"><i :class="item.icon"></i></RouterLink></li>
         </ul>
       </nav>
 
@@ -32,7 +71,7 @@ onMounted(() => {
 
     </header>
 
-    <RouterView />
+    <RouterView v-touch:swipe.left="onSwipeLeft" v-touch:swipe.right="onSwipeRight" />
 
 </template>
 

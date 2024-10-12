@@ -2,7 +2,7 @@ import { data } from './Data';
 
 export async function fetchData(): Promise<void> {
     try {
-        const response = await fetch('https://api.blackserver.de/chummer/data/Emmy');
+        const response = await fetch('https://api.blackserver.de/chummer/data/Kaya');
         if (!response.ok) {
             throw new Error(`API Fehler: ${response.status}`);
         }
