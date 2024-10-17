@@ -44,12 +44,18 @@ const onSwipeLeft = () => {
 
   console.log("on swipe left");
   routerRight();
+  setTimeout(() => {
+    offset.value = 0;
+  }, 50); // 200ms = 0.2s Verzögerung
 }
 
 function onSwipeRight(): void
 {
   console.log("on swipe right");
   routerLeft();
+  setTimeout(() => {
+    offset.value = 0;
+  }, 50); // 200ms = 0.2s Verzögerung
 }
 
 function onMouseDown(e: MouseEvent): void
@@ -89,7 +95,6 @@ function onMouseUp(): void
   }
 
   isDragging.value = false;
-  offset.value = 0;
 
   removeEventListeners();
 }
@@ -128,11 +133,25 @@ onMounted(() => {
 
     </header>
 
-    <RouterView :style="{ transform: 'translateX(' + offset + 'px)' }" @mousedown="onMouseDown" />
+  <RouterView
+      :style="{ transform: 'translateX(' + offset + 'px)' }"
+      @mousedown="onMouseDown" v-slot="{ Component }">
+    <transition name="fade">
+      <component :is="Component" />
+    </transition>
+  </RouterView>
 
 </template>
 
 <style scoped>
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: opacity 0.5s ease-out;
+}
 
 .main-header {
   background-color: var(--background-color);
