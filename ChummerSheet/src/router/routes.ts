@@ -5,7 +5,7 @@ import Waffen from "@/views/Waffen.vue";
 import Magie from "@/views/Magie.vue";
 import Fahrzeuge from "@/views/Fahrzeuge.vue";
 
-export const routerList: Array<RouteRecordRaw> = [
+export const menuRoutes: Array<RouteRecordRaw> = [
     {
         path: '/vehicles',
         name: 'Fahrzeuge',

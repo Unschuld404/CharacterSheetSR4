@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router';
-import { routerList } from "@/router/routes";
+import { menuRoutes } from "@/router/routes";
 import { onMounted } from 'vue';
+import { onBeforeUnmount, ref } from "vue";
 import {fetchData} from "@/scripts/Fetch";
 import { data } from "@/scripts/Data";
 
 const router = useRouter();
 const route = useRoute();
 
+const isDragging = ref(false);
+const eventFired = ref(false);
+const offset = ref(0);
+const start = ref(0);
+
 function routerLeft()
 {
-  const routeNames = routerList.map((r) => r.name).filter(Boolean) as string[];
+  const routeNames = menuRoutes.map((r) => r.name).filter(Boolean) as string[];
   const currentIndex = routeNames.indexOf(route.name as string);
   if (currentIndex > 0)
   {
@@ -23,7 +29,7 @@ function routerLeft()
 
 function routerRight()
 {
-  const routeNames = routerList.map((r) => r.name).filter(Boolean) as string[];
+  const routeNames = menuRoutes.map((r) => r.name).filter(Boolean) as string[];
   const currentIndex = routeNames.indexOf(route.name as string);
   if (currentIndex < routeNames.length - 1)
   {
@@ -46,6 +52,57 @@ function onSwipeRight(): void
   routerLeft();
 }
 
+function onMouseDown(e: MouseEvent): void
+{
+  isDragging.value = true;
+  eventFired.value = false;
+  start.value = e.clientX;
+  offset.value = 0;
+
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp)
+}
+function onMouseMove(e: MouseEvent): void
+{
+  if (isDragging.value)
+  {
+    offset.value = e.clientX - start.value;
+  }
+}
+function onMouseUp(): void
+{
+  let distance = Math.abs(offset.value);
+  if (distance > 400)
+  {
+    let isSwipedLeft = offset.value < 0;
+
+    if (isSwipedLeft)
+    {
+      onSwipeLeft();
+    }
+    else
+    {
+      onSwipeRight();
+    }
+
+    eventFired.value = true;
+  }
+
+  isDragging.value = false;
+  offset.value = 0;
+
+  removeEventListeners();
+}
+
+function removeEventListeners()
+{
+  window.removeEventListener("mousemove", onMouseMove);
+  window.removeEventListener("mouseup", onMouseUp);
+}
+
+onBeforeUnmount(removeEventListeners);
+
+
 onMounted(() => {
   fetchData();
 });
@@ -62,7 +119,7 @@ onMounted(() => {
 
       <nav class="navbar">
         <ul>
-          <li v-for="item in routerList">
+          <li v-for="item in menuRoutes">
             <RouterLink :to="item.path" class="nav-link"><i :class="item.icon"></i></RouterLink></li>
         </ul>
       </nav>
@@ -71,7 +128,7 @@ onMounted(() => {
 
     </header>
 
-    <RouterView v-touch:swipe.left="onSwipeLeft" v-touch:swipe.right="onSwipeRight" />
+    <RouterView :style="{ transform: 'translateX(' + offset + 'px)' }" @mousedown="onMouseDown" />
 
 </template>
 
