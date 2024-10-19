@@ -5,6 +5,7 @@ import { onMounted } from 'vue';
 import { onBeforeUnmount, ref } from "vue";
 import {fetchData} from "@/scripts/Fetch";
 import {data, getTotalValueByName} from "@/scripts/Data";
+import WertBearbeiten from "@/components/Dialoge/WertBearbeiten.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -132,6 +133,8 @@ onMounted(() => {
       <div v-if="data" class="edge">{{ getTotalValueByName('EDG') }} Edge</div>
 
     </header>
+
+  <WertBearbeiten/>
 
   <RouterView
       :style="{ transform: 'translateX(' + offset + 'px)' }"
