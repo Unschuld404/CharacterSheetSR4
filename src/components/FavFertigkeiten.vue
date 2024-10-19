@@ -110,8 +110,4 @@
     width: 30%;
   }
 
-  .button-box {
-    width: 10%
-  }
-
 </style>

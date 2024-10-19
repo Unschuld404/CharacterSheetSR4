@@ -57,16 +57,16 @@ function getSpirits(): Array<{
     force: number;
     bound: boolean;
 }> {
-    if (!data.value || !data.value.spirits || !data.value.spirits.spirit) return [];
+    if (!data.value || !data.value.spirits) return [];
 
-    const spiritData = data.value.spirits.spirit;
+    const spiritData = data.value.spirits;
 
-    return [{
-        crittername: spiritData.crittername || 'Unknown',
-        services: parseInt(spiritData.services, 10) || 0,
-        force: parseInt(spiritData.force, 10) || 0,
-        bound: spiritData.bound === 'True'
-    }];
+    return spiritData.map((spirit: any) => ({
+        crittername: spirit.crittername || 'Unknown',
+        services: parseInt(spirit.services, 10) || 0,
+        force: parseInt(spirit.force, 10) || 0,
+        bound: spirit.bound === 'True'
+    }));
 }
 
 // Funktion, um alle Fahrzeuge zurückzugeben

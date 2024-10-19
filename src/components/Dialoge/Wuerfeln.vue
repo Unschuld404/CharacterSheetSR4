@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-import {useModalStore} from "@/stores/modalStore";
+import {useDialogeStore} from "@/stores/dialoge";
 
-const modalStore = useModalStore();
+const modalStore = useDialogeStore();
 
 </script>/
 
@@ -19,7 +19,7 @@ const modalStore = useModalStore();
           <i class='bx bx-chevron-down mod' ></i>
         </div>
       </div>
-      <button class="confirm" @click="modalStore.closeModal">OK</button>
+      <button class="confirm" @click="modalStore.hide">OK</button>
 
     </div>
   </div>

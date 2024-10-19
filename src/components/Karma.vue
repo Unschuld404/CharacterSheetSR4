@@ -1,20 +1,10 @@
 <script setup lang="ts">
 
 import { data } from "@/scripts/Data";
-import { useModalStore } from "@/stores/modalStore";
-import WertBearbeiten from "@/components/Dialoge/WertBearbeiten.vue";
-
-const modalStore = useModalStore();
 
 </script>
 
 <template>
-
-  <div v-if="modalStore.showModal">
-
-    <WertBearbeiten />
-
-  </div>
 
   <div class="box">
 
