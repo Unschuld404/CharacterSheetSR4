@@ -1,4 +1,4 @@
-button:hover, .nuyen-amount, .edge-dice, .formula, .favourite, .add, .boost, .mod, i {
+button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i {
     cursor: pointer;
 }
 

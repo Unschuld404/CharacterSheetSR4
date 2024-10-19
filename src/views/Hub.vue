@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import Edge from "@/components/Edge.vue";
 import Initiative from "@/components/Initiative.vue";
 import FavFertigkeiten from "@/components/FavFertigkeiten.vue";
 import FavAktionen from "@/components/FavAktionen.vue";
-import Nuyen from "@/components/Nuyen.vue";
+import Karma from "@/components/Karma.vue";
 import KoerperlicherSchadensmonitor from "@/components/KoerperlicherSchadensmonitor.vue";
 import GeistigerSchadensmonitor from "@/components/GeistigerSchadensmonitor.vue";
 import Specials from "@/components/Specials.vue";
@@ -17,9 +16,8 @@ import Widerstand from "@/components/Widerstand.vue";
     <div class="column">
 
       <div class="row">
-        <Nuyen/>
-        <Edge/>
-        <Initiative/>
+        <div class="karma-box"><Karma/></div>
+        <div class="initiative-box"><Initiative/></div>
       </div>
 
       <Widerstand/>
@@ -60,8 +58,15 @@ import Widerstand from "@/components/Widerstand.vue";
   .row {
     display: flex;
     flex-direction: row;
-    justify-content: stretch;
     gap: 1vh;
+  }
+
+  .karma-box {
+    flex: 1;
+  }
+
+  .initiative-box {
+    flex: 2;
   }
 
 </style>

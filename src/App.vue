@@ -4,7 +4,7 @@ import { menuRoutes } from "@/router/routes";
 import { onMounted } from 'vue';
 import { onBeforeUnmount, ref } from "vue";
 import {fetchData} from "@/scripts/Fetch";
-import { data } from "@/scripts/Data";
+import {data, getTotalValueByName} from "@/scripts/Data";
 
 const router = useRouter();
 const route = useRoute();
@@ -118,8 +118,8 @@ onMounted(() => {
    
     <header class="main-header">
 
-      <div class="chummer-name">
-        <div v-if="data">{{ data.name }}</div>
+      <div>
+        <div v-if="data" class="nuyen">{{ data.nuyen }} ¥</div>
       </div>
 
       <nav class="navbar">
@@ -129,16 +129,16 @@ onMounted(() => {
         </ul>
       </nav>
 
-      <div v-if="data" class="karma">{{ data.totalkarma }} Karma</div>
+      <div v-if="data" class="edge">{{ getTotalValueByName('EDG') }} Edge</div>
 
     </header>
 
   <RouterView
       :style="{ transform: 'translateX(' + offset + 'px)' }"
       @mousedown="onMouseDown" v-slot="{ Component }">
-    <transition name="fade">
-      <component :is="Component" />
-    </transition>
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
   </RouterView>
 
 </template>
@@ -161,19 +161,8 @@ onMounted(() => {
         font-size: 4vh;
       }
 
-.chummer-name {
-  font-weight: bold;
-  display: flex;
-  width: 30%;
-}
-
-.karma {
-  width: 30%;
-  text-align: right;
-}
-
 .navbar {
-  width: 30%;
+  width: 25%;
   align-items: center;
 }
 
@@ -181,7 +170,7 @@ onMounted(() => {
   list-style: none;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .nav-link {
@@ -190,6 +179,11 @@ onMounted(() => {
 
 .router-link-active {
   color: var(--accent-color)
+}
+
+.edge, .nuyen {
+  font-weight: bold;
+  color: var(--accent-color);
 }
 
 </style>

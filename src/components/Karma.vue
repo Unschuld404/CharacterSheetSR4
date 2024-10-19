@@ -18,8 +18,8 @@ const modalStore = useModalStore();
 
   <div class="box">
 
-    <div v-if="data" class="nuyen-amount" @click="modalStore.openModal">{{ data.nuyen }}</div>
-    <div class="lower-header">¥</div>
+    <div v-if="data" class="karma">{{ data.karma }}</div>
+    <div class="lower-header">Karma</div>
 
   </div>
 
@@ -27,7 +27,7 @@ const modalStore = useModalStore();
 
 <style scoped>
 
-.nuyen-amount {
+.karma {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,8 +37,9 @@ const modalStore = useModalStore();
   font-size: 3vh;
   color: var(--accent-color);
 }
-.box{
-  width: 15vh;
+
+.box {
+  height: 12vh;
 }
 
 </style>

@@ -50,7 +50,6 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
 .box {
   height: 12vh;
-  width: 25vh;
 }
 
 </style>
