@@ -19,11 +19,6 @@ button:hover, .nuyen-amount, .edge-dice, .formula, .favourite, .add, .boost, .mo
     background-color: var(--font-color);
 }
 
-.button-box {
-    display: flex;
-    flex-direction: row-reverse;
-}
-
 .add {
     background-color: var(--accent-color);
     border-radius: 1vh;

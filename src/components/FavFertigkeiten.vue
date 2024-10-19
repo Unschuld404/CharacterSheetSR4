@@ -11,113 +11,85 @@
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
       <div class="item">
        <div>Lieblingsfertigkeit</div>
         <div class="value">Wert + Attr.</div>
-        <div class="button-box">
-          <button class="total-value">00</button>
-        </div>
+        <button class="total-value">00</button>
       </div>
 
     </div>

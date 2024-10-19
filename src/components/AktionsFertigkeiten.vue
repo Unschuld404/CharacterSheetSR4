@@ -21,9 +21,7 @@ const actionSkills = computed(() => {
             </div>
             <div v-if="data">{{ skill.name }}</div>
             <div v-if="data" class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attributemod }}</div>
-            <div v-if="data" class="button-box">
-              <button v-if="data" class="total-value">{{ skill.total }}</button>
-            </div>
+            <button v-if="data" class="total-value">{{ skill.total }}</button>
           </li>
         </ul>
       </div>
