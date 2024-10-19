@@ -7,31 +7,31 @@ import Fahrzeuge from "@/views/Fahrzeuge.vue";
 
 export const menuRoutes: Array<RouteRecordRaw> = [
     {
-        path: '/vehicles',
+        path: '/vehicles/:uid?',
         name: 'Fahrzeuge',
         component: Fahrzeuge,
         icon: 'bx bxs-invader'
     },
     {
-        path: '/weapons',
+        path: '/weapons/:uid?',
         name: 'Waffen',
         component: Waffen,
         icon: 'bx bxs-backpack'
     },
     {
-        path: '/',
+        path: '/:uid?',
         name: 'root',
         component: Hub,
         icon: 'bx bx-street-view' // icon class for boxicon
     },
     {
-        path: '/skills',
+        path: '/skills/:uid?',
         name: 'Fertigkeiten',
         component: Fertigkeiten,
         icon: 'bx bxs-joystick'
     },
     {
-        path: '/magic',
+        path: '/magic/:uid?',
         name: 'Magie',
         component: Magie,
         icon: 'bx bxs-magic-wand'
