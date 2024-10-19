@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import WaffenListe from "@/components/WaffenListe.vue";
+import Items from "@/components/Items.vue";
 </script>
 
 <template>
   <div class="collection">
     <div class="box">
-      <WaffenListe/>
+      <Items/>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { data, getTotalValueByName } from '@/scripts/Data';
+import { data } from "@/scripts/Data";
 
 </script>
 
@@ -8,8 +8,8 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
   <div class="box">
 
-    <div v-if="data" class="edge-dice">{{ getTotalValueByName('EDG') }}</div>
-    <div class="lower-header">Edge</div>
+    <div v-if="data" class="karma">{{ data.karma }}</div>
+    <div class="lower-header">Karma</div>
 
   </div>
 
@@ -17,19 +17,19 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
 <style scoped>
 
-.edge-dice {
+.karma {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   text-align: center;
   font-weight: bold;
-  font-size: 5vh;
+  font-size: 3vh;
   color: var(--accent-color);
 }
 
 .box {
-  width: 8vh;
+  height: 12vh;
 }
 
 </style>

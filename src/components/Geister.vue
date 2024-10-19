@@ -36,6 +36,7 @@ const spirits = computed(() => {
     padding-top: 2vh;
     padding-left: 4vh;
     padding-right: 4vh;
+    margin-bottom: 2vh;
   }
 
   .info {

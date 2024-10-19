@@ -1,10 +1,20 @@
 <script setup lang="ts">
 
 import { data, getTotalValueByName } from '@/scripts/Data';
+import {useDialogeStore} from "@/stores/dialoge";
+import WertBearbeiten from "@/components/Dialoge/WertBearbeiten.vue";
+import Wuerfeln from "@/components/Dialoge/Wuerfeln.vue";
+const dialoge = useDialogeStore();
 
 </script>
 
 <template>
+
+  <div v-if="dialoge.isVisible">
+
+    <WertBearbeiten />
+
+  </div>
 
   <div class="box">
 
@@ -12,7 +22,7 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
       <div class="initiative">
         <div class="initiative-category">Normal</div>
-        <button class="total-value" v-if="data">{{ data.init.total }}</button>
+        <button @click="dialoge.show" class="total-value" v-if="data">{{ data.init.total }}</button>
       </div>
 
       <div class="initiative">
@@ -50,7 +60,6 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
 .box {
   height: 12vh;
-  width: 25vh;
 }
 
 </style>
