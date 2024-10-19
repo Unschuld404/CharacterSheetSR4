@@ -1,9 +1,9 @@
 import type { RouteRecordRaw } from "vue-router";
 import Hub from "@/views/Hub.vue";
 import Fertigkeiten from "@/views/Fertigkeiten.vue";
-import Waffen from "@/views/Waffen.vue";
 import Magie from "@/views/Magie.vue";
 import Fahrzeuge from "@/views/Fahrzeuge.vue";
+import Inventar from "@/views/Inventar.vue";
 
 export const menuRoutes: Array<RouteRecordRaw> = [
     {
@@ -13,9 +13,9 @@ export const menuRoutes: Array<RouteRecordRaw> = [
         icon: 'bx bxs-invader'
     },
     {
-        path: '/weapons',
-        name: 'Waffen',
-        component: Waffen,
+        path: '/inventory',
+        name: 'Inventar',
+        component: Inventar,
         icon: 'bx bxs-backpack'
     },
     {
