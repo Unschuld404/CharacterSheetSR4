@@ -18,18 +18,3 @@ button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i {
 .total-value:active {
     background-color: var(--font-color);
 }
-
-.add {
-    background-color: var(--accent-color);
-    border-radius: 1vh;
-    color: var(--primary-color);
-    font-size: 6vh;
-    font-weight: bold;
-    text-align: center;
-    line-height: 6vh;
-    width: 8vh;
-}
-
-.add:active {
-    background-color: var(--background-color);
-}

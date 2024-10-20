@@ -11,7 +11,13 @@ const dialogeStore = useDialogeStore();
   <div class="modal-overlay">
     <div class="modal-content">
 
-      <button @click="dialogeStore.hide">OK</button>
+      <h1>Edge</h1>
+      <div class="row">
+        <i class='bx bxs-minus-square'></i>
+        <div>3</div>
+        <i class='bx bxs-plus-square'></i>
+      </div>
+      <button class="confirm" @click="dialogeStore.hide">OK</button>
 
     </div>
   </div>
@@ -20,6 +26,21 @@ const dialogeStore = useDialogeStore();
 
 <style scoped>
 
+.modal-content{
+  width: 40vh;
+  height: 30vh;
+}
 
+h1 {
+  font-weight: normal;
+}
+
+.row {
+  justify-content: space-around;
+  height: 15vh;
+  align-items: center;
+  font-size: 8vh;
+  font-weight: bold;
+}
 
 </style>/
