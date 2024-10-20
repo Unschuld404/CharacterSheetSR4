@@ -5,7 +5,7 @@ import { onMounted } from 'vue';
 import { onBeforeUnmount, ref } from "vue";
 import {fetchData} from "@/scripts/Fetch";
 import {data, getTotalValueByName} from "@/scripts/Data";
-import WertBearbeiten from "@/components/Dialoge/WertBearbeiten.vue";
+import WertBearbeiten from "@/components/Dialoge/ChangeNuyen.vue";
 
 const router = useRouter();
 const route = useRoute();

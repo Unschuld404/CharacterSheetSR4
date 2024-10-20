@@ -2,8 +2,8 @@
 
 import { data, getTotalValueByName } from '@/scripts/Data';
 import {useDialogeStore} from "@/stores/dialoge";
-import WertBearbeiten from "@/components/Dialoge/WertBearbeiten.vue";
-import Wuerfeln from "@/components/Dialoge/Wuerfeln.vue";
+import WertBearbeiten from "@/components/Dialoge/ChangeNuyen.vue";
+import Wuerfeln from "@/components/Dialoge/RollDice.vue";
 const dialoge = useDialogeStore();
 
 </script>
