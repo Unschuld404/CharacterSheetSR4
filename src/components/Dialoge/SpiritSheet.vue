@@ -11,7 +11,7 @@ const dialogeStore = useDialogeStore();
   <div class="modal-overlay">
     <div class="modal-content">
 
-      <button @click="dialogeStore.hide">OK</button>
+      <button class="confirm" @click="dialogeStore.hide"><i class='bx bx-chevron-down'></i></button>
 
     </div>
   </div>
@@ -20,6 +20,14 @@ const dialogeStore = useDialogeStore();
 
 <style scoped>
 
+  .modal-content {
+    height: 60vh;
+    width: 90vh;
+  }
 
+  .bx-chevron-down {
+    color: var(--background-color);
+    font-size: 5vh;
+  }
 
 </style>/

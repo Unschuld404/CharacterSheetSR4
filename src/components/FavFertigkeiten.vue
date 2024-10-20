@@ -94,7 +94,7 @@
 
     </div>
 
-    <div class="lower-header">Fertigkeiten</div>
+    <div class="lower-header">Fähigkeiten</div>
 
   </div>
 
