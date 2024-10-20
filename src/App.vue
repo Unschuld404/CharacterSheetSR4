@@ -134,8 +134,6 @@ onMounted(() => {
 
     </header>
 
-  <WertBearbeiten/>
-
   <RouterView
       :style="{ transform: 'translateX(' + offset + 'px)' }"
       @mousedown="onMouseDown" v-slot="{ Component }">
@@ -184,9 +182,8 @@ onMounted(() => {
   color: var(--accent-color)
 }
 
-.edge, .nuyen {
+.edge {
   font-weight: bold;
-  color: var(--accent-color);
 }
 
 </style>

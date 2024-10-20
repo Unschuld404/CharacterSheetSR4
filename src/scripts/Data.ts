@@ -38,9 +38,9 @@ function getSpells(): Array<{
     duration: string;
     dv: string;
 }> {
-    if (!data.value || !data.value.spells || !data.value.spells.spell) return [];
+    if (!data.value || !data.value.spells) return [];
 
-    return data.value.spells.spell.map((spell: any) => ({
+    return data.value.spells.map((spell: any) => ({
         name: spell.name || 'Unbekannt',
         category: spell.category || 'Unbekannt',
         type: spell.type || 'Unbekannt',
