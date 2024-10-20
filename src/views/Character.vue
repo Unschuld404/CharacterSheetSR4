@@ -8,8 +8,6 @@ import SummonSpirit from "@/components/Dialoge/SummonSpirit.vue";
 
 <template>
 
-  <SummonSpirit />
-
 </template>
 
 <style scoped>

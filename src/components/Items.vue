@@ -16,11 +16,11 @@ const weapons = computed(() => {
     <ul>
       <li v-for="weapon in weapons" :key="weapon.name">
         <div class="item column">
-          <div class="header">
+          <div class="header row">
+            <input type="checkbox" class="favourite">
             <div v-if="data">{{ weapon.name }}</div>
           </div>
           <div class="info">
-            <input type="checkbox" class="favourite">
             <div v-if="data" class="value">Schaden: <strong>{{ weapon.damage }}</strong></div>
             <div v-if="data" class="value">PB: <strong>{{ weapon.ap }}</strong></div>
             <div v-if="data" class="value">Modus: <strong>{{ weapon.mode }}</strong></div>
@@ -48,6 +48,16 @@ const weapons = computed(() => {
 
 .scroll-box {
   height: 80vh;
+}
+
+.header {
+  margin-top: 1.5vh;
+}
+
+.favourite {
+  position: relative;
+  bottom: 3vh;
+  margin-right: 3vh;
 }
 
 .info {
@@ -81,12 +91,6 @@ const weapons = computed(() => {
 button {
   position: absolute;
   right: 0;
-  bottom: 1vh;
-}
-
-.favourite {
-  position: absolute;
-  left: 0;
   bottom: 1vh;
 }
 

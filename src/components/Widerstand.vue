@@ -61,4 +61,9 @@ import { data, getTotalValueByName } from '@/scripts/Data';
     height: 12vh;
   }
 
+  button {
+    position: relative;
+    top: 1vh;
+  }
+
 </style>

@@ -63,9 +63,12 @@ select {
   color: var(--accent-color);
 }
 
+select:focus {
+  outline: none;
+}
+
 option {
   background-color: var(--primary-color);
-  align-items: center;
 }
 
 .row {

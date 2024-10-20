@@ -110,4 +110,16 @@
     width: 30%;
   }
 
+  .item {
+    display: flex;
+    height: 6vh;
+    line-height: 6vh;
+    justify-content: space-between;
+  }
+
+  button {
+    position: relative;
+    top: 1vh;
+  }
+
 </style>

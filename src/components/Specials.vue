@@ -41,6 +41,9 @@
   }
 
   .item {
+    display: flex;
+    height: 6vh;
+    line-height: 6vh;
     position: relative;
     justify-content: flex-start;
     gap: 1vh;
@@ -53,6 +56,7 @@
   button {
     position: absolute;
     right: 0;
+    top: 1vh;
   }
 
 </style>

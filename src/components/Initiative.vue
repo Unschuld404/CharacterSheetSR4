@@ -62,4 +62,9 @@ const dialoge = useDialogeStore();
   height: 12vh;
 }
 
+button {
+  position: relative;
+  top: 1vh;
+}
+
 </style>

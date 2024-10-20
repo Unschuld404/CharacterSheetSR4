@@ -16,11 +16,9 @@ const knowledgeSkills = computed(() => {
     <div class="scroll-box">
       <div v-if="knowledgeSkills.length">
         <ul>
-          <li v-for="(skill, index) in knowledgeSkills" :key="index" class="item">
-            <div class="checkbox-box">
-              <input type="checkbox" class="favourite">
-            </div>
-            <div v-if="data">{{ skill.name }}</div>
+          <li v-for="(skill, index) in knowledgeSkills" :key="index" class="item row">
+            <input type="checkbox" class="favourite">
+            <div v-if="data" class="name">{{ skill.name }}</div>
             <div class="value" v-if="data"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attributemod }}</div>
             <button v-if="data" class="total-value">{{ skill.total }}</button>
           </li>
@@ -34,5 +32,24 @@ const knowledgeSkills = computed(() => {
 </template>
 
 <style scoped>
+
+.row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.favourite {
+  position: relative;
+  bottom: 2vh;
+}
+
+.name {
+  width: 40vh;
+}
+
+.value {
+  width: 10vh;
+  text-align: center;
+}
 
 </style>

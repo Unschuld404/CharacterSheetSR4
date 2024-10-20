@@ -33,7 +33,7 @@ const dialogeStore = useDialogeStore();
 
 .column {
   height: 25vh;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .row {

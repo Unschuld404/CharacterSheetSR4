@@ -13,7 +13,7 @@ const dialogeStore = useDialogeStore();
 
       <h1>Nuyen</h1>
       <div class="row">
-        <input type="text" placeholder="¥" autofocus>
+        <input type="number" placeholder="¥" autofocus>
       </div>
       <div class="row">
         <button @click="dialogeStore.hide"><i class='bx bxs-minus-square'></i></button>

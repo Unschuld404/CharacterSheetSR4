@@ -65,4 +65,8 @@ const spirits = computed(() => {
     color: var(--font-color);
   }
 
+  i {
+    color: var(--background-color);
+  }
+
 </style>/

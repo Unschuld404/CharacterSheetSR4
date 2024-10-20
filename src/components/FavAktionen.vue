@@ -67,4 +67,11 @@
     height: 100%
   }
 
+  .item {
+    display: flex;
+    height: 6vh;
+    line-height: 6vh;
+    justify-content: space-between;
+  }
+
 </style>
