@@ -2,11 +2,12 @@
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import ChummerUnknown from "@/components/Dialoge/ChummerUnknown.vue";
 import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
+import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 </script>
 
 <template>
 
-  <ManageEdge />
+  <RollDice />
 
 </template>
 

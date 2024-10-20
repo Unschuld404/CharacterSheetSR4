@@ -40,10 +40,33 @@
     border-radius: 1vh;
 }
 
+h1 {
+    text-align: center;
+}
+
 i {
     color: var(--accent-color);
 }
 
 i:active {
     color: var(--background-color);
+}
+
+input {
+    width: 55vh;
+    height: 8vh;
+    line-height: 8vh;
+    font-size: 4vh;
+    font-weight: bold;
+    text-align: center;
+    color: var(--accent-color);
+    margin-top: 4vh;
+    border: none;
+    border-bottom: 1px solid var(--background-color);
+    background-color: var(--primary-color);
+    caret-color: var(--accent-color);
+}
+
+input:focus {
+    outline: none;
 }
