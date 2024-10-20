@@ -13,11 +13,15 @@ const dialogeStore = useDialogeStore();
 
       <h1>Nuyen</h1>
       <div class="row">
-        <input type="number" placeholder="¥" autofocus>
+        <input type="number" placeholder="Summe" autofocus>
+        <p>¥</p>
       </div>
       <div class="row">
-        <button @click="dialogeStore.hide"><i class='bx bxs-minus-square'></i></button>
-        <button @click="dialogeStore.hide"><i class='bx bxs-plus-square'></i></button>
+        <input type="text" placeholder="Grund">
+      </div>
+      <div class="row">
+        <button @click="dialogeStore.hide">Ausgeben</button>
+        <button @click="dialogeStore.hide">Einnahmen</button>
       </div>
 
     </div>
@@ -28,29 +32,50 @@ const dialogeStore = useDialogeStore();
 <style scoped>
 
 .modal-content{
-  width: 30vh;
-  height: 25vh;
+  width: 60vh;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 h1 {
   font-weight: normal;
 }
 
+p {
+  font-size: 4vh;
+  position: absolute;
+  top: 1.4vh;
+  right: 3vh;
+}
+
 input {
   margin-top: 0;
-  width: 20vh;
+  width: 90%;
   color: var(--font-color);
   caret-color: var(--font-color);
 }
 
+input::placeholder {
+  font-size: 4vh;
+  font-weight: normal;
+}
+
 button {
   border: none;
-  background-color: transparent;
-  font-size: 6vh;
+  border-radius: 0.5vh;
+  background-color: var(--font-color);
+  width: 90%;
+  font-size: 4vh;
+  color: var(--background-color);
+  position: relative;
 }
 
 .row {
-  justify-content: space-around;
+  justify-content: space-evenly;
+  gap: 2.5vh;
+  position: relative;
 }
 
 i {

@@ -27,4 +27,12 @@ const dialogeStore = useDialogeStore();
   height: 30vh;
 }
 
+.modal-overlay {
+  background-color: black;
+}
+
+input {
+  text-transform: none;
+}
+
 </style>/

@@ -9,16 +9,20 @@ const dialogeStore = useDialogeStore();
 
   <div class="modal-overlay">
     <div class="modal-content">
-    <div class="column">
-      <div class="dice">12</div>
+      <div class="base">
+        <h1>Name des Skills</h1>
+        <p>( 12 Basiswürfel )</p>
+      </div>
       <div class="row">
-        <div class="useEdge">Edge</div>
+        <input type="checkbox" id="useEdge" name="useEdge" class="favourite"/>
+        <label for="useEdge">Edge verwenden</label>
+      </div>
+      <div class="row mod">
         <i class='bx bxs-minus-square'></i>
+        <p><strong>12</strong> Würfel</p>
         <i class='bx bxs-plus-square'></i>
       </div>
-    </div>
-      <button class="confirm" @click="dialogeStore.hide">Los</button>
-
+      <button class="confirm" @click="dialogeStore.hide">Würfeln</button>
     </div>
   </div>
 
@@ -27,35 +31,57 @@ const dialogeStore = useDialogeStore();
 <style scoped>
 
 .modal-content{
-  width: 50vh;
-  height: 30vh;
+  width: 70vh;
+  height: 50vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-.column {
-  height: 25vh;
-  justify-content: flex-start;
+.favourite {
+  width: 3vh;
+  height: 3vh;
+  position: relative;
+  bottom: 2.5vh;
+  right: 1vh;
+}
+
+.base {
+  height: 12vh;
 }
 
 .row {
-  justify-content: space-around;
-  height: 15vh;
+  margin-top: 2vh;
+  justify-content: center;
   align-items: center;
-  font-size: 8vh;
-  font-weight: bold;
+  height: 10vh;
+  line-height: 6vh;
 }
 
-.dice {
-  text-align: center;
-  line-height: 8vh;
-  font-size: 8vh;
+label {
+  font-size: 3vh;
+  position: relative;
+  left: 1vh;
 }
 
-.useEdge {
-  color: var(--background-color);
+p {
+  font-size: 3vh;
 }
 
-.useEdge:active {
-  color: var(--accent-color);
+strong{
+  font-size: 5vh;
+}
+
+.mod {
+  width: 40vh;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+i {
+  font-size: 6vh;
 }
 
 </style>/

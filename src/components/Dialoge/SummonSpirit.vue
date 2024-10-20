@@ -12,6 +12,7 @@ const dialogeStore = useDialogeStore();
     <div class="modal-content">
 
       <div class="column">
+        <i class='bx bx-chevron-down'></i>
         <select class="row">
           <option>Erdgeist</option>
           <option>Feuergeist</option>
@@ -38,7 +39,7 @@ const dialogeStore = useDialogeStore();
 
       </div>
 
-      <button class="confirm" @click="dialogeStore.hide">Beschwören</button>
+      <button class="confirm" @click="dialogeStore.hide">Hinzufügen</button>
 
     </div>
   </div>
@@ -57,10 +58,19 @@ const dialogeStore = useDialogeStore();
   justify-content: space-around;
 }
 
+.bx-chevron-down {
+  position: absolute;
+  top: 4vh;
+  right: 1vh;
+  z-index: 1002;
+}
+
 select {
   background-color: transparent;
   border: none;
-  color: var(--accent-color);
+  color: var(--font-color);
+  font-weight: bold;
+  z-index: 1003;
 }
 
 select:focus {
