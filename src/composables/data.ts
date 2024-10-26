@@ -24,7 +24,13 @@ export type Charakter = {
     hair : string;
     armori: string;
     armorb: string;
-
+    physicalcm: string;
+    stuncm: string;
+    physicalcmfilled: string;
+    stuncmfilled: string;
+    cmthreshold: string;
+    cmthresholdoffset: string;
+    cmoverflow: string;
     attributes: any;
     skills: Skill[] | string | null;
     spells: Spell[] | string | null;
