@@ -10,6 +10,13 @@ const reason = ref('');
 function add()
 {
   char.value.nuyen = String(toInt(char.value.nuyen) + toInt(nuyen.value));
+  DialogChangeNuyen.hide();
+}
+
+function substract()
+{
+  char.value.nuyen = String(toInt(char.value.nuyen) - toInt(nuyen.value));
+  DialogChangeNuyen.hide();
 }
 
 </script>/
@@ -28,7 +35,7 @@ function add()
         <input v-model="reason" type="text" placeholder="Grund">
       </div>
       <div class="row">
-        <button @click="DialogChangeNuyen.hide">Ausgeben</button>
+        <button @click="substract">Ausgeben</button>
         <button @click="add">Einnahmen</button>
       </div>
 

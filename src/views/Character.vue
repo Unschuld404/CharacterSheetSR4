@@ -6,8 +6,6 @@ import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
 
 <template>
 
-  <SpiritSheet />
-
 </template>
 
 <style scoped>

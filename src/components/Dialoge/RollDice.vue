@@ -2,9 +2,6 @@
 import {DialogRollDice} from "@/composables/dialogs";
 </script>/
 
-
-
-
 <template>
 
   <div v-if="DialogRollDice.visible" class="modal-overlay">

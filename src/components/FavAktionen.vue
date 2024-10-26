@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import {char, data} from "../composables/data";
 </script>
 
 <template>
@@ -52,6 +52,8 @@
        <div>Lieblingsfähigkeit</div>
         <div class="formula">(F/2)+1</div>
       </div>
+
+      <div class="formula">{{ data?.nuyen?? 0 }}</div>
 
     </div>
 
