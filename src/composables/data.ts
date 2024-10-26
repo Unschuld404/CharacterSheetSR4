@@ -24,11 +24,11 @@ export type Charakter = {
     armorb: number;
 
     attributes: any;
-    skills: Skill[] | null;
-    spells: Spell[] | null;
-    spirits: Spirit[] | null;
-    vehicles: Vehicle[] | null;
-    weapons: Weapon[] | null;
+    skills: Skill[] | string | null;
+    spells: Spell[] | string | null;
+    spirits: Spirit[] | string | null;
+    vehicles: Vehicle[] | string | null;
+    weapons: Weapon[] | string | null;
 }
 export type Skill = {
     name: string;
@@ -91,7 +91,8 @@ export function getAttributeValueByName(name: string): number {
 }
 
 function getSkills(knowledge: boolean): Array<Skill> {
-    let skills = data?.value?.skills ?? [];
+    let skills = data?.value?.skills;
+    skills = Array.isArray(skills) ? skills : [];
 
     return skills
         .filter((skill: any) => skill.knowledge === (knowledge ? 'True' : 'False'))
@@ -114,7 +115,8 @@ export function getActionSkills(): Array<Skill> {
 }
 
 export function getSpells(): Array<Spell> {
-    let spells = data?.value?.spells ?? [];
+    let spells = data?.value?.spells;
+    spells = Array.isArray(spells) ? spells : [];
 
     return spells.map((spell: any) => ({
         name: spell.name || 'Unbekannt',
@@ -127,7 +129,8 @@ export function getSpells(): Array<Spell> {
 }
 
 export function getSpirits(): Array<Spirit> {
-    const spiritData = data?.value?.spirits ?? [];
+    let spiritData = data?.value?.spirits;
+    spiritData = Array.isArray(spiritData) ? spiritData : [];
 
     return spiritData.map((spirit: any) => (
         {
@@ -139,7 +142,8 @@ export function getSpirits(): Array<Spirit> {
 }
 
 export function getVehicles(): Array<Vehicle> {
-    let vehicles = data?.value?.vehicles ?? [];
+    let vehicles = data?.value?.vehicles;
+    vehicles = Array.isArray(vehicles) ? vehicles : [];
 
     return vehicles.map((vehicle: any) => ({
         name: vehicle.name || 'Unknown',
@@ -154,7 +158,8 @@ export function getVehicles(): Array<Vehicle> {
 }
 
 export function getWeapons(): Array<Weapon> {
-    let weapons = data?.value?.weapons ?? [];
+    let weapons = data?.value?.weapons;
+    weapons = Array.isArray(weapons) ? weapons : [];
 
     return weapons.map((weapon: any) => ({
         name: weapon.name || 'Unknown',

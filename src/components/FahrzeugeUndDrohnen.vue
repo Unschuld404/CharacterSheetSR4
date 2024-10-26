@@ -2,8 +2,6 @@
 import { computed } from 'vue';
 import {getVehicles} from "@/composables/data";
 
-
-// Computed Property, das sich automatisch aktualisiert, wenn data sich ändert
 const vehicles = computed(() => getVehicles());
 </script>
 
