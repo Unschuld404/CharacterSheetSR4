@@ -1,45 +1,15 @@
 <script setup lang="ts">
 
+import {getMaxPhysicalDamage} from "@/composables/data";
+
 </script>
 
 <template>
 
   <div class="box">
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-1</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-2</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-3</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-4</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-5</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-6</div>
+    <div v-for="row in 6" :key="row" class="row">
+      <input v-for="col in 3" :key="col" type="checkbox" :class="{'favourite': true, 'disabled': (row -1) * 3 + col > getMaxPhysicalDamage() }">
+      <div class="malus">{{ row * -1 }}</div>
     </div>
     <div class="lower-header">Körperlicher Zustand</div>
   </div>
@@ -67,6 +37,15 @@
     width: 4vh;
     position: relative;
     bottom: 2vh;
+  }
+
+  .disabled
+  {
+    background-color: darkgrey;
+  }
+  .disabled:checked
+  {
+    background-color: darkred;
   }
 
   .malus {

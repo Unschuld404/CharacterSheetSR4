@@ -1,5 +1,6 @@
 import {computed, type ComputedRef} from "vue";
 import {ref} from "vue";
+import {toInt} from "@/composables/utils";
 
 export const data = ref<Charakter | null>(null);
 
@@ -90,9 +91,23 @@ export function dataIsValid(): boolean {
     return data.value !== null;
 }
 
+export function getMaxStunDamage(): number
+{
+    let wil = getAttributeValueByName('WIL');
+
+    return 8 + Math.floor(wil / 2);
+}
+
+export function getMaxPhysicalDamage(): number
+{
+    let bod = getAttributeValueByName('BOD');
+
+    return 8 + Math.floor(bod / 2);
+}
+
 export function getAttributeValueByName(name: string): number {
     let attributes = data?.value?.attributes ?? [];
-    return attributes.find((item: any) => item.name === name)?.total ?? 0;
+    return toInt(attributes.find((item: any) => item.name === name)?.total ?? 0);
 }
 
 function getSkills(knowledge: boolean): Array<Skill> {
