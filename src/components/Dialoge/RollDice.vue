@@ -1,13 +1,13 @@
 <script setup lang="ts">
-
-import { useDialogeStore } from "@/stores/dialoge";
-
-const dialogeStore = useDialogeStore();
+import {DialogRollDice} from "@/composables/dialogs";
 </script>/
+
+
+
 
 <template>
 
-  <div class="modal-overlay">
+  <div v-if="DialogRollDice.visible" class="modal-overlay">
     <div class="modal-content">
       <div class="base">
         <h1>Name des Skills</h1>
@@ -22,7 +22,7 @@ const dialogeStore = useDialogeStore();
         <p><strong>12</strong> Würfel</p>
         <i class='bx bxs-plus-square'></i>
       </div>
-      <button class="confirm" @click="dialogeStore.hide">Würfeln</button>
+      <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
     </div>
   </div>
 
