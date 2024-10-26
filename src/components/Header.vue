@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {RouterLink} from "vue-router";
-import {getAttributeValueByName, Char} from "@/composables/data";
+import {getAttributeValueByName, char} from "@/composables/data";
 import {menuRoutes} from "@/router";
 
 
@@ -11,7 +11,7 @@ import {menuRoutes} from "@/router";
   <header class="main-header">
 
     <div>
-      <div class="nuyen">{{ Char.nuyen }} ¥</div>
+      <div class="nuyen">{{ char.nuyen }} ¥</div>
     </div>
 
     <nav class="navbar">

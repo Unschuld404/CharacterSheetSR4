@@ -82,7 +82,7 @@ export type Initiative = {
     total?: number;
 }
 
-export const Char: ComputedRef<Charakter>   = computed(() => {
+export const char: ComputedRef<Charakter>   = computed(() => {
     return data.value as Charakter;
 });
 
