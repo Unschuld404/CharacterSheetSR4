@@ -1,27 +1,35 @@
 <script setup lang="ts">
+import { DialogChangeNuyen } from "@/composables/dialogs";
+import {char} from "@/composables/data";
+import {toInt} from "@/composables/utils";
+import {ref} from "vue";
 
-import { useDialogeStore } from "@/stores/dialoge";
+const nuyen = ref('0');
+const reason = ref('');
 
-const dialogeStore = useDialogeStore();
+function add()
+{
+  char.value.nuyen = String(toInt(char.value.nuyen) + toInt(nuyen.value));
+}
 
 </script>/
 
 <template>
 
-  <div class="modal-overlay">
+  <div v-if="DialogChangeNuyen.visible" class="modal-overlay">
     <div class="modal-content">
 
       <h1>Nuyen</h1>
       <div class="row">
-        <input type="number" placeholder="Summe" autofocus>
+        <input v-model="nuyen" type="number" placeholder="Summe" autofocus>
         <p>¥</p>
       </div>
       <div class="row">
-        <input type="text" placeholder="Grund">
+        <input v-model="reason" type="text" placeholder="Grund">
       </div>
       <div class="row">
-        <button @click="dialogeStore.hide">Ausgeben</button>
-        <button @click="dialogeStore.hide">Einnahmen</button>
+        <button @click="DialogChangeNuyen.hide">Ausgeben</button>
+        <button @click="add">Einnahmen</button>
       </div>
 
     </div>

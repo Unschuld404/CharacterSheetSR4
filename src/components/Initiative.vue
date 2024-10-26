@@ -1,7 +1,7 @@
 <script setup lang="ts">
-
-
 import {data, getAttributeValueByName} from "@/composables/data";
+import {DialogChangeNuyen, DialogRollDice} from "@/composables/dialogs";
+
 </script>
 
 <template>
@@ -12,12 +12,12 @@ import {data, getAttributeValueByName} from "@/composables/data";
 
       <div class="initiative">
         <div class="initiative-category">Normal</div>
-        <button class="total-value" >{{ data?.init?.total ?? 0 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()" >{{ data?.init?.total ?? 0 }}</button>
       </div>
 
       <div class="initiative">
         <div class="initiative-category">Matrix</div>
-        <button class="total-value" >{{ data?.matrixinit?.base ?? 0 }}</button>
+        <button class="total-value" @click="DialogChangeNuyen.show()" >{{ data?.matrixinit?.base ?? 0 }}</button>
       </div>
 
       <div class="initiative">

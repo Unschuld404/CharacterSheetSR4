@@ -4,6 +4,8 @@ import { onBeforeUnmount, ref } from "vue";
 import Header from "@/components/Header.vue";
 import { dataIsValid } from "@/composables/data";
 import {menuRoutes} from "@/router";
+import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
+import RollDice from "@/components/Dialoge/RollDice.vue";
 
 
 const router = useRouter();
@@ -110,6 +112,10 @@ onBeforeUnmount(removeEventListeners);
 </script>
 
 <template>
+
+  <ChangeNuyen/>
+  <RollDice/>
+
   <Header  v-if="dataIsValid()"  />
 
   <RouterView

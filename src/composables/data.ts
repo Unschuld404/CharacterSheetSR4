@@ -5,24 +5,24 @@ export const data = ref<Charakter | null>(null);
 
 export type Charakter = {
     name: string;
-    edge: number;
-    nuyen: number;
-    karma: number;
+    edge: string;
+    nuyen: string;
+    karma: string;
     init: Initiative;
     atralinit: Initiative;
     matrixinit: Initiative;
     metatype : string;
-    movementwalk : number;
-    movementswim : number;
-    height : number;
-    weight: number;
-    age : number;
+    movementwalk : string;
+    movementswim : string;
+    height : string;
+    weight: string;
+    age : string;
     sex : string;
     skin : string;
     eyes : string;
     hair : string;
-    armori: number;
-    armorb: number;
+    armori: string;
+    armorb: string;
 
     attributes: any;
     skills: Skill[] | string | null;
