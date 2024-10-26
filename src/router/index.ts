@@ -71,7 +71,7 @@ export const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/:uid',
-    redirect: '/:uid/hub',
+    redirect: to => ({ name: 'Hub', params: { uid: to.params.uid } }),
     children: menuRoutes,
   },
 ];
