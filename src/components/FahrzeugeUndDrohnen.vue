@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { data, getVehicles } from '@/scripts/Data';
+import {getVehicles} from "@/composables/data";
+
 
 // Computed Property, das sich automatisch aktualisiert, wenn data sich ändert
-const vehicles = computed(() => {
-  return data.value ? getVehicles() : [];
-});
+const vehicles = computed(() => getVehicles());
 </script>
 
 <template>
@@ -13,15 +12,15 @@ const vehicles = computed(() => {
   <ul>
     <li v-for="vehicle in vehicles" :key="vehicle.name">
       <div class="box">
-        <div v-if="data" class="header">{{ vehicle.name }}</div>
+        <div class="header">{{ vehicle.name }}</div>
         <div class="info">
-          <div v-if="data" class="value">Handling: <strong>{{ vehicle.handling }}</strong></div>
-          <div v-if="data" class="value">Beschl.: <strong>{{ vehicle.accel }}</strong></div>
-          <div v-if="data" class="value">Geschw.: <strong>{{ vehicle.speed }}</strong></div>
-          <div v-if="data" class="value">Pilot: <strong>{{ vehicle.pilot }}</strong></div>
-          <div v-if="data" class="value">Rumpf: <strong>{{ vehicle.body }}</strong></div>
-        <div v-if="data" class="value">Panzerung: <strong>{{ vehicle.armor }}</strong></div>
-          <div v-if="data" class="value">Sensor: <strong>{{ vehicle.sensor }}</strong></div>
+          <div class="value">Handling: <strong>{{ vehicle.handling }}</strong></div>
+          <div class="value">Beschl.: <strong>{{ vehicle.accel }}</strong></div>
+          <div class="value">Geschw.: <strong>{{ vehicle.speed }}</strong></div>
+          <div class="value">Pilot: <strong>{{ vehicle.pilot }}</strong></div>
+          <div class="value">Rumpf: <strong>{{ vehicle.body }}</strong></div>
+          <div class="value">Panzerung: <strong>{{ vehicle.armor }}</strong></div>
+          <div class="value">Sensor: <strong>{{ vehicle.sensor }}</strong></div>
         </div>
       </div>
     </li>

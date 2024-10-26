@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router';
-import { menuRoutes } from "@/router/routes";
-import { onMounted } from 'vue';
+import { RouterView, useRouter, useRoute } from 'vue-router';
 import { onBeforeUnmount, ref } from "vue";
-import {fetchData} from "@/scripts/Fetch";
-import {data, getTotalValueByName} from "@/scripts/Data";
-import WertBearbeiten from "@/components/Dialoge/ChangeNuyen.vue";
+import Header from "@/components/Header.vue";
+import { dataIsValid } from "@/composables/data";
+import {menuRoutes} from "@/router";
+
 
 const router = useRouter();
 const route = useRoute();
@@ -108,31 +107,10 @@ function removeEventListeners()
 
 onBeforeUnmount(removeEventListeners);
 
-
-onMounted(() => {
-  fetchData();
-});
-
 </script>
 
 <template>
-   
-    <header class="main-header">
-
-      <div>
-        <div v-if="data" class="nuyen">{{ data.nuyen }} ¥</div>
-      </div>
-
-      <nav class="navbar">
-        <ul>
-          <li v-for="item in menuRoutes">
-            <RouterLink :to="item.path" class="nav-link"><i :class="item.icon"></i></RouterLink></li>
-        </ul>
-      </nav>
-
-      <div v-if="data" class="edge">{{ getTotalValueByName('EDG') }} Edge</div>
-
-    </header>
+  <Header  v-if="dataIsValid()"  />
 
   <RouterView
       :style="{ transform: 'translateX(' + offset + 'px)' }"
@@ -145,45 +123,5 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
-.fade-enter-from {
-  opacity: 0;
-}
-
-.fade-enter-active {
-  transition: opacity 0.5s ease-out;
-}
-
-.main-header {
-  background-color: var(--background-color);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 4vh;
-      }
-
-.navbar {
-  width: 25%;
-  align-items: center;
-}
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.nav-link {
-  color: var(--font-color)
-}
-
-.router-link-active {
-  color: var(--accent-color)
-}
-
-.edge {
-  font-weight: bold;
-}
 
 </style>

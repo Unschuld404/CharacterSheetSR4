@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { data } from "@/scripts/Data";
+
+import {data} from "@/composables/data";
 </script>
 
 <template>
 
 <div class="box">
   <div class="chummer">
-    <h1 v-if="data">{{ data.name }}</h1>
+    <h1>{{ data?.name ?? 'The Shadow' }}</h1>
     <div class="img"></div>
   </div>
 </div>
 <div class="box">
   <div class="column">
-    <div class="line" v-if="data"><div>Rasse:</div><div>{{data.metatype}}</div></div>
-    <div class="line" v-if="data"><div>Laufen:</div><div>{{data.movementwalk}}</div></div>
-    <div class="line" v-if="data"><div>Schwimmen:</div><div>{{data.movementswim}}</div></div>
-    <div class="line" v-if="data"><div>Größe:</div><div>{{data.height}}</div></div>
-    <div class="line" v-if="data"><div>Gewicht:</div><div>{{data.weight}}</div></div>
-    <div class="line" v-if="data"><div>Alter:</div><div>{{data.age}}</div></div>
-    <div class="line" v-if="data"><div>Geschlecht:</div><div>{{data.sex}}</div></div>
-    <div class="line" v-if="data"><div>Hautfarbe:</div><div>{{data.skin}}</div></div>
-    <div class="line" v-if="data"><div>Augenfarbe:</div><div>{{data.eyes}}</div></div>
-    <div class="line" v-if="data"><div>Frisur:</div><div>{{data.hair}}</div></div>
+    <div class="line" v-if="data"><div>Rasse:</div><div>{{data?.metatype ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Laufen:</div><div>{{data?.movementwalk ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Schwimmen:</div><div>{{data?.movementswim ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Größe:</div><div>{{data?.height ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Gewicht:</div><div>{{data?.weight ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Alter:</div><div>{{data?.age ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Geschlecht:</div><div>{{data?.sex ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Hautfarbe:</div><div>{{data?.skin ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Augenfarbe:</div><div>{{data?.eyes ?? ''}}</div></div>
+    <div class="line" v-if="data"><div>Frisur:</div><div>{{data?.hair ?? ''}}</div></div>
   </div>
 </div>
 

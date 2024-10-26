@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { data, getSpells } from '@/scripts/Data';
+import {data, getActionSkills, getSpells} from "@/composables/data";
 
-// Computed Property, das sich automatisch aktualisiert, wenn data sich ändert
-const spells = computed(() => {
-  return data.value ? getSpells() : [];
-});
+const spells = computed(() => getSpells());
 
-const spellcastingTotal = computed(() => {
-  if (data.value && data.value.skills) {
-    const skill = data.value.skills.find((skill: any) => skill.name === 'Spruchzauberei');
-    return skill ? skill.total : '?';
-  }
-  return '?';
+const spellCastingTotal = computed(() => {
+  let skills = getActionSkills();
+  return skills.find((skill: any) => skill.name === 'Spruchzauberei')?.total ?? 0;
 });
 </script>
 
@@ -32,7 +26,7 @@ const spellcastingTotal = computed(() => {
            <div v-if="data" class="value">{{ spell.range }}</div>
            <div v-if="data" class="value">{{ spell.duration }}</div>
            <div v-if="data" class="formula">{{ spell.dv }}</div>
-           <button v-if="data" class="total-value">{{ spellcastingTotal }}</button>
+           <button v-if="data" class="total-value">{{ spellCastingTotal }}</button>
          </div>
        </div>
       </li>

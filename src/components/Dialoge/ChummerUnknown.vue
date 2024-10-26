@@ -1,8 +1,17 @@
 <script setup lang="ts">
+import {ref} from "vue";
+import {uid} from "@/composables/uid";
+import router from "@/router";
 
-import { useDialogeStore } from "@/stores/dialoge";
+const uidInput = ref('');
 
-const dialogeStore = useDialogeStore();
+function setUid(): void {
+  if (uidInput.value)
+  {
+    uid.value = uidInput.value;
+    router.push({ name: 'Hub', params: { uid: uidInput.value } });
+  }
+}
 
 </script>/
 
@@ -12,8 +21,8 @@ const dialogeStore = useDialogeStore();
     <div class="modal-content">
 
       <h1>Wer bist du, Chummer?</h1>
-      <input type="text" autofocus/>
-      <button class="confirm" @click="dialogeStore.hide">Weiter</button>
+      <input v-model="uidInput" type="text" autofocus/>
+      <button class="confirm" @click="setUid">Weiter</button>
 
     </div>
   </div>
