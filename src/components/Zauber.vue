@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import {data, getActionSkills, getSpells} from "@/composables/data";
+import {DialogRollDice} from "@/composables/dialogs";
 
 const spells = computed(() => getSpells());
 
@@ -26,7 +27,7 @@ const spellCastingTotal = computed(() => {
            <div v-if="data" class="value">{{ spell.range }}</div>
            <div v-if="data" class="value">{{ spell.duration }}</div>
            <div v-if="data" class="formula">{{ spell.dv }}</div>
-           <button v-if="data" class="total-value">{{ spellCastingTotal }}</button>
+           <button v-if="data" class="total-value" @click="DialogRollDice.show">{{ spellCastingTotal }}</button>
          </div>
        </div>
       </li>

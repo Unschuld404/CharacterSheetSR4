@@ -18,3 +18,4 @@ export class Dialog  {
 
 export const DialogRollDice = reactive(new Dialog());
 export const DialogChangeNuyen = reactive(new Dialog());
+export const DialogSpiritSheet = reactive(new Dialog());

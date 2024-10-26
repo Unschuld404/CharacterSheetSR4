@@ -6,6 +6,7 @@ import { dataIsValid } from "@/composables/data";
 import {menuRoutes} from "@/router";
 import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
+import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
 
 
 const router = useRouter();
@@ -115,6 +116,7 @@ onBeforeUnmount(removeEventListeners);
 
   <ChangeNuyen/>
   <RollDice/>
+  <SpiritSheet />
 
   <Header  v-if="dataIsValid()"  />
 

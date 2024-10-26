@@ -20,6 +20,14 @@ const dialogeStore = useDialogeStore();
 
 <style scoped>
 
+.modal-overlay {
+  z-index: 1000;
+}
+
+.modal-content {
+  z-index: 1001;
+}
+
 
 
 </style>/

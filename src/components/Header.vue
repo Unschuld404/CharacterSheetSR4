@@ -11,7 +11,7 @@ import {menuRoutes} from "@/router";
     <nav class="navbar">
       <ul>
         <li v-for="item in menuRoutes">
-          <RouterLink :to="item.path" class="nav-link"><i :class="item.icon"></i></RouterLink></li>
+          <RouterLink :to="item.path" class="nav-link" active-class="active-link"><i :class="item.icon"></i></RouterLink></li>
       </ul>
     </nav>
 
@@ -40,8 +40,12 @@ import {menuRoutes} from "@/router";
   justify-content: space-between;
 }
 
-i {
+.nav-link {
   color: var(--font-color);
+}
+
+.active-link {
+  color: var(--accent-color);
 }
 
 </style>

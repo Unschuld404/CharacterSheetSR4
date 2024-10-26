@@ -4,7 +4,7 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 <template>
 
-  <div v-if="DialogRollDice.visible" class="modal-overlay">
+  <div v-if="DialogRollDice.visible" class="modal-overlay" @click="DialogRollDice.hide">
     <div class="modal-content">
       <div class="base">
         <h1>Name des Skills</h1>
@@ -15,9 +15,9 @@ import {DialogRollDice} from "@/composables/dialogs";
         <label for="useEdge">Edge verwenden</label>
       </div>
       <div class="row mod">
-        <i class='bx bxs-minus-square'></i>
+        <i class='bx bxs-minus-square icon'></i>
         <p><strong>12</strong> Würfel</p>
-        <i class='bx bxs-plus-square'></i>
+        <i class='bx bxs-plus-square icon'></i>
       </div>
       <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
     </div>
@@ -27,12 +27,17 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 <style scoped>
 
+.modal-overlay {
+  z-index: 4000;
+}
+
 .modal-content{
   width: 70vh;
   height: 50vh;
   text-align: center;
   display: flex;
   flex-direction: column;
+  z-index: 4001;
 }
 
 .favourite {

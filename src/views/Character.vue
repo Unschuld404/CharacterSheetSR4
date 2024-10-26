@@ -1,13 +1,30 @@
 <script setup lang="ts">
-
-import Mugshot from "@/components/Mugshot.vue";
-import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
+import {DialogChangeNuyen, DialogSpiritSheet} from "@/composables/dialogs";
 </script>
 
 <template>
-
+<div class="frame">
+  <button @click="DialogSpiritSheet.show">
+    Öffne den Spirit-Sheet
+  </button>
+</div>
 </template>
 
 <style scoped>
+
+.frame {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  color: black;
+  font-size: 8vh;
+  position: absolute;
+  bottom: 40%;
+}
 
 </style>

@@ -45,11 +45,11 @@ h1 {
     text-align: center;
 }
 
-i {
+.icon {
     color: var(--accent-color);
 }
 
-i:active {
+.icon:active {
     color: var(--background-color);
 }
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {data, getAttributeValueByName} from "@/composables/data";
-import {DialogChangeNuyen, DialogRollDice} from "@/composables/dialogs";
+import {DialogRollDice} from "@/composables/dialogs";
 
 </script>
 
@@ -17,12 +17,12 @@ import {DialogChangeNuyen, DialogRollDice} from "@/composables/dialogs";
 
       <div class="initiative">
         <div class="initiative-category">Matrix</div>
-        <button class="total-value" @click="DialogChangeNuyen.show()" >{{ data?.matrixinit?.base ?? 0 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()" >{{ data?.matrixinit?.base ?? 0 }}</button>
       </div>
 
       <div class="initiative">
         <div class="initiative-category">Astral</div>
-        <button class="total-value" >{{ getAttributeValueByName('INT')*2 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('INT')*2 }}</button>
       </div>
 
     </div>

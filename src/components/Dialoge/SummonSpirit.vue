@@ -12,7 +12,7 @@ const dialogeStore = useDialogeStore();
     <div class="modal-content">
 
       <div class="column">
-        <i class='bx bx-chevron-down'></i>
+        <i class='bx bx-chevron-down icon'></i>
         <select class="row">
           <option>Erdgeist</option>
           <option>Feuergeist</option>
@@ -25,16 +25,16 @@ const dialogeStore = useDialogeStore();
 
         <div class="row">
           <div class="force">Kraft</div>
-          <i class='bx bxs-minus-square'></i>
+          <i class='bx bxs-minus-square icon'></i>
           <div class="value">3</div>
-          <i class='bx bxs-plus-square'></i>
+          <i class='bx bxs-plus-square icon'></i>
         </div>
 
         <div class="row">
           <div class="services">Dienste</div>
-          <i class='bx bxs-minus-square'></i>
+          <i class='bx bxs-minus-square icon'></i>
           <div class="value">3</div>
-          <i class='bx bxs-plus-square'></i>
+          <i class='bx bxs-plus-square icon'></i>
         </div>
 
       </div>
@@ -48,9 +48,14 @@ const dialogeStore = useDialogeStore();
 
 <style scoped>
 
+.modal-overlay {
+  z-index: 1000;
+}
+
 .modal-content {
   width: 50vh;
   height: 40vh;
+  z-index: 1001;
 }
 
 .column {

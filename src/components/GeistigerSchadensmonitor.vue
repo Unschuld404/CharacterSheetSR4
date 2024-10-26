@@ -6,7 +6,7 @@
 
   <div class="box">
     <div class="row">
-      <input type="checkbox" class="favourite">
+      <input type="checkbox" class="favourite klaus">
       <input type="checkbox" class="favourite">
       <input type="checkbox" class="favourite">
       <div class="malus">-1</div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {data, getAttributeValueByName} from "@/composables/data";
+import {DialogRollDice} from "@/composables/dialogs";
 </script>
 
 <template>
@@ -10,27 +11,27 @@ import {data, getAttributeValueByName} from "@/composables/data";
 
       <div class="resistance">
         <div class="resistance-category">Ballist.</div>
-        <button class="total-value">{{ data?.armori ?? 0 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ data?.armori ?? 0 }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Stoß</div>
-        <button class="total-value">{{ data?.armorb ?? 0  }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ data?.armorb ?? 0  }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Körperl.</div>
-        <button class="total-value">{{ getAttributeValueByName('BOD') }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('BOD') }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Wille</div>
-        <button class="total-value">{{ getAttributeValueByName('WIL') }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('WIL') }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Entzug</div>
-        <button class="total-value">{{ +getAttributeValueByName('WIL') + +getAttributeValueByName('CHA') }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ +getAttributeValueByName('WIL') + +getAttributeValueByName('CHA') }}</button>
       </div>
 
     </div>

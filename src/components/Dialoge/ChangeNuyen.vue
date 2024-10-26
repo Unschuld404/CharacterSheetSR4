@@ -4,26 +4,28 @@ import {char} from "@/composables/data";
 import {toInt} from "@/composables/utils";
 import {ref} from "vue";
 
-const nuyen = ref('0');
+const nuyen = ref(' ');
 const reason = ref('');
 
 function add()
 {
   char.value.nuyen = String(toInt(char.value.nuyen) + toInt(nuyen.value));
   DialogChangeNuyen.hide();
+  nuyen.value = '';
 }
 
 function substract()
 {
   char.value.nuyen = String(toInt(char.value.nuyen) - toInt(nuyen.value));
   DialogChangeNuyen.hide();
+  nuyen.value = '';
 }
 
 </script>/
 
 <template>
 
-  <div v-if="DialogChangeNuyen.visible" class="modal-overlay">
+  <div v-if="DialogChangeNuyen.visible" class="modal-overlay" @click="DialogChangeNuyen.hide">
     <div class="modal-content">
 
       <h1>Nuyen</h1>
@@ -46,12 +48,17 @@ function substract()
 
 <style scoped>
 
+.modal-overlay {
+  z-index: 2000;
+}
+
 .modal-content{
   width: 60vh;
   height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 2001;
 }
 
 h1 {
@@ -70,6 +77,11 @@ input {
   width: 90%;
   color: var(--font-color);
   caret-color: var(--font-color);
+  text-transform: none;
+}
+
+input::placeholder {
+  text-transform: uppercase;
 }
 
 input::placeholder {
@@ -91,10 +103,6 @@ button {
   justify-content: space-evenly;
   gap: 2.5vh;
   position: relative;
-}
-
-i {
-  margin-top: 1.5vh;
 }
 
 </style>/
