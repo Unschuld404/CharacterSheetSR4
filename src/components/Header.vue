@@ -3,16 +3,10 @@ import {RouterLink} from "vue-router";
 import {getAttributeValueByName, char} from "@/composables/data";
 import {menuRoutes} from "@/router";
 
-
-
 </script>
 
 <template>
   <header class="main-header">
-
-    <div>
-      <div class="nuyen">{{ char.nuyen }} ¥</div>
-    </div>
 
     <nav class="navbar">
       <ul>
@@ -21,22 +15,21 @@ import {menuRoutes} from "@/router";
       </ul>
     </nav>
 
-    <div class="edge">{{ getAttributeValueByName('EDG') }} Edge</div>
-
   </header>
 </template>
 
 <style scoped>
+
 .main-header {
   background-color: var(--background-color);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-size: 4vh;
 }
 
 .navbar {
-  width: 25%;
+  width: 30%;
   align-items: center;
 }
 
@@ -47,16 +40,8 @@ import {menuRoutes} from "@/router";
   justify-content: space-between;
 }
 
-.edge {
-  font-weight: bold;
-}
-
-.nuyen {
-
-}
-
-.nav-link {
-  color: var(--font-color)
+i {
+  color: var(--font-color);
 }
 
 </style>

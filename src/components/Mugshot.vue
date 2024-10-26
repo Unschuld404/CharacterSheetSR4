@@ -41,7 +41,7 @@ import {data} from "@/composables/data";
 }
 
 .img {
-  background-color: darkslategrey;
+  background-color: #181818;
   width: 100%;
   height: 100%;
 }

@@ -2,11 +2,11 @@
 import Initiative from "@/components/Initiative.vue";
 import FavFertigkeiten from "@/components/FavFertigkeiten.vue";
 import FavAktionen from "@/components/FavAktionen.vue";
-import Karma from "@/components/Karma.vue";
 import KoerperlicherSchadensmonitor from "@/components/KoerperlicherSchadensmonitor.vue";
 import GeistigerSchadensmonitor from "@/components/GeistigerSchadensmonitor.vue";
 import Specials from "@/components/Specials.vue";
 import Widerstand from "@/components/Widerstand.vue";
+import Edge from "@/components/Edge.vue";
 
 </script>
 
@@ -17,7 +17,7 @@ import Widerstand from "@/components/Widerstand.vue";
     <div class="column">
 
       <div class="row">
-        <div class="karma-box"><Karma/></div>
+        <div class="edg"><Edge/></div>
         <div class="initiative-box"><Initiative/></div>
       </div>
 
@@ -62,7 +62,7 @@ import Widerstand from "@/components/Widerstand.vue";
     gap: 1vh;
   }
 
-  .karma-box {
+  .edg {
     flex: 1;
   }
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {data} from "@/composables/data";
+import {getAttributeValueByName} from "@/composables/data";
 
 </script>
 
@@ -7,8 +7,8 @@ import {data} from "@/composables/data";
 
   <div class="box">
 
-    <div class="karma">{{ data?.karma ?? 0 }}</div>
-    <div class="lower-header">Karma</div>
+    <div class="edg">{{ getAttributeValueByName('EDG') }}</div>
+    <div class="lower-header">Edge</div>
 
   </div>
 
@@ -16,7 +16,7 @@ import {data} from "@/composables/data";
 
 <style scoped>
 
-.karma {
+.edg {
   display: flex;
   flex-direction: column;
   justify-content: center;
