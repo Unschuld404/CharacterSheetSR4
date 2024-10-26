@@ -1,3 +1,4 @@
+import {computed, type ComputedRef} from "vue";
 import {ref} from "vue";
 
 export const data = ref<Charakter | null>(null);
@@ -80,6 +81,10 @@ export type Initiative = {
     base: number;
     total?: number;
 }
+
+export const Char: ComputedRef<Charakter>   = computed(() => {
+    return data.value as Charakter;
+});
 
 export function dataIsValid(): boolean {
     return data.value !== null;
