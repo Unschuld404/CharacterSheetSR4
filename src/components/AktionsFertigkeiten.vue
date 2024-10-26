@@ -9,7 +9,7 @@ const actionSkills = computed(() => getActionSkills());
 <template>
 
   <div class="action-skills box">
-    <div v-if="actionSkills.length">
+    <div v-if="actionSkills.length" class="scroll-box">
       <ul>
         <li v-for="(skill, index) in actionSkills" :key="index" class="item row">
           <input type="checkbox" class="favourite">

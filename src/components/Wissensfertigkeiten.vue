@@ -9,19 +9,17 @@ const knowledgeSkills = computed(() => getKnowledgeSkills());
 <template>
 
   <div class="knowledge-skills box">
-    <div class="scroll-box">
-      <div v-if="knowledgeSkills.length">
-        <ul>
-          <li v-for="(skill, index) in knowledgeSkills" :key="index" class="item row">
-            <input type="checkbox" class="favourite">
-            <div class="name">{{ skill.name }}</div>
-            <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-            <button class="total-value">{{ skill.total }}</button>
-          </li>
-        </ul>
-      </div>
-      <p v-else>No knowledge skills available.</p>
+    <div v-if="knowledgeSkills.length" class="scrollbox">
+      <ul>
+        <li v-for="(skill, index) in knowledgeSkills" :key="index" class="item row">
+          <input type="checkbox" class="favourite">
+          <div class="name">{{ skill.name }}</div>
+          <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
+          <button class="total-value">{{ skill.total }}</button>
+        </li>
+      </ul>
     </div>
+    <p v-else>No knowledge skills available.</p>
     <div class="lower-header">Wissensfertigkeiten</div>
   </div>
 

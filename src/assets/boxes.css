@@ -47,6 +47,10 @@
     border-bottom: 1px solid var(--background-color);
 }
 
+.item:last-child {
+    border-bottom: none;
+}
+
 .formula {
     text-align: right;
     font-weight: bold;
