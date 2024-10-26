@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { data, getSpirits } from '@/scripts/Data';
+import {getSpirits} from "@/composables/data";
 
-// Computed Property, das sich automatisch aktualisiert, wenn data sich ändert
-const spirits = computed(() => {
-  return data.value ? getSpirits() : [];
-});
+const spirits = computed(() => getSpirits());
 </script>
 
 <template>
@@ -14,11 +11,11 @@ const spirits = computed(() => {
     <ul>
       <li v-for="(spirit, index) in spirits" :key="index">
         <div class="box">
-          <div v-if="data" class="header">{{ spirit.crittername }}</div>
+          <div class="header">{{ spirit.type }}</div>
           <div class="info">
-            <div v-if="data" class="value">Kraft: {{ spirit.force }}</div>
-            <div v-if="data" class="value">Dienste: {{ spirit.services }}</div>
-            <div v-if="data" class="value">{{ spirit.bound ? 'Gebunden' : 'Frei' }}</div>
+            <div class="value">Kraft: {{ spirit.force }}</div>
+            <div class="value">Dienste: {{ spirit.services }}</div>
+            <div class="value">{{ spirit.bound ? 'Gebunden' : 'Frei' }}</div>
           </div>
         </div>
       </li>

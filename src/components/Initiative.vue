@@ -1,38 +1,28 @@
 <script setup lang="ts">
 
-import { data, getTotalValueByName } from '@/scripts/Data';
-import {useDialogeStore} from "@/stores/dialoge";
-import WertBearbeiten from "@/components/Dialoge/ChangeNuyen.vue";
-import Wuerfeln from "@/components/Dialoge/RollDice.vue";
-const dialoge = useDialogeStore();
 
+import {data, getAttributeValueByName} from "@/composables/data";
 </script>
 
 <template>
 
-  <div v-if="dialoge.isVisible">
-
-    <WertBearbeiten />
-
-  </div>
-
   <div class="box">
 
-    <div v-if="data" class="initiatives">
+    <div class="initiatives">
 
       <div class="initiative">
         <div class="initiative-category">Normal</div>
-        <button @click="dialoge.show" class="total-value" v-if="data">{{ data.init.total }}</button>
+        <button class="total-value" >{{ data?.init?.total ?? 0 }}</button>
       </div>
 
       <div class="initiative">
         <div class="initiative-category">Matrix</div>
-        <button class="total-value" v-if="data">{{ data.matrixinit.base }}</button>
+        <button class="total-value" >{{ data?.matrixinit?.base ?? 0 }}</button>
       </div>
 
-      <div v-if="data" class="initiative">
+      <div class="initiative">
         <div class="initiative-category">Astral</div>
-        <button class="total-value" v-if="data">{{ getTotalValueByName('INT')*2 }}</button>
+        <button class="total-value" >{{ getAttributeValueByName('INT')*2 }}</button>
       </div>
 
     </div>

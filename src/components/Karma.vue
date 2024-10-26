@@ -1,6 +1,5 @@
 <script setup lang="ts">
-
-import { data } from "@/scripts/Data";
+import {data} from "@/composables/data";
 
 </script>
 
@@ -8,7 +7,7 @@ import { data } from "@/scripts/Data";
 
   <div class="box">
 
-    <div v-if="data" class="karma">{{ data.karma }}</div>
+    <div class="karma">{{ data?.karma ?? 0 }}</div>
     <div class="lower-header">Karma</div>
 
   </div>

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-
-import { data, getTotalValueByName } from '@/scripts/Data';
-
+import {data, getAttributeValueByName} from "@/composables/data";
 </script>
 
 <template>
@@ -12,27 +10,27 @@ import { data, getTotalValueByName } from '@/scripts/Data';
 
       <div class="resistance">
         <div class="resistance-category">Ballist.</div>
-        <button v-if="data" class="total-value">{{ data.armori }}</button>
+        <button class="total-value">{{ data?.armori ?? 0 }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Stoß</div>
-        <button v-if="data" class="total-value">{{ data.armorb }}</button>
+        <button class="total-value">{{ data?.armorb ?? 0  }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Körperl.</div>
-        <button v-if="data" class="total-value">{{ getTotalValueByName('BOD') }}</button>
+        <button class="total-value">{{ getAttributeValueByName('BOD') }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Wille</div>
-        <button v-if="data" class="total-value">{{ getTotalValueByName('WIL') }}</button>
+        <button class="total-value">{{ getAttributeValueByName('WIL') }}</button>
       </div>
 
       <div class="resistance">
         <div class="resistance-category">Entzug</div>
-        <button v-if="data" class="total-value">{{ +getTotalValueByName('WIL') + +getTotalValueByName('CHA') }}</button>
+        <button class="total-value">{{ +getAttributeValueByName('WIL') + +getAttributeValueByName('CHA') }}</button>
       </div>
 
     </div>

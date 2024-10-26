@@ -1,12 +1,9 @@
 <script setup lang="ts">
 
 import { computed } from 'vue';
-import { data, getWeapons } from '@/scripts/Data';
+import {data, getWeapons} from "@/composables/data";
 
-// Computed Property, das sich automatisch aktualisiert, wenn data sich ändert
-const weapons = computed(() => {
-  return data.value ? getWeapons() : [];
-});
+const weapons = computed(() => getWeapons());
 
 </script>
 

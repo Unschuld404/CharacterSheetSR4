@@ -7,6 +7,7 @@ import KoerperlicherSchadensmonitor from "@/components/KoerperlicherSchadensmoni
 import GeistigerSchadensmonitor from "@/components/GeistigerSchadensmonitor.vue";
 import Specials from "@/components/Specials.vue";
 import Widerstand from "@/components/Widerstand.vue";
+
 </script>
 
 <template>

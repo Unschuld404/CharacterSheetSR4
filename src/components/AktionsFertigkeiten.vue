@@ -1,30 +1,25 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { data, getSkills } from '@/scripts/Data';
+import {getActionSkills} from "@/composables/data";
 
-// Computed Property, das sich automatisch aktualisiert, wenn data sich ändert
-const actionSkills = computed(() => {
-  return data.value ? getSkills(false) : [];
-});
+const actionSkills = computed(() => getActionSkills());
 
 </script>
 
 <template>
 
   <div class="action-skills box">
-    <div v-if="data" class="scroll-box">
-      <div v-if="actionSkills.length">
-        <ul>
-          <li v-for="(skill, index) in actionSkills" :key="index" class="item row">
-            <input type="checkbox" class="favourite">
-            <div v-if="data" class="name">{{ skill.name }}</div>
-            <div v-if="data" class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attributemod }}</div>
-            <button v-if="data" class="total-value">{{ skill.total }}</button>
-          </li>
-        </ul>
-      </div>
-      <p v-else>No action skills available.</p>
+    <div v-if="actionSkills.length">
+      <ul>
+        <li v-for="(skill, index) in actionSkills" :key="index" class="item row">
+          <input type="checkbox" class="favourite">
+          <div class="name">{{ skill.name }}</div>
+          <div class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
+          <button class="total-value">{{ skill.total }}</button>
+        </li>
+      </ul>
     </div>
+    <p v-else>No action skills available.</p>
     <div class="lower-header">Aktionsfertigkeiten</div>
   </div>
 
