@@ -35,7 +35,6 @@ export class Charakter {
 
     update(data: any) {
         this.name = data?.name ?? 'The Shadow';
-        this.edge = toInt(data?.edge);
         this.nuyen = toInt(data?.nuyen);
         this.karma = toInt(data?.karma);
         this.initiative = {
@@ -82,7 +81,7 @@ export class Charakter {
             offset: toInt(data?.cmthresholdoffset),
             overflow: toInt(data?.cmoverflow),
         }
-        let attributes = data?.value?.attributes ?? [];
+        let attributes = data?.attributes ?? [];
 
 
         this.attributes = {
