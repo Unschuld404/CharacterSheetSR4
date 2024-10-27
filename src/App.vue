@@ -7,6 +7,7 @@ import {menuRoutes} from "@/router";
 import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
+import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
 
 
 const router = useRouter();
@@ -117,6 +118,7 @@ onBeforeUnmount(removeEventListeners);
   <ChangeNuyen/>
   <RollDice/>
   <SpiritSheet />
+  <ManageEdge/>
 
   <Header  v-if="dataIsValid()"  />
 

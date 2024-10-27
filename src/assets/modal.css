@@ -64,6 +64,7 @@ input {
     margin-top: 4vh;
     border: none;
     border-bottom: 1px solid var(--background-color);
+    border-radius: 0;
     background-color: var(--primary-color);
     caret-color: var(--accent-color);
 }

@@ -7,6 +7,7 @@ import GeistigerSchadensmonitor from "@/components/GeistigerSchadensmonitor.vue"
 import Specials from "@/components/Specials.vue";
 import Widerstand from "@/components/Widerstand.vue";
 import Edge from "@/components/Edge.vue";
+import Nuyen from "@/components/Nuyen.vue";
 
 </script>
 
@@ -16,16 +17,19 @@ import Edge from "@/components/Edge.vue";
 
     <div class="column">
 
-      <div class="row">
-        <div class="edg"><Edge/></div>
+      <div class="row ini-edg-nuy">
+        <div class="edg-nuyen column">
+          <Edge/>
+          <Nuyen/>
+        </div>
         <div class="initiative-box"><Initiative/></div>
       </div>
 
-      <Widerstand/>
+      <div class="resistance">
+        <Widerstand/>
+      </div>
 
-      <Specials/>
-
-      <div class="row">
+      <div class="row monitors">
         <KoerperlicherSchadensmonitor/>
         <GeistigerSchadensmonitor/>
       </div>
@@ -37,7 +41,12 @@ import Edge from "@/components/Edge.vue";
     </div>
 
     <div class="column">
-      <FavAktionen/>
+      <div class="fav-actions">
+        <FavAktionen/>
+      </div>
+      <div class="specials">
+        <Specials/>
+      </div>
     </div>
 
   </div>
@@ -62,12 +71,32 @@ import Edge from "@/components/Edge.vue";
     gap: 1vh;
   }
 
-  .edg {
+  .ini-edg-nuy {
+    flex: 3;
+  }
+
+  .resistance {
+    flex: 2;
+  }
+
+  .monitors {
+    flex: 4;
+  }
+
+  .edg-nuyen {
     flex: 1;
   }
 
   .initiative-box {
     flex: 2;
+  }
+
+  .fav-actions {
+    flex: 3;
+  }
+
+  .specials {
+    flex: 1;
   }
 
 </style>

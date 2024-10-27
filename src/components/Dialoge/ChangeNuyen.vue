@@ -26,7 +26,7 @@ function substract()
 <template>
 
   <div v-if="DialogChangeNuyen.visible" class="modal-overlay" @click="DialogChangeNuyen.hide">
-    <div class="modal-content">
+    <div class="modal-content" @click.stop>
 
       <h1>Nuyen</h1>
       <div class="row">

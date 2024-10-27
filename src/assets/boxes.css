@@ -8,7 +8,7 @@
 .scroll-box {
     overflow: scroll;
     height: 90%;
-    margin-top: 3vh;  -ms-overflow-style: none;  /* IE and Edge */
+    -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 /* wenn es in einer Box sein soll */
 }

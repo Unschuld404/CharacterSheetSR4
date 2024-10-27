@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {char, getAttributeValueByName} from "@/composables/data";
-import {DialogRollDice} from "@/composables/dialogs";
+import {char} from "@/composables/data";
+import {DialogManageEdge} from "@/composables/dialogs";
 
 </script>
 
@@ -8,7 +8,7 @@ import {DialogRollDice} from "@/composables/dialogs";
 
   <div class="box">
 
-    <div class="edg" @click="DialogRollDice.show">{{ char.attributes.edge.total }}</div>
+    <div class="edg" @click="DialogManageEdge.show">{{ char.edge }}</div>
     <div class="lower-header">Edge</div>
 
   </div>
@@ -30,7 +30,7 @@ import {DialogRollDice} from "@/composables/dialogs";
 }
 
 .box {
-  height: 12vh;
+  height: 50%;
 }
 
 </style>

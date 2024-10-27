@@ -19,7 +19,7 @@ import {getMaxStunDamage} from "@/composables/data";
 <style scoped>
 
 .box {
-  height: 36vh;
+  height: 100;
   width: 50%;
   padding-top: 1vh;
 }

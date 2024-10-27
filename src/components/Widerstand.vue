@@ -7,29 +7,29 @@ import {DialogRollDice} from "@/composables/dialogs";
 
   <div class="box">
 
-    <div class="resistances">
+    <div class="row">
 
-      <div class="resistance">
-        <div class="resistance-category">Ballist.</div>
+      <div class="column">
+        <div class="resistance-category">Ballis.</div>
         <button class="total-value" @click="DialogRollDice.show()">{{ data?.armori ?? 0 }}</button>
       </div>
 
-      <div class="resistance">
+      <div class="column">
         <div class="resistance-category">Stoß</div>
         <button class="total-value" @click="DialogRollDice.show()">{{ data?.armorb ?? 0  }}</button>
       </div>
 
-      <div class="resistance">
-        <div class="resistance-category">Körperl.</div>
+      <div class="column">
+        <div class="resistance-category">Körper</div>
         <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('BOD') }}</button>
       </div>
 
-      <div class="resistance">
+      <div class="column">
         <div class="resistance-category">Wille</div>
         <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('WIL') }}</button>
       </div>
 
-      <div class="resistance">
+      <div class="column">
         <div class="resistance-category">Entzug</div>
         <button class="total-value" @click="DialogRollDice.show()">{{ +getAttributeValueByName('WIL') + +getAttributeValueByName('CHA') }}</button>
       </div>
@@ -44,20 +44,21 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 <style scoped>
 
-  .resistances {
-    display: flex;
-    margin-top: 0.5vh;
-  }
-
-  .resistance {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20%;
-  }
-
   .box {
-    height: 12vh;
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .row {
+    width: 100%;
+    margin-bottom: 2vh;
+  }
+
+  .column {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
   }
 
   button {
