@@ -1,43 +1,204 @@
-import {computed, type ComputedRef} from "vue";
+import {computed, type ComputedRef, reactive} from "vue";
 import {ref} from "vue";
 import {toInt} from "@/composables/utils";
 
-export const data = ref<Charakter | null>(null);
+export const data = ref<any | null>(null);
 
-export type Charakter = {
-    name: string;
-    edge: string;
-    nuyen: string;
-    karma: string;
-    init: Initiative;
-    atralinit: Initiative;
-    matrixinit: Initiative;
+export class Charakter {
+    name: string = "";
+    edge: number = 0;
+    nuyen: number= 0;
+    karma: number= 0;
+    initiative: Initiative;
     metatype : string;
-    movementwalk : string;
-    movementswim : string;
-    height : string;
-    weight: string;
-    age : string;
-    sex : string;
-    skin : string;
-    eyes : string;
-    hair : string;
-    armori: string;
-    armorb: string;
-    physicalcm: string;
-    stuncm: string;
-    physicalcmfilled: string;
-    stuncmfilled: string;
-    cmthreshold: string;
-    cmthresholdoffset: string;
-    cmoverflow: string;
-    attributes: any;
-    skills: Skill[] | string | null;
-    spells: Spell[] | string | null;
-    spirits: Spirit[] | string | null;
-    vehicles: Vehicle[] | string | null;
-    weapons: Weapon[] | string | null;
+    movement: Movement;
+    height : number= 0;
+    weight: number= 0;
+    age : number= 0;
+    sex : string = "";
+    skin : string = "";
+    eyes : string = "";
+    hair : string = "";
+    armor : Armor;
+    monitor: DamageMonitor;
+    attributes: Attributes;
+    skills: Skill[];
+    spells: Spell[];
+    spirits: Spirit[];
+    vehicles: Vehicle[];
+    weapons: Weapon[];
+
+    constructor(data: any )
+    {
+        this.update(data);
+    }
+
+    update(data: any) {
+        this.name = data?.name ?? 'The Shadow';
+        this.edge = toInt(data?.edge);
+        this.nuyen = toInt(data?.nuyen);
+        this.karma = toInt(data?.karma);
+        this.initiative = {
+            normal : {
+                base : toInt(data?.init?.base),
+                total : toInt(data?.init?.total ?? data?.init?.base),
+            },
+            astral : {
+                base : toInt(data?.atralinit?.base),
+                total : toInt(data?.astralinit?.total ?? data?.astralinit?.base),
+            },
+            matrix : {
+                base : toInt(data?.matrixinit?.base),
+                total : toInt(data?.matrixinit?.total ?? data?.matrixinit?.base),
+            },
+        }
+        this.metatype = data?.metatype ?? 'unknown';
+        this.movement = {
+            walk : data?.movementwalk ?? '',
+            swim : data?.movementswim ?? '',
+            fly : data?.movementfly ?? '',
+        }
+        this.height = toInt(data?.height);
+        this.weight = toInt(data?.weight);
+        this.age = toInt(data?.age);
+        this.sex = data?.sex ?? 'unknown';
+        this.skin = data?.skin ?? 'unknown';
+        this.eyes = data?.eyes ?? 'unknown';
+        this.hair = data?.hair ?? 'unknown';
+        this.armor = {
+            impact : toInt(data?.armori),
+            ballistic : toInt(data?.armorb),
+        }
+        this.monitor = {
+            physical: {
+                filled: toInt(data?.physicalcmfilled),
+                max: toInt(data?.physicalcm),
+            },
+            stun: {
+                filled: toInt(data?.stuncmfilled),
+                max: toInt(data?.stuncm),
+            },
+            threshold: toInt(data?.cmthreshold),
+            offset: toInt(data?.cmthresholdoffset),
+            overflow: toInt(data?.cmoverflow),
+        }
+        let attributes = data?.value?.attributes ?? [];
+
+
+        this.attributes = {
+            body: {
+                base : toInt(attributes.find((item: any) => item.name === 'BOD')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'BOD')?.total),
+            },
+            agility: {
+                base : toInt(attributes.find((item: any) => item.name === 'AGI')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'AGI')?.total),
+            },
+            reaction: {
+                base : toInt(attributes.find((item: any) => item.name === 'REA')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'REA')?.total),
+            },
+            strength: {
+                base : toInt(attributes.find((item: any) => item.name === 'STR')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'STR')?.total),
+            },
+            charisma: {
+                base : toInt(attributes.find((item: any) => item.name === 'CHA')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'CHA')?.total),
+            },
+            intuition: {
+                base : toInt(attributes.find((item: any) => item.name === 'INT')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'INT')?.total),
+            },
+            logic: {
+                base : toInt(attributes.find((item: any) => item.name === 'LOG')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'LOG')?.total),
+            },
+            willpower: {
+                base : toInt(attributes.find((item: any) => item.name === 'WIL')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'WIL')?.total),
+            },
+            edge: {
+                base : toInt(attributes.find((item: any) => item.name === 'EDG')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
+            },
+            magic: {
+                base : toInt(attributes.find((item: any) => item.name === 'MAG')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'MAG')?.total),
+            },
+            resonance: {
+                base : toInt(attributes.find((item: any) => item.name === 'RES')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'RES')?.total),
+            },
+            essens: {
+                base : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
+            },
+        }
+
+        this.skills = [];
+        this.spells = [];
+        this.spirits = [];
+        this.vehicles = [];
+        this.weapons = [];
+    }
 }
+
+export type Attribute = {
+    base: number;
+    total: number;
+}
+
+export type Attributes = {
+    body: Attribute;
+    agility: Attribute;
+    reaction: Attribute;
+    strength: Attribute;
+    charisma: Attribute;
+    intuition: Attribute;
+    logic: Attribute;
+    willpower: Attribute;
+    edge: Attribute;
+    magic: Attribute;
+    resonance: Attribute;
+    essens: Attribute;
+}
+
+export type Movement = {
+    walk: string;
+    swim: string;
+    fly: string;
+}
+
+export type Damage = {
+    filled: number;
+    max: number;
+}
+
+export type DamageMonitor = {
+    physical: Damage;
+    stun: Damage;
+    threshold: number;
+    offset: number;
+    overflow: number;
+}
+
+export type InitiativeValues = {
+    base: number;
+    total: number;
+}
+
+export type Initiative = {
+    normal: InitiativeValues;
+    matrix: InitiativeValues;
+    astral: InitiativeValues;
+}
+
+export type Armor = {
+    ballistic: number;
+    impact: number;
+}
+
 export type Skill = {
     name: string;
     attribute: string;
@@ -84,14 +245,8 @@ export type Weapon = {
     };
     dicepool: string;
 }
-export type Initiative = {
-    base: number;
-    total?: number;
-}
 
-export const char: ComputedRef<Charakter>   = computed(() => {
-    return data.value as Charakter;
-});
+export const char = reactive(new Charakter(data.value));
 
 export function dataIsValid(): boolean {
     return data.value !== null;
@@ -101,14 +256,14 @@ export function getMaxStunDamage(): number
 {
     let wil = getAttributeValueByName('WIL');
 
-    return 8 + Math.floor(wil / 2);
+    return 8 + Math.ceil(wil / 2);
 }
 
 export function getMaxPhysicalDamage(): number
 {
     let bod = getAttributeValueByName('BOD');
 
-    return 8 + Math.floor(bod / 2);
+    return 8 + Math.ceil(bod / 2);
 }
 
 export function getAttributeValueByName(name: string): number {

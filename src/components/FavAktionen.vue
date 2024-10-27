@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {char} from "../composables/data";
 </script>
 
 <template>

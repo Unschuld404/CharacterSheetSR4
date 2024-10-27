@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {data, getAttributeValueByName} from "@/composables/data";
+import {char, data, getAttributeValueByName} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
 
 </script>
@@ -12,17 +12,17 @@ import {DialogRollDice} from "@/composables/dialogs";
 
       <div class="initiative">
         <div class="initiative-category">Normal</div>
-        <button class="total-value" @click="DialogRollDice.show()" >{{ data?.init?.total ?? 0 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()" >{{ char.initiative.normal.total }}</button>
       </div>
 
       <div class="initiative">
         <div class="initiative-category">Matrix</div>
-        <button class="total-value" @click="DialogRollDice.show()" >{{ data?.matrixinit?.base ?? 0 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()" >{{ char.initiative.matrix.total }}</button>
       </div>
 
       <div class="initiative">
         <div class="initiative-category">Astral</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('INT')*2 }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ char.initiative.astral.total }}</button>
       </div>
 
     </div>

@@ -9,14 +9,14 @@ const reason = ref('');
 
 function add()
 {
-  char.value.nuyen = String(toInt(char.value.nuyen) + toInt(nuyen.value));
+  char.nuyen += toInt(nuyen.value);
   DialogChangeNuyen.hide();
   nuyen.value = '';
 }
 
 function substract()
 {
-  char.value.nuyen = String(toInt(char.value.nuyen) - toInt(nuyen.value));
+  char.nuyen -= toInt(nuyen.value);
   DialogChangeNuyen.hide();
   nuyen.value = '';
 }
