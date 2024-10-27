@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+import {DialogChangeNuyen} from "@/composables/dialogs";
 </script>
 
 <template>
@@ -9,7 +10,7 @@
     <div class="item">
       <div>Kampfzauber</div>
       <div class="value">+ 2</div>
-      <button class="total-value">11</button>
+      <button @click="DialogChangeNuyen.show" class="total-value">11</button>
     </div>
 
     <div class="item">

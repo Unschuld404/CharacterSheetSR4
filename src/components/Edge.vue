@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getAttributeValueByName} from "@/composables/data";
+import {char, getAttributeValueByName} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
 
 </script>
@@ -8,7 +8,7 @@ import {DialogRollDice} from "@/composables/dialogs";
 
   <div class="box">
 
-    <div class="edg" @click="DialogRollDice.show">{{ getAttributeValueByName('EDG') }}</div>
+    <div class="edg" @click="DialogRollDice.show">{{ char.attributes.edge.total }}</div>
     <div class="lower-header">Edge</div>
 
   </div>

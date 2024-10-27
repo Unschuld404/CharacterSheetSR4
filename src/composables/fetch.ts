@@ -1,4 +1,5 @@
-import {data} from "@/composables/data";
+import {char, Charakter, data} from "@/composables/data";
+import {reactive} from "vue";
 
 export async function fetchFromAPI(uid: string)
 {
@@ -29,6 +30,7 @@ export async function fetchFromAPI(uid: string)
             throw new Error(error_message);
         }
         data.value = await response.json();
+        char.update(data.value);
     }
     catch (error: any)
     {

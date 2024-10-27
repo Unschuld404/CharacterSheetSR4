@@ -1,23 +1,32 @@
 <script setup lang="ts">
 import {DialogRollDice} from "@/composables/dialogs";
+import {ref} from "vue";
+
+let checked = ref(false);
+
+function toggle()
+{
+  checked.value = !checked.value;
+}
+
 </script>/
 
 <template>
 
   <div v-if="DialogRollDice.visible" class="modal-overlay" @click="DialogRollDice.hide">
-    <div class="modal-content">
+    <div class="modal-content" @click.stop>
       <div class="base">
         <h1>Name des Skills</h1>
         <p>( 12 Basiswürfel )</p>
       </div>
       <div class="row">
-        <input type="checkbox" id="useEdge" name="useEdge" class="favourite"/>
+        <input type="checkbox" :checked="checked" id="useEdge" name="useEdge" class="favourite"/>
         <label for="useEdge">Edge verwenden</label>
       </div>
       <div class="row mod">
         <i class='bx bxs-minus-square icon'></i>
         <p><strong>12</strong> Würfel</p>
-        <i class='bx bxs-plus-square icon'></i>
+        <i class='bx bxs-plus-square icon' @click="toggle"></i>
       </div>
       <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
     </div>

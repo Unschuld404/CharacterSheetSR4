@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {RouterLink} from "vue-router";
-import {getAttributeValueByName, char} from "@/composables/data";
 import {menuRoutes} from "@/router";
 
 </script>
