@@ -8,6 +8,9 @@ import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
 import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
+import SummonSpirit from "@/components/Dialoge/SummonSpirit.vue";
+import ChooseSpirit from "@/components/Dialoge/ChooseSpirit.vue";
+import DroneSheet from "@/components/Dialoge/DroneSheet.vue";
 
 
 const router = useRouter();
@@ -119,6 +122,9 @@ onBeforeUnmount(removeEventListeners);
   <RollDice/>
   <SpiritSheet />
   <ManageEdge/>
+  <SummonSpirit/>
+  <ChooseSpirit/>
+  <DroneSheet/>
 
   <Header  v-if="dataIsValid()"  />
 

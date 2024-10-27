@@ -1,45 +1,65 @@
 <script setup lang="ts">
 
-import { useDialogeStore } from "@/stores/dialoge";
+import {DialogSummonSpirit} from "@/composables/dialogs";
+import {char} from "@/composables/data";
+import {ref} from "vue";
 
-const dialogeStore = useDialogeStore();
+let force = ref(char.attributes.magic.base);
+
+let services = ref(1);
+
+function addForce()
+{
+  force.value = force.value + 1;
+  console.log(force.value);
+}
+
+function substractForce()
+{
+  force.value = force.value - 1;
+  console.log(force.value);
+}
+
+function addServices()
+{
+  services.value = services.value + 1;
+  console.log(services.value);
+}
+
+function substractServices()
+{
+  services.value = services.value - 1;
+  console.log(services.value);
+}
+
 
 </script>/
 
 <template>
 
-  <div class="modal-overlay">
-    <div class="modal-content">
+  <div v-if="DialogSummonSpirit.visible" class="modal-overlay" @click="DialogSummonSpirit.hide">
+    <div class="modal-content" @click.stop>
+
+      <h1>Art des Geistes</h1>
 
       <div class="column">
-        <i class='bx bx-chevron-down icon'></i>
-        <select class="row">
-          <option>Erdgeist</option>
-          <option>Feuergeist</option>
-          <option>Luftgeist</option>
-          <option>Wassergeist</option>
-          <option>Geist des Menschen</option>
-          <option>Geist des Tieres</option>
-          <option>Watcher</option>
-        </select>
-
         <div class="row">
           <div class="force">Kraft</div>
-          <i class='bx bxs-minus-square icon'></i>
-          <div class="value">3</div>
-          <i class='bx bxs-plus-square icon'></i>
+          <i class='bx bxs-minus-square icon' @click="substractForce"></i>
+          <div class="value">{{ force }}</div>
+          <i class='bx bxs-plus-square icon' @click="addForce"></i>
         </div>
 
         <div class="row">
           <div class="services">Dienste</div>
-          <i class='bx bxs-minus-square icon'></i>
-          <div class="value">3</div>
-          <i class='bx bxs-plus-square icon'></i>
+          <i class='bx bxs-minus-square icon' @click="substractServices"></i>
+          <div class="value">{{ services }}</div>
+          <i class='bx bxs-plus-square icon' @click="addServices"></i>
         </div>
 
       </div>
 
-      <button class="confirm" @click="dialogeStore.hide">Hinzufügen</button>
+      <button class="confirm" @click="DialogSummonSpirit.hide">Hinzufügen</button>
 
     </div>
   </div>
@@ -54,36 +74,13 @@ const dialogeStore = useDialogeStore();
 
 .modal-content {
   width: 50vh;
-  height: 40vh;
+  height: 45vh;
   z-index: 1001;
 }
 
 .column {
   height: 30vh;
   justify-content: space-around;
-}
-
-.bx-chevron-down {
-  position: absolute;
-  top: 4vh;
-  right: 1vh;
-  z-index: 1002;
-}
-
-select {
-  background-color: transparent;
-  border: none;
-  color: var(--font-color);
-  font-weight: bold;
-  z-index: 1003;
-}
-
-select:focus {
-  outline: none;
-}
-
-option {
-  background-color: var(--primary-color);
 }
 
 .row {
