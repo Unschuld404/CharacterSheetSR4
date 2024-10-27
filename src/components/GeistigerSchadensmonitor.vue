@@ -1,33 +1,15 @@
 <script setup lang="ts">
 
+import {getMaxStunDamage} from "@/composables/data";
+
 </script>
 
 <template>
 
   <div class="box">
-    <div class="row">
-      <input type="checkbox" class="favourite klaus">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-1</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-2</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-3</div>
-    </div>
-    <div class="row">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <input type="checkbox" class="favourite">
-      <div class="malus">-4</div>
+    <div v-for="row in 6" :key="row" class="row">
+      <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > getMaxStunDamage() }">
+      <div class="malus">{{ row * -1 }}</div>
     </div>
     <div class="lower-header">Geistiger Zustand</div>
   </div>
@@ -50,11 +32,11 @@
   padding-left: 1vh;
 }
 
-.favourite {
-  height: 4vh;
-  width: 4vh;
-  position: relative;
-  bottom: 2vh;
+.disabled
+{
+  background-color: var(--primary-color);
+  cursor: default;
+  border: transparent;
 }
 
 .malus {

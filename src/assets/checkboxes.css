@@ -4,8 +4,24 @@
     height: 2vh;
     border-radius: 0.5vh;
     background-color: var(--background-color);
+    border: none;
 }
 
 .favourite:checked {
+    background-color: var(--accent-color);
+}
+
+.damage-box {
+    appearance: none;
+    width: 4vh;
+    height: 4vh;
+    border-radius: 0.5vh;
+    background-color: var(--background-color);
+    position: relative;
+    bottom: 2vh;
+    border: 1px solid var(--background-color);
+}
+
+.damage-box:checked {
     background-color: var(--accent-color);
 }

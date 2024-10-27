@@ -8,7 +8,7 @@ import {getMaxPhysicalDamage} from "@/composables/data";
 
   <div class="box">
     <div v-for="row in 6" :key="row" class="row">
-      <input v-for="col in 3" :key="col" type="checkbox" :class="{'favourite': true, 'disabled': (row -1) * 3 + col > getMaxPhysicalDamage() }">
+      <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > getMaxPhysicalDamage() }">
       <div class="malus">{{ row * -1 }}</div>
     </div>
     <div class="lower-header">Körperlicher Zustand</div>
@@ -32,20 +32,14 @@ import {getMaxPhysicalDamage} from "@/composables/data";
     padding-left: 1vh;
   }
 
-  .favourite {
-    height: 4vh;
-    width: 4vh;
-    position: relative;
-    bottom: 2vh;
-  }
-
   .disabled
   {
-    background-color: darkgrey;
+    background-color: var(--primary-color);
+    border: 1px solid var(--background-color);
   }
   .disabled:checked
   {
-    background-color: darkred;
+    background-color: var(--font-color);
   }
 
   .malus {
