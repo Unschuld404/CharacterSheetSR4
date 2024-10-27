@@ -8,7 +8,7 @@ import {DialogManageEdge} from "@/composables/dialogs";
 
   <div class="box">
 
-    <div class="edg" @click="DialogManageEdge.show">{{ char.edge }}</div>
+    <div class="edg" @click="DialogManageEdge.show">{{ char.attributes.edge.total }}</div>
     <div class="lower-header">Edge</div>
 
   </div>

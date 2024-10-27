@@ -4,9 +4,6 @@ import {DialogChangeNuyen, DialogSpiritSheet} from "@/composables/dialogs";
 
 <template>
 <div class="frame">
-  <button @click="DialogSpiritSheet.show">
-    Öffne den Spirit-Sheet
-  </button>
 </div>
 </template>
 
