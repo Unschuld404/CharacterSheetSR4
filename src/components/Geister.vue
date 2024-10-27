@@ -34,7 +34,7 @@ const spirits = computed(() => getSpirits());
     padding-top: 2vh;
     padding-left: 4vh;
     padding-right: 4vh;
-    margin-bottom: 2vh;
+    margin-bottom: 1vh;
   }
 
   .info {
@@ -53,18 +53,13 @@ const spirits = computed(() => getSpirits());
     border: none;
     border-radius: 1vh;
     font-size: 5vh;
-    line-height: 8vh;
-    height: 7vh;
+    height: 10vh;
     color: var(--background-color);
-  }
-
-  button:active {
-    background-color: var(--background-color);
-    color: var(--font-color);
   }
 
   i {
     color: var(--background-color);
+    padding-top: 1vh;
   }
 
-</style>/
+</style>
