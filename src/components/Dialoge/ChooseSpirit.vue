@@ -59,6 +59,7 @@ const choose = (type) => {
   appearance: none;
   text-align: center;
   font-size: 3vw;
+  color: var(--accent-color);
   line-height: 7vh;
   background-color: var(--background-color);
   border: none;

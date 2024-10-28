@@ -26,10 +26,11 @@ const boundModes = [
 const spiritPlanes = [
   { label: 'Materiell', value: 'material' },
   { label: 'Astral', value: 'astral' },
+  { label: 'Heimat', value: 'heimat' },
 ];
-const selectedBoundModes = ref<string>('');
+const selectedBoundModes = ref<string>('ungebunden');
 
-const selectedSpiritPlane = ref<string>('home');
+const selectedSpiritPlane = ref<string>('heimat');
 
 </script>/
 
@@ -211,6 +212,7 @@ const selectedSpiritPlane = ref<string>('home');
 
 i {
   font-size: 6vh;
+  color: var(--accent-color);
 }
 
 .box {
