@@ -1,32 +1,35 @@
 import {computed, type ComputedRef, reactive} from "vue";
 import {ref} from "vue";
 import {toInt} from "@/composables/utils";
+import Initiative from "@/components/Initiative.vue";
 
 export const data = ref<any | null>(null);
 
 export class Charakter {
-    name: string = "";
-    edge: number = 0;
-    nuyen: number= 0;
-    karma: number= 0;
-    initiative: Initiative;
-    metatype : string;
-    movement: Movement;
-    height : number= 0;
-    weight: number= 0;
-    age : number= 0;
-    sex : string = "";
-    skin : string = "";
-    eyes : string = "";
-    hair : string = "";
-    armor : Armor;
-    monitor: DamageMonitor;
-    attributes: Attributes;
-    skills: Skill[];
-    spells: Spell[];
-    spirits: Spirit[];
-    vehicles: Vehicle[];
-    weapons: Weapon[];
+    name!: string;
+    edge!: number;
+    nuyen!: number;
+    karma!: number;
+    initiative!: Initiative;
+    metatype! : string;
+    movement!: Movement;
+    height!: number;
+    weight!: number;
+    age! : number;
+    sex! : string;
+    skin! : string;
+    eyes! : string;
+    hair! : string;
+    armor! : Armor;
+    drain!: Drain;
+    monitor!: DamageMonitor;
+    attributes!: Attributes;
+    knowledgeSkills!: Skill[];
+    actionSkills!: Skill[];
+    spells!: Spell[];
+    spirits!: Spirit[];
+    vehicles!: Vehicle[];
+    weapons!: Weapon[];
 
     constructor(data: any )
     {
@@ -41,18 +44,31 @@ export class Charakter {
             normal : {
                 base : toInt(data?.init?.base),
                 total : toInt(data?.init?.total ?? data?.init?.base),
+                passes : {
+                    base : toInt(data?.ip?.base),
+                    total : toInt(data?.ip?.total ?? data?.ip?.base),
+                },
             },
             astral : {
                 base : toInt(data?.atralinit?.base),
                 total : toInt(data?.astralinit?.total ?? data?.astralinit?.base),
+                passes : {
+                    base : toInt(data?.astralip?.base),
+                    total : toInt(data?.astralip?.total ?? data?.astralip?.base),
+                },
             },
             matrix : {
                 base : toInt(data?.matrixinit?.base),
                 total : toInt(data?.matrixinit?.total ?? data?.matrixinit?.base),
+                passes : {
+                    base : toInt(data?.matrixip?.base),
+                    total : toInt(data?.matrixip?.total ?? data?.matrixip?.base),
+                },
             },
         }
         this.metatype = data?.metatype ?? 'unknown';
         this.movement = {
+            caption: data?.movement ?? '',
             walk : data?.movementwalk ?? '',
             swim : data?.movementswim ?? '',
             fly : data?.movementfly ?? '',
@@ -86,64 +102,85 @@ export class Charakter {
 
         this.attributes = {
             body: {
+                name: 'BOD',
                 base : toInt(attributes.find((item: any) => item.name === 'BOD')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'BOD')?.total),
             },
             agility: {
+                name: 'AGI',
                 base : toInt(attributes.find((item: any) => item.name === 'AGI')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'AGI')?.total),
             },
             reaction: {
+                name: 'REA',
                 base : toInt(attributes.find((item: any) => item.name === 'REA')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'REA')?.total),
             },
             strength: {
+                name: 'STR',
                 base : toInt(attributes.find((item: any) => item.name === 'STR')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'STR')?.total),
             },
             charisma: {
+                name: 'CHA',
                 base : toInt(attributes.find((item: any) => item.name === 'CHA')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'CHA')?.total),
             },
             intuition: {
+                name: 'INT',
                 base : toInt(attributes.find((item: any) => item.name === 'INT')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'INT')?.total),
             },
             logic: {
+                name: 'LOG',
                 base : toInt(attributes.find((item: any) => item.name === 'LOG')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'LOG')?.total),
             },
             willpower: {
+                name: 'WIL',
                 base : toInt(attributes.find((item: any) => item.name === 'WIL')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'WIL')?.total),
             },
             edge: {
+                name: 'EDG',
                 base : toInt(attributes.find((item: any) => item.name === 'EDG')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
             },
             magic: {
+                name: 'MAG',
                 base : toInt(attributes.find((item: any) => item.name === 'MAG')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'MAG')?.total),
             },
             resonance: {
+                name: 'RES',
                 base : toInt(attributes.find((item: any) => item.name === 'RES')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'RES')?.total),
             },
             essens: {
+                name: 'ESS',
                 base : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
             },
         }
 
-        this.skills = [];
-        this.spells = [];
-        this.spirits = [];
-        this.vehicles = [];
-        this.weapons = [];
+        this.drain = {
+            caption : data?.drain ?? '',
+            attribute : extractAttributeFromDrain(data?.drain) ?? '',
+            total : 0,
+        }
+        this.drain.total = toInt(attributes.find((item: any) => item.name === this.drain.attribute)?.base)
+                           + this.attributes.willpower.total;
+
+        this.knowledgeSkills = getKnowledgeSkills();
+        this.actionSkills = getActionSkills();
+        this.spirits = getSpirits();
+        this.vehicles = getVehicles();
+        this.weapons = getWeapons();
     }
 }
 
 export type Attribute = {
+    name: string;
     base: number;
     total: number;
 }
@@ -164,9 +201,16 @@ export type Attributes = {
 }
 
 export type Movement = {
+    caption: string;
     walk: string;
     swim: string;
     fly: string;
+}
+
+export type Drain = {
+    caption: string;
+    attribute: string;
+    total: number;
 }
 
 export type Damage = {
@@ -182,9 +226,15 @@ export type DamageMonitor = {
     overflow: number;
 }
 
+export type InitiativePasses = {
+    base: number;
+    total: number;
+}
+
 export type InitiativeValues = {
     base: number;
     total: number;
+    passes: InitiativePasses;
 }
 
 export type Initiative = {
@@ -247,6 +297,21 @@ export type Weapon = {
 
 export const char = reactive(new Charakter(data.value));
 
+function extractAttributeFromDrain(drain: string|null): string|null {
+    if (drain === null || drain === undefined)
+    {
+        return null;
+    }
+
+    const regex = /\+\s*([A-Za-z]+)\s*\(/;
+    const match: RegExpMatchArray | null = drain.match(regex);
+
+    if (Array.isArray(match) && match.length > 1) {
+        return match[1];
+    }
+
+    return null;
+}
 export function dataIsValid(): boolean {
     return data.value !== null;
 }
