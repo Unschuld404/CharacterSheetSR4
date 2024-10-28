@@ -8,21 +8,17 @@ interface RadioOption {
 
 const props = defineProps<{
   options: RadioOption[];
-  selected?: string;
+  modelValue: string;
   group?: string;
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:selected', value: string): void;
+  (e: 'update:modelValue', value: string): void;
 }>();
 
 const selectedValue = computed({
-  get: () => props.selected,
-  set: (value: string) => emit('update:selected', value),
-});
-
-watch(selectedValue, (newVal) => {
-  console.log(`Selected Value in RadioButtonPanel: ${newVal}`);
+  get: () => props.modelValue,
+  set: (value: string) => emit('update:modelValue', value),
 });
 
 const groupName = computed(() => props.group || `radio-group-${Math.random().toString(36)}`);

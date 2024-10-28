@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RadioButtons from "@/components/RadioButtons.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 
 const droneModes = [
   { label: 'Hot', value: 'hot' },
@@ -13,19 +13,36 @@ const spiritPlanes = [
   { label: 'Astral', value: 'astral' },
   { label: 'Heimat', value: 'home' },
 ];
-const initialDroneMode = ref('auto');
-const selectedDroneMode = ref<string>(initialDroneMode.value);
 
+const selectedDroneMode = ref<string>('auto');
 const selectedSpiritPlane = ref<string>('home');
+
+function onSelectDroneMode(newMode: string) {
+  console.log(newMode)
+}
+
+function onSelectPlane(newPlane: string) {
+  console.log(newPlane)
+}
+
+watch(selectedDroneMode, (newMode) => {
+  onSelectDroneMode(newMode);
+});
+
 
 </script>
 
 <template>
   <div class="frame">
 
-    <RadioButtons class="mode" v-model="selectedDroneMode" :options="droneModes" group="weapons" :selected="initialDroneMode"/><br>
+    <div style="display: flex; flex-direction: column; height: 200px; justify-content: space-evenly;">
 
-    <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+      <div style="text-align: center">Values: {{ selectedDroneMode }}   |   {{selectedSpiritPlane}}</div>
+
+      <RadioButtons  class="mode" v-model="selectedDroneMode" :options="droneModes" group="weapons"/>
+
+      <RadioButtons @update:modelValue="onSelectPlane" class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+    </div>
 
   </div>
 </template>
