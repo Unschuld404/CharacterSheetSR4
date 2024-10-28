@@ -1,5 +1,4 @@
-import {char, Charakter, data} from "@/composables/data";
-import {reactive} from "vue";
+import {char, data} from "@/composables/data";
 
 export async function fetchFromAPI(uid: string)
 {
