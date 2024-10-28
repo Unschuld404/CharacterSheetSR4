@@ -50,7 +50,7 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
   display: flex; /* Ändere von inline-flex zu flex für bessere Kontrolle */
   align-items: stretch; /* Streckt die Items, sodass sie die gleiche Höhe haben */
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 1vh;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
@@ -69,11 +69,10 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
   display: flex; /* Ermöglicht die Zentrierung des Textes */
   justify-content: center; /* Horizontale Zentrierung */
   align-items: center; /* Vertikale Zentrierung */
-  padding: 8px 14px;
-  font-size: 14px;
+  font-size: 2vh;
   line-height: 1;
-  color: #81ffc0;
-  background: #181818;
+  color: var(--accent-color);
+  background: var(--background-color);
   cursor: pointer;
   transition: background 0.1s;
   box-sizing: border-box; /* Sorgt dafür, dass Padding und Border in der Breite enthalten sind */
@@ -81,12 +80,13 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
 }
 
 .radio_label:not(:last-of-type) {
-  border-right: 1px solid #080808; /* Trennlinie zwischen den Buttons */
+  border-right: 1vh solid var(--font-color); /* Trennlinie zwischen den Buttons */
 }
 
 .radio_input:checked + .radio_label {
-  background: #080808;
-  font-weight: normal;
-  color: var(--font-color);
+  background: var(--accent-color);
+  font-weight: bold;
+  color: var(--background-color);
+  border-radius: 1vh;
 }
 </style>

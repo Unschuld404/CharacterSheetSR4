@@ -2,6 +2,7 @@
 import {DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {ref} from "vue";
+import RadioButtons from "@/components/RadioButtons.vue";
 
 const services = ref(1);
 
@@ -16,6 +17,19 @@ function substract()
   services.value = services.value - 1;
   console.log(services.value);
 }
+
+const boundModes = [
+  { label: 'Gebunden', value: 'gebunden' },
+  { label: 'Ungebunden', value: 'ungebunden' },
+];
+
+const spiritPlanes = [
+  { label: 'Materiell', value: 'material' },
+  { label: 'Astral', value: 'astral' },
+];
+const selectedBoundModes = ref<string>('');
+
+const selectedSpiritPlane = ref<string>('home');
 
 </script>/
 
@@ -97,10 +111,10 @@ function substract()
         <div class="column">
 
           <div class="box plane">
-            Ebenen-Toggle
+            <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
           </div>
           <div class="box binding">
-            Gebunden-Toggle
+            <RadioButtons class="mode" v-model="selectedBoundModes" :options="boundModes" group="bounded" :selected="ungebunden"/><br>
           </div>
           <div class="box damage">
             <div class="monitor">
@@ -156,6 +170,10 @@ function substract()
 </template>
 
 <style scoped>
+
+.mode {
+  height: 100%;
+}
 
 .monitor {
   display: flex;
@@ -249,15 +267,6 @@ i {
   top: 0.5vh;
   transform: translateX(-50%);
   width: 100%;
-}
-
-.release {
-  align-self: center;
-  margin-left: 1vh;
-  padding-top: 0.5vh;
-  width: 6vh;
-  height: 6vh;
-  font-size: 4vh;
 }
 
 .scroll-box {
