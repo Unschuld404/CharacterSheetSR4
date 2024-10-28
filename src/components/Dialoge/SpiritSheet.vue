@@ -1,226 +1,307 @@
 <script setup lang="ts">
 import {DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
-import KoerperlicherSchadensmonitor from "@/components/KoerperlicherSchadensmonitor.vue";
+import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
+import {ref} from "vue";
+
+const services = ref(1);
+
+function add()
+{
+  services.value = services.value + 1;
+  console.log(services.value);
+}
+
+function substract()
+{
+  services.value = services.value - 1;
+  console.log(services.value);
+}
+
 </script>/
 
 <template>
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
-
-      <div class="row">
-        <div class="begone">
-          Geist entlassen
+      <div class="box row spirit">
+        <i class='bx bxs-trash'></i>
+        <div class="name">
+          Geist der Menschen - Stufe 6
         </div>
-        <h1 class="critter-name">Geist der Tiere Stufe 5</h1>
       </div>
 
-      <div class="row">
+      <div class="content">
+
+        <div class="column skill-column">
+          <div class="skills box">
+
+            <div class="scroll-box">
+
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Askennen</div>
+                <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Astralkampf</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Ausweichen</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Waffenloser Kampf</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Wahrnehmung</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Astrale Gestalt</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Bewegung</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Bewusstsein</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item ">
+                <div class="skill">Gesteigerte Sinne</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Grauen</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Materialisierung</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Tierbeherrschung</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+              <div class="item" @click="DialogRollDice.show">
+                <div class="skill">Verschleierung</div>
+                <div class="total-value skill-dice">5</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
 
         <div class="column">
 
-        <div class="resistances box">
-
-          <div class="row">
-            <div class="block">
-              <div>Bannen</div>
-              <div class="total-value roll">2</div>
+          <div class="box plane">
+            Ebenen-Toggle
+          </div>
+          <div class="box binding">
+            Gebunden-Toggle
+          </div>
+          <div class="box damage">
+            <div class="monitor">
+              <SpiritSchadensmonitor/>
             </div>
-
-            <div class="block">
-              <div>Binden</div>
-              <div class="total-value roll">2</div>
+            <div class="lower-header">
+              Schadensmonitor
             </div>
-            <div class="lower-header">Widerstände</div>
           </div>
 
         </div>
 
-        <div class="services box">
-          <div class="lower-header">Dienste</div>
+      <div class="column">
+
+        <div class="box initiative">
+          <div class="item-special">
+            <div>Initiative</div>
+            <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+          </div>
+          <div class="item-special">
+            <div>Durchgänge</div>
+            <strong>3</strong>
+          </div>
         </div>
-
-          <div class="plane box">
-            <div class="lower-header">Aktuelle Ebene</div>
+        <div class="box resistance">
+          <div class="item-special">
+            <div>Widerstand: Bannen</div>
+            <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
           </div>
-
+          <div class="item-special">
+            <div>Widerstand: Binden</div>
+            <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+          </div>
         </div>
-
-        <div class="column">
-
-          <div class="initiatives box">
-
-            <div class="row">
-              <div class="block">
-                <div>Initiative</div>
-                <div class="total-value roll">2</div>
-              </div>
-
-              <div class="block">
-                <div>Durchgänge</div>
-                <div class="roll">2</div>
-              </div>
-            </div>
-
-            <div class="lower-header">Initiative</div>
+        <div class="box service">
+          <div class="row mod">
+            <i class='bx bxs-minus-square icon' @click="substract"></i>
+            <i class='bx bxs-plus-square icon' @click="add"></i>
+            <h1>{{ services }}</h1>
           </div>
-
-          <div class="monitor box">
-            <div class="lower-header">Schadensmonitor</div>
+          <div class="lower-header">
+            Dienste
           </div>
-
         </div>
-
-        <div class="column scroll-box">
-
-          <div class="item row">
-            <div class="skill">Askennen</div>
-            <div class="total-value" @click="DialogRollDice.show">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Astralkampf</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Ausweichen</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Waffenloser Kampf</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Wahrnehmung</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Astrale Gestalt</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Bewegung</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Bewusstsein</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Gesteigerte Sinne</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Grauen</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Materialisierung</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Tierbeherrschung</div>
-            <div class="total-value">5</div>
-          </div>
-          <div class="item row">
-            <div class="skill">Verschleierung</div>
-            <div class="total-value">5</div>
-          </div>
-
-        </div>
-
       </div>
 
     </div>
+
+      </div>
+
   </div>
 
 </template>
 
 <style scoped>
 
-.item {
-  font-size: 3vh;
-  line-height: 5vh;
+.monitor {
+  display: flex;
+  justify-content: center;
+}
+
+.mod {
+  align-content: center;
+  justify-content: space-evenly;
+  margin-bottom: 1vh;
+}
+
+.spirit{
+  width: 100%;
+  height: 8vh;
+  text-align: center;
+  align-content: center;
+}
+
+.bxs-trash{
+  font-size: 5vh;
+  align-self: center;
+  margin-left: 1vh;
+  color: var(--accent-color)
+}
+
+.item-special {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  border-color: var(--background-color);
+  height: 7vh;
+  padding-left: 2vh;
+  padding-right: 2vh;
 }
 
-.total-value {
-  line-height: 4vh;
+i {
+  font-size: 6vh;
 }
 
-h1 {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.resistances, .initiatives {
-  flex: 1;
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.block {
-  display: flex;
-  flex-direction: column;
-  width: 20vh;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-bottom: 3vh;
-}
-
-.roll {
-  width: 8vh;
-  height: 8vh;
-  font-size: 5vh;
+.box {
   align-content: center;
   text-align: center;
+  font-size: 2.5vh;
 }
 
-.services {
+.resistance {
   flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+}
+
+.binding{
+  flex: 1;
+}
+
+.service{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .plane {
   flex: 1;
 }
 
-.initiatives {
+.initiative {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+}
+
+.damage {
+  flex: 5;
+}
+
+.skill-dice {
+  height: 5vh;
+  width: 5vh;
+  font-size: 3.5vh;
+}
+
+.name {
+  position: absolute;
+  font-size: 5vh;
+  left: 50%;
+  top: 0.5vh;
+  transform: translateX(-50%);
   width: 100%;
 }
 
-.monitor {
-  flex: 3;
-}
-
-.row {
-  align-items: center;
-}
-
-.column {
-  margin-top: 3vh;
-  height: 65vh;
-  flex: 1;
+.release {
+  align-self: center;
+  margin-left: 1vh;
+  padding-top: 0.5vh;
+  width: 6vh;
+  height: 6vh;
+  font-size: 4vh;
 }
 
 .scroll-box {
-  padding-left: 0;
-  padding-right: 0;
+  height: 96%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 }
 
-.box {
-  border: none;
-  border-bottom: 1px solid var(--accent-color);
-  border-radius: 0;
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 7vh;
 }
 
-.lower-header {
-  color: var(--accent-color)
+strong {
+  width: 5vh;
+  text-align: center;
+}
+
+.skills{
+  height: 100%;
+}
+
+.column {
+  flex: 1;
+  gap: 2vh;
+}
+
+.skill-column{
+  flex: 1.3;
+}
+
+.content{
+  display: flex;
+  height: 65vh;
+  margin-top: 2vh;
+  position: relative;
+  gap: 2vh;
 }
 
 .modal-overlay {
   z-index: 1000;
+  background-color: var(--background-color);
 }
 
 .modal-content {
@@ -228,6 +309,9 @@ h1 {
   width: 80vw;
   z-index: 1001;
   position: relative;
+  background-color: transparent;
+  border: none;
+  bottom: 5vh;
 }
 
 </style>/

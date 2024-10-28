@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {data, getAttributeValueByName} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
+import {char} from "@/composables/data";
 </script>
 
 <template>
@@ -21,12 +22,12 @@ import {DialogRollDice} from "@/composables/dialogs";
 
       <div class="column">
         <div class="resistance-category">Körper</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('BOD') }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ char.attributes.body.total }}</button>
       </div>
 
       <div class="column">
         <div class="resistance-category">Wille</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ getAttributeValueByName('WIL') }}</button>
+        <button class="total-value" @click="DialogRollDice.show()">{{ char.attributes.willpower.total }}</button>
       </div>
 
       <div class="column">

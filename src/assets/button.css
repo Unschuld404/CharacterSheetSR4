@@ -7,6 +7,7 @@ button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i {
     font-size: 3vh;
     border: none;
     text-align: center;
+    align-content: center;
     border-radius: 0.5vh;
     height: 4vh; /* reference for line-height */
     width: 4vh;
