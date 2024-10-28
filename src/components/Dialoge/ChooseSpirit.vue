@@ -3,13 +3,14 @@
 import {DialogChooseSpirit, DialogSummonSpirit} from "@/composables/dialogs";
 import {ref} from "vue";
 
-const activeIndex = ref(null);
+const choosenType = ref(null);
 
-const choose = (index) => {
-  activeIndex.value = index;
+const choose = (type) => {
+  choosenType.value = type;
   DialogChooseSpirit.hide();
+  DialogSummonSpirit.type = type;
   DialogSummonSpirit.show();
-  console.log(activeIndex.value, 'wurde ausgewählt');
+  console.log(choosenType.value, 'wurde ausgewählt');
 }
 
 </script>/
@@ -23,7 +24,7 @@ const choose = (index) => {
 
         <div  v-for="(item, index) in ['Erdgeist', 'Feuergeist', 'Luftgeist', 'Wassergeist', 'Geist der Menschen', 'Geist der Tiere', 'Watcher']"
               :key="index"
-              :class="['flavor', {active: activeIndex === index }]"
+              :class="['type', {active: choosenType === index }]"
               @click="choose(item)"
         >
           {{ item }}
@@ -54,7 +55,7 @@ const choose = (index) => {
   justify-content: space-evenly;
 }
 
-.flavor {
+.type {
   appearance: none;
   text-align: center;
   font-size: 3vw;

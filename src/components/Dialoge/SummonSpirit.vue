@@ -40,7 +40,7 @@ function substractServices()
   <div v-if="DialogSummonSpirit.visible" class="modal-overlay" @click="DialogSummonSpirit.hide">
     <div class="modal-content" @click.stop>
 
-      <h1>Art des Geistes</h1>
+      <h1>{{ DialogSummonSpirit.type }}</h1>
 
       <div class="column">
         <div class="row">
