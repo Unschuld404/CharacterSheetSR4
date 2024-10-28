@@ -4,6 +4,20 @@ import {toInt} from "@/composables/utils";
 import Initiative from "@/components/Initiative.vue";
 
 export const data = ref<any | null>(null);
+export const sheet = ref<any | null>(null);
+
+export type SheetData = {
+    selectedSkills : string,
+    selectedWeapons : string,
+}
+
+export class Sheet implements SheetData {
+    selectedSkills! : string;
+    selectedWeapons! : string;
+
+}
+
+
 
 export class Charakter {
     name!: string;
@@ -30,6 +44,7 @@ export class Charakter {
     spirits!: Spirit[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
+
 
     constructor(data: any )
     {
