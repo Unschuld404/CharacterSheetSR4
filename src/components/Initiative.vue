@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {char, data, getAttributeValueByName} from "@/composables/data";
+import {char} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
 
 </script>

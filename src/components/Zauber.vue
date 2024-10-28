@@ -56,6 +56,7 @@ const spellCastingTotal = computed(() => {
 
   .item {
     height: 14vh;
+    border-bottom: 1px solid var(--background-color);
   }
 
   .value {

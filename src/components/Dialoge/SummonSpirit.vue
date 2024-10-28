@@ -4,7 +4,7 @@ import {DialogSummonSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/data";
 import {ref} from "vue";
 
-let force = ref(char.attributes.magic.base);
+let force = ref(char.attributes.magic.total);
 
 let services = ref(1);
 
