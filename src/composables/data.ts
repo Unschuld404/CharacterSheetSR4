@@ -3,25 +3,47 @@ import {ref} from "vue";
 import {toInt} from "@/composables/utils";
 import Initiative from "@/components/Initiative.vue";
 
+
 export const data = ref<any | null>(null);
-export const sheet = ref<any | null>(null);
 
-export type SheetData = {
-    selectedSkills : string,
-    selectedWeapons : string,
+export class Sheet {
+    karma!: Karma[];
+    nuyen!: Nuyen[];
+    selectedSkills! : string[];
+    selectedItems! : Item[];
+    spentItems!: Item[];
+    damage!: DamageTaken;
+    spirits!: Spirit[];
+
+    toJSON() {
+        return this;
+    }
 }
 
-export class Sheet implements SheetData {
-    selectedSkills! : string;
-    selectedWeapons! : string;
-
+export type DamageTaken = {
+    physical: number;
+    stun: number;
 }
 
+export type Item = {
+    type : string;
+    name : string;
+}
 
+export type Nuyen = {
+    date: Date;
+    value: number;
+    reason: string;
+}
+
+export type Karma = {
+    date : Date;
+    value: number;
+    reason: string;
+}
 
 export class Charakter {
     name!: string;
-    edge!: number;
     nuyen!: number;
     karma!: number;
     initiative!: Initiative;
@@ -44,7 +66,6 @@ export class Charakter {
     spirits!: Spirit[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
-
 
     constructor(data: any )
     {
@@ -191,8 +212,32 @@ export class Charakter {
         this.spirits = getSpirits();
         this.vehicles = getVehicles();
         this.weapons = getWeapons();
+        this.spells = getSpells();
+    }
+
+    get spellcasting(): Skill
+    {
+        let skill = this.skillByName('Spellcasting')
+        ?? this.skillByName('Spruchzauberei')
+        ?? {
+                name: 'Spellcasting',
+                attribute: 'unknown',
+                attribute_value: 0,
+                rating: 0,
+                total: 0,
+            };
+        console.log(skill);
+        return skill;
+    }
+
+    skillByName(name: string): Skill | null {
+        return this.actionSkills.find((item: any) => item.name === name)
+            ?? this.knowledgeSkills.find((item: any) => item.name === name)
+            ?? null;
     }
 }
+
+export const char = reactive(new Charakter(data.value));
 
 export type Attribute = {
     name: string;
@@ -283,6 +328,7 @@ export type Spirit = {
     services: number;
     force: number;
     bound: boolean;
+    created: boolean;
 }
 export type Vehicle = {
     name: string;
@@ -309,8 +355,6 @@ export type Weapon = {
     };
     dicepool: string;
 }
-
-export const char = reactive(new Charakter(data.value));
 
 function extractAttributeFromDrain(drain: string|null): string|null {
     if (drain === null || drain === undefined)
@@ -397,7 +441,8 @@ export function getSpirits(): Array<Spirit> {
             type: spirit.crittername || 'Unknown',
             services: parseInt(spirit.services, 10) || 0,
             force: parseInt(spirit.force, 10) || 0,
-            bound: spirit.bound === 'True'
+            bound: spirit.bound === 'True',
+            created: false,
         }));
 }
 
