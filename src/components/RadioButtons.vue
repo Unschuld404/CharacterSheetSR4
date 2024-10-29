@@ -46,7 +46,7 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
   display: flex; /* Ändere von inline-flex zu flex für bessere Kontrolle */
   align-items: stretch; /* Streckt die Items, sodass sie die gleiche Höhe haben */
   overflow: hidden;
-  border-radius: 1vh;
+  border-radius: 0.9vh;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
@@ -83,6 +83,7 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
   background: var(--accent-color);
   font-weight: bold;
   color: var(--background-color);
-  border-radius: 1vh;
+  border-radius: 0.85vh;
 }
+
 </style>

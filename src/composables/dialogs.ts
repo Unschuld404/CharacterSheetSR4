@@ -27,4 +27,3 @@ export const DialogManageEdge = reactive(new Dialog());
 export const DialogSummonSpirit = reactive(new SummonSpiritDialog());
 export const DialogChooseSpirit = reactive(new Dialog());
 export const DialogDroneSheet = reactive(new Dialog());
-

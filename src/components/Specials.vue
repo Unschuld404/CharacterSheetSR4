@@ -11,19 +11,19 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
       <div class="item">
         <div>Kampfzauber</div>
         <div class="value">+ 2</div>
-        <button @click="DialogChangeNuyen.show" class="total-value">11</button>
+        <button @click="DialogChangeNuyen.show" class="dice">11</button>
       </div>
 
       <div class="item">
         <div>Tiergeister beschwören</div>
         <div class="value">+ 2</div>
-        <button class="total-value">11</button>
+        <button class="dice">11</button>
       </div>
 
       <div class="item">
         <div>Etwas anderes besonderes ...</div>
         <div class="value">+ 4</div>
-        <button class="total-value">9</button>
+        <button class="dice">9</button>
       </div>
     </div>
 

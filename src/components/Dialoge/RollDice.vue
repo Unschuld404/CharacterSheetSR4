@@ -24,9 +24,9 @@ function toggle()
         <label for="useEdge">Edge verwenden</label>
       </div>
       <div class="row mod">
-        <i class='bx bxs-minus-square icon'></i>
+        <div class="mutator" @click="toggle">-</div>
         <p><strong>12</strong> Würfel</p>
-        <i class='bx bxs-plus-square icon' @click="toggle"></i>
+        <div class="mutator" @click="toggle">+</div>
       </div>
       <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
     </div>

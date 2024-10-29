@@ -45,16 +45,16 @@ function substractServices()
       <div class="column">
         <div class="row">
           <div class="force">Kraft</div>
-          <i class='bx bxs-minus-square icon' @click="substractForce"></i>
+          <div class="mutator" @click="substractForce">-</div>
           <div class="value">{{ force }}</div>
-          <i class='bx bxs-plus-square icon' @click="addForce"></i>
+          <div class="mutator" @click="addForce">+</div>
         </div>
 
         <div class="row">
           <div class="services">Dienste</div>
-          <i class='bx bxs-minus-square icon' @click="substractServices"></i>
+          <div class="mutator" @click="substractServices">-</div>
           <div class="value">{{ services }}</div>
-          <i class='bx bxs-plus-square icon' @click="addServices"></i>
+          <div class="mutator" @click="addServices">+</div>
         </div>
 
       </div>

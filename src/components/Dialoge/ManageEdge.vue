@@ -21,12 +21,12 @@
 
       <h1>Edge</h1>
       <div class="row">
-        <i class='bx bxs-minus-square icon' @click="substract"></i>
+        <div class="mutator" @click="substract">-</div>
         <div class="edge">
           <div>{{ char.edge }}</div>
           <div class="max-edge">/ 3</div>
         </div>
-        <i class='bx bxs-plus-square icon' @click="add"></i>
+        <div class="mutator" @click="add">+</div>
       </div>
       <button class="confirm" @click="DialogManageEdge.hide">OK</button>
 
@@ -36,6 +36,13 @@
 </template>
 
 <style scoped>
+
+.mutator {
+  width: 7vh;
+  height: 7vh;
+  line-height: 7.5vh;
+  font-size: 7vh;
+}
 
 .edge {
   display: flex;

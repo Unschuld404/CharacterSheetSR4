@@ -1,8 +1,8 @@
-button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i {
+button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-selection {
     cursor: pointer;
 }
 
-.total-value {
+.dice {
     font-weight: bold;
     font-size: 3vh;
     border: none;
@@ -15,6 +15,14 @@ button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i {
     color: var(--accent-color);
 }
 
-.total-value:active {
-    background-color: var(--font-color);
+.mutator {
+    width: 6vh;
+    height: 6vh;
+    border-radius: 0.5vh;
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    font-size: 6vh;
+    font-weight: bold;
+    line-height: 6.5vh;
+    text-align: center;
 }

@@ -92,10 +92,11 @@ input::placeholder {
 button {
   border: none;
   border-radius: 0.5vh;
-  background-color: var(--font-color);
+  background-color: var(--background-color);
   width: 90%;
+  height: 8vh;
   font-size: 4vh;
-  color: var(--background-color);
+  color: var(--accent-color);
   position: relative;
 }
 

@@ -24,4 +24,6 @@ coverage
 *.sln
 *.sw?
 
+dist/.htaccess
+
 *.tsbuildinfo

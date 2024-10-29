@@ -11,7 +11,7 @@ const spirits = computed(() => getSpirits());
   <div v-if="spirits.length">
     <ul>
       <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.show">
-        <div class="box">
+        <div class="box spirit-selection">
           <div class="header">{{ spirit.type }}</div>
           <div class="info">
             <div class="value">Kraft: {{ spirit.force }}</div>
@@ -34,7 +34,7 @@ const spirits = computed(() => getSpirits());
     padding-top: 2vh;
     padding-left: 4vh;
     padding-right: 4vh;
-    margin-bottom: 1vh;
+    margin-bottom: 2vh;
   }
 
   .info {
@@ -49,17 +49,14 @@ const spirits = computed(() => getSpirits());
   }
 
   button {
-    background-color: var(--accent-color);
-    border: none;
+    background-color: var(--background-color);
     border-radius: 1vh;
     font-size: 5vh;
-    height: 10vh;
-    color: var(--background-color);
-  }
-
-  i {
-    color: var(--background-color);
-    padding-top: 1vh;
+    height: 15vh;
+    color: var(--accent-color);
+    border: 1px solid var(--font-color);
+    position: relative;
+    top: -2vh;
   }
 
 </style>

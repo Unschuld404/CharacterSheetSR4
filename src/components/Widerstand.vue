@@ -12,27 +12,27 @@ import {char} from "@/composables/data";
 
       <div class="column">
         <div class="resistance-category">Ballis.</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ data?.armori ?? 0 }}</button>
+        <button class="dice" @click="DialogRollDice.show()">{{ data?.armori ?? 0 }}</button>
       </div>
 
       <div class="column">
         <div class="resistance-category">Stoß</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ data?.armorb ?? 0  }}</button>
+        <button class="dice" @click="DialogRollDice.show()">{{ data?.armorb ?? 0  }}</button>
       </div>
 
       <div class="column">
         <div class="resistance-category">Körper</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ char.attributes.body.total }}</button>
+        <button class="dice" @click="DialogRollDice.show()">{{ char.attributes.body.total }}</button>
       </div>
 
       <div class="column">
         <div class="resistance-category">Wille</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ char.attributes.willpower.total }}</button>
+        <button class="dice" @click="DialogRollDice.show()">{{ char.attributes.willpower.total }}</button>
       </div>
 
       <div class="column">
         <div class="resistance-category">Entzug</div>
-        <button class="total-value" @click="DialogRollDice.show()">{{ +getAttributeValueByName('WIL') + +getAttributeValueByName('CHA') }}</button>
+        <button class="dice" @click="DialogRollDice.show()">{{ +getAttributeValueByName('WIL') + +getAttributeValueByName('CHA') }}</button>
       </div>
 
     </div>

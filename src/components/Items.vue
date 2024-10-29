@@ -24,7 +24,7 @@ const weapons = computed(() => getWeapons());
             <div v-if="data" class="value">Modus: <strong>{{ weapon.mode }}</strong></div>
             <div v-if="data" class="value">Rückstoßkomp.: <strong>{{ weapon.rc }}</strong></div>
             <div v-if="data" class="value">Munition: <strong>{{ weapon.ammo }}</strong></div>
-            <button v-if="data" class="total-value" @click="DialogRollDice.show">{{ weapon.dicepool }}</button>
+            <button v-if="data" class="dice" @click="DialogRollDice.show">{{ weapon.dicepool }}</button>
           </div>
           <div class="info">
             <div v-if="data" class="ranges">

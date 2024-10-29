@@ -54,55 +54,55 @@ const selectedSpiritPlane = ref<string>('heimat');
 
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Askennen</div>
-                <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+                <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Astralkampf</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Ausweichen</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Waffenloser Kampf</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Wahrnehmung</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Astrale Gestalt</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Bewegung</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Bewusstsein</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item ">
                 <div class="skill">Gesteigerte Sinne</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Grauen</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Materialisierung</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Tierbeherrschung</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Verschleierung</div>
-                <div class="total-value skill-dice">5</div>
+                <div class="dice skill-dice">5</div>
               </div>
             </div>
 
@@ -133,7 +133,7 @@ const selectedSpiritPlane = ref<string>('heimat');
         <div class="box initiative">
           <div class="item-special">
             <div>Initiative</div>
-            <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
           </div>
           <div class="item-special">
             <div>Durchgänge</div>
@@ -143,18 +143,18 @@ const selectedSpiritPlane = ref<string>('heimat');
         <div class="box resistance">
           <div class="item-special">
             <div>Widerstand: Bannen</div>
-            <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
           </div>
           <div class="item-special">
             <div>Widerstand: Binden</div>
-            <div class="total-value skill-dice" @click="DialogRollDice.show">5</div>
+            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
           </div>
         </div>
         <div class="box service">
           <div class="row mod">
-            <i class='bx bxs-minus-square icon' @click="substract"></i>
-            <i class='bx bxs-plus-square icon' @click="add"></i>
+            <div class="mutator" @click="substract">-</div>
             <h1>{{ services }}</h1>
+            <div class="mutator" @click="add">+</div>
           </div>
           <div class="lower-header">
             Dienste
@@ -210,11 +210,6 @@ const selectedSpiritPlane = ref<string>('heimat');
   padding-right: 2vh;
 }
 
-i {
-  font-size: 6vh;
-  color: var(--accent-color);
-}
-
 .box {
   align-content: center;
   text-align: center;
@@ -256,7 +251,7 @@ i {
   flex: 5;
 }
 
-.skill-dice {
+.dice {
   height: 5vh;
   width: 5vh;
   font-size: 3.5vh;

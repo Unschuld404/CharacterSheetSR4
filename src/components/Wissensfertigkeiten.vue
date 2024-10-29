@@ -16,7 +16,7 @@ const knowledgeSkills = computed(() => getKnowledgeSkills());
           <input type="checkbox" class="favourite">
           <div class="name">{{ skill.name }}</div>
           <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-          <button class="total-value" @click="DialogRollDice.show">{{ skill.total }}</button>
+          <button class="dice" @click="DialogRollDice.show">{{ skill.total }}</button>
         </li>
       </ul>
     </div>
