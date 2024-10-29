@@ -4,12 +4,17 @@
 
  function add()
  {
-   char.edge = char.edge + 1;
+   if (char.attributes.edge.total < char.attributes.edge.base)
+   {
+     char.attributes.edge.total++;
+   }
  }
 
- function substract()
- {
-   char.edge = char.edge - 1;
+ function substract() {
+   if (char.attributes.edge.total > 0)
+   {
+     char.attributes.edge.total--;
+   }
  }
 
 </script>/
@@ -23,8 +28,8 @@
       <div class="row">
         <div class="mutator" @click="substract">-</div>
         <div class="edge">
-          <div>{{ char.edge }}</div>
-          <div class="max-edge">/ 3</div>
+          <div>{{ char.attributes.edge.total }}</div>
+          <div class="max-edge">/ {{ char.attributes.edge.base }}</div>
         </div>
         <div class="mutator" @click="add">+</div>
       </div>
