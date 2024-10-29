@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import {getVehicles} from "@/composables/data";
-
-const vehicles = computed(() => getVehicles());
+import {char} from "@/composables/data";
 </script>
 
 <template>
 
   <ul>
-    <li v-for="vehicle in vehicles" :key="vehicle.name">
+    <li v-for="vehicle in char.vehicles" :key="vehicle.name">
       <div class="box">
         <div class="header">{{ vehicle.name }}</div>
         <div class="info">

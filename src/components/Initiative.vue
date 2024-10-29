@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {char} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
-
 </script>
 
 <template>
@@ -20,17 +19,17 @@ import {DialogRollDice} from "@/composables/dialogs";
 
         <div class="column">
           <div class="initiative-category">Normal</div>
-          <button class="dice" @click="DialogRollDice.setDiceCount(char.initiative.normal.total).show()" >{{ char.initiative.normal.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName('Initiative').setDiceCount(char.initiative.normal.total).show()" >{{ char.initiative.normal.total }}</button>
         </div>
 
         <div class="column">
           <div class="initiative-category">Matrix</div>
-          <button class="dice" @click="DialogRollDice.setDiceCount(char.initiative.matrix.total).show()" >{{ char.initiative.matrix.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName('Matrix Initiative').setDiceCount(char.initiative.matrix.total).show()" >{{ char.initiative.matrix.total }}</button>
         </div>
 
         <div class="column">
           <div class="initiative-category">Astral</div>
-          <button class="dice" @click="DialogRollDice.setDiceCount(char.initiative.astral.total).show()">{{ char.initiative.astral.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName('Astrale Initiative').setDiceCount(char.initiative.astral.total).show()">{{ char.initiative.astral.total }}</button>
         </div>
 
       </div>

@@ -1,10 +1,6 @@
 <script setup lang="ts">
-
-import { computed } from 'vue';
-import {data, getWeapons} from "@/composables/data";
+import {char} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
-
-const weapons = computed(() => getWeapons());
 
 </script>
 
@@ -12,22 +8,22 @@ const weapons = computed(() => getWeapons());
 
   <div class="scroll-box">
     <ul>
-      <li v-for="weapon in weapons" :key="weapon.name">
+      <li v-for="weapon in char.weapons" :key="weapon.name">
         <div class="item column">
           <div class="header row">
             <input type="checkbox" class="favourite">
-            <div v-if="data">{{ weapon.name }}</div>
+            <div>{{ weapon.name }}</div>
           </div>
           <div class="info">
-            <div v-if="data" class="value">Schaden: <strong>{{ weapon.damage }}</strong></div>
-            <div v-if="data" class="value">PB: <strong>{{ weapon.ap }}</strong></div>
-            <div v-if="data" class="value">Modus: <strong>{{ weapon.mode }}</strong></div>
-            <div v-if="data" class="value">Rückstoßkomp.: <strong>{{ weapon.rc }}</strong></div>
-            <div v-if="data" class="value">Munition: <strong>{{ weapon.ammo }}</strong></div>
-            <button v-if="data" class="dice" @click="DialogRollDice.show">{{ weapon.dicepool }}</button>
+            <div class="value">Schaden: <strong>{{ weapon.damage }}</strong></div>
+            <div class="value">PB: <strong>{{ weapon.ap }}</strong></div>
+            <div class="value">Modus: <strong>{{ weapon.mode }}</strong></div>
+            <div class="value">Rückstoßkomp.: <strong>{{ weapon.rc }}</strong></div>
+            <div class="value">Munition: <strong>{{ weapon.ammo }}</strong></div>
+            <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(weapon.dicepool).show()">{{ weapon.dicepool }}</button>
           </div>
           <div class="info">
-            <div v-if="data" class="ranges">
+            <div class="ranges">
               <div class="range">Reichweite:</div>
               <div class="range">Kurz: <strong>{{ weapon.ranges.short }}</strong></div>
               <div class="range">Mittel: <strong>{{ weapon.ranges.medium }}</strong></div>

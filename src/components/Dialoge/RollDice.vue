@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {DialogRollDice} from "@/composables/dialogs";
+  import {DialogRollDice} from "@/composables/dialogs";
 </script>/
 
 <template>
@@ -7,8 +7,7 @@ import {DialogRollDice} from "@/composables/dialogs";
   <div v-if="DialogRollDice.visible" class="modal-overlay" @click="DialogRollDice.hide">
     <div class="modal-content" @click.stop>
       <div class="base">
-        <h1>Name des Skills</h1>
-        <p>( 12 Basiswürfel )</p>
+        <h1>{{ DialogRollDice.name }}</h1>
       </div>
       <div class="row">
         <input type="checkbox" :checked="DialogRollDice.edge_checked" id="useEdge" name="useEdge" :class="{'favourite': true, 'disabled': DialogRollDice.edge_disabled}"/>
@@ -31,17 +30,18 @@ import {DialogRollDice} from "@/composables/dialogs";
   z-index: 4000;
 }
 
-.disabled {
-  text-decoration: line-through;
-}
-
 .modal-content{
-  width: 70vh;
-  height: 50vh;
+  width: 50vh;
+  height: 45vh;
   text-align: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   z-index: 4001;
+}
+
+.disabled {
+  text-decoration: line-through;
 }
 
 .favourite {
@@ -50,10 +50,6 @@ import {DialogRollDice} from "@/composables/dialogs";
   position: relative;
   bottom: 2.5vh;
   right: 1vh;
-}
-
-.base {
-  height: 12vh;
 }
 
 .row {
@@ -70,17 +66,13 @@ label {
   left: 1vh;
 }
 
-p {
-  font-size: 3vh;
-}
-
 strong{
   font-size: 5vh;
 }
 
 .mod {
-  width: 40vh;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-evenly;
   align-items: center;
   margin-left: auto;
   margin-right: auto;

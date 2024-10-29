@@ -28,6 +28,7 @@ const spiritPlanes = [
   { label: 'Astral', value: 'astral' },
   { label: 'Heimat', value: 'heimat' },
 ];
+
 const selectedBoundModes = ref<string>('ungebunden');
 
 const selectedSpiritPlane = ref<string>('heimat');

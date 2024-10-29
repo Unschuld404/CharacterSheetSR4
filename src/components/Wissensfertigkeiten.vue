@@ -1,26 +1,21 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import {getKnowledgeSkills} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
-
-const knowledgeSkills = computed(() => getKnowledgeSkills());
-
+import {char} from "@/composables/data";
 </script>
 
 <template>
 
   <div class="knowledge-skills box">
-    <div v-if="knowledgeSkills.length" class="scrollbox">
+    <div class="scrollbox">
       <ul>
-        <li v-for="(skill, index) in knowledgeSkills" :key="index" class="item row">
+        <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item row">
           <input type="checkbox" class="favourite">
           <div class="name">{{ skill.name }}</div>
           <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-          <button class="dice" @click="DialogRollDice.show">{{ skill.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
         </li>
       </ul>
     </div>
-    <p v-else>No knowledge skills available.</p>
     <div class="lower-header">Wissensfertigkeiten</div>
   </div>
 

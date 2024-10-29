@@ -22,9 +22,17 @@ export class SummonSpiritDialog extends Dialog {
 }
 
 export class RollDiceDialog extends Dialog {
+
+    name: string = 'Würfeln';
+
     dice_count: number = 0;
 
     edge_checked : boolean = false;
+
+    setName(name: string): RollDiceDialog {
+        this.name = name;
+        return this;
+    }
 
     setDiceCount(count: number): RollDiceDialog {
         this.dice_count = count;
