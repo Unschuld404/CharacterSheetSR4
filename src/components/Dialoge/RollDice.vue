@@ -1,14 +1,5 @@
 <script setup lang="ts">
 import {DialogRollDice} from "@/composables/dialogs";
-import {ref} from "vue";
-
-let checked = ref(false);
-
-function toggle()
-{
-  checked.value = !checked.value;
-}
-
 </script>/
 
 <template>
@@ -20,13 +11,13 @@ function toggle()
         <p>( 12 Basiswürfel )</p>
       </div>
       <div class="row">
-        <input type="checkbox" :checked="checked" id="useEdge" name="useEdge" class="favourite"/>
-        <label for="useEdge">Edge verwenden</label>
+        <input type="checkbox" :checked="DialogRollDice.edge_checked" id="useEdge" name="useEdge" :class="{'favourite': true, 'disabled': DialogRollDice.edge_disabled}"/>
+        <label for="useEdge" :class="{'disabled': DialogRollDice.edge_disabled}">Edge verwenden</label>
       </div>
       <div class="row mod">
-        <i class='bx bxs-minus-square icon'></i>
-        <p><strong>12</strong> Würfel</p>
-        <i class='bx bxs-plus-square icon' @click="toggle"></i>
+        <i class='bx bxs-minus-square icon' @click="DialogRollDice.removeDice()"></i>
+        <p><strong>{{ DialogRollDice.dice_count}}</strong> Würfel</p>
+        <i class='bx bxs-plus-square icon' @click="DialogRollDice.addDice()"></i>
       </div>
       <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
     </div>
@@ -38,6 +29,10 @@ function toggle()
 
 .modal-overlay {
   z-index: 4000;
+}
+
+.disabled {
+  text-decoration: line-through;
 }
 
 .modal-content{

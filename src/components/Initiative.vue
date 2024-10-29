@@ -2,6 +2,12 @@
 import {char} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
 
+function openRollDiceDialog() {
+  DialogRollDice
+      .setDiceCount(char.initiative.normal.total)
+      .show()
+}
+
 </script>
 
 <template>
@@ -20,17 +26,17 @@ import {DialogRollDice} from "@/composables/dialogs";
 
         <div class="column">
           <div class="initiative-category">Normal</div>
-          <button class="total-value" @click="DialogRollDice.show()" >{{ char.initiative.normal.total }}</button>
+          <button class="total-value" @click="DialogRollDice.setDiceCount(char.initiative.normal.total).show()" >{{ char.initiative.normal.total }}</button>
         </div>
 
         <div class="column">
           <div class="initiative-category">Matrix</div>
-          <button class="total-value" @click="DialogRollDice.show()" >{{ char.initiative.matrix.total }}</button>
+          <button class="total-value" @click="DialogRollDice.setDiceCount(char.initiative.matrix.total).show()" >{{ char.initiative.matrix.total }}</button>
         </div>
 
         <div class="column">
           <div class="initiative-category">Astral</div>
-          <button class="total-value" @click="DialogRollDice.show()">{{ char.initiative.astral.total }}</button>
+          <button class="total-value" @click="DialogRollDice.setDiceCount(char.initiative.astral.total).show()">{{ char.initiative.astral.total }}</button>
         </div>
 
       </div>
