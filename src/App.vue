@@ -11,6 +11,7 @@ import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
 import SummonSpirit from "@/components/Dialoge/SummonSpirit.vue";
 import ChooseSpirit from "@/components/Dialoge/ChooseSpirit.vue";
 import DroneSheet from "@/components/Dialoge/DroneSheet.vue";
+import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 
 
 const router = useRouter();
@@ -125,6 +126,7 @@ onBeforeUnmount(removeEventListeners);
   <SummonSpirit/>
   <ChooseSpirit/>
   <DroneSheet/>
+  <ReleaseSpirit/>
 
   <Header  v-if="dataIsValid()"  />
 

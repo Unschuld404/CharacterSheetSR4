@@ -1,4 +1,4 @@
-button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-selection {
+button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-selection, .dice {
     cursor: pointer;
 }
 

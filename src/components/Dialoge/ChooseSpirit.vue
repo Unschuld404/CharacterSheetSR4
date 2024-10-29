@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import {DialogChooseSpirit, DialogSummonSpirit} from "@/composables/dialogs";
 import {ref} from "vue";
 

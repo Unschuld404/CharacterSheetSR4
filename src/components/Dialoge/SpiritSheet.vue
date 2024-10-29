@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
+import {DialogReleaseSpirit, DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
@@ -39,11 +39,12 @@ const selectedSpiritPlane = ref<string>('heimat');
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
+
       <div class="box row spirit">
-        <i class='bx bxs-trash'></i>
         <div class="name">
           Geist der Menschen - Stufe 6
         </div>
+        <div class="dice release" @click="DialogReleaseSpirit.show"><i class='bx bx-unlink'></i></div>
       </div>
 
       <div class="content">
@@ -173,6 +174,15 @@ const selectedSpiritPlane = ref<string>('heimat');
 
 <style scoped>
 
+.release {
+  align-self: center;
+  margin-left: 1.5vh;
+}
+
+i {
+  margin-top: 0.85vh;
+}
+
 .mode {
   height: 100%;
 }
@@ -264,7 +274,7 @@ const selectedSpiritPlane = ref<string>('heimat');
   left: 50%;
   top: 0.5vh;
   transform: translateX(-50%);
-  width: 100%;
+  width: 80%;
 }
 
 .scroll-box {

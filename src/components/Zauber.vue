@@ -7,19 +7,21 @@ import {char} from "@/composables/data";
 
   <div class="scroll-box">
     <ul>
-      <li v-for="spell in char.spells" :key="spell.name" class="item row">
+      <li v-for="spell in char.spells" :key="spell.name" class="item">
        <div class="item column">
          <div class="header-row">
            <input type="checkbox" class="favourite">
            <div  class="header">{{ spell.name }}</div>
          </div>
          <div class="row">
-           <div class="category">{{ spell.category }}</div>
-           <div class="value">{{ spell.type }}</div>
-           <div class="value">{{ spell.range }}</div>
-           <div class="value">{{ spell.duration }}</div>
-           <div class="formula">{{ spell.dv }}</div>
-           <button class="dice" @click="DialogRollDice.setName(spell.name).show()">xx</button>
+          <div class="category">{{ spell.category }}</div>
+          <div class="value">{{ spell.type }}</div>
+          <div class="value">{{ spell.range }}</div>
+          <div class="value">{{ spell.duration }}</div>
+          <div class="formula">{{ spell.dv }}</div>
+          <div class="dice-box">
+            <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
+          </div>
          </div>
        </div>
       </li>
@@ -42,7 +44,8 @@ import {char} from "@/composables/data";
 
   .row {
     height: 8vh;
-    align-items: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     justify-content: space-between;
   }
 
