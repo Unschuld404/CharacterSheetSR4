@@ -7,35 +7,42 @@ import Initiative from "@/components/Initiative.vue";
 export const data = ref<any | null>(null);
 
 export class Sheet {
-    karma!: Karma[];
-    nuyen!: Nuyen[];
-    selectedSkills! : string[];
-    selectedItems! : Item[];
-    spentItems!: Item[];
-    damage!: DamageTaken;
-    spirits!: Spirit[];
+    karma_log: Karma[] = [];
+    nuyen_log: Nuyen[] = [];
+    selectedSkills : string[] = [];
+    selectedItems : Item[] = [];
+
+    nuyen: number = 0;
+    karma: number = 0;
+    spirits: Spirit[] = [];
+    monitor: DamageMonitor = {
+        physical : {
+            filled:0,
+            max: 0,
+        },
+        stun: {
+            filled:0,
+            max: 0,
+        },
+        threshold: 0,
+        offset: 0,
+        overflow: 0,
+    };
 
     toJSON() {
         return this;
     }
 }
 
-export type DamageTaken = {
-    physical: number;
-    stun: number;
-}
-
 export type Item = {
     type : string;
     name : string;
 }
-
 export type Nuyen = {
     date: Date;
     value: number;
     reason: string;
 }
-
 export type Karma = {
     date : Date;
     value: number;
@@ -44,8 +51,6 @@ export type Karma = {
 
 export class Charakter {
     name!: string;
-    nuyen!: number;
-    karma!: number;
     initiative!: Initiative;
     metatype! : string;
     movement!: Movement;
@@ -58,21 +63,36 @@ export class Charakter {
     hair! : string;
     armor! : Armor;
     drain!: Drain;
-    monitor!: DamageMonitor;
     attributes!: Attributes;
     knowledgeSkills!: Skill[];
     actionSkills!: Skill[];
     spells!: Spell[];
-    spirits!: Spirit[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
+
+    sheet! : Sheet;
 
     constructor(data: any )
     {
         this.update(data);
     }
 
-    update(data: any) {
+    get nuyen(): number {
+        return this.sheet.nuyen;
+    }
+    get karma(): number {
+        return this.sheet.karma;
+    }
+    get monitor(): DamageMonitor {
+        return this.sheet.monitor;
+    }
+    get spirits(): Spirit[] {
+        return this.sheet.spirits;
+    }
+
+    update(data: any, sheet: any) {
+        this.sheet = sheet ?? new Sheet();
+
         this.name = data?.name ?? 'The Shadow';
         this.nuyen = toInt(data?.nuyen);
         this.karma = toInt(data?.karma);

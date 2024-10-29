@@ -1,4 +1,34 @@
-import {char, data} from "@/composables/data";
+import {char, data, Sheet} from "@/composables/data";
+
+const basePath = 'https://api.blackserver.de/chummer';
+
+export async function uploadSheet(uid: string, sheet: Sheet): Promise<void> {
+    const url = `${basePath}/character/${encodeURIComponent(uid)}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sheet.toJSON()),
+        });
+
+        if (!response.ok)
+        {
+            let  error_message = `API Error ( ${ response.status }): ${ response.statusText } ${ await response.text() } `;
+            console.error(error_message);
+
+            // noinspection ExceptionCaughtLocallyJS
+            throw new Error(error_message);
+        }
+
+        console.log('Daten erfolgreich hochgeladen!');
+    } catch (error) {
+        console.error('Fehler beim Hochladen der Daten:', error);
+        throw error;
+    }
+}
 
 export async function fetchFromAPI(uid: string)
 {
@@ -14,8 +44,7 @@ export async function fetchFromAPI(uid: string)
         return;
     }
 
-    const basePath = 'https://api.blackserver.de/chummer/data/';
-    const url = basePath + encodeURIComponent(uid);
+    const url = basePath + '/data/' + encodeURIComponent(uid);
 
     try
     {
