@@ -14,6 +14,10 @@ export class Sheet {
     spentItems!: Item[];
     damage!: DamageTaken;
     spirits!: Spirit[];
+
+    toJSON() {
+        return this;
+    }
 }
 
 export type DamageTaken = {
@@ -62,7 +66,6 @@ export class Charakter {
     spirits!: Spirit[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
-
 
     constructor(data: any )
     {
@@ -209,8 +212,32 @@ export class Charakter {
         this.spirits = getSpirits();
         this.vehicles = getVehicles();
         this.weapons = getWeapons();
+        this.spells = getSpells();
+    }
+
+    get spellcasting(): Skill
+    {
+        let skill = this.skillByName('Spellcasting')
+        ?? this.skillByName('Spruchzauberei')
+        ?? {
+                name: 'Spellcasting',
+                attribute: 'unknown',
+                attribute_value: 0,
+                rating: 0,
+                total: 0,
+            };
+        console.log(skill);
+        return skill;
+    }
+
+    skillByName(name: string): Skill | null {
+        return this.actionSkills.find((item: any) => item.name === name)
+            ?? this.knowledgeSkills.find((item: any) => item.name === name)
+            ?? null;
     }
 }
+
+export const char = reactive(new Charakter(data.value));
 
 export type Attribute = {
     name: string;
@@ -328,8 +355,6 @@ export type Weapon = {
     };
     dicepool: string;
 }
-
-export const char = reactive(new Charakter(data.value));
 
 function extractAttributeFromDrain(drain: string|null): string|null {
     if (drain === null || drain === undefined)
