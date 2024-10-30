@@ -4,7 +4,9 @@ import {DialogSummonSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/data";
 import {ref} from "vue";
 
-let force = ref(char.attributes.magic.total);
+let force = ref(10);
+force.value = char.attributes.magic.total;
+
 
 let services = ref(1);
 
@@ -32,6 +34,11 @@ function substractServices()
   console.log(services.value);
 }
 
+function addSpirit()
+{
+  char.addSpirit(DialogSummonSpirit.type, force.value, services.value);
+  DialogSummonSpirit.hide();
+}
 
 </script>/
 
@@ -59,7 +66,7 @@ function substractServices()
 
       </div>
 
-      <button class="confirm" @click="DialogSummonSpirit.hide">Hinzufügen</button>
+      <button class="confirm" @click="addSpirit()">Hinzufügen</button>
 
     </div>
   </div>

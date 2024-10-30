@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import {getSpirits} from "@/composables/data";
 import {DialogSpiritSheet, DialogChooseSpirit} from "@/composables/dialogs";
+import {char} from "@/composables/data";
 
-const spirits = computed(() => getSpirits());
+const spirits = computed(() => char.spirits);
 </script>
 
 <template>

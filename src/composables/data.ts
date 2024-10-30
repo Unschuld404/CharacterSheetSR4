@@ -68,9 +68,7 @@ export class Charakter {
 
     get edge(): number { return this.sheet.edge ?? this.data.edge }
     set edge(value: number) { this.sheet.edge = value }
-
     get nuyen(): number { return this.sheet.nuyen }
-
     private alterNuyen(value: number, reason: string) {
         this.sheet.nuyen_log.push( {
             date : new Date(),
@@ -79,7 +77,6 @@ export class Charakter {
         });
         this.sheet.nuyen += value;
     }
-
     addNuyen(value: number, reason: string) {
         this.alterNuyen(value, reason);
     }
@@ -87,11 +84,26 @@ export class Charakter {
         this.alterNuyen(-1 * value, reason);
     }
 
-
-    set nuyen(value: number) { this.sheet.nuyen = value }
+    addSpirit(type: string, force: number, services: number) {
+        this.sheet.spirits.push({
+            type: type,
+            force: force,
+            services: services,
+            created : true,
+            bound: false,
+        })
+    }
 
     get karma(): number { return this.sheet.karma; }
-    set karma(value: number) { this.sheet.karma = value }
+    addKarma(value: number, reason: string) {
+        this.sheet.karma_log.push( {
+            date : new Date(),
+            value: value,
+            reason: reason
+        });
+
+        this.sheet.karma += value;
+    }
 
     get spirits(): Spirit[] { return this.sheet.spirits; }
 
@@ -99,7 +111,10 @@ export class Charakter {
         this.sheet = new Sheet(sheet);
         this.sheet.nuyen = sheet?.nuyen ?? toInt(data?.nuyen);
         this.sheet.karma = sheet?.karma ?? toInt(data?.karma);
-        this.sheet.spirits = sheet?.spirits ?? getSpiritsFromData(data);
+
+        let sheetSpirits = getSpiritsFromData(sheet);
+        let dataSpirits = getSpiritsFromData(data);
+        this.sheet.spirits =  sheetSpirits ?? dataSpirits ?? [];
 
         this.name = data?.name ?? 'The Shadow';
         this.initiative = {
@@ -151,9 +166,6 @@ export class Charakter {
 
         this.data = {
             edge : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
-            nuyen: toInt(data?.nuyen),
-            karma: toInt(data?.karma),
-            spirits: getSpiritsFromData(data) ?? [],
             damage : {
                 physical: toInt(data?.physicalcmfilled),
                 stun: toInt(data?.stuncmfilled),
@@ -258,17 +270,15 @@ export class Charakter {
     }
 
     get spellcasting(): Skill {
-        let skill = this.skillByName('Spellcasting')
-        ?? this.skillByName('Spruchzauberei')
-        ?? {
-                name: 'Spellcasting',
-                attribute: 'unknown',
-                attribute_value: 0,
-                rating: 0,
-                total: 0,
-            };
-        console.log(skill);
-        return skill;
+        return this.skillByName('Spellcasting')
+                ?? this.skillByName('Spruchzauberei')
+                ?? {
+                        name: 'Spellcasting',
+                        attribute: 'unknown',
+                        attribute_value: 0,
+                        rating: 0,
+                        total: 0,
+                    };
     }
 
     skillByName(name: string): Skill | null {
@@ -282,9 +292,6 @@ export const char = reactive(new Charakter(data.value, sheet_data.value));
 
 type SheetData = {
     edge : number;
-    nuyen: number;
-    karma: number;
-    spirits: Spirit[];
     damage: DamageTaken;
 }
 
@@ -515,7 +522,7 @@ export function getSpells(): Array<Spell> {
 }
 
 function getSpiritsFromData(data: any): Spirit[] | null {
-    let spiritData = data?.value?.spirits;
+    let spiritData = data?.spirits;
 
     if (spiritData === null || spiritData === undefined) {
         return null;
@@ -525,7 +532,7 @@ function getSpiritsFromData(data: any): Spirit[] | null {
 
     return spiritData.map((spirit: any) => (
         {
-            type: spirit.crittername || 'Unknown',
+            type: spirit.type || spirit.crittername || 'Unknown',
             services: parseInt(spirit.services, 10) || 0,
             force: parseInt(spirit.force, 10) || 0,
             bound: spirit.bound === 'True',
