@@ -87,6 +87,7 @@ export class Charakter {
     addSpirit(type: string, force: number, services: number) {
         this.sheet.spirits.push({
             type: type,
+            name: '',
             force: force,
             services: services,
             created : true,
@@ -389,6 +390,7 @@ export type Spell = {
 }
 export type Spirit = {
     type: string;
+    name: string;
     services: number;
     force: number;
     bound: boolean;
@@ -532,7 +534,8 @@ function getSpiritsFromData(data: any): Spirit[] | null {
 
     return spiritData.map((spirit: any) => (
         {
-            type: spirit.type || spirit.crittername || 'Unknown',
+            type: spirit.name || spirit.type || 'Unknown',
+            name: spirit.crittername,
             services: parseInt(spirit.services, 10) || 0,
             force: parseInt(spirit.force, 10) || 0,
             bound: spirit.bound === 'True',

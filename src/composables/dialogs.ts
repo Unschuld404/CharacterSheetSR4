@@ -1,5 +1,5 @@
 import {reactive} from "vue";
-import {char} from "@/composables/data";
+import {char, type Spirit} from "@/composables/data";
 import {uploadSheet} from "@/composables/fetch";
 
 
