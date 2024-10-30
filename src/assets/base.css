@@ -22,3 +22,15 @@ body {
   background-color: var(--background-color);
   font-size: 2vh;
 }
+
+/* Für Chrome, Safari und Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Generell */
+input[type="number"] {
+  appearance: none;
+}

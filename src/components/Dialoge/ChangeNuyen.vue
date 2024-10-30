@@ -30,11 +30,11 @@ function substract()
 
       <h1>Nuyen</h1>
       <div class="row">
-        <input v-model="nuyen" type="number" placeholder="Summe" autofocus>
-        <p>¥</p>
+        <input v-model="nuyen" type="number" placeholder="Summe" autofocus style="-moz-appearance: textfield">
       </div>
       <div class="row">
         <input v-model="reason" type="text" placeholder="Grund">
+        <p>¥</p>
       </div>
       <div class="row">
         <button @click="substract">Ausgeben</button>

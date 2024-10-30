@@ -54,6 +54,10 @@ import {DialogRollDice} from "@/composables/dialogs";
   margin-right: 3vh;
 }
 
+.item {
+  border-bottom: 1px solid var(--background-color);
+}
+
 .info {
   display: flex;
   justify-content: flex-start;
