@@ -49,14 +49,14 @@ const spirits = computed(() => getSpirits());
   }
 
   button {
-    background-color: var(--background-color);
-    border-radius: 1vh;
-    font-size: 5vh;
-    height: 15vh;
-    color: var(--accent-color);
-    border: 1px solid var(--font-color);
     position: relative;
     top: -2vh;
+    background-color: var(--background-color);
+    height: 10vh;
+    border-radius: 1vh;
+    border: 1px solid var(--font-color);
+    font-size: 5vh;
+    color: var(--accent-color);
   }
 
 </style>

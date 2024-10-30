@@ -8,12 +8,6 @@ import {DialogRollDice} from "@/composables/dialogs";
   <div class="box">
 
     <div class="column">
-      <div class="row">Durchgänge</div>
-      <div class="row">
-        <div class="passes">1</div>
-        <div class="passes">1</div>
-        <div class="passes">3</div>
-      </div>
 
       <div class="row">
 
@@ -33,6 +27,14 @@ import {DialogRollDice} from "@/composables/dialogs";
         </div>
 
       </div>
+
+      <div class="row">Durchgänge</div>
+      <div class="row">
+        <div class="passes">1</div>
+        <div class="passes">1</div>
+        <div class="passes">3</div>
+      </div>
+
     </div>
 
     <div class="lower-header">Initiative</div>
@@ -45,6 +47,7 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 .passes {
   font-weight: bold;
+  font-size: 3vh;
 }
 
 .box {
