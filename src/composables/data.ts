@@ -70,6 +70,24 @@ export class Charakter {
     set edge(value: number) { this.sheet.edge = value }
 
     get nuyen(): number { return this.sheet.nuyen }
+
+    private alterNuyen(value: number, reason: string) {
+        this.sheet.nuyen_log.push( {
+            date : new Date(),
+            value: value,
+            reason: reason
+        });
+        this.sheet.nuyen += value;
+    }
+
+    addNuyen(value: number, reason: string) {
+        this.alterNuyen(value, reason);
+    }
+    spendNuyen(value: number, reason: string) {
+        this.alterNuyen(-1 * value, reason);
+    }
+
+
     set nuyen(value: number) { this.sheet.nuyen = value }
 
     get karma(): number { return this.sheet.karma; }

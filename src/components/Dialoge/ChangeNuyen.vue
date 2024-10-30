@@ -4,19 +4,19 @@ import {char} from "@/composables/data";
 import {toInt} from "@/composables/utils";
 import {ref} from "vue";
 
-const nuyen = ref(' ');
+const nuyen = ref('');
 const reason = ref('');
 
 function add()
 {
-  char.nuyen += toInt(nuyen.value);
+  char.addNuyen(toInt(nuyen.value), reason.value);
   DialogChangeNuyen.hide();
   nuyen.value = '';
 }
 
-function substract()
+function spend()
 {
-  char.nuyen -= toInt(nuyen.value);
+  char.spendNuyen(toInt(nuyen.value), reason.value);
   DialogChangeNuyen.hide();
   nuyen.value = '';
 }
@@ -37,8 +37,8 @@ function substract()
         <input v-model="reason" type="text" placeholder="Grund">
       </div>
       <div class="row">
-        <button @click="substract">Ausgeben</button>
-        <button @click="add">Einnahmen</button>
+        <button @click="spend()">Ausgeben</button>
+        <button @click="add()">Einnahmen</button>
       </div>
 
     </div>
