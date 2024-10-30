@@ -87,7 +87,7 @@ router.beforeEach((to, from, next) => {
   {
     uid.value = routeUid;
 
-    void fetchFromAPI(routeUid)
+    void fetchFromAPI()
         .catch(
         error => {
           console.error(error);

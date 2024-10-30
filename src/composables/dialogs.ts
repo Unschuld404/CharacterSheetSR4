@@ -1,5 +1,7 @@
 import {reactive} from "vue";
-import {char, Charakter} from "@/composables/data";
+import {char} from "@/composables/data";
+import {uploadSheet} from "@/composables/fetch";
+
 
 export class Dialog  {
     visible: boolean;
@@ -14,6 +16,7 @@ export class Dialog  {
 
     hide() {
         this.visible = false;
+        uploadSheet().then(() => {});
     }
 }
 
