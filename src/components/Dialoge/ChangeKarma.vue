@@ -9,7 +9,7 @@ const reason = ref('');
 
 function add()
 {
-  char.addNuyen(toInt(karma.value), reason.value);
+  char.addKarma(toInt(karma.value), reason.value);
   DialogChangeKarma.hide();
   karma.value = '';
 }
@@ -26,7 +26,7 @@ function add()
         <input v-model="karma" type="number" placeholder="Summe" autofocus style="-moz-appearance: textfield">
       </div>
       <div class="row">
-        <input v-model="karma" type="text" placeholder="Grund">
+        <input v-model="reason" type="text" placeholder="Grund">
       </div>
       <div class="row">
         <button @click="add()">Bestätigen</button>

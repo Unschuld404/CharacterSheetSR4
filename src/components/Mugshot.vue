@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {char, data} from "@/composables/data";
+import {char} from "@/composables/data";
 import {DialogChangeKarma} from "@/composables/dialogs";
 </script>
 
@@ -117,8 +117,8 @@ import {DialogChangeKarma} from "@/composables/dialogs";
 
       <div class="box Karma">
         <div class="lower-header">Karma</div>
-        <div class="line" style="border-bottom: none"><div>Gesamt</div><div>8</div></div>
-        <div class="line" style="border-bottom: none"><div>Aktuell</div><div>4</div></div>
+        <div class="line" style="border-bottom: none"><div>Gesamt</div><div>{{ char.karma }}</div></div>
+        <div class="line" style="border-bottom: none"><div>Aktuell</div><div>{{ char.karma }}</div></div>
       </div>
 
       <div class="box description">
