@@ -75,3 +75,4 @@ export const DialogSummonSpirit = reactive(new SummonSpiritDialog());
 export const DialogChooseSpirit = reactive(new Dialog());
 export const DialogDroneSheet = reactive(new Dialog());
 export const DialogReleaseSpirit = reactive(new Dialog());
+export const DialogChangeKarma = reactive(new Dialog());

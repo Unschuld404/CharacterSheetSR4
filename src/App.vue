@@ -12,6 +12,7 @@ import SummonSpirit from "@/components/Dialoge/SummonSpirit.vue";
 import ChooseSpirit from "@/components/Dialoge/ChooseSpirit.vue";
 import DroneSheet from "@/components/Dialoge/DroneSheet.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
+import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 
 
 const router = useRouter();
@@ -127,6 +128,7 @@ onBeforeUnmount(removeEventListeners);
   <ChooseSpirit/>
   <DroneSheet/>
   <ReleaseSpirit/>
+  <ChangeKarma/>
 
   <Header  v-if="dataIsValid()"  />
 
