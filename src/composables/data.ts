@@ -3,49 +3,41 @@ import {ref} from "vue";
 import {toInt} from "@/composables/utils";
 import Initiative from "@/components/Initiative.vue";
 
-
 export const data = ref<any | null>(null);
+export const sheet_data = ref<any | null>(null);
 
 export class Sheet {
-    karma!: Karma[];
-    nuyen!: Nuyen[];
-    selectedSkills! : string[];
-    selectedItems! : Item[];
-    spentItems!: Item[];
-    damage!: DamageTaken;
+    karma_log: KarmaEntry[];
+    nuyen_log: NuyenEntry[];
+    selectedSkills : string[];
+    selectedItems : SelectedItem[];
+
+    edge : number | null;
+    nuyen!: number;
+    karma!: number;
     spirits!: Spirit[];
+    damage: DamageTaken;
+
+    constructor(sheet: any) {
+        this.karma_log = getKarmaLog(sheet);
+        this.nuyen_log = getNuyenLog(sheet);
+        this.selectedSkills = sheet?.selectedSkills ?? [];
+        this.selectedItems = getSelectedItems(sheet);
+
+        this.edge = sheet?.edge ?? null;
+        this.damage = {
+            physical: sheet?.damage?.physical ?? null,
+            stun: sheet?.damage?.stun ?? null,
+        }
+    }
 
     toJSON() {
         return this;
     }
 }
 
-export type DamageTaken = {
-    physical: number;
-    stun: number;
-}
-
-export type Item = {
-    type : string;
-    name : string;
-}
-
-export type Nuyen = {
-    date: Date;
-    value: number;
-    reason: string;
-}
-
-export type Karma = {
-    date : Date;
-    value: number;
-    reason: string;
-}
-
 export class Charakter {
     name!: string;
-    nuyen!: number;
-    karma!: number;
     initiative!: Initiative;
     metatype! : string;
     movement!: Movement;
@@ -58,24 +50,58 @@ export class Charakter {
     hair! : string;
     armor! : Armor;
     drain!: Drain;
-    monitor!: DamageMonitor;
     attributes!: Attributes;
     knowledgeSkills!: Skill[];
     actionSkills!: Skill[];
     spells!: Spell[];
-    spirits!: Spirit[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
+    monitor!: DamageMonitor;
 
-    constructor(data: any )
+    sheet! : Sheet;
+    data! : SheetData;
+
+    constructor(data: any, sheet: any )
     {
-        this.update(data);
+        this.update(data, sheet);
     }
 
-    update(data: any) {
+    get edge(): number { return this.sheet.edge ?? this.data.edge }
+    set edge(value: number) { this.sheet.edge = value }
+
+    get nuyen(): number { return this.sheet.nuyen }
+
+    private alterNuyen(value: number, reason: string) {
+        this.sheet.nuyen_log.push( {
+            date : new Date(),
+            value: value,
+            reason: reason
+        });
+        this.sheet.nuyen += value;
+    }
+
+    addNuyen(value: number, reason: string) {
+        this.alterNuyen(value, reason);
+    }
+    spendNuyen(value: number, reason: string) {
+        this.alterNuyen(-1 * value, reason);
+    }
+
+
+    set nuyen(value: number) { this.sheet.nuyen = value }
+
+    get karma(): number { return this.sheet.karma; }
+    set karma(value: number) { this.sheet.karma = value }
+
+    get spirits(): Spirit[] { return this.sheet.spirits; }
+
+    update(data: any, sheet: any) {
+        this.sheet = new Sheet(sheet);
+        this.sheet.nuyen = sheet?.nuyen ?? toInt(data?.nuyen);
+        this.sheet.karma = sheet?.karma ?? toInt(data?.karma);
+        this.sheet.spirits = sheet?.spirits ?? getSpiritsFromData(data);
+
         this.name = data?.name ?? 'The Shadow';
-        this.nuyen = toInt(data?.nuyen);
-        this.karma = toInt(data?.karma);
         this.initiative = {
             normal : {
                 base : toInt(data?.init?.base),
@@ -120,23 +146,44 @@ export class Charakter {
             impact : toInt(data?.armori),
             ballistic : toInt(data?.armorb),
         }
+
+        let attributes = data?.attributes ?? [];
+
+        this.data = {
+            edge : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
+            nuyen: toInt(data?.nuyen),
+            karma: toInt(data?.karma),
+            spirits: getSpiritsFromData(data) ?? [],
+            damage : {
+                physical: toInt(data?.physicalcmfilled),
+                stun: toInt(data?.stuncmfilled),
+            },
+        }
+        const self = this;
+
         this.monitor = {
             physical: {
-                filled: toInt(data?.physicalcmfilled),
+                get filled(): number { return self.sheet.damage?.physical ?? self.data.damage.physical ?? 0 },
+                set filled(value: number) { self.sheet.damage.physical = value; },
                 max: toInt(data?.physicalcm),
             },
             stun: {
-                filled: toInt(data?.stuncmfilled),
+                get filled(): number { return self.sheet.damage?.stun ?? self.data.damage.stun ?? 0 },
+                set filled(value: number) { self.sheet.damage.stun = value; },
                 max: toInt(data?.stuncm),
             },
             threshold: toInt(data?.cmthreshold),
             offset: toInt(data?.cmthresholdoffset),
             overflow: toInt(data?.cmoverflow),
         }
-        let attributes = data?.attributes ?? [];
-
 
         this.attributes = {
+            edge: {
+                name: 'EDG',
+                base : toInt(attributes.find((item: any) => item.name === 'EDG')?.base),
+                get total() : number { return self.sheet.edge ?? self.data.edge},
+                set total(value: number) { self.sheet.edge = value; },
+            },
             body: {
                 name: 'BOD',
                 base : toInt(attributes.find((item: any) => item.name === 'BOD')?.base),
@@ -177,11 +224,6 @@ export class Charakter {
                 base : toInt(attributes.find((item: any) => item.name === 'WIL')?.base),
                 total : toInt(attributes.find((item: any) => item.name === 'WIL')?.total),
             },
-            edge: {
-                name: 'EDG',
-                base : toInt(attributes.find((item: any) => item.name === 'EDG')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
-            },
             magic: {
                 name: 'MAG',
                 base : toInt(attributes.find((item: any) => item.name === 'MAG')?.base),
@@ -209,14 +251,13 @@ export class Charakter {
 
         this.knowledgeSkills = getKnowledgeSkills();
         this.actionSkills = getActionSkills();
-        this.spirits = getSpirits();
+
         this.vehicles = getVehicles();
         this.weapons = getWeapons();
         this.spells = getSpells();
     }
 
-    get spellcasting(): Skill
-    {
+    get spellcasting(): Skill {
         let skill = this.skillByName('Spellcasting')
         ?? this.skillByName('Spruchzauberei')
         ?? {
@@ -237,14 +278,35 @@ export class Charakter {
     }
 }
 
-export const char = reactive(new Charakter(data.value));
+export const char = reactive(new Charakter(data.value, sheet_data.value));
 
+type SheetData = {
+    edge : number;
+    nuyen: number;
+    karma: number;
+    spirits: Spirit[];
+    damage: DamageTaken;
+}
+
+export type SelectedItem = {
+    type : string;
+    name : string;
+}
+export type NuyenEntry = {
+    date: Date;
+    value: number;
+    reason: string;
+}
+export type KarmaEntry = {
+    date : Date;
+    value: number;
+    reason: string;
+}
 export type Attribute = {
     name: string;
     base: number;
     total: number;
 }
-
 export type Attributes = {
     body: Attribute;
     agility: Attribute;
@@ -259,25 +321,21 @@ export type Attributes = {
     resonance: Attribute;
     essens: Attribute;
 }
-
 export type Movement = {
     caption: string;
     walk: string;
     swim: string;
     fly: string;
 }
-
 export type Drain = {
     caption: string;
     attribute: string;
     total: number;
 }
-
 export type Damage = {
     filled: number;
     max: number;
 }
-
 export type DamageMonitor = {
     physical: Damage;
     stun: Damage;
@@ -285,29 +343,28 @@ export type DamageMonitor = {
     offset: number;
     overflow: number;
 }
-
+export type DamageTaken = {
+    physical: number | null;
+    stun: number | null;
+}
 export type InitiativePasses = {
     base: number;
     total: number;
 }
-
 export type InitiativeValues = {
     base: number;
     total: number;
     passes: InitiativePasses;
 }
-
 export type Initiative = {
     normal: InitiativeValues;
     matrix: InitiativeValues;
     astral: InitiativeValues;
 }
-
 export type Armor = {
     ballistic: number;
     impact: number;
 }
-
 export type Skill = {
     name: string;
     attribute: string;
@@ -371,19 +428,44 @@ function extractAttributeFromDrain(drain: string|null): string|null {
 
     return null;
 }
+function getKarmaLog(data: any): KarmaEntry[] {
+    let log = data?.value?.karma_log;
+    log = Array.isArray(log) ? log : [];
+    return log.map((entry: any) => ({
+        date: entry.date,
+        value: entry.value,
+        reason: entry.reason,
+    }));
+}
+function getNuyenLog(data: any): NuyenEntry[]  {
+    let log = data?.value?.nuyen_log;
+    log = Array.isArray(log) ? log : [];
+    return log.map((entry: any) => ({
+        date: entry.date,
+        value: entry.value,
+        reason: entry.reason,
+    }));
+}
+function getSelectedItems(data: any): SelectedItem[] {
+    let list = data?.value?.selectedItems;
+    list = Array.isArray(list) ? list : [];
+    return list.map((entry: any) => ({
+        type: entry.type,
+        name: entry.name,
+    }));
+}
+
 export function dataIsValid(): boolean {
     return data.value !== null;
 }
 
-export function getMaxStunDamage(): number
-{
+export function getMaxStunDamage(): number {
     let wil = getAttributeValueByName('WIL');
 
     return 8 + Math.ceil(wil / 2);
 }
 
-export function getMaxPhysicalDamage(): number
-{
+export function getMaxPhysicalDamage(): number {
     let bod = getAttributeValueByName('BOD');
 
     return 8 + Math.ceil(bod / 2);
@@ -432,8 +514,13 @@ export function getSpells(): Array<Spell> {
     }));
 }
 
-export function getSpirits(): Array<Spirit> {
+function getSpiritsFromData(data: any): Spirit[] | null {
     let spiritData = data?.value?.spirits;
+
+    if (spiritData === null || spiritData === undefined) {
+        return null;
+    }
+
     spiritData = Array.isArray(spiritData) ? spiritData : [];
 
     return spiritData.map((spirit: any) => (
@@ -444,6 +531,10 @@ export function getSpirits(): Array<Spirit> {
             bound: spirit.bound === 'True',
             created: false,
         }));
+}
+
+export function getSpirits(): Array<Spirit> {
+    return getSpiritsFromData(data) ?? [];
 }
 
 export function getVehicles(): Array<Vehicle> {
