@@ -21,6 +21,15 @@ export class SummonSpiritDialog extends Dialog {
     type: string = 'unbekannt';
 }
 
+export class ShowSpiritSheet extends Dialog {
+    type: string = 'unbekannt';
+
+    setType(type: string): ShowSpiritSheet {
+        this.type = type;
+        return this;
+    }
+}
+
 export class RollDiceDialog extends Dialog {
 
     name: string = 'Würfeln';
@@ -57,7 +66,7 @@ export class RollDiceDialog extends Dialog {
 
 export const DialogRollDice = reactive(new RollDiceDialog());
 export const DialogChangeNuyen = reactive(new Dialog());
-export const DialogSpiritSheet = reactive(new Dialog());
+export const DialogSpiritSheet = reactive(new ShowSpiritSheet());
 export const DialogManageEdge = reactive(new Dialog());
 export const DialogSummonSpirit = reactive(new SummonSpiritDialog());
 export const DialogChooseSpirit = reactive(new Dialog());

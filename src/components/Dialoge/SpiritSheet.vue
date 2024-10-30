@@ -3,6 +3,7 @@ import {DialogReleaseSpirit, DialogRollDice, DialogSpiritSheet} from "@/composab
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
+import {char} from "../../composables/data";
 
 const services = ref(1);
 
@@ -42,7 +43,7 @@ const selectedSpiritPlane = ref<string>('heimat');
 
       <div class="box row spirit">
         <div class="name">
-          Geist der Menschen - Stufe 6
+          Hier steht der Name vom Geist und Stufe
         </div>
         <div class="dice release" @click="DialogReleaseSpirit.show"><i class='bx bx-unlink'></i></div>
       </div>

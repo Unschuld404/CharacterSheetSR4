@@ -10,7 +10,7 @@ const spirits = computed(() => getSpirits());
 
   <div v-if="spirits.length">
     <ul>
-      <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.show">
+      <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setType(DialogSpiritSheet.type).show">
         <div class="box spirit-selection">
           <div class="header">{{ spirit.type }}</div>
           <div class="info">
