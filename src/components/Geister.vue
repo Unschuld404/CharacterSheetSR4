@@ -8,32 +8,35 @@ const spirits = computed(() => char.spirits);
 
 <template>
 
-  <div v-if="spirits.length">
-    <ul>
-      <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setType(DialogSpiritSheet.type).show">
-        <div class="box spirit-selection">
-          <div class="header">{{ spirit.name || spirit.type }}</div>
-          <div class="info">
-            <div class="value">Kraft: {{ spirit.force }}</div>
-            <div class="value">Dienste: {{ spirit.services }}</div>
-            <div class="value">{{ spirit.bound ? 'Gebunden' : 'Frei' }}</div>
+  <div class="column">
+    <div v-if="spirits.length">
+      <ul>
+        <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setType(DialogSpiritSheet.type).show">
+          <div class="box">
+            <div class="header">{{ spirit.name || spirit.type }}</div>
+            <div class="info">
+              <div class="value">Kraft: {{ spirit.force }}</div>
+              <div class="value">Dienste: {{ spirit.services }}</div>
+              <div class="value">{{ spirit.bound ? 'Gebunden' : 'Frei' }}</div>
+            </div>
           </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+        </li>
+      </ul>
+    </div>
 
-  <button @click="DialogAddSpirit.show()"><i class='bx bxs-ghost'></i></button>
+    <button @click="DialogAddSpirit.show()"><i class='bx bxs-ghost'></i></button>
+  </div>
 
 </template>
 
 <style scoped>
 
+  .column {
+    width: 100%;
+  }
+
   .box {
     height: 15vh;
-    padding-top: 2vh;
-    padding-left: 4vh;
-    padding-right: 4vh;
     margin-bottom: 2vh;
   }
 
@@ -50,7 +53,6 @@ const spirits = computed(() => char.spirits);
 
   button {
     position: relative;
-    top: -2vh;
     background-color: var(--background-color);
     height: 10vh;
     border-radius: 1vh;
