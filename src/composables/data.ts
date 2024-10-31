@@ -113,8 +113,8 @@ export class Charakter {
         this.sheet.nuyen = sheet?.nuyen ?? toInt(data?.nuyen);
         this.sheet.karma = sheet?.karma ?? toInt(data?.karma);
 
-        let sheetSpirits = getSpiritsFromData(sheet);
-        let dataSpirits = getSpiritsFromData(data);
+        let sheetSpirits = getSpirits(sheet);
+        let dataSpirits = getSpirits(data);
         this.sheet.spirits =  sheetSpirits ?? dataSpirits ?? [];
 
         this.name = data?.name ?? 'The Shadow';
@@ -267,7 +267,7 @@ export class Charakter {
 
         this.vehicles = getVehicles(data);
         this.weapons = getWeapons(data);
-        this.spells = getSpells();
+        this.spells = getSpells(data);
     }
 
     get spellcasting(): Skill {
@@ -509,8 +509,8 @@ export function getActionSkills(): Array<Skill> {
     return getSkills(false);
 }
 
-export function getSpells(): Array<Spell> {
-    let spells = data?.value?.spells;
+function getSpells(data: any): Array<Spell> {
+    let spells = data?.spells;
     spells = Array.isArray(spells) ? spells : [];
 
     return spells.map((spell: any) => ({
@@ -523,7 +523,7 @@ export function getSpells(): Array<Spell> {
     }));
 }
 
-function getSpiritsFromData(data: any): Spirit[] | null {
+function getSpirits(data: any): Spirit[] | null {
     let spiritData = data?.spirits;
 
     if (spiritData === null || spiritData === undefined) {
@@ -543,11 +543,7 @@ function getSpiritsFromData(data: any): Spirit[] | null {
         }));
 }
 
-export function getSpirits(): Array<Spirit> {
-    return getSpiritsFromData(data) ?? [];
-}
-
-export function getVehicles(data: any): Array<Vehicle> {
+function getVehicles(data: any): Array<Vehicle> {
     let vehicles = data?.vehicles;
     vehicles = Array.isArray(vehicles) ? vehicles : [];
 
