@@ -9,7 +9,6 @@ import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
 import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
 import DroneSheet from "@/components/Dialoge/DroneSheet.vue";
-import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
 
@@ -124,7 +123,6 @@ onBeforeUnmount(removeEventListeners);
   <ManageEdge/>
   <AddSpirit/>
   <DroneSheet/>
-  <ReleaseSpirit/>
   <ChangeKarma/>
 
   <Header  v-if="dataIsValid()"  />

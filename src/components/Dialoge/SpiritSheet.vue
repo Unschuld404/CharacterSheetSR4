@@ -3,6 +3,7 @@ import {DialogReleaseSpirit, DialogRollDice, DialogSpiritSheet} from "@/composab
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
+import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 
 const services = ref(1);
 
@@ -36,9 +37,10 @@ const selectedSpiritPlane = ref<string>('heimat');
 </script>/
 
 <template>
-
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
+
+      <ReleaseSpirit v-if="true"/>
 
       <div class="box row spirit">
         <div class="name">
