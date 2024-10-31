@@ -183,7 +183,6 @@ import {DialogChangeKarma} from "@/composables/dialogs";
 }
 
 .box {
-  padding: 1vh;
   padding-bottom: 4vh;
   width: 100%;
 }

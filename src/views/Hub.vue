@@ -72,11 +72,11 @@ import Nuyen from "@/components/Nuyen.vue";
   }
 
   .ini-edg-nuy {
-    flex: 3;
+    flex: 2;
   }
 
   .resistance {
-    flex: 2;
+    flex: 1.5;
   }
 
   .monitors {
@@ -88,7 +88,7 @@ import Nuyen from "@/components/Nuyen.vue";
   }
 
   .initiative-box {
-    flex: 2;
+    flex: 1.5;
   }
 
   .fav-actions {

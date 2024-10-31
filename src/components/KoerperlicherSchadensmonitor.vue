@@ -7,7 +7,7 @@ import {getMaxPhysicalDamage} from "@/composables/data";
 <template>
 
   <div class="box">
-    <div v-for="row in 6" :key="row" class="row">
+    <div v-for="row in 7" :key="row" class="row">
       <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > getMaxPhysicalDamage() }">
       <div class="malus">{{ row * -1 }}</div>
     </div>
