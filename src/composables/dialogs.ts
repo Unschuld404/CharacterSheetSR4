@@ -2,7 +2,6 @@ import {reactive} from "vue";
 import {char, type Spirit} from "@/composables/data";
 import {uploadSheet} from "@/composables/fetch";
 
-
 export class Dialog  {
     visible: boolean;
 
@@ -20,8 +19,12 @@ export class Dialog  {
     }
 }
 
-export class SummonSpiritDialog extends Dialog {
-    type: string = 'unbekannt';
+export class AddSpiritDialog extends Dialog {
+    doChoose: boolean = true;
+
+    show() {
+        super.show();
+    }
 }
 
 export class ShowSpiritSheet extends Dialog {
@@ -71,8 +74,7 @@ export const DialogRollDice = reactive(new RollDiceDialog());
 export const DialogChangeNuyen = reactive(new Dialog());
 export const DialogSpiritSheet = reactive(new ShowSpiritSheet());
 export const DialogManageEdge = reactive(new Dialog());
-export const DialogSummonSpirit = reactive(new SummonSpiritDialog());
-export const DialogChooseSpirit = reactive(new Dialog());
+export const DialogAddSpirit = reactive(new AddSpiritDialog());
 export const DialogDroneSheet = reactive(new Dialog());
 export const DialogReleaseSpirit = reactive(new Dialog());
 export const DialogChangeKarma = reactive(new Dialog());

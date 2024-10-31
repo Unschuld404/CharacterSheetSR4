@@ -8,12 +8,10 @@ import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
 import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
-import SummonSpirit from "@/components/Dialoge/SummonSpirit.vue";
-import ChooseSpirit from "@/components/Dialoge/ChooseSpirit.vue";
 import DroneSheet from "@/components/Dialoge/DroneSheet.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
-
+import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -124,8 +122,7 @@ onBeforeUnmount(removeEventListeners);
   <RollDice/>
   <SpiritSheet />
   <ManageEdge/>
-  <SummonSpirit/>
-  <ChooseSpirit/>
+  <AddSpirit/>
   <DroneSheet/>
   <ReleaseSpirit/>
   <ChangeKarma/>

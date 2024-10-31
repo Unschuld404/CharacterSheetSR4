@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import {DialogSpiritSheet, DialogChooseSpirit} from "@/composables/dialogs";
+import {DialogSpiritSheet, DialogAddSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/data";
 
 const spirits = computed(() => char.spirits);
@@ -23,7 +23,7 @@ const spirits = computed(() => char.spirits);
     </ul>
   </div>
 
-  <button @click="DialogChooseSpirit.show"><i class='bx bxs-ghost'></i></button>
+  <button @click="DialogAddSpirit.show()"><i class='bx bxs-ghost'></i></button>
 
 </template>
 
