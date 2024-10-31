@@ -275,6 +275,7 @@ export class Charakter {
                 ?? this.skillByName('Spruchzauberei')
                 ?? {
                         name: 'Spellcasting',
+                        type: 'unknown',
                         attribute: 'unknown',
                         attribute_value: 0,
                         rating: 0,
@@ -392,6 +393,7 @@ export type Armor = {
 }
 export type Skill = {
     name: string;
+    type: string;
     attribute: string;
     attribute_value: number;
     rating: number;
@@ -489,6 +491,7 @@ function getSkills(data: any, knowledge: boolean): Array<Skill> {
         .map((skill: any) => (
             {
                 name: skill.name || 'Unbekannt',
+                type: skill.skillcategory_english || 'Unbekannt',
                 attribute: skill.attribute || 'Unbekannt',
                 attribute_value: toInt(skill.attributemod),
                 rating: toInt(skill.rating),

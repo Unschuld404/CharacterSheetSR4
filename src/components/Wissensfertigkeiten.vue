@@ -2,6 +2,7 @@
 import {DialogRollDice} from "@/composables/dialogs";
 import {char} from "@/composables/data";
 import {uploadSheet} from "@/composables/fetch";
+import {computed} from "vue";
 
 function toggleSkill(value: string)
 {
@@ -27,8 +28,16 @@ function toggleSkill(value: string)
         <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item row">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div class="name">{{ skill.name }}</div>
-          <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-          <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
+
+          <template v-if="skill.rating == 0 && skill.type == 'Language'">
+            <div>NAT</div>
+          </template>
+
+          <template v-else>
+            <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
+            <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
+          </template>
+
         </li>
       </ul>
     </div>

@@ -2,6 +2,11 @@
 import {char} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
 import {uploadSheet} from "@/composables/fetch";
+import {computed} from "vue";
+
+const skills = computed(() => {
+  return char.actionSkills.filter(skill => skill.total > 0);
+});
 
 function toggleSkill(value: string)
 {
@@ -24,7 +29,7 @@ function toggleSkill(value: string)
   <div class="action-skills box">
     <div class="scroll-box">
       <ul>
-        <li v-for="skill in char.actionSkills" :key="skill.name" class="item row">
+        <li v-for="skill in skills" :key="skill.name" class="item row">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div class="name">{{ skill.name }}</div>
           <div class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
