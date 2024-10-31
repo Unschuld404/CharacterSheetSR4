@@ -20,12 +20,55 @@ export class Dialog  {
 }
 
 export class AddSpiritDialog extends Dialog {
-    doChoose: boolean = true;
+    force : number = 1;
+    services : number = 1;
+    type: string | null = null;
 
     show() {
-        this.doChoose = true;
+        this.force = char.attributes.magic.total;
+        this.services = 1;
+        this.type = null;
         super.show();
     }
+
+    addForce()
+    {
+        this.force++;
+    }
+
+    substractForce()
+    {
+        if (this.force > 1) {
+            this.force--;
+        }
+    }
+
+    addServices()
+    {
+        this.services++;
+    }
+
+    substractServices()
+    {
+        if (this.services > 1)
+        {
+            this.services--;
+        }
+    }
+
+    commit()
+    {
+        if (this.isWatcher)
+        {
+            this.force = 1;
+        }
+        char.addSpirit(this.selectedType, this.force, this.services);
+        DialogAddSpirit.hide();
+    }
+
+    get selectedType(): string { return this.type ?? 'Watcher' }
+    get doChoose(): boolean { return this.type === null}
+    get isWatcher(): boolean { return this.selectedType === 'Watcher' }
 }
 
 export class ShowSpiritSheet extends Dialog {

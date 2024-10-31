@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import {DialogReleaseSpirit, DialogSpiritSheet} from "@/composables/dialogs";
-
 </script>/
 
 <template>
-
-  <div v-if="DialogReleaseSpirit.visible" class="modal-overlay" @click="DialogReleaseSpirit.hide">
-    <div class="modal-content" @click.stop>
-
+    <div class="xxxxxxxxx">
       <h1>Geist entfernen</h1>
-      <p>Löst diesen Geist von dir. Alle noch vorhandenen Dienste verschwinden und der Geist wird aus deiner Liste entfernt.</p>
-      <button class="confirm" @click="DialogReleaseSpirit.hide(), DialogSpiritSheet.hide()">Verbindung trennen</button>
-
+      <p>Löst diesen Geist von dir.</p>
+      <p>Alle noch vorhandenen Dienste verschwinden und der Geist wird aus deiner Liste entfernt.</p>
+      <button class="confirm">Verbindung trennen</button>
     </div>
-  </div>
 
 </template>
 
@@ -27,14 +21,17 @@ p {
   text-align: center;
 }
 
-.modal-overlay {
-  z-index: 3000;
-}
 
-.modal-content{
-  width: 45vh;
-  height: 28vh;
-  z-index: 3001;
+.xxxxxxxxx{
+  background-color: var(--primary-color);
+  border-radius: 1vh;
+  border: 0.3vh solid var(--font-color);
+  position: ;
+  padding: 2vh;
+
+  width: 360px;
+  height: 190px;
+  z-index: 5001;
 }
 
 </style>/

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 
 import {DialogAddSpirit} from "@/composables/dialogs";
-import {ref} from "vue";
-import {char} from "@/composables/data";
+import {computed, ref} from "vue";
 
 const spiritTypes = [
   'Erdgeist',
@@ -14,46 +13,8 @@ const spiritTypes = [
   'Watcher'
 ];
 
-const selectedType = ref('Watcher');
-const force = ref(10);
-const services = ref(1);
-
-force.value = char.attributes.magic.total;
-
 const choose = (type: any) => {
-  selectedType.value = type;
-  DialogAddSpirit.doChoose = false;
-}
-
-function addForce()
-{
-  force.value++;
-}
-
-function substractForce()
-{
-  if (force.value >= 1) {
-    force.value--;
-  }
-}
-
-function addServices()
-{
-  services.value++;
-}
-
-function substractServices()
-{
-  if (services.value >= 1)
-  {
-    services.value--;
-  }
-}
-
-function addSpirit()
-{
-  char.addSpirit(selectedType.value ?? 'Spirit', force.value, services.value);
-  DialogAddSpirit.hide();
+  DialogAddSpirit.type = type;
 }
 
 </script>
@@ -68,7 +29,7 @@ function addSpirit()
       <div class="column-choose">
         <div  v-for="(item, index) in spiritTypes"
               :key="index"
-              :class="['type', {active: selectedType === item }]"
+              :class="['type', {active: DialogAddSpirit.selectedType === item }]"
               @click="choose(item)"
         >
           {{ item }}
@@ -78,26 +39,26 @@ function addSpirit()
 
 
     <div v-if="!DialogAddSpirit.doChoose" class="modal-content" @click.stop>
-      <h1>{{ selectedType ?? 'Spirit' }}</h1>
+      <h1>{{ DialogAddSpirit.selectedType}}</h1>
 
       <div class="column">
-        <div class="row">
+        <div v-if="!DialogAddSpirit.isWatcher" class="row" >
           <div class="force">Kraft</div>
-          <div class="mutator" @click="substractForce">-</div>
-          <div class="value">{{ force }}</div>
-          <div class="mutator" @click="addForce">+</div>
+          <div class="mutator" @click="DialogAddSpirit.substractForce()">-</div>
+          <div class="value">{{ DialogAddSpirit.force }}</div>
+          <div class="mutator" @click="DialogAddSpirit.addForce()">+</div>
         </div>
 
         <div class="row">
           <div class="services">Dienste</div>
-          <div class="mutator" @click="substractServices">-</div>
-          <div class="value">{{ services }}</div>
-          <div class="mutator" @click="addServices">+</div>
+          <div class="mutator" @click="DialogAddSpirit.substractServices()">-</div>
+          <div class="value">{{ DialogAddSpirit.services }}</div>
+          <div class="mutator" @click="DialogAddSpirit.addServices()">+</div>
         </div>
 
       </div>
 
-      <button class="confirm" @click="addSpirit()">Hinzufügen</button>
+      <button class="confirm" @click="DialogAddSpirit.commit()">Hinzufügen</button>
     </div>
   </div>
 </template>
