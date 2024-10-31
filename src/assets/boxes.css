@@ -10,13 +10,24 @@
     height: 90%;
 }
 
+.scroll-box::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.flex-scroll::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
 .flex-scroll {
     overflow: scroll;
-    height: 95%;
     margin-top: 0;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 2vh;
+    overflow-x: hidden;
 }
 
 .lower-header {
