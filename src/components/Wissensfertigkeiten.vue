@@ -1,6 +1,22 @@
 <script setup lang="ts">
 import {DialogRollDice} from "@/composables/dialogs";
 import {char} from "@/composables/data";
+import {uploadSheet} from "@/composables/fetch";
+
+function toggleSkill(value: string)
+{
+  if (char.isSkillSelected(value))
+  {
+    char.unselectSkill(value);
+  }
+  else
+  {
+    char.selectSkill(value);
+  }
+
+  uploadSheet().then();
+}
+
 </script>
 
 <template>
@@ -9,7 +25,7 @@ import {char} from "@/composables/data";
     <div class="scrollbox">
       <ul>
         <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item row">
-          <input type="checkbox" class="favourite">
+          <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div class="name">{{ skill.name }}</div>
           <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
           <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>

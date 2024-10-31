@@ -290,6 +290,16 @@ export class Charakter {
         return 8 + Math.ceil(this.attributes.body.total / 2);
     }
 
+    isSkillSelected(value: string): boolean {
+        return this.sheet.selectedSkills.includes(value);
+    }
+    selectSkill(value: string): void {
+        this.sheet.selectedSkills.push(value);
+    }
+    unselectSkill(value: string): void {
+        this.sheet.selectedSkills = this.sheet.selectedSkills.filter((item: string) => item !== value)
+    }
+
     skillByName(name: string): Skill | null {
         return this.actionSkills.find((item: any) => item.name === name)
             ?? this.knowledgeSkills.find((item: any) => item.name === name)
@@ -480,9 +490,9 @@ function getSkills(data: any, knowledge: boolean): Array<Skill> {
             {
                 name: skill.name || 'Unbekannt',
                 attribute: skill.attribute || 'Unbekannt',
-                attribute_value: skill.attributemod || 0,
-                rating: skill.rating || 0,
-                total: skill.total || 0
+                attribute_value: toInt(skill.attributemod),
+                rating: toInt(skill.rating),
+                total: toInt(skill.total),
             }));
 }
 function getKnowledgeSkills(data: any): Array<Skill> {
