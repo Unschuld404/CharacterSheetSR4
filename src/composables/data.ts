@@ -275,6 +275,7 @@ export class Charakter {
                 ?? this.skillByName('Spruchzauberei')
                 ?? {
                         name: 'Spellcasting',
+                        type: 'unknown',
                         attribute: 'unknown',
                         attribute_value: 0,
                         rating: 0,
@@ -288,6 +289,16 @@ export class Charakter {
 
     get maxPhysicalDamage(): number {
         return 8 + Math.ceil(this.attributes.body.total / 2);
+    }
+
+    isSkillSelected(value: string): boolean {
+        return this.sheet.selectedSkills.includes(value);
+    }
+    selectSkill(value: string): void {
+        this.sheet.selectedSkills.push(value);
+    }
+    unselectSkill(value: string): void {
+        this.sheet.selectedSkills = this.sheet.selectedSkills.filter((item: string) => item !== value)
     }
 
     skillByName(name: string): Skill | null {
@@ -382,6 +393,7 @@ export type Armor = {
 }
 export type Skill = {
     name: string;
+    type: string;
     attribute: string;
     attribute_value: number;
     rating: number;
@@ -479,10 +491,11 @@ function getSkills(data: any, knowledge: boolean): Array<Skill> {
         .map((skill: any) => (
             {
                 name: skill.name || 'Unbekannt',
+                type: skill.skillcategory_english || 'Unbekannt',
                 attribute: skill.attribute || 'Unbekannt',
-                attribute_value: skill.attributemod || 0,
-                rating: skill.rating || 0,
-                total: skill.total || 0
+                attribute_value: toInt(skill.attributemod),
+                rating: toInt(skill.rating),
+                total: toInt(skill.total),
             }));
 }
 function getKnowledgeSkills(data: any): Array<Skill> {

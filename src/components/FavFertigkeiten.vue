@@ -1,5 +1,31 @@
 <script setup lang="ts">
 
+import {computed} from "vue";
+import {char} from "@/composables/data";
+import {DialogRollDice} from "@/composables/dialogs";
+
+const skills = computed(() => {
+  let list = [];
+
+  for (const skill of char.actionSkills)
+  {
+    if (char.isSkillSelected(skill.name))
+    {
+      list.push(skill);
+    }
+  }
+
+  for (const skill of char.knowledgeSkills)
+  {
+    if (char.isSkillSelected(skill.name))
+    {
+      list.push(skill);
+    }
+  }
+
+  return list;
+});
+
 </script>
 
 <template>
@@ -8,94 +34,19 @@
 
     <div class="scroll-box">
 
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
+      <div class="item" v-for="skill in skills" :key="skill.name">
+       <div>{{ skill.name }}</div>
+        <template v-if="skill.rating == 0 && skill.type == 'Language'">
+          <div>NAT</div>
+        </template>
+        <template v-else>
+          <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
+          <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
+        </template>
       </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
-      <div class="item">
-       <div>Lieblingsfertigkeit</div>
-        <div class="value">Wert + Attr.</div>
-        <button class="dice">00</button>
-      </div>
-
     </div>
 
     <div class="lower-header">Fähigkeiten</div>
-
   </div>
 
 </template>
