@@ -12,6 +12,7 @@ import DroneSheet from "@/components/Dialoge/DroneSheet.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
+import RangedWeapons from "@/components/Dialoge/RangedWeapons.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -126,6 +127,7 @@ onBeforeUnmount(removeEventListeners);
   <DroneSheet/>
   <ReleaseSpirit/>
   <ChangeKarma/>
+  <RangedWeapons/>
 
   <Header  v-if="dataIsValid()"  />
 

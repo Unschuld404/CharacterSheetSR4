@@ -79,3 +79,4 @@ export const DialogAddSpirit = reactive(new AddSpiritDialog());
 export const DialogDroneSheet = reactive(new Dialog());
 export const DialogReleaseSpirit = reactive(new Dialog());
 export const DialogChangeKarma = reactive(new Dialog());
+export const DialogRangedWeapons = reactive(new Dialog());
