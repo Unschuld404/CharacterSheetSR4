@@ -2,12 +2,15 @@
 </script>/
 
 <template>
-    <div class="xxxxxxxxx">
+
+  <div class="overlay">
+    <div class="modal-content">
       <h1>Geist entfernen</h1>
       <p>Löst diesen Geist von dir.</p>
       <p>Alle noch vorhandenen Dienste verschwinden und der Geist wird aus deiner Liste entfernt.</p>
       <button class="confirm">Verbindung trennen</button>
     </div>
+  </div>
 
 </template>
 
@@ -22,16 +25,23 @@ p {
 }
 
 
-.xxxxxxxxx{
-  background-color: var(--primary-color);
-  border-radius: 1vh;
-  border: 0.3vh solid var(--font-color);
-  position: ;
-  padding: 2vh;
+.modal-content{
+  width: 50vh;
+  height: 25vh;
+  z-index: 6001;
+}
 
-  width: 360px;
-  height: 190px;
-  z-index: 5001;
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6000;
 }
 
 </style>/
