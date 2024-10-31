@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {char} from "@/composables/data";
-import {DialogRollDice} from "@/composables/dialogs";
+import {DialogRangedWeapons, DialogRollDice} from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
 
 </script>
@@ -10,7 +10,7 @@ import {toInt} from "@/composables/utils";
   <div class="scroll-box">
     <ul>
       <li v-for="weapon in char.weapons" :key="weapon.name">
-        <div class="item column">
+        <div class="item column" @click="DialogRangedWeapons.show">
           <div class="header row">
             <input type="checkbox" class="favourite">
             <div>{{ weapon.name }}</div>

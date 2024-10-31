@@ -37,10 +37,11 @@ const selectedSpiritPlane = ref<string>('heimat');
 </script>/
 
 <template>
+
+  <ReleaseSpirit v-if="true"/>
+
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
-
-      <ReleaseSpirit v-if="true"/>
 
       <div class="box row spirit">
         <div class="name">
@@ -205,13 +206,6 @@ i {
   height: 8vh;
   text-align: center;
   align-content: center;
-}
-
-.bxs-trash{
-  font-size: 5vh;
-  align-self: center;
-  margin-left: 1vh;
-  color: var(--accent-color)
 }
 
 .item-special {
