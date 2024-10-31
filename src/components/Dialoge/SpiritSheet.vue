@@ -38,8 +38,6 @@ const selectedSpiritPlane = ref<string>('heimat');
 
 <template>
 
-  <ReleaseSpirit v-if="true"/>
-
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
 
