@@ -262,8 +262,8 @@ export class Charakter {
         this.drain.total = toInt(attributes.find((item: any) => item.name === this.drain.attribute)?.base)
                            + this.attributes.willpower.total;
 
-        this.knowledgeSkills = getKnowledgeSkills();
-        this.actionSkills = getActionSkills();
+        this.knowledgeSkills = getKnowledgeSkills(data);
+        this.actionSkills = getActionSkills(data);
 
         this.vehicles = getVehicles(data);
         this.weapons = getWeapons(data);
@@ -282,6 +282,14 @@ export class Charakter {
                     };
     }
 
+    get maxStunDamage(): number {
+        return 8 + Math.ceil(this.attributes.willpower.total / 2);
+    }
+
+    get maxPhysicalDamage(): number {
+        return 8 + Math.ceil(this.attributes.body.total / 2);
+    }
+
     skillByName(name: string): Skill | null {
         return this.actionSkills.find((item: any) => item.name === name)
             ?? this.knowledgeSkills.find((item: any) => item.name === name)
@@ -295,7 +303,6 @@ type SheetData = {
     edge : number;
     damage: DamageTaken;
 }
-
 export type SelectedItem = {
     type : string;
     name : string;
@@ -463,30 +470,8 @@ function getSelectedItems(data: any): SelectedItem[] {
         name: entry.name,
     }));
 }
-
-export function dataIsValid(): boolean {
-    return data.value !== null;
-}
-
-export function getMaxStunDamage(): number {
-    let wil = getAttributeValueByName('WIL');
-
-    return 8 + Math.ceil(wil / 2);
-}
-
-export function getMaxPhysicalDamage(): number {
-    let bod = getAttributeValueByName('BOD');
-
-    return 8 + Math.ceil(bod / 2);
-}
-
-export function getAttributeValueByName(name: string): number {
-    let attributes = data?.value?.attributes ?? [];
-    return toInt(attributes.find((item: any) => item.name === name)?.total ?? 0);
-}
-
-function getSkills(knowledge: boolean): Array<Skill> {
-    let skills = data?.value?.skills;
+function getSkills(data: any, knowledge: boolean): Array<Skill> {
+    let skills = data?.skills;
     skills = Array.isArray(skills) ? skills : [];
 
     return skills
@@ -500,15 +485,12 @@ function getSkills(knowledge: boolean): Array<Skill> {
                 total: skill.total || 0
             }));
 }
-
-export function getKnowledgeSkills(): Array<Skill> {
-    return getSkills(true);
+function getKnowledgeSkills(data: any): Array<Skill> {
+    return getSkills(data, true);
 }
-
-export function getActionSkills(): Array<Skill> {
-    return getSkills(false);
+function getActionSkills(data: any): Array<Skill> {
+    return getSkills(data, false);
 }
-
 function getSpells(data: any): Array<Spell> {
     let spells = data?.spells;
     spells = Array.isArray(spells) ? spells : [];
@@ -522,7 +504,6 @@ function getSpells(data: any): Array<Spell> {
         dv: spell.dv || 'Unbekannt'
     }));
 }
-
 function getSpirits(data: any): Spirit[] | null {
     let spiritData = data?.spirits;
 
@@ -542,7 +523,6 @@ function getSpirits(data: any): Spirit[] | null {
             created: false,
         }));
 }
-
 function getVehicles(data: any): Array<Vehicle> {
     let vehicles = data?.vehicles;
     vehicles = Array.isArray(vehicles) ? vehicles : [];
@@ -558,7 +538,6 @@ function getVehicles(data: any): Array<Vehicle> {
         sensor: vehicle.sensor || '0'
     }));
 }
-
 function getWeapons(data: any): Array<Weapon> {
     let weapons = data?.weapons;
     weapons = Array.isArray(weapons) ? weapons : [];
@@ -578,4 +557,8 @@ function getWeapons(data: any): Array<Weapon> {
         },
         dicepool: weapon.dicepool || '0'
     }));
+}
+
+export function dataIsValid(): boolean {
+    return data.value !== null;
 }

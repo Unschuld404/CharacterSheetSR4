@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import {ref} from "vue";
 
-import {getMaxStunDamage} from "@/composables/data";
+const maxDamage = ref(10);
 
 </script>
 
@@ -8,7 +9,7 @@ import {getMaxStunDamage} from "@/composables/data";
 
   <div class="box">
     <div v-for="row in 6" :key="row" class="row">
-      <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > getMaxStunDamage() }">
+      <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > maxDamage }">
       <div class="malus">{{ row * -1 }}</div>
     </div>
   </div>
