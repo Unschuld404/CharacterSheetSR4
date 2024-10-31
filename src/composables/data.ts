@@ -265,7 +265,7 @@ export class Charakter {
         this.knowledgeSkills = getKnowledgeSkills();
         this.actionSkills = getActionSkills();
 
-        this.vehicles = getVehicles();
+        this.vehicles = getVehicles(data);
         this.weapons = getWeapons(data);
         this.spells = getSpells();
     }
@@ -547,8 +547,8 @@ export function getSpirits(): Array<Spirit> {
     return getSpiritsFromData(data) ?? [];
 }
 
-export function getVehicles(): Array<Vehicle> {
-    let vehicles = data?.value?.vehicles;
+export function getVehicles(data: any): Array<Vehicle> {
+    let vehicles = data?.vehicles;
     vehicles = Array.isArray(vehicles) ? vehicles : [];
 
     return vehicles.map((vehicle: any) => ({
