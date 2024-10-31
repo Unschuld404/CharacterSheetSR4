@@ -23,6 +23,7 @@ export class AddSpiritDialog extends Dialog {
     doChoose: boolean = true;
 
     show() {
+        this.doChoose = true;
         super.show();
     }
 }
