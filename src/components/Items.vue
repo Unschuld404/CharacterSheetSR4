@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {char} from "@/composables/data";
 import {DialogRollDice} from "@/composables/dialogs";
+import {toInt} from "@/composables/utils";
 
 </script>
 
@@ -20,7 +21,7 @@ import {DialogRollDice} from "@/composables/dialogs";
             <div class="value">Modus: <strong>{{ weapon.mode }}</strong></div>
             <div class="value">Rückstoßkomp.: <strong>{{ weapon.rc }}</strong></div>
             <div class="value">Munition: <strong>{{ weapon.ammo }}</strong></div>
-            <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(weapon.dicepool).show()">{{ weapon.dicepool }}</button>
+            <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(toInt(weapon.dicepool)).show()">{{ weapon.dicepool }}</button>
           </div>
           <div class="info">
             <div class="ranges">

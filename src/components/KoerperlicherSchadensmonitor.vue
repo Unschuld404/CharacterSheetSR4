@@ -1,14 +1,14 @@
 <script setup lang="ts">
 
-import {getMaxPhysicalDamage} from "@/composables/data";
+import {char} from "@/composables/data";
 
 </script>
 
 <template>
 
   <div class="box">
-    <div v-for="row in 7" :key="row" class="row">
-      <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > getMaxPhysicalDamage() }">
+      <div v-for="row in 7" :key="row" class="row">
+      <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > char.maxPhysicalDamage }">
       <div class="malus">{{ row * -1 }}</div>
     </div>
     <div class="lower-header">Körperlicher Zustand</div>

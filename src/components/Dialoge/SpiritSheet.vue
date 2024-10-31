@@ -3,7 +3,6 @@ import {DialogReleaseSpirit, DialogRollDice, DialogSpiritSheet} from "@/composab
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
-import {char} from "../../composables/data";
 
 const services = ref(1);
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import {getSpirits} from "@/composables/data";
 import {DialogSpiritSheet, DialogChooseSpirit} from "@/composables/dialogs";
+import {char} from "@/composables/data";
 
-const spirits = computed(() => getSpirits());
+const spirits = computed(() => char.spirits);
 </script>
 
 <template>
@@ -12,7 +12,7 @@ const spirits = computed(() => getSpirits());
     <ul>
       <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setType(DialogSpiritSheet.type).show">
         <div class="box spirit-selection">
-          <div class="header">{{ spirit.type }}</div>
+          <div class="header">{{ spirit.name || spirit.type }}</div>
           <div class="info">
             <div class="value">Kraft: {{ spirit.force }}</div>
             <div class="value">Dienste: {{ spirit.services }}</div>

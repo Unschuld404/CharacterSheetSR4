@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {char, data} from "@/composables/data";
+import {char} from "@/composables/data";
 import {DialogChangeKarma} from "@/composables/dialogs";
 </script>
 
