@@ -4,6 +4,8 @@ import {DialogSpiritSheet, DialogAddSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/data";
 
 const spirits = computed(() => char.spirits);
+
+console.log(spirits);
 </script>
 
 <template>
@@ -13,7 +15,7 @@ const spirits = computed(() => char.spirits);
       <ul>
         <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()">
           <div class="box">
-            <div class="header">{{ spirit.name || spirit.type }}</div>
+            <div class="header">{{ spirit.caption }}</div>
             <div class="info">
               <div class="value">Kraft: {{ spirit.force }}</div>
               <div class="value">Dienste: {{ spirit.services }}</div>

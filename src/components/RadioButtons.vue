@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {defineProps, defineEmits, computed, watch} from 'vue';
+import { computed } from 'vue';
 
 interface RadioOption {
   label: string;
