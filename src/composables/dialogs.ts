@@ -71,11 +71,10 @@ export class AddSpiritDialog extends Dialog {
     get isWatcher(): boolean { return this.selectedType === 'Watcher' }
 }
 
-export class ShowSpiritSheet extends Dialog {
-    type: string = 'unbekannt';
-
-    setType(type: string): ShowSpiritSheet {
-        this.type = type;
+export class SpiritSheetDialog extends Dialog {
+    spirit: Spirit;
+    setSpirit(spirit: Spirit): SpiritSheetDialog {
+        this.spirit = spirit;
         return this;
     }
 }
@@ -116,10 +115,9 @@ export class RollDiceDialog extends Dialog {
 
 export const DialogRollDice = reactive(new RollDiceDialog());
 export const DialogChangeNuyen = reactive(new Dialog());
-export const DialogSpiritSheet = reactive(new ShowSpiritSheet());
+export const DialogSpiritSheet = reactive(new SpiritSheetDialog());
 export const DialogManageEdge = reactive(new Dialog());
 export const DialogAddSpirit = reactive(new AddSpiritDialog());
 export const DialogDroneSheet = reactive(new Dialog());
-export const DialogReleaseSpirit = reactive(new Dialog());
 export const DialogChangeKarma = reactive(new Dialog());
 export const DialogRangedWeapons = reactive(new Dialog());

@@ -11,7 +11,7 @@ const spirits = computed(() => char.spirits);
   <div class="column">
     <div v-if="spirits.length">
       <ul>
-        <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setType(DialogSpiritSheet.type).show">
+        <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()">
           <div class="box">
             <div class="header">{{ spirit.name || spirit.type }}</div>
             <div class="info">
