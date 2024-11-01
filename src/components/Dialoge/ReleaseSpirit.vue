@@ -19,7 +19,7 @@ function cancel(): void
 
 <template>
 
-  <div class="overlay" @click="cancel()">
+  <div class="overlay" @click.self="cancel()">
     <div class="modal-content" @click.stop>
       <h1>Geist entfernen</h1>
       <p>Löst diesen Geist von dir.</p>

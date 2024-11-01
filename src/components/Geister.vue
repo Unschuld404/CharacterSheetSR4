@@ -4,8 +4,6 @@ import {DialogSpiritSheet, DialogAddSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/data";
 
 const spirits = computed(() => char.spirits);
-
-console.log(spirits);
 </script>
 
 <template>

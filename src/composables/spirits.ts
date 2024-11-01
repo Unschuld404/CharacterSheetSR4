@@ -19,11 +19,23 @@ export class Spirit {
     force: number = 1;
     bound: boolean = false;
     created: boolean = true;
+    optionalPowers: string[] = [];
 
     get valid(): boolean { return this.spiritType !== null }
     get spiritType(): SpiritType | null { return SpiritTypes.find((item: SpiritType) => { return item.name === this.type }) ?? null };
     set spiritType(value: SpiritType) { this.type = value.name }
     get caption(): string { return (this.name ?? '') || this.type }
+    get maxOptionalPowersCount(): number { return Math.floor(this.force / 3) }
+    get optionalPowersCount(): number { return this.optionalPowers.length }
+
+    equals(spirit: Spirit): boolean {
+        return this.type === spirit.type
+            && this.name === spirit.name
+            && this.force === spirit.force
+            && this.services === spirit.services
+            && this.created === spirit.created
+            && this.bound === spirit.bound;
+    }
 
     static create(type: SpiritType, force: number, services: number): Spirit {
         const newSpirit: Spirit = new Spirit();
@@ -46,14 +58,7 @@ export class Spirit {
         return newSpirit;
     }
 
-    equals(spirit: Spirit): boolean {
-        return this.type === spirit.type
-            && this.name === spirit.name
-            && this.force === spirit.force
-            && this.services === spirit.services
-            && this.created === spirit.created
-            && this.bound === spirit.bound;
-    }
+
 }
 
 export type SpiritPower = {
@@ -192,8 +197,19 @@ export const SpiritPowers: SpiritPower[] =  [
         range: '',
         duration: '',
     },
-
 ]
+
+export function optionalPowersFor(type: string): SpiritPower[]
+{
+    const spiritType = SpiritTypes.find((item: SpiritType) => { return item.name === type }) ?? null;
+    if (spiritType === null) {
+        return [];
+    }
+    return spiritType.optional
+        .split(',')
+        .map(item => item.trim())
+        .filter(item => item.length > 0);
+}
 
 export const SpiritTypes : SpiritType[] = [
     {

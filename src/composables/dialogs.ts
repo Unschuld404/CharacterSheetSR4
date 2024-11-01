@@ -23,14 +23,12 @@ export class Dialog  {
 export class AddSpiritDialog extends Dialog {
     force : number = 1;
     services : number = 1;
-    optionalPowers : SpiritPower[] = [];
     type: SpiritType | null = null;
 
     show() {
         this.force = char.attributes.magic.total;
         this.services = 1;
         this.type = null;
-        this.optionalPowers = [];
         super.show();
     }
 
@@ -74,7 +72,7 @@ export class AddSpiritDialog extends Dialog {
     }
 
     get selectedType(): string { return this.type?.name ?? 'unknown' }
-    get doChoose(): boolean { return this.type === null}
+    get doChooseType(): boolean { return this.type === null}
     get isWatcher(): boolean { return isWatcher(this.type) }
 }
 

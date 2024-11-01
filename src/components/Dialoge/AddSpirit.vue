@@ -12,7 +12,7 @@ const choose = (type: SpiritType) => {
 
   <div v-if="DialogAddSpirit.visible" class="modal-overlay" @click="DialogAddSpirit.hide()">
 
-    <div v-if="DialogAddSpirit.doChoose" class="modal-content-choose" @click.stop>
+    <div v-if="DialogAddSpirit.doChooseType" class="modal-content-choose" @click.stop>
       <div class="column-choose">
         <div  v-for="(item, index) in SpiritTypes"
               :key="index"
@@ -24,8 +24,7 @@ const choose = (type: SpiritType) => {
       </div>
     </div>
 
-
-    <div v-if="!DialogAddSpirit.doChoose" class="modal-content" @click.stop>
+    <div v-else class="modal-content" @click.stop>
       <h1>{{ DialogAddSpirit.selectedType}}</h1>
 
       <div class="column">

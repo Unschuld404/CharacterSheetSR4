@@ -5,10 +5,14 @@ import {ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import {char} from "@/composables/data";
+import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
 
 const releaseDialogVisible = ref(false);
+const powersDialogVisible = ref(false);
 
 const services = ref(1);
+const power = ref(2);
+const type = ref('Feuergeist')
 
 function add()
 {
@@ -51,11 +55,26 @@ function onCancelReleaseDialog(): void
   releaseDialogVisible.value = false;
 }
 
+function showPowersDialog()
+{
+  powersDialogVisible.value = true;
+}
+function onConfirmPowersDialog(powers: string[]): void
+{
+  powersDialogVisible.value = false;
+}
+function onCancelPowersDialog()
+{
+  powersDialogVisible.value = false;
+}
+
 </script>/
 
 <template>
 
-  <ReleaseSpirit v-if="releaseDialogVisible" @confirm="onConfirmReleaseDialog()" @cancel="onCancelReleaseDialog()"/>
+  <ReleaseSpirit v-if="releaseDialogVisible" @confirm="onConfirmReleaseDialog" @cancel="onCancelReleaseDialog"/>
+
+  <ChooseSpiritPowers v-if="powersDialogVisible" :count="power" :type="type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
@@ -74,9 +93,9 @@ function onCancelReleaseDialog(): void
 
             <div class="scroll-box">
 
-              <div class="item" @click="DialogRollDice.show">
+              <div class="item" >
                 <div class="skill">Askennen</div>
-                <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+                <div class="dice skill-dice" @click="showPowersDialog()">5</div>
               </div>
               <div class="item" @click="DialogRollDice.show">
                 <div class="skill">Astralkampf</div>
