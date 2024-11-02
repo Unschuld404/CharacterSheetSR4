@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import {DialogReleaseSpirit, DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
+import {DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
+import {char} from "@/composables/data";
+
+const releaseDialogVisible = ref(false);
 
 const services = ref(1);
 
@@ -34,9 +37,26 @@ const selectedBoundModes = ref<string>('ungebunden');
 
 const selectedSpiritPlane = ref<string>('heimat');
 
+function showReleaseDialog(): void
+{
+  releaseDialogVisible.value = true;
+}
+function onConfirmReleaseDialog(): void
+{
+  char.releaseSpirit(DialogSpiritSheet.spirit);
+  releaseDialogVisible.value = false;
+  DialogSpiritSheet.hide();
+}
+function onCancelReleaseDialog(): void
+{
+  releaseDialogVisible.value = false;
+}
+
 </script>/
 
 <template>
+
+  <ReleaseSpirit v-if="releaseDialogVisible" @confirm="onConfirmReleaseDialog()" @cancel="onCancelReleaseDialog()"/>
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
@@ -45,7 +65,7 @@ const selectedSpiritPlane = ref<string>('heimat');
         <div class="name">
           Hier steht der Name vom Geist und Stufe
         </div>
-        <div class="dice release" @click="DialogReleaseSpirit.show"><i class='bx bx-unlink'></i></div>
+        <div class="dice release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
       </div>
 
       <div class="content">
@@ -114,20 +134,20 @@ const selectedSpiritPlane = ref<string>('heimat');
 
         <div class="column">
 
-            <div class="plane">
-              <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+          <div class="box plane">
+            <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+          </div>
+          <div class="box binding">
+            <RadioButtons class="mode" v-model="selectedBoundModes" :options="boundModes" group="bounded"/><br>
+          </div>
+          <div class="box damage">
+            <div class="monitor">
+              <SpiritSchadensmonitor/>
             </div>
-            <div class="binding">
-              <RadioButtons class="mode" v-model="selectedBoundModes" :options="boundModes" group="bounded" :selected="ungebunden"/><br>
+            <div class="lower-header">
+              Schadensmonitor
             </div>
-            <div class="box damage">
-              <div class="monitor">
-                <SpiritSchadensmonitor/>
-              </div>
-              <div class="lower-header">
-                Schadensmonitor
-              </div>
-            </div>
+          </div>
 
           </div>
 

@@ -5,7 +5,7 @@ import {uploadSheet} from "@/composables/fetch";
 import {computed} from "vue";
 
 const skills = computed(() => {
-  return char.actionSkills.filter(skill => skill.total > 0);
+  return char.actionSkills.filter(skill => skill.total > 0 || char.isSkillSelected(skill.name));
 });
 
 function toggleSkill(value: string)

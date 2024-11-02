@@ -1,19 +1,8 @@
 <script setup lang="ts">
-
 import {DialogAddSpirit} from "@/composables/dialogs";
-import {computed, ref} from "vue";
+import {type SpiritType, SpiritTypes} from "@/composables/spirits";
 
-const spiritTypes = [
-  'Erdgeist',
-  'Feuergeist',
-  'Luftgeist',
-  'Wassergeist',
-  'Geist der Menschen',
-  'Geist der Tiere',
-  'Watcher'
-];
-
-const choose = (type: any) => {
+const choose = (type: SpiritType) => {
   DialogAddSpirit.type = type;
 }
 
@@ -23,16 +12,14 @@ const choose = (type: any) => {
 
   <div v-if="DialogAddSpirit.visible" class="modal-overlay" @click="DialogAddSpirit.hide()">
 
-
-
     <div v-if="DialogAddSpirit.doChoose" class="modal-content-choose" @click.stop>
       <div class="column-choose">
-        <div  v-for="(item, index) in spiritTypes"
+        <div  v-for="(item, index) in SpiritTypes"
               :key="index"
-              :class="['type', {active: DialogAddSpirit.selectedType === item }]"
+              :class="['type', {active: DialogAddSpirit.selectedType === item.name }]"
               @click="choose(item)"
         >
-          {{ item }}
+          {{ item.name }}
         </div>
       </div>
     </div>

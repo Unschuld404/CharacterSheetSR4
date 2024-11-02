@@ -1,6 +1,7 @@
 import {reactive} from "vue";
-import {char, type Spirit} from "@/composables/data";
+import {char} from "@/composables/data";
 import {uploadSheet} from "@/composables/fetch";
+import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 
 export class Dialog  {
     visible: boolean;
@@ -22,12 +23,14 @@ export class Dialog  {
 export class AddSpiritDialog extends Dialog {
     force : number = 1;
     services : number = 1;
-    type: string | null = null;
+    optionalPowers : SpiritPower[] = [];
+    type: SpiritType | null = null;
 
     show() {
         this.force = char.attributes.magic.total;
         this.services = 1;
         this.type = null;
+        this.optionalPowers = [];
         super.show();
     }
 
@@ -62,20 +65,23 @@ export class AddSpiritDialog extends Dialog {
         {
             this.force = 1;
         }
-        char.addSpirit(this.selectedType, this.force, this.services);
+        if (this.type !== null)
+        {
+            char.addSpirit(this.type, this.force, this.services);
+        }
+
         DialogAddSpirit.hide();
     }
 
-    get selectedType(): string { return this.type ?? 'Watcher' }
+    get selectedType(): string { return this.type?.name ?? 'unknown' }
     get doChoose(): boolean { return this.type === null}
-    get isWatcher(): boolean { return this.selectedType === 'Watcher' }
+    get isWatcher(): boolean { return isWatcher(this.type) }
 }
 
-export class ShowSpiritSheet extends Dialog {
-    type: string = 'unbekannt';
-
-    setType(type: string): ShowSpiritSheet {
-        this.type = type;
+export class SpiritSheetDialog extends Dialog {
+    spirit!: Spirit;
+    setSpirit(spirit: Spirit): SpiritSheetDialog {
+        this.spirit = spirit;
         return this;
     }
 }
@@ -116,10 +122,9 @@ export class RollDiceDialog extends Dialog {
 
 export const DialogRollDice = reactive(new RollDiceDialog());
 export const DialogChangeNuyen = reactive(new Dialog());
-export const DialogSpiritSheet = reactive(new ShowSpiritSheet());
+export const DialogSpiritSheet = reactive(new SpiritSheetDialog());
 export const DialogManageEdge = reactive(new Dialog());
 export const DialogAddSpirit = reactive(new AddSpiritDialog());
 export const DialogDroneSheet = reactive(new Dialog());
-export const DialogReleaseSpirit = reactive(new Dialog());
 export const DialogChangeKarma = reactive(new Dialog());
 export const DialogRangedWeapons = reactive(new Dialog());

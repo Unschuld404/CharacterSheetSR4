@@ -2,6 +2,7 @@ import {reactive} from "vue";
 import {ref} from "vue";
 import {toInt} from "@/composables/utils";
 import Initiative from "@/components/Initiative.vue";
+import {Spirit, type SpiritType} from "@/composables/spirits";
 
 export const data = ref<any | null>(null);
 export const sheet_data = ref<any | null>(null);
@@ -84,15 +85,16 @@ export class Charakter {
         this.alterNuyen(-1 * value, reason);
     }
 
-    addSpirit(type: string, force: number, services: number) {
-        this.sheet.spirits.push({
-            type: type,
-            name: '',
-            force: force,
-            services: services,
-            created : true,
-            bound: false,
-        })
+    addSpirit(type: SpiritType, force: number, services: number) {
+        this.sheet.spirits.push(
+            Spirit.create(type, force, services)
+        );
+    }
+
+    releaseSpirit(spirit: Spirit) {
+        this.sheet.spirits = this.sheet.spirits.filter((item: Spirit) => {
+            return !spirit.equals(item);
+        });
     }
 
     get karma(): number { return this.sheet.karma; }
@@ -407,14 +409,6 @@ export type Spell = {
     duration: string;
     dv: string;
 }
-export type Spirit = {
-    type: string;
-    name: string;
-    services: number;
-    force: number;
-    bound: boolean;
-    created: boolean;
-}
 export type Vehicle = {
     name: string;
     handling: string;
@@ -518,23 +512,15 @@ function getSpells(data: any): Array<Spell> {
     }));
 }
 function getSpirits(data: any): Spirit[] | null {
-    let spiritData = data?.spirits;
+    const spiritData = data?.spirits;
 
     if (spiritData === null || spiritData === undefined) {
         return null;
     }
 
-    spiritData = Array.isArray(spiritData) ? spiritData : [];
+    const spiritsArray = Array.isArray(spiritData) ? spiritData : [];
 
-    return spiritData.map((spirit: any) => (
-        {
-            type: spirit.name || spirit.type || 'Unknown',
-            name: spirit.crittername,
-            services: parseInt(spirit.services, 10) || 0,
-            force: parseInt(spirit.force, 10) || 0,
-            bound: spirit.bound === 'True',
-            created: false,
-        }));
+    return spiritsArray.map((spiritObj: any) => Spirit.createFromDataObject(spiritObj));
 }
 function getVehicles(data: any): Array<Vehicle> {
     let vehicles = data?.vehicles;

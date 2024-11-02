@@ -1,14 +1,30 @@
 <script setup lang="ts">
+
+const emit = defineEmits<{
+  (e: 'confirm'): void;
+  (e: 'cancel'): void;
+}>();
+
+function confirm(): void
+{
+  emit('confirm');
+}
+
+function cancel(): void
+{
+  emit('cancel');
+}
+
 </script>/
 
 <template>
 
-  <div class="overlay">
-    <div class="modal-content">
+  <div class="overlay" @click="cancel()">
+    <div class="modal-content" @click.stop>
       <h1>Geist entfernen</h1>
       <p>Löst diesen Geist von dir.</p>
       <p>Alle noch vorhandenen Dienste verschwinden und der Geist wird aus deiner Liste entfernt.</p>
-      <button class="confirm">Verbindung trennen</button>
+      <button class="confirm" @click="confirm()">Verbindung trennen</button>
     </div>
   </div>
 
