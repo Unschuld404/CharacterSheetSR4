@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
+import {DialogChangeKarma, DialogManageEdge, DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
@@ -72,9 +72,10 @@ function onCancelPowersDialog() {
         <div class="name">
           {{ spirit.caption }} - Stufe {{ spirit.force }}
         </div>
-        <div class="dice release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
+        <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
+        <div class="dice" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
 
-        <div @click="showPowersDialog()">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
+        <div class="formula">Edge: ??</div>
       </div>
 
       <div class="content">
@@ -84,12 +85,19 @@ function onCancelPowersDialog() {
 
             <div class="scroll-box">
               <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
-                <div class="skill">{{ skill.name }}    -     {{ skill.attribute }} {{ skill.attribute_value }}</div>
-                <div class="dice skill-dice" @click="showPowersDialog()">{{ skill.total }}</div>
+                <div>
+                  {{ skill.name }}
+                </div>
+                <div class="value">
+                  + {{ skill.attribute_value }} {{ skill.attribute }}
+                </div>
+                <div>
+                  <div class="dice skill-dice" @click="showPowersDialog()">{{ skill.total }}</div>
+                </div>
               </div>
 
               <div  v-for="(power, index) in spirit.powers"  :key="index" class="item" >
-                <div class="skill">{{ power.name }}  -  {{ power.type }} {{ power.action }} {{ power.range }} {{ power.duration }} </div>
+                <div class="formula">{{ power.name }}</div>
                 <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="showPowersDialog()">{{ spirit.force }}</div>
               </div>
             </div>
@@ -99,15 +107,15 @@ function onCancelPowersDialog() {
 
         <div class="column">
 
-          <div class="box plane">
+          <div class="plane toggle">
             <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
           </div>
-          <div class="box binding">
+          <div class="binding toggle">
             <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/><br>
           </div>
           <div class="box damage">
             <div class="monitor">
-              <SpiritSchadensmonitor/>
+
             </div>
             <div class="lower-header">
               Schadensmonitor
@@ -121,14 +129,18 @@ function onCancelPowersDialog() {
         <div class="box initiative">
           <div class="item-special">
             <div>Initiative</div>
-            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+            <div class="dice skill-dice" @click="DialogRollDice.setName('Initiative').setDiceCount(spirit.initiative.pool).show">{{spirit.initiative.pool}}</div>
           </div>
           <div class="item-special">
             <div>Durchgänge</div>
-            <strong>3</strong>
+            <strong>{{spirit.initiative.passes}}</strong>
           </div>
         </div>
         <div class="box resistance">
+          <div class="item-special">
+            <div>Panzerung</div>
+            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Bannen').show">{{ spirit.force * 2 }}</div>
+          </div>
           <div class="item-special">
             <div>Widerstand: Bannen</div>
             <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Bannen').show">{{ spirit.force + char.attributes.magic.total}}</div>
@@ -160,9 +172,19 @@ function onCancelPowersDialog() {
 
 <style scoped>
 
-.release {
-  align-self: center;
-  margin-left: 1.5vh;
+.optional-powers {
+  position: absolute;
+  left: 10vh;
+}
+
+.value {
+  position: absolute;
+  right: 7vh;
+}
+
+.toggle {
+  border: 1px solid var(--font-color);
+  border-radius: 1vh;
 }
 
 i {
@@ -171,12 +193,6 @@ i {
 
 .mode {
   height: 100%;
-}
-
-.monitor {
-  display: flex;
-  justify-content: center;
-  height: 85%;
 }
 
 .mod {
@@ -189,7 +205,10 @@ i {
   width: 100%;
   height: 8vh;
   text-align: center;
-  align-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vh;
 }
 
 .item-special {
@@ -208,7 +227,7 @@ i {
 }
 
 .resistance {
-  flex: 2;
+  flex: 3;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -231,7 +250,7 @@ i {
 }
 
 .initiative {
-  flex: 2;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -259,9 +278,7 @@ i {
 }
 
 .scroll-box {
-  height: 95%;
-  margin-top: 2%;
-  margin-bottom: 2%;
+  height: 100%;
 }
 
 .item {
@@ -304,7 +321,8 @@ strong {
 
 .modal-content {
   height: 80vh;
-  width: 80vw;
+  width: 90vw;
+  margin-top: 10vh;
   z-index: 1001;
   position: relative;
   background-color: transparent;

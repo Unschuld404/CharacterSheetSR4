@@ -25,12 +25,13 @@ function toggleSkill(value: string)
   <div class="knowledge-skills box">
     <div class="scrollbox">
       <ul>
-        <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item row">
+        <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div class="name">{{ skill.name }}</div>
 
           <template v-if="skill.rating == 0 && skill.type == 'Language'">
-            <div>NAT</div>
+            <div class="value"></div>
+            <div class="nat">NAT</div>
           </template>
 
           <template v-else>
@@ -48,9 +49,11 @@ function toggleSkill(value: string)
 
 <style scoped>
 
-.row {
+.item {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .favourite {

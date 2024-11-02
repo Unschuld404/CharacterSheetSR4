@@ -15,13 +15,13 @@ import {char} from "@/composables/char";
          </div>
          <div class="row">
           <div class="category">{{ spell.category }}</div>
-          <div class="value">{{ spell.type }}</div>
-          <div class="value">{{ spell.range }}</div>
-          <div class="value">{{ spell.duration }}</div>
-          <div class="formula">{{ spell.dv }}</div>
-          <div class="dice-box">
-            <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
+          <div class="value-group">
+            <div class="value">{{ spell.type }}</div>
+            <div class="value">{{ spell.range }}</div>
+            <div class="value">{{ spell.duration }}</div>
           </div>
+          <div class="formula">{{ spell.dv }}</div>
+          <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
          </div>
        </div>
       </li>
@@ -31,6 +31,10 @@ import {char} from "@/composables/char";
 </template>
 
 <style scoped>
+
+  .value-group {
+    display: flex;
+  }
 
   .header {
     margin-top: 1.5vh;
@@ -46,21 +50,22 @@ import {char} from "@/composables/char";
     height: 8vh;
     margin-top: 1vh;
     margin-bottom: 1vh;
+    margin-left: 6vh;
+    margin-right: 6vh;
     justify-content: space-between;
   }
 
   .item {
     height: 14vh;
+    width: 100%;
+  }
+
+  .item:last-child {
     border-bottom: 1px solid var(--background-color);
   }
 
   .value {
     width: 3vh;
-    text-align: center;
-  }
-
-  .category{
-    width: 30vh;
     text-align: center;
   }
 

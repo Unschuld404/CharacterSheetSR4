@@ -71,18 +71,22 @@ function toggleSelection(item: string) {
 
 <style scoped>
 
-.selection-list {
+ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
 .selection-list li {
-  display: table;
-  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
   cursor: pointer;
+  border: none;
+  border-radius: 1vh;
+  margin-bottom: 2vh;
+  text-align: center;
+  font-size: 3vw;
+  background-color: var(--background-color);
+  color: var(--accent-color);
 }
 
 .selection-list li + li {
@@ -90,8 +94,9 @@ function toggleSelection(item: string) {
 }
 
 .selection-list li.selected {
-  background-color: #e0f7fa;
+  background-color: var(--accent-color);
   color: var(--background-color);
+  font-weight: bold;
 }
 
 .modal-content{

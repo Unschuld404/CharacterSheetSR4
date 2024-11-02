@@ -29,7 +29,7 @@ function toggleSkill(value: string)
   <div class="action-skills box">
     <div class="scroll-box">
       <ul>
-        <li v-for="skill in skills" :key="skill.name" class="item row">
+        <li v-for="skill in skills" :key="skill.name" class="item">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div class="name">{{ skill.name }}</div>
           <div class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
@@ -44,9 +44,11 @@ function toggleSkill(value: string)
 
 <style scoped>
 
-.row {
+.item {
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .favourite {

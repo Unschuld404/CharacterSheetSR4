@@ -43,6 +43,9 @@
 
 .item {
     border-bottom: 1px solid var(--background-color);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 }
 
 .item:last-child {

@@ -13,15 +13,21 @@ const choose = (type: SpiritType) => {
   <div v-if="DialogAddSpirit.visible" class="modal-overlay" @click="DialogAddSpirit.hide()">
 
     <div v-if="DialogAddSpirit.doChooseType" class="modal-content-choose" @click.stop>
-      <div class="column-choose">
-        <div  v-for="(item, index) in SpiritTypes"
-              :key="index"
-              :class="['type', {active: DialogAddSpirit.selectedType === item.name }]"
-              @click="choose(item)"
-        >
-          {{ item.name }}
+
+      <div class="box">
+
+        <div class="column-choose">
+          <div  v-for="(item, index) in SpiritTypes"
+                :key="index"
+                :class="['type', {active: DialogAddSpirit.selectedType === item.name }]"
+                @click="choose(item)"
+          >
+            {{ item.name }}
+          </div>
         </div>
+
       </div>
+
     </div>
 
     <div v-else class="modal-content" @click.stop>
@@ -57,6 +63,12 @@ const choose = (type: SpiritType) => {
   z-index: 1001;
 }
 
+.column-choose {
+  margin-top: 1vh;
+  height: 100%;
+  justify-content: space-evenly;
+}
+
 .modal-content {
   width: 50vh;
   height: 45vh;
@@ -65,12 +77,6 @@ const choose = (type: SpiritType) => {
 
 .modal-overlay {
   z-index: 1000;
-}
-
-.column-choose {
-  margin-top: 1vh;
-  height: 100%;
-  justify-content: space-evenly;
 }
 
 .column {
@@ -84,12 +90,6 @@ const choose = (type: SpiritType) => {
   font-size: 4vh;
   align-items: center;
   gap: 2vh;
-}
-
-i {
-  font-size: 6vh;
-  width: 10vh;
-  text-align: center;
 }
 
 .value {
@@ -112,6 +112,11 @@ i {
   border: none;
   border-radius: 1vh;
   margin-bottom: 2vh;
+}
+
+.box {
+  padding-left: 3vh;
+  padding-right: 3vh;
 }
 
 </style>
