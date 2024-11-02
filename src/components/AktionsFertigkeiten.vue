@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 import {DialogRollDice} from "@/composables/dialogs";
 import {uploadSheet} from "@/composables/fetch";
 import {computed} from "vue";

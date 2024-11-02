@@ -1,6 +1,6 @@
 <script setup lang="ts">
  import {DialogManageEdge} from "@/composables/dialogs";
- import {char} from "@/composables/data";
+ import {char} from "@/composables/char";
 
  function add()
  {

@@ -1,5 +1,7 @@
-import {char, data, sheet_data} from "@/composables/data";
 import {uid} from "@/composables/uid";
+import {char} from "@/composables/char";
+import {data} from "@/composables/data";
+import {sheet_data} from "@/composables/sheet";
 
 const basePath = 'https://api.blackserver.de/chummer';
 

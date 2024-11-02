@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import {DialogSpiritSheet, DialogAddSpirit} from "@/composables/dialogs";
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 
 const spirits = computed(() => char.spirits);
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 import {DialogManageEdge} from "@/composables/dialogs";
 
 </script>

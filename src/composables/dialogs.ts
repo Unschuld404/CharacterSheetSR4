@@ -1,7 +1,7 @@
 import {reactive} from "vue";
-import {char} from "@/composables/data";
 import {uploadSheet} from "@/composables/fetch";
 import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
+import {char} from "@/composables/char";
 
 export class Dialog  {
     visible: boolean;

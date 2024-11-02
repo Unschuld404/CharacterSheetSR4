@@ -4,13 +4,13 @@ import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
-import {Spirit, BoundModes} from "@/composables/spirits";
+import {BoundModes} from "@/composables/spirits";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
-const spirit : Spirit = computed( () => DialogSpiritSheet.spirit );
+const spirit = computed( () => DialogSpiritSheet.spirit );
 const services = computed ({
   get() { return spirit.value.services },
   set(value) { spirit.value.services = value }
@@ -66,7 +66,7 @@ function onCancelPowersDialog() {
 
   <ReleaseSpirit v-if="releaseDialogVisible" @confirm="onConfirmReleaseDialog" @cancel="onCancelReleaseDialog"/>
 
-  <ChooseSpiritPowers v-if="powersDialogVisible" :count="power" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
+  <ChooseSpiritPowers v-if="powersDialogVisible" :count="spirit.maxOptionalPowersCount" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>

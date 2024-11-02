@@ -1,27 +1,29 @@
-import Initiative from "@/components/Initiative.vue";
 import {Spirit, type SpiritType} from "@/composables/spirits";
 import {toInt} from "@/composables/utils";
 import {reactive} from "vue";
 import {
     data,
-    type Armor,
-    type Attributes,
-    type DamageMonitor,
-    type Drain,
-    type Movement,
-    type Skill,
-    type Spell,
-    type Vehicle,
-    type Weapon,
     extractAttributeFromDrain,
     getActionSkills,
     getKnowledgeSkills,
-    getSpells,
+    getSpells, getSpirits,
     getVehicles,
     getWeapons
 } from "@/composables/data";
 import {Sheet, sheet_data} from "@/composables/sheet";
-import type {SheetData} from "@/composables/types";
+import type {
+    Armor,
+    Attributes,
+    DamageMonitor,
+    Drain,
+    Initiative,
+    Movement,
+    SheetData,
+    Skill,
+    Spell,
+    Vehicle,
+    Weapon
+} from "@/composables/types";
 
 export class Charakter {
     name!: string;
@@ -295,5 +297,6 @@ export class Charakter {
             ?? null;
     }
 }
+
 
 export const char = reactive(new Charakter(data.value, sheet_data.value));

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 
 </script>
 

@@ -1,5 +1,5 @@
 import {toArray, toInt} from "@/composables/utils";
-import type {Skill} from "@/composables/data";
+import type {Skill} from "@/composables/types";
 
 export type SpiritType = {
     name: string;
@@ -33,25 +33,12 @@ export class Spirit {
     get maxOptionalPowersCount(): number { return Math.floor(this.force / 3) }
     get optionalPowersCount(): number { return this.optionalPowers.length }
     get powers(): SpiritPower[] {
-        const powers = [];
-        const powersAsString = this.optionalPowers.concat(toArray(this.spiritType?.powers));
-        for (const powerAsString of powersAsString) {
-            powersAsString.push(powerAsString);
-            const power = getSpiritPower(powerAsString);
-            if (power !== null)
-            {
-                powers.push(power);
-            }
-            else
-            {
-                console.error('SpiritPower not found: ' + powerAsString)
-            }
-        }
-        return powers;
+        const powersAsStringArray = this.optionalPowers.concat(toArray(this.spiritType?.powers ?? null));
+        return powersAsStringArrayToPowers(powersAsStringArray);
     }
     get skills(): Skill[] {
-        const skills = [];
-        const skillsAsString = toArray(this.skills);
+        const skills: Skill[]  = [];
+        const skillsAsString: string[] = toArray(this.spiritType?.skills ?? null);
         for (const skillAsString of skillsAsString) {
 
         }
@@ -238,7 +225,27 @@ export const SpiritPowers: SpiritPower[] =  [
 export function optionalPowersFor(type: string): SpiritPower[]
 {
     const spiritType = SpiritTypes.find((item: SpiritType) => { return item.name === type }) ?? null;
-    return toArray(spiritType);
+    const powersAsStringArray =  toArray(spiritType?.powers ?? null);
+    return powersAsStringArrayToPowers(powersAsStringArray);
+}
+
+function powersAsStringArrayToPowers(powersAsStringArray: string[]): SpiritPower[]
+{
+    const powers = [];
+
+    for (const powerAsString of powersAsStringArray)
+    {
+        const power = getSpiritPower(powerAsString);
+        if (power !== null)
+        {
+            powers.push(power);
+        }
+        else
+        {
+            console.error('SpiritPower not found: ' + powerAsString)
+        }
+    }
+    return powers;
 }
 
 export const SpiritTypes : SpiritType[] = [

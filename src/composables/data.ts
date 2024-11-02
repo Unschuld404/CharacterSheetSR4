@@ -1,5 +1,5 @@
 import {ref} from "vue";
-import type {KarmaEntry, NuyenEntry, SelectedItem, Skill} from "@/composables/types";
+import type {KarmaEntry, NuyenEntry, SelectedItem, Skill, Spell, Vehicle, Weapon} from "@/composables/types";
 import {toInt} from "@/composables/utils";
 import {Spirit} from "@/composables/spirits";
 

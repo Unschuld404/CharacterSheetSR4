@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {computed} from "vue";
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 import {DialogRollDice} from "@/composables/dialogs";
 
 const skills = computed(() => {

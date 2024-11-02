@@ -55,10 +55,10 @@ function toggleSelection(item: string) {
           <li
               v-for="(item, index) in items"
               :key="index"
-              :class="{ selected: selectedItems.includes(item) }"
-              @click="toggleSelection(item)"
+              :class="{ selected: selectedItems.includes(item.name) }"
+              @click="toggleSelection(item.name)"
           >
-            {{ item }}
+            {{ item.name }}
           </li>
         </ul>
 

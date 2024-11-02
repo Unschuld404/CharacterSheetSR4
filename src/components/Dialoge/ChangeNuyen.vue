@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DialogChangeNuyen } from "@/composables/dialogs";
-import {char} from "@/composables/data";
+import {char} from "@/composables/char";
 import {toInt} from "@/composables/utils";
 import {ref} from "vue";
 
