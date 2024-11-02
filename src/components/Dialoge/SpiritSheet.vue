@@ -102,8 +102,8 @@ function onCancelPowersDialog() {
                 </div>
               </div>
 
-              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item" >
-                <div class="formula" @click="DialogSpiritPowerInfo.setPower(power).show()">{{ power.name }}</div>
+              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
+                <div class="formula">{{ power.name }}</div>
                 <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">{{ spirit.force }}</div>
               </div>
             </div>
@@ -141,6 +141,10 @@ function onCancelPowersDialog() {
             <div>Durchgänge</div>
             <strong>{{spirit.initiative.passes}}</strong>
           </div>
+          <div class="item-special">
+            <div>Bewegung</div>
+            <div>{{spirit.spiritType.movement}}</div>
+          </div>
         </div>
         <div class="box resistance">
           <div class="item-special">
@@ -155,6 +159,10 @@ function onCancelPowersDialog() {
             <div>Widerstand: Binden</div>
             <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force * 2).setName('Widerstand: Binden').show">{{ spirit.force * 2 }}</div>
           </div>
+        </div>
+        <div class="box flaws">
+          <div>{{ spirit.spiritType.flaws }}</div>
+
         </div>
         <div class="box service">
           <div class="row mod">
@@ -177,6 +185,10 @@ function onCancelPowersDialog() {
 </template>
 
 <style scoped>
+
+.flaws {
+  flex: 1;
+}
 
 .optional-powers {
   position: absolute;
@@ -221,15 +233,14 @@ i {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 7vh;
   padding-left: 2vh;
   padding-right: 2vh;
+  height: 4vh;
 }
 
 .box {
   align-content: center;
   text-align: center;
-  font-size: 2.5vh;
 }
 
 .resistance {
@@ -256,7 +267,7 @@ i {
 }
 
 .initiative {
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -268,17 +279,10 @@ i {
   overflow: hidden;
 }
 
-.dice {
-  height: 5vh;
-  width: 5vh;
-  font-size: 3.5vh;
-}
-
 .name {
   position: absolute;
-  font-size: 5vh;
+  font-size: 4vh;
   left: 50%;
-  top: 0.5vh;
   transform: translateX(-50%);
   width: 80%;
 }
@@ -295,7 +299,7 @@ i {
 }
 
 strong {
-  width: 5vh;
+  width: 4vh;
   text-align: center;
 }
 
