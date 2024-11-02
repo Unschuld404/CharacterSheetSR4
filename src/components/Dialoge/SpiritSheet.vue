@@ -206,7 +206,7 @@ function onCancelPowersDialog() {
 }
 
 i {
-  margin-top: 0.85vh;
+  margin-top: 0.4vh;
 }
 
 .mode {

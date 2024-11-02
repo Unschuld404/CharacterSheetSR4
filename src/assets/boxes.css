@@ -9,6 +9,7 @@
 .scroll-box {
     overflow: scroll;
     height: 90%;
+    padding-right: 3vh;
 }
 
 .scroll-box::-webkit-scrollbar {
@@ -29,6 +30,7 @@
     align-items: center;
     gap: 2vh;
     overflow-x: hidden;
+    padding-right: 2vh;
 }
 
 .lower-header {
