@@ -1,5 +1,6 @@
 import {toArray, toInt} from "@/composables/utils";
 import type {Skill} from "@/composables/types";
+import {char} from "@/composables/char";
 
 export type SpiritType = {
     name: string;
@@ -17,6 +18,12 @@ export const BoundModes = [
     { label: 'Ungebunden', value: 'ungebunden' },
 ];
 
+export const SpiritPlanes = [
+    { label: 'Materiell', value: 'material' },
+    { label: 'Astral', value: 'astral' },
+    { label: 'Heimat', value: 'heimat' },
+];
+
 export class Spirit {
     type: string = 'unknown';
     name: string = '';
@@ -25,6 +32,7 @@ export class Spirit {
     bound: boolean = false;
     created: boolean = true;
     optionalPowers: string[] = [];
+    plane: string = 'heimat';
 
     get valid(): boolean { return this.spiritType !== null }
     get spiritType(): SpiritType | null { return SpiritTypes.find((item: SpiritType) => { return item.name === this.type }) ?? null };
@@ -40,12 +48,25 @@ export class Spirit {
         const skills: Skill[]  = [];
         const skillsAsString: string[] = toArray(this.spiritType?.skills ?? null);
         for (const skillAsString of skillsAsString) {
-
+            let skill = char.actionSkills.find((item: Skill) => { return item.name === skillAsString })
+                ?? char.knowledgeSkills.find((item: Skill) => { return item.name === skillAsString })
+                ?? null;
+            if (skill !== null)
+            {
+                skills.push(skill);
+            }
+            else
+            {
+                console.error('skill not found: ' + skillAsString);
+            }
         }
-
 
         return skills;
     }
+
+    get armor(): number { return this.force * 2 }
+    
+
 
     equals(spirit: Spirit): boolean {
         return this.type === spirit.type
@@ -63,7 +84,6 @@ export class Spirit {
         newSpirit.services = services;
         return newSpirit;
     }
-
     static createFromDataObject(obj: any): Spirit {
         let newSpirit = new Spirit();
 
@@ -73,11 +93,11 @@ export class Spirit {
         newSpirit.force = toInt(obj.force);
         newSpirit.bound = obj.bound === 'True';
         newSpirit.created = false;
+        newSpirit.optionalPowers = obj.optionalPowers;
+        newSpirit.plane = obj.plane;
 
         return newSpirit;
     }
-
-
 }
 
 export type SpiritPower = {
@@ -88,15 +108,13 @@ export type SpiritPower = {
     duration: string;
 }
 
-export function PowerHasPool(power: SpiritPower): boolean {
+export function powerHasPool(power: SpiritPower): boolean {
     return power.range !== 'Selbst';
 }
 
 export function isWatcher(type: SpiritType | null): boolean {
     return (type?.english_name ?? '') === 'Watcher';
 }
-
-
 
 export type Modifier = {
     name: string;
@@ -222,15 +240,13 @@ export const SpiritPowers: SpiritPower[] =  [
     },
 ]
 
-export function optionalPowersFor(type: string): SpiritPower[]
-{
+export function optionalPowersFor(type: string): SpiritPower[] {
     const spiritType = SpiritTypes.find((item: SpiritType) => { return item.name === type }) ?? null;
-    const powersAsStringArray =  toArray(spiritType?.powers ?? null);
+    const powersAsStringArray =  toArray(spiritType?.optional ?? null);
     return powersAsStringArrayToPowers(powersAsStringArray);
 }
 
-function powersAsStringArrayToPowers(powersAsStringArray: string[]): SpiritPower[]
-{
+function powersAsStringArrayToPowers(powersAsStringArray: string[]): SpiritPower[] {
     const powers = [];
 
     for (const powerAsString of powersAsStringArray)
@@ -264,6 +280,7 @@ export const SpiritTypes : SpiritType[] = [
         powers: 'Astrale Gestalt, Bewegung, Bewusstsein, Bindung, Materialisierung, Schutz, Suche',
         optional: 'Elementarer Angriff, Grauen, Verschleierung, Verschlingen, Verwirrung',
         flaws: '',
+        description: '...',
     },
     {
         name: 'Feuergeist',

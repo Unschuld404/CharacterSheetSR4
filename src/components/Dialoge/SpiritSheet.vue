@@ -6,7 +6,7 @@ import RadioButtons from "@/components/RadioButtons.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import {char} from "@/composables/char";
 import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
-import {BoundModes} from "@/composables/spirits";
+import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
@@ -15,11 +15,15 @@ const services = computed ({
   get() { return spirit.value.services },
   set(value) { spirit.value.services = value }
 });
-const power = computed( () => spirit.value.force);
 const selectedBoundMode = computed ({
   get() { return spirit.value.bound ? BoundModes[0].value : BoundModes[1].value },
   set(value) { spirit.value.bound = value == BoundModes[0].value  }
 })
+const selectedSpiritPlane = computed ({
+  get() { return spirit.value.plane },
+  set(value) { spirit.value.plane = value  }
+})
+
 
 function addService() {
   services.value = services.value + 1;
@@ -30,14 +34,6 @@ function removeService() {
     services.value = services.value - 1;
   }
 }
-
-const spiritPlanes = [
-  { label: 'Materiell', value: 'material' },
-  { label: 'Astral', value: 'astral' },
-  { label: 'Heimat', value: 'heimat' },
-];
-
-const selectedSpiritPlane = ref<string>('heimat');
 
 function showReleaseDialog(): void {
   releaseDialogVisible.value = true;
@@ -54,6 +50,7 @@ function showPowersDialog() {
   powersDialogVisible.value = true;
 }
 function onConfirmPowersDialog(powers: string[]): void {
+  DialogSpiritSheet.spirit.optionalPowers = powers;
   powersDialogVisible.value = false;
 }
 function onCancelPowersDialog() {
@@ -76,6 +73,8 @@ function onCancelPowersDialog() {
           {{ spirit.caption }} - Stufe {{ spirit.force }}
         </div>
         <div class="dice release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
+
+        <div @click="showPowersDialog()">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
       </div>
 
       <div class="content">
@@ -84,58 +83,14 @@ function onCancelPowersDialog() {
           <div class="skills box">
 
             <div class="scroll-box">
+              <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
+                <div class="skill">{{ skill.name }}    -     {{ skill.attribute }} {{ skill.attribute_value }}</div>
+                <div class="dice skill-dice" @click="showPowersDialog()">{{ skill.total }}</div>
+              </div>
 
-              <div class="item" >
-                <div class="skill">Askennen</div>
-                <div class="dice skill-dice" @click="showPowersDialog()">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Astralkampf</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Ausweichen</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Waffenloser Kampf</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Wahrnehmung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Astrale Gestalt</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Bewegung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Bewusstsein</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item ">
-                <div class="skill">Gesteigerte Sinne</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Grauen</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Materialisierung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Tierbeherrschung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Verschleierung</div>
-                <div class="dice skill-dice">5</div>
+              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item" >
+                <div class="skill">{{ power.name }}  -  {{ power.type }} {{ power.action }} {{ power.range }} {{ power.duration }} </div>
+                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="showPowersDialog()">{{ spirit.force }}</div>
               </div>
             </div>
 
@@ -145,7 +100,7 @@ function onCancelPowersDialog() {
         <div class="column">
 
           <div class="box plane">
-            <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+            <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
           </div>
           <div class="box binding">
             <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/><br>
@@ -176,11 +131,11 @@ function onCancelPowersDialog() {
         <div class="box resistance">
           <div class="item-special">
             <div>Widerstand: Bannen</div>
-            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Bannen').show">{{ spirit.force }}</div>
+            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Bannen').show">{{ spirit.force + char.attributes.magic.total}}</div>
           </div>
           <div class="item-special">
             <div>Widerstand: Binden</div>
-            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Binden').show">{{ spirit.force }}</div>
+            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Binden').show">{{ spirit.force * 2 }}</div>
           </div>
         </div>
         <div class="box service">
