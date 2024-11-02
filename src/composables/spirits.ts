@@ -1,5 +1,5 @@
-import type { Skill } from "@/composables/data";
-import {toInt} from "@/composables/utils";
+import {toArray, toInt} from "@/composables/utils";
+import type {Skill} from "@/composables/data";
 
 export type SpiritType = {
     name: string;
@@ -11,6 +11,11 @@ export type SpiritType = {
     movement: string;
     flaws: string;
 }
+
+export const BoundModes = [
+    { label: 'Gebunden', value: 'gebunden' },
+    { label: 'Ungebunden', value: 'ungebunden' },
+];
 
 export class Spirit {
     type: string = 'unknown';
@@ -27,6 +32,33 @@ export class Spirit {
     get caption(): string { return (this.name ?? '') || this.type }
     get maxOptionalPowersCount(): number { return Math.floor(this.force / 3) }
     get optionalPowersCount(): number { return this.optionalPowers.length }
+    get powers(): SpiritPower[] {
+        const powers = [];
+        const powersAsString = this.optionalPowers.concat(toArray(this.spiritType?.powers));
+        for (const powerAsString of powersAsString) {
+            powersAsString.push(powerAsString);
+            const power = getSpiritPower(powerAsString);
+            if (power !== null)
+            {
+                powers.push(power);
+            }
+            else
+            {
+                console.error('SpiritPower not found: ' + powerAsString)
+            }
+        }
+        return powers;
+    }
+    get skills(): Skill[] {
+        const skills = [];
+        const skillsAsString = toArray(this.skills);
+        for (const skillAsString of skillsAsString) {
+
+        }
+
+
+        return skills;
+    }
 
     equals(spirit: Spirit): boolean {
         return this.type === spirit.type
@@ -82,6 +114,10 @@ export function isWatcher(type: SpiritType | null): boolean {
 export type Modifier = {
     name: string;
     value: number;
+}
+
+export function getSpiritPower(name: string): SpiritPower | null {
+    return SpiritPowers.find((item: SpiritPower) => item.name === name) ?? null;
 }
 
 export const SpiritPowers: SpiritPower[] =  [
@@ -202,13 +238,7 @@ export const SpiritPowers: SpiritPower[] =  [
 export function optionalPowersFor(type: string): SpiritPower[]
 {
     const spiritType = SpiritTypes.find((item: SpiritType) => { return item.name === type }) ?? null;
-    if (spiritType === null) {
-        return [];
-    }
-    return spiritType.optional
-        .split(',')
-        .map(item => item.trim())
-        .filter(item => item.length > 0);
+    return toArray(spiritType);
 }
 
 export const SpiritTypes : SpiritType[] = [

@@ -1,35 +1,35 @@
 <script setup lang="ts">
 import {DialogRollDice, DialogSpiritSheet} from "@/composables/dialogs";
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import {char} from "@/composables/data";
 import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
+import {Spirit, BoundModes} from "@/composables/spirits";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
+const spirit : Spirit = computed( () => DialogSpiritSheet.spirit );
+const services = computed ({
+  get() { return spirit.value.services },
+  set(value) { spirit.value.services = value }
+});
+const power = computed( () => spirit.value.force);
+const selectedBoundMode = computed ({
+  get() { return spirit.value.bound ? BoundModes[0].value : BoundModes[1].value },
+  set(value) { spirit.value.bound = value == BoundModes[0].value  }
+})
 
-const services = ref(1);
-const power = ref(2);
-const type = ref('Feuergeist')
-
-function add()
-{
+function addService() {
   services.value = services.value + 1;
-  console.log(services.value);
 }
-
-function substract()
-{
-  services.value = services.value - 1;
-  console.log(services.value);
+function removeService() {
+  if (services.value > 0)
+  {
+    services.value = services.value - 1;
+  }
 }
-
-const boundModes = [
-  { label: 'Gebunden', value: 'gebunden' },
-  { label: 'Ungebunden', value: 'ungebunden' },
-];
 
 const spiritPlanes = [
   { label: 'Materiell', value: 'material' },
@@ -37,34 +37,26 @@ const spiritPlanes = [
   { label: 'Heimat', value: 'heimat' },
 ];
 
-const selectedBoundModes = ref<string>('ungebunden');
 const selectedSpiritPlane = ref<string>('heimat');
 
-function showReleaseDialog(): void
-{
+function showReleaseDialog(): void {
   releaseDialogVisible.value = true;
 }
-function onConfirmReleaseDialog(): void
-{
+function onConfirmReleaseDialog(): void {
   char.releaseSpirit(DialogSpiritSheet.spirit);
   releaseDialogVisible.value = false;
   DialogSpiritSheet.hide();
 }
-function onCancelReleaseDialog(): void
-{
+function onCancelReleaseDialog(): void {
   releaseDialogVisible.value = false;
 }
-
-function showPowersDialog()
-{
+function showPowersDialog() {
   powersDialogVisible.value = true;
 }
-function onConfirmPowersDialog(powers: string[]): void
-{
+function onConfirmPowersDialog(powers: string[]): void {
   powersDialogVisible.value = false;
 }
-function onCancelPowersDialog()
-{
+function onCancelPowersDialog() {
   powersDialogVisible.value = false;
 }
 
@@ -74,14 +66,14 @@ function onCancelPowersDialog()
 
   <ReleaseSpirit v-if="releaseDialogVisible" @confirm="onConfirmReleaseDialog" @cancel="onCancelReleaseDialog"/>
 
-  <ChooseSpiritPowers v-if="powersDialogVisible" :count="power" :type="type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
+  <ChooseSpiritPowers v-if="powersDialogVisible" :count="power" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
     <div class="modal-content" @click.stop>
 
       <div class="box row spirit">
         <div class="name">
-          Hier steht der Name vom Geist und Stufe
+          {{ spirit.caption }} - Stufe {{ spirit.force }}
         </div>
         <div class="dice release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
       </div>
@@ -156,7 +148,7 @@ function onCancelPowersDialog()
             <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
           </div>
           <div class="box binding">
-            <RadioButtons class="mode" v-model="selectedBoundModes" :options="boundModes" group="bounded"/><br>
+            <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/><br>
           </div>
           <div class="box damage">
             <div class="monitor">
@@ -184,18 +176,18 @@ function onCancelPowersDialog()
         <div class="box resistance">
           <div class="item-special">
             <div>Widerstand: Bannen</div>
-            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Bannen').show">{{ spirit.force }}</div>
           </div>
           <div class="item-special">
             <div>Widerstand: Binden</div>
-            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force).setName('Widerstand: Binden').show">{{ spirit.force }}</div>
           </div>
         </div>
         <div class="box service">
           <div class="row mod">
-            <div class="mutator" @click="substract">-</div>
+            <div class="mutator" @click="removeService">-</div>
             <h1>{{ services }}</h1>
-            <div class="mutator" @click="add">+</div>
+            <div class="mutator" @click="addService">+</div>
           </div>
           <div class="lower-header">
             Dienste
