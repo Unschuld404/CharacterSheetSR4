@@ -221,6 +221,7 @@ i {
 .monitor {
   display: flex;
   justify-content: center;
+  height: 85%;
 }
 
 .mod {
@@ -283,7 +284,8 @@ i {
 }
 
 .damage {
-  flex: 5;
+  flex: 7;
+  overflow: hidden;
 }
 
 .dice {
@@ -302,7 +304,7 @@ i {
 }
 
 .scroll-box {
-  height: 96%;
+  height: 95%;
   margin-top: 2%;
   margin-bottom: 2%;
 }

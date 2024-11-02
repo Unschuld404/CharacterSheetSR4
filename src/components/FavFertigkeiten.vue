@@ -59,6 +59,8 @@ const skills = computed(() => {
 
   .value {
     width: 30%;
+    position: absolute;
+    right: 2vh;
   }
 
   .item {
@@ -66,6 +68,7 @@ const skills = computed(() => {
     height: 6vh;
     line-height: 6vh;
     justify-content: space-between;
+    position: relative;
   }
 
   button {
