@@ -1,6 +1,6 @@
 import {reactive} from "vue";
 import {uploadSheet} from "@/composables/fetch";
-import {isWatcher, type Spirit, type SpiritType} from "@/composables/spirits";
+import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
 
 export class Dialog  {
@@ -84,6 +84,15 @@ export class SpiritSheetDialog extends Dialog {
     }
 }
 
+export class SpiritPowerInfoDialog extends Dialog {
+    spiritPower!: SpiritPower;
+    setPower(spiritPower: SpiritPower): SpiritPowerInfoDialog {
+        this.spiritPower = spiritPower;
+        console.log('test');
+        return this;
+    }
+}
+
 export class RollDiceDialog extends Dialog {
 
     name: string = 'Würfeln';
@@ -127,3 +136,4 @@ export const DialogDroneSheet = reactive(new Dialog());
 export const DialogChangeKarma = reactive(new Dialog());
 export const DialogRangedWeapons = reactive(new Dialog());
 export const DialogManageSpiritEdge = reactive(new Dialog());
+export const DialogSpiritPowerInfo = reactive(new SpiritPowerInfoDialog());

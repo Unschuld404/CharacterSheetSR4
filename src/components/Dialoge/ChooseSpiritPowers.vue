@@ -84,7 +84,7 @@ ul {
   border-radius: 1vh;
   margin-bottom: 2vh;
   text-align: center;
-  font-size: 3vw;
+  font-size: 2vw;
   background-color: var(--background-color);
   color: var(--accent-color);
 }
