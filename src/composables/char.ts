@@ -30,9 +30,9 @@ export class Charakter {
     initiative!: Initiative;
     metatype! : string;
     movement!: Movement;
-    height!: number;
-    weight!: number;
-    age! : number;
+    height!: string;
+    weight!: string;
+    age! : string;
     sex! : string;
     skin! : string;
     eyes! : string;
@@ -134,20 +134,20 @@ export class Charakter {
                 },
             },
         }
-        this.metatype = data?.metatype ?? 'unknown';
+        this.metatype = data?.metatype || 'unknown';
         this.movement = {
-            caption: data?.movement ?? '',
-            walk : data?.movementwalk ?? '',
-            swim : data?.movementswim ?? '',
-            fly : data?.movementfly ?? '',
+            caption: data?.movement  || '',
+            walk : data?.movementwalk  || '',
+            swim : data?.movementswim  || '',
+            fly : data?.movementfly  || '',
         }
-        this.height = toInt(data?.height);
-        this.weight = toInt(data?.weight);
-        this.age = toInt(data?.age);
-        this.sex = data?.sex ?? 'unknown';
-        this.skin = data?.skin ?? 'unknown';
-        this.eyes = data?.eyes ?? 'unknown';
-        this.hair = data?.hair ?? 'unknown';
+        this.height = data?.height || 'unknown';
+        this.weight = data?.weight   || 'unknown';
+        this.age = data?.age  || 'unknown';
+        this.sex = data?.sex  || 'unknown';
+        this.skin = data?.skin  || 'unknown';
+        this.eyes = data?.eyes  || 'unknown';
+        this.hair = data?.hair  || 'unknown';
         this.armor = {
             impact : toInt(data?.armori),
             ballistic : toInt(data?.armorb),
