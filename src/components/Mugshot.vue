@@ -25,7 +25,7 @@ import {DialogChangeKarma} from "@/composables/dialogs";
             <div class="line"><div>Schwimmen:</div><div>{{ char.movement.swim }} m</div></div>
             <div class="line"><div>Fliegen:</div><div>{{ char.movement.fly }} m</div></div>
             <div class="line"><div>Größe:</div><div>{{ char.height }} m</div></div>
-            <div class="line"><div>Gewicht:</div><div>{{ char.weight }} kg</div></div>
+            <div class="line"><div>Gewicht:</div><div>{{ char.weight }}</div></div>
             <div class="line"><div>Alter:</div><div>{{ char.age }}</div></div>
             <div class="line"><div>Geschlecht:</div><div>{{ char.sex }}</div></div>
             <div class="line"><div>Hautfarbe:</div><div>{{ char.skin }}</div></div>
