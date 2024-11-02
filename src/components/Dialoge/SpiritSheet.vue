@@ -51,123 +51,123 @@ const selectedSpiritPlane = ref<string>('heimat');
       <div class="content">
 
         <div class="column skill-column">
-          <div class="skills box">
+            <div class="skills box">
 
-            <div class="scroll-box">
+              <div class="scroll-box">
 
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Askennen</div>
-                <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Askennen</div>
+                  <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Astralkampf</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Ausweichen</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Waffenloser Kampf</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Wahrnehmung</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Astrale Gestalt</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Bewegung</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Bewusstsein</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item ">
+                  <div class="skill">Gesteigerte Sinne</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Grauen</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Materialisierung</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Tierbeherrschung</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
+                <div class="item" @click="DialogRollDice.show">
+                  <div class="skill">Verschleierung</div>
+                  <div class="dice skill-dice">5</div>
+                </div>
               </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Astralkampf</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Ausweichen</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Waffenloser Kampf</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Wahrnehmung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Astrale Gestalt</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Bewegung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Bewusstsein</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item ">
-                <div class="skill">Gesteigerte Sinne</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Grauen</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Materialisierung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Tierbeherrschung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
-              <div class="item" @click="DialogRollDice.show">
-                <div class="skill">Verschleierung</div>
-                <div class="dice skill-dice">5</div>
-              </div>
+
             </div>
-
           </div>
-        </div>
 
         <div class="column">
 
-          <div class="box plane">
-            <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+            <div class="plane">
+              <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="spiritPlanes" group="planes"/>
+            </div>
+            <div class="binding">
+              <RadioButtons class="mode" v-model="selectedBoundModes" :options="boundModes" group="bounded" :selected="ungebunden"/><br>
+            </div>
+            <div class="box damage">
+              <div class="monitor">
+                <SpiritSchadensmonitor/>
+              </div>
+              <div class="lower-header">
+                Schadensmonitor
+              </div>
+            </div>
+
           </div>
-          <div class="box binding">
-            <RadioButtons class="mode" v-model="selectedBoundModes" :options="boundModes" group="bounded" :selected="ungebunden"/><br>
+
+        <div class="column">
+
+          <div class="box initiative">
+            <div class="item-special">
+              <div>Initiative</div>
+              <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+            </div>
+            <div class="item-special">
+              <div>Durchgänge</div>
+              <strong>3</strong>
+            </div>
           </div>
-          <div class="box damage">
-            <div class="monitor">
-              <SpiritSchadensmonitor/>
+          <div class="box resistance">
+            <div class="item-special">
+              <div>Widerstand: Bannen</div>
+              <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+            </div>
+            <div class="item-special">
+              <div>Widerstand: Binden</div>
+              <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
+            </div>
+          </div>
+          <div class="box service">
+            <div class="row mod">
+              <div class="mutator" @click="substract">-</div>
+              <h1>{{ services }}</h1>
+              <div class="mutator" @click="add">+</div>
             </div>
             <div class="lower-header">
-              Schadensmonitor
+              Dienste
             </div>
           </div>
-
         </div>
 
-      <div class="column">
-
-        <div class="box initiative">
-          <div class="item-special">
-            <div>Initiative</div>
-            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
-          </div>
-          <div class="item-special">
-            <div>Durchgänge</div>
-            <strong>3</strong>
-          </div>
-        </div>
-        <div class="box resistance">
-          <div class="item-special">
-            <div>Widerstand: Bannen</div>
-            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
-          </div>
-          <div class="item-special">
-            <div>Widerstand: Binden</div>
-            <div class="dice skill-dice" @click="DialogRollDice.show">5</div>
-          </div>
-        </div>
-        <div class="box service">
-          <div class="row mod">
-            <div class="mutator" @click="substract">-</div>
-            <h1>{{ services }}</h1>
-            <div class="mutator" @click="add">+</div>
-          </div>
-          <div class="lower-header">
-            Dienste
-          </div>
-        </div>
       </div>
 
     </div>
-
-      </div>
 
   </div>
 
@@ -191,6 +191,7 @@ i {
 .monitor {
   display: flex;
   justify-content: center;
+  height: 85%;
 }
 
 .mod {
@@ -253,7 +254,8 @@ i {
 }
 
 .damage {
-  flex: 5;
+  flex: 7;
+  overflow: hidden;
 }
 
 .dice {
@@ -272,7 +274,7 @@ i {
 }
 
 .scroll-box {
-  height: 96%;
+  height: 95%;
   margin-top: 2%;
   margin-bottom: 2%;
 }
