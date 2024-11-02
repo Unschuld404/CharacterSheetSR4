@@ -13,6 +13,11 @@ export type SpiritType = {
     flaws: string;
 }
 
+export type SpiritInitiative = {
+    pool: number;
+    passes: number;
+}
+
 export const BoundModes = [
     { label: 'Gebunden', value: 'gebunden' },
     { label: 'Ungebunden', value: 'ungebunden' },
@@ -65,7 +70,21 @@ export class Spirit {
     }
 
     get armor(): number { return this.force * 2 }
-    
+    get initiative() : SpiritInitiative {
+        if (this.plane === 'material') {
+            return {
+                pool : this.force * 2 + 2,
+                passes: 2,
+            }
+        }
+        else
+        {
+            return {
+                pool : this.force * 2,
+                passes: 3,
+            }
+        }
+    }
 
 
     equals(spirit: Spirit): boolean {
