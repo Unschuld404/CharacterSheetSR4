@@ -38,6 +38,7 @@ export class Spirit {
     created: boolean = true;
     optionalPowers: string[] = [];
     plane: string = 'heimat';
+    spentEdge: number = 0;
 
     get valid(): boolean { return this.spiritType !== null }
     get spiritType(): SpiritType | null { return SpiritTypes.find((item: SpiritType) => { return item.name === this.type }) ?? null };
@@ -53,9 +54,37 @@ export class Spirit {
         const skills: Skill[]  = [];
         const skillsAsString: string[] = toArray(this.spiritType?.skills ?? null);
         for (const skillAsString of skillsAsString) {
-            let skill = char.actionSkills.find((item: Skill) => { return item.name === skillAsString })
-                ?? char.knowledgeSkills.find((item: Skill) => { return item.name === skillAsString })
-                ?? null;
+            let skill = null;
+            if (skillAsString == 'Exotische Fernkampfwaffe')
+            {
+                skill = {
+                    name: 'Exotische Fernkampfwaffe',
+                    type: 'Körperliche Aktionsfertigkeiten',
+                    attribute: 'AGI',
+                    attribute_value: this.attributeTotal('AGI'),
+                    rating: this.force,
+                    total: this.force + this.attributeTotal('AGI'),
+                }
+            }
+            else
+            {
+                let charSkill = char.actionSkills.find((item: Skill) => { return item.name === skillAsString })
+                    ?? char.knowledgeSkills.find((item: Skill) => { return item.name === skillAsString })
+                    ?? null;
+
+                if (charSkill !== null)
+                {
+                    skill = {
+                        name: charSkill.name,
+                        type: charSkill.type,
+                        attribute: charSkill.attribute,
+                        attribute_value: this.attributeTotal(charSkill.attribute),
+                        rating: this.force,
+                        total: this.force + this.attributeTotal(charSkill.attribute),
+                    };
+                }
+            }
+
             if (skill !== null)
             {
                 skills.push(skill);
@@ -64,11 +93,11 @@ export class Spirit {
             {
                 console.error('skill not found: ' + skillAsString);
             }
+
         }
 
         return skills;
     }
-
     get armor(): number { return this.force * 2 }
     get initiative() : SpiritInitiative {
         if (this.plane === 'material') {
@@ -85,7 +114,9 @@ export class Spirit {
             }
         }
     }
-
+    get edgeMax(): number { return this.attributeTotal('EDG') }
+    get edge(): number { return this.edgeMax - this.spentEdge}
+    set edge(value: number) { this.spentEdge = this.edgeMax - value; }
 
     equals(spirit: Spirit): boolean {
         return this.type === spirit.type
@@ -94,6 +125,18 @@ export class Spirit {
             && this.services === spirit.services
             && this.created === spirit.created
             && this.bound === spirit.bound;
+    }
+
+    attributeTotal(attribute: string): number {
+        if (this.plane === 'material' || attribute == 'EDG' || attribute == 'INI')
+        {
+            const mod = this.spiritType?.modifiers?.find((item: Modifier) => { return item.name === attribute }) ?? null;
+            if (mod !== null)
+            {
+                return this.force + mod.value
+            }
+        }
+        return this.force;
     }
 
     static create(type: SpiritType, force: number, services: number): Spirit {
@@ -107,13 +150,14 @@ export class Spirit {
         let newSpirit = new Spirit();
 
         newSpirit.type = obj.name || obj.type;
-        newSpirit.name = obj.crittername;
+        newSpirit.name = obj.critternam || '';
         newSpirit.services = toInt(obj.services);
         newSpirit.force = toInt(obj.force);
         newSpirit.bound = obj.bound === 'True';
         newSpirit.created = false;
-        newSpirit.optionalPowers = obj.optionalPowers;
-        newSpirit.plane = obj.plane;
+        newSpirit.optionalPowers = obj.optionalPowers || [];
+        newSpirit.plane = obj.plane || 'heimat';
+        newSpirit.spentEdge = toInt(obj.spentEdge);
 
         return newSpirit;
     }
@@ -125,6 +169,7 @@ export type SpiritPower = {
     action: string;
     range: string;
     duration: string;
+    pool: number;
 }
 
 export function powerHasPool(power: SpiritPower): boolean {
@@ -273,7 +318,7 @@ function powersAsStringArrayToPowers(powersAsStringArray: string[]): SpiritPower
         const power = getSpiritPower(powerAsString);
         if (power !== null)
         {
-            powers.push(power);
+            powers.push({ ...power, pool: 5 });
         }
         else
         {
