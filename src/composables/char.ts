@@ -4,7 +4,7 @@ import {reactive} from "vue";
 import {
     data,
     extractAttributeFromDrain,
-    getActionSkills,
+    getActionSkills, getGear,
     getKnowledgeSkills,
     getSpells, getSpirits,
     getVehicles,
@@ -15,7 +15,7 @@ import type {
     Armor,
     Attributes,
     DamageMonitor,
-    Drain,
+    Drain, Gear,
     Initiative,
     Movement,
     SheetData,
@@ -45,6 +45,7 @@ export class Charakter {
     spells!: Spell[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
+    gear!: Gear[];
     monitor!: DamageMonitor;
 
     sheet! : Sheet;
@@ -257,6 +258,7 @@ export class Charakter {
 
         this.vehicles = getVehicles(data);
         this.weapons = getWeapons(data);
+        this.gear = getGear(data);
         this.spells = getSpells(data);
     }
 

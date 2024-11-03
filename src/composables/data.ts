@@ -1,6 +1,17 @@
 import {ref} from "vue";
-import type {KarmaEntry, NuyenEntry, SelectedItem, Skill, Spell, Vehicle, Weapon} from "@/composables/types";
-import {toInt} from "@/composables/utils";
+import type {
+    Gear,
+    KarmaEntry,
+    NuyenEntry,
+    SelectedItem,
+    Skill,
+    Spell,
+    Vehicle,
+    Weapon,
+    WeaponSetting,
+    GearType
+} from "@/composables/types";
+import {toBool, toGearType, toInt} from "@/composables/utils";
 import {Spirit} from "@/composables/spirits";
 
 export const data = ref<any | null>(null);
@@ -44,6 +55,18 @@ export function getSelectedItems(data: any): SelectedItem[] {
     return list.map((entry: any) => ({
         type: entry.type,
         name: entry.name,
+    }));
+}
+export function getWeaponSettings(data: any): WeaponSetting[] {
+    let list = data?.value?.weaponSettings;
+    list = Array.isArray(list) ? list : [];
+    return list.map((entry: any) => ({
+        weaponId: entry.weaponId,
+        selectedMode: entry.selectedMode,
+        ammoLoaded: entry.ammoLoaded,
+        magSize: toInt(entry.magSize),
+        magType: entry.magType,
+        ammoLeft : toInt(entry.ammoLeft),
     }));
 }
 export function getSkills(data: any, knowledge: boolean): Array<Skill> {
@@ -113,7 +136,15 @@ export function getWeapons(data: any): Array<Weapon> {
 
     return weapons.map((weapon: any) => ({
         name: weapon.name || 'Unknown',
+        id:         weapon.category_english
+            + '.' + weapon.name_english
+            + '.' + weapon.damage_english
+            + '.rc(' + weapon.rc + ')'
+            + '.conceal(' + weapon.conceal+ ')'
+            + '.' + weapon.weaponname,
+        category_english: weapon.category_english || 'Unknown',
         damage: weapon.damage || '0',
+        category: weapon.category || '',
         ap: weapon.ap || '0',
         mode: weapon.mode || '',
         rc: weapon.rc || '0',
@@ -125,6 +156,19 @@ export function getWeapons(data: any): Array<Weapon> {
             extreme: weapon.ranges?.extreme || '0'
         },
         dicepool: weapon.dicepool || '0'
+    }));
+}
+export function getGear(data: any): Array<Gear> {
+    let items = data?.gears;
+    items = Array.isArray(items) ? items : [];
+
+    return items.map((item: any) => ({
+        name: item.name || 'Unknown',
+        category: item.category || 'Unknown',
+        type: toGearType(item),
+        extra: item.extra || '',
+        equipped: toBool(item.equipped),
+        count : toInt(item.qty),
     }));
 }
 export function dataIsValid(): boolean {

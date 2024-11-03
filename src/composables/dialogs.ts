@@ -2,6 +2,8 @@ import {reactive} from "vue";
 import {uploadSheet} from "@/composables/fetch";
 import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
+import type {Weapon, WeaponSetting} from "@/composables/types";
+import {validateWeaponSettingForWeapon} from "@/composables/weapons";
 
 export class Dialog  {
     visible: boolean;
@@ -88,7 +90,27 @@ export class SpiritPowerInfoDialog extends Dialog {
     spiritPower!: SpiritPower;
     setPower(spiritPower: SpiritPower): SpiritPowerInfoDialog {
         this.spiritPower = spiritPower;
-        console.log('test');
+        return this;
+    }
+}
+
+export class WeaponDialog extends Dialog {
+    weapon!: Weapon;
+    setting!:WeaponSetting;
+
+    show() {
+
+        if ( (this.weapon ?? null) === null || this.weapon.mode == '' )
+        {
+            return;
+        }
+
+        this.setting = validateWeaponSettingForWeapon(this.weapon);
+        super.show();
+    }
+
+    setWeapon(weapon: Weapon): WeaponDialog {
+        this.weapon = weapon;
         return this;
     }
 }
@@ -127,6 +149,8 @@ export class RollDiceDialog extends Dialog {
     }
 }
 
+
+
 export const DialogRollDice = reactive(new RollDiceDialog());
 export const DialogChangeNuyen = reactive(new Dialog());
 export const DialogSpiritSheet = reactive(new SpiritSheetDialog());
@@ -134,7 +158,7 @@ export const DialogManageEdge = reactive(new Dialog());
 export const DialogAddSpirit = reactive(new AddSpiritDialog());
 export const DialogDroneSheet = reactive(new Dialog());
 export const DialogChangeKarma = reactive(new Dialog());
-export const DialogRangedWeapons = reactive(new Dialog());
+export const DialogWeapon = reactive(new WeaponDialog());
 export const DialogManageSpiritEdge = reactive(new Dialog());
 export const DialogSpiritPowerInfo = reactive(new SpiritPowerInfoDialog());
 export const DialogDiceResult = reactive(new Dialog());
