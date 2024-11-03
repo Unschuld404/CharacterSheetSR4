@@ -70,12 +70,20 @@ strong {
 }
 
 .flex-scroll {
-  height: 80vh;
+  height: 85vh;
 }
 
-.box {
-  margin-bottom: 2vh;
-  width: 40vh;
+ul {
+  width: 100%;
 }
+
+li {
+  margin-bottom: 2vh;
+}
+
+li:last-of-type {
+  margin-bottom: 0;
+}
+
 
 </style>/

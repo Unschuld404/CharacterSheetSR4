@@ -1,7 +1,7 @@
 .favourite {
     appearance: none;
-    width: 2vh;
-    height: 2vh;
+    width: 3vh;
+    height: 3vh;
     border-radius: 0.5vh;
     background-color: var(--background-color);
     border: none;

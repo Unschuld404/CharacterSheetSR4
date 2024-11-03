@@ -26,7 +26,7 @@ function toggleSkill(value: string)
 
 <template>
 
-  <div class="action-skills box">
+  <div class="box">
     <div class="scroll-box">
       <ul>
         <li v-for="skill in skills" :key="skill.name" class="item">
