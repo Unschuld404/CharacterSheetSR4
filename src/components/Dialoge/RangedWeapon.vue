@@ -77,33 +77,67 @@ function shoot()
 
         <div class="row box name"><h1>{{ weapon.name }}</h1></div>
         <div class="row">
-          <div class="column divers">
-            <div class="row box">
-              <RadioButtons class="mode reach" v-model="selectReach" :options="ranges" group="distances" id="reach"/>
-            </div>
-            <div v-if="isLoaded()" class="row box" >
-              {{ setting.ammoLoaded }} {{ setting.ammoLeft }} / {{ setting.magSize }} ({{ setting.magType }})
-              <button class="action-button" @click="reload">reload</button>
-              <button class="action-button" @click="load">switch ammo</button>
-            </div>
-            <div v-else class="row box" >
-              <button class="action-button" @click="load">load ammo</button>
-            </div>
-            <div class="row">
-              <div class="column box">
-                <div class="ap">Panzerbrechend {{ weapon.ap }}</div>
-                <div class="recoil">Rückstoßkompensation {{ weapon.rc }}</div>
-              </div>
-              <div class="column box">Schaden<br>{{ weapon.damage }}</div>
-              <div class="column box"> Pool <br> {{ weapon.dicepool }} </div>
-              <div class="column box"> Range-Modifier <br> {{ rangeModifier }} </div>
-              <div class="column box"> Mode-Modifier <br> -{{ modeModifier }} </div>
-              <div class="shoot box"> Feuer <br> <button @click="shoot" class="dice"> {{ toInt(weapon.dicepool) + rangeModifier - modeModifier }} </button> </div>
-            </div>
-          </div>
           <div class="column">
             <div class="shooting-mode">
               <RadioButtons class="mode" v-model="selectShootingMode" :options="shootingMode" group="modes" id="mode"/>
+            </div>
+          </div>
+          <div class="column divers">
+            <div class="row reach">
+              <RadioButtons class="mode" v-model="selectReach" :options="ranges" group="distances" id="reach"/>
+            </div>
+            <div v-if="isLoaded()" class="row" >
+              {{ setting.ammoLoaded }} {{ setting.ammoLeft }} / {{ setting.magSize }} ({{ setting.magType }})
+              <button @click="reload">reload</button>
+              <button @click="load">switch ammo</button>
+            </div>
+            <div v-else class="row empty" >
+              <button @click="load">Munition laden</button>
+            </div>
+            <div class="row">
+              <div class="column box narrow">
+                <div class="lower-header">
+                  Schaden
+                </div>
+                <div class="mod">
+                  {{ weapon.damage }}
+                </div>
+              </div>
+              <div class="column box narrow">
+                <div class="lower-header">
+                  Pool
+                </div>
+                <div class="mod">
+                  {{ weapon.dicepool }}
+                </div>
+              </div>
+              <div class="column box wide">
+                <div class="row-info">
+                  <p>Panzerbrechend</p>
+                  <strong>{{ weapon.ap }}</strong>
+                </div>
+                <div class="row-info">
+                  <p>Rückstoßkompensation</p>
+                  <strong>{{ weapon.rc }}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="column box narrow">
+                <div class="lower-header">
+                  Distanz
+                </div>
+                <div class="mod">
+                  {{ rangeModifier }}
+                </div>
+              </div>
+              <div class="column box narrow">
+                <div class="lower-header">Modus</div>
+                <div class="mod">
+                  {{ modeModifier }}
+                </div>
+              </div>
+              <button @click="shoot" class="dice wide">{{ toInt(weapon.dicepool) + rangeModifier - modeModifier }} </button>
             </div>
           </div>
         </div>
@@ -117,17 +151,53 @@ function shoot()
 
 <style scoped>
 
-.action-button {
+.row-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2vh;
+  line-height: 3vh;
+}
+
+.mod {
   font-weight: bold;
   font-size: 3vh;
-  border: none;
+  line-height: 5vh;
+}
+
+.dice {
+  padding: 1vh;
+  font-size: 5vh;
+}
+
+.narrow {
+  flex: 1;
   text-align: center;
-  align-content: center;
-  border-radius: 0.5vh;
-  height: 4vh; /* reference for line-height */
-  width: fit-content;
-  background-color: var(--background-color);
+}
+
+.wide {
+  flex: 3;
+}
+
+.empty {
+  width: 100%;
+  flex: 1;
+}
+
+button{
+  width: 100%;
+  height: 100%;
+  font-size: 3vh;
+  font-weight: bold;
   color: var(--accent-color);
+  background-color: var(--background-color);
+  border-radius: 1vh;
+  border: 1px solid var(--font-color)
+}
+
+.reach {
+  flex: 1;
+  border: 1px solid var(--font-color);
+  border-radius: 1vh;
 }
 
 .divers {
@@ -157,8 +227,7 @@ function shoot()
 }
 
 .modal-content {
-  width: 70vw;
-  height: 50vh;
+  width: 80vh;
   background-color: transparent;
   border: 1px solid var(--accent-color);
   z-index: 1001;
@@ -172,7 +241,7 @@ function shoot()
 }
 
 #reach.radio {
-  width: 50vh;
+  width: 100%;
 }
 
 

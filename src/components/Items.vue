@@ -10,10 +10,10 @@ import {toInt} from "@/composables/utils";
   <div class="scroll-box">
     <ul>
       <li v-for="weapon in char.weapons" :key="weapon.name">
-        <div class="item column" >
+        <div class="item column" @click="DialogWeapon.setWeapon(weapon).show()">
           <div class="header row">
             <input type="checkbox" class="favourite">
-            <div @click.self="DialogWeapon.setWeapon(weapon).show()">{{ weapon.name }}</div>
+            <div>{{ weapon.name }}</div>
           </div>
           <div class="info">
             <div class="value">Schaden: <strong>{{ weapon.damage }}</strong></div>
