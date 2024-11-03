@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import {DialogDiceResult} from "@/composables/dialogs";
+import {DialogEdgeDiceResult} from "@/composables/dialogs";
 </script>/
 
 <template>
 
-  <div v-if="DialogDiceResult.visible" class="modal-overlay" @click="DialogDiceResult.hide">
+  <div v-if="DialogEdgeDiceResult.visible" class="modal-overlay" @click="DialogEdgeDiceResult.hide">
     <div class="modal-content" @click.stop>
-      <p><strong>4</strong> Erfolge</p>
+      <p><strong>2</strong> Explosionen</p>
+      <p>4 Erfolge</p>
       <div class="count">Gesamt: 10 Würfel</div>
-      <div class="count">Fehlschläge: <strong>2</strong></div>
-      <div class="count bodge">Patzer / Kritischer Patzer</div>
-      <button class="" @click="DialogDiceResult.hide">Edge verwenden</button>
+      <button class="" @click="DialogEdgeDiceResult.hide">Würfel explodieren</button>
     </div>
   </div>
 

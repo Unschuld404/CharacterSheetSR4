@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
 import {DialogRollDice} from "@/composables/dialogs";
+import {getGear} from "@/composables/data";
+import {GearType} from "@/composables/types";
 </script>
 
 <template>
@@ -9,157 +11,13 @@ import {DialogRollDice} from "@/composables/dialogs";
 
     <div class="scroll-box">
 
-      <div class="item">
+      <div v-for="item in char.gear" class="item">
         <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
+          <h2>{{item.name}}</h2>
+          <p v-if="item.count!=1||item.type==GearType.Ammo">{{ item.count }}</p>
         </div>
         <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
-        </div>
-      </div>
-      <div class="item">
-        <div class="row">
-          <h2>Gegenstandsname</h2>
-          <p>Anzahl</p>
-        </div>
-        <div class="row">
-          <h3>Gegenstandsgruppe</h3>
+          <h3>{{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template></h3>
         </div>
       </div>
 
