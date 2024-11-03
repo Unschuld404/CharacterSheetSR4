@@ -161,3 +161,4 @@ export const DialogChangeKarma = reactive(new Dialog());
 export const DialogWeapon = reactive(new WeaponDialog());
 export const DialogManageSpiritEdge = reactive(new Dialog());
 export const DialogSpiritPowerInfo = reactive(new SpiritPowerInfoDialog());
+export const DialogDiceResult = reactive(new Dialog());

@@ -7,8 +7,19 @@ import {DialogSpiritPowerInfo} from "@/composables/dialogs";
   <div class="overlay" @click.self="DialogSpiritPowerInfo.hide">
     <div class="modal-content" @click.stop>
       <h1>{{ DialogSpiritPowerInfo.spiritPower.name }}</h1>
-      <p>Löst diesen Geist von dir.</p>
-      <p>Alle noch vorhandenen Dienste verschwinden und der Geist wird aus deiner Liste entfernt.</p>
+      <div class="row">
+        <div class="value">Art</div>
+        <div class="value">Handlung</div>
+        <div class="value">Reichweite</div>
+        <div class="value">Dauer</div>
+      </div>
+      <div class="row">
+        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.type }}</div>
+        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.action }}</div>
+        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.range }}</div>
+        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.duration }}</div>
+      </div>
+      <p>{{ DialogSpiritPowerInfo.spiritPower.description }}</p>
     </div>
   </div>
 
@@ -20,14 +31,33 @@ h1 {
   margin-bottom: 2vh;
 }
 
-p {
+.value {
+  width: 25%;
   text-align: center;
+  font-size: 2.5vh;
+}
+
+.row{
+  justify-content: space-between;
+  margin-bottom: 1vh;
+  border-bottom: 1px solid var(--background-color);
+  line-height: 5vh;
+}
+
+.row:last-of-type{
+  border: none;
+}
+
+p {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  font-size: 2.5vh;
+  text-transform: none;
 }
 
 
 .modal-content{
-  width: 50vh;
-  height: 25vh;
+  width: 100vh;
   z-index: 6001;
 }
 

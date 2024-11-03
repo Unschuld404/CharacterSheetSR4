@@ -23,7 +23,7 @@ function toggleSkill(value: string)
 <template>
 
   <div class="knowledge-skills box">
-    <div class="scrollbox">
+    <div class="scroll-box">
       <ul>
         <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">

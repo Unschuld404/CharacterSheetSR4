@@ -9,13 +9,13 @@ import {char} from "@/composables/char";
       <div class="box">
         <div class="header">{{ vehicle.name }}</div>
         <div class="info">
-          <div class="value">Handling: <strong>{{ vehicle.handling }}</strong></div>
+          <div class="value-small">Handling: <strong>{{ vehicle.handling }}</strong></div>
           <div class="value">Beschl.: <strong>{{ vehicle.accel }}</strong></div>
           <div class="value">Geschw.: <strong>{{ vehicle.speed }}</strong></div>
-          <div class="value">Pilot: <strong>{{ vehicle.pilot }}</strong></div>
-          <div class="value">Rumpf: <strong>{{ vehicle.body }}</strong></div>
-          <div class="value">Panzerung: <strong>{{ vehicle.armor }}</strong></div>
-          <div class="value">Sensor: <strong>{{ vehicle.sensor }}</strong></div>
+          <div class="value-small">Pilot: <strong>{{ vehicle.pilot }}</strong></div>
+          <div class="value-small">Rumpf: <strong>{{ vehicle.body }}</strong></div>
+          <div class="value-small">Panzerung: <strong>{{ vehicle.armor }}</strong></div>
+          <div class="value-small">Sensor: <strong>{{ vehicle.sensor }}</strong></div>
         </div>
       </div>
     </li>
@@ -26,20 +26,27 @@ import {char} from "@/composables/char";
 <style scoped>
 
   .box {
-    height: 15vh;
     padding-top: 2vh;
-    padding-left: 4vh;
-    padding-right: 4vh;
     margin-bottom: 2vh;
+    width: 100%;
+    cursor: pointer;
   }
 
   .info {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 
   .value {
-    width: 15%;
+    width: 20vh;
+    text-align: center;
+    line-height: 6vh;
+    font-size: 2vh;
+  }
+
+  .value-small {
+    width: 15vh;
     text-align: center;
     line-height: 6vh;
     font-size: 2vh;

@@ -11,6 +11,7 @@
   box-sizing: border-box;
   font-family: "Rajdhani", sans-serif;
   text-transform: uppercase;
+  user-select: none;
 }
 
 html {

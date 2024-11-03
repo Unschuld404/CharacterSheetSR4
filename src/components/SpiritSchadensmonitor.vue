@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
+import {Spirit} from "@/composables/spirits";
 
 const maxDamage = ref(10);
 
@@ -8,7 +9,7 @@ const maxDamage = ref(10);
 <template>
 
   <div class="box">
-    <div v-for="row in 6" :key="row" class="row">
+    <div v-for="row in 5" :key="row" class="row">
       <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > maxDamage }">
       <div class="malus">{{ row * -1 }}</div>
     </div>
@@ -19,12 +20,9 @@ const maxDamage = ref(10);
 <style scoped>
 
 .box {
-  height: 50vh;
-  width: 30vh;
-  padding-top: 1vh;
+  padding: 0;
   background-color: transparent;
   border: none;
-
 }
 
 .damage-box {
@@ -34,7 +32,6 @@ const maxDamage = ref(10);
 
 .row {
   height: 8vh;
-  line-height: 5vh;
   align-items: center;
   justify-content: space-around;
   padding-left: 1vh;
