@@ -1,7 +1,7 @@
 import {ref} from "vue";
 import {Spirit} from "@/composables/spirits";
-import type {DamageTaken, KarmaEntry, NuyenEntry, SelectedItem} from "@/composables/types";
-import {getKarmaLog, getNuyenLog, getSelectedItems} from "@/composables/data";
+import type {DamageTaken, KarmaEntry, NuyenEntry, SelectedItem, WeaponSetting} from "@/composables/types";
+import {getKarmaLog, getNuyenLog, getSelectedItems, getWeaponSettings} from "@/composables/data";
 
 export const sheet_data = ref<any | null>(null);
 
@@ -10,6 +10,7 @@ export class Sheet {
     nuyen_log: NuyenEntry[];
     selectedSkills : string[];
     selectedItems : SelectedItem[];
+    weaponSettings : WeaponSetting[];
 
     edge : number | null;
     nuyen!: number;
@@ -17,11 +18,13 @@ export class Sheet {
     spirits!: Spirit[];
     damage: DamageTaken;
 
+
     constructor(sheet: any) {
         this.karma_log = getKarmaLog(sheet);
         this.nuyen_log = getNuyenLog(sheet);
         this.selectedSkills = sheet?.selectedSkills ?? [];
         this.selectedItems = getSelectedItems(sheet);
+        this.weaponSettings = getWeaponSettings(sheet);
 
         this.edge = sheet?.edge ?? null;
         this.damage = {

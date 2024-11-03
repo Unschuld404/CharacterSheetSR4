@@ -13,6 +13,15 @@ export type KarmaEntry = {
     value: number;
     reason: string;
 }
+export type WeaponSetting = {
+    weaponId: string;
+    selectedMode: string;
+    ammoLoaded: string;
+    magType: string;
+    magSize: number;
+    ammoLeft: number;
+}
+
 export type Attribute = {
     name: string;
     base: number;
@@ -103,11 +112,15 @@ export type Vehicle = {
     body: string;
     armor: string;
     sensor: string;
+
 }
+
 export type Weapon = {
     name: string;
+    id: string;
     damage: string;
     ap: string;
+    category: string;
     mode: string;
     rc: string;
     ammo: string;
@@ -118,6 +131,26 @@ export type Weapon = {
         extreme: string;
     };
     dicepool: string;
+}
+
+export enum GearType {
+    Commlink,
+    Persona,
+    Nexus,
+    Ammo,
+    Program,
+    OS,
+    SIN,
+    Other
+}
+
+export type Gear = {
+    name: string;
+    category : string;
+    type: GearType,
+    extra: string,
+    equipped: boolean,
+    count: number,
 }
 
 export type SheetData = {
