@@ -57,6 +57,7 @@ import {toInt} from "@/composables/utils";
 
 .item {
   border-bottom: 1px solid var(--background-color);
+  cursor: pointer;
 }
 
 .info {

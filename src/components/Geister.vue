@@ -57,6 +57,7 @@ const spirits = computed(() => char.spirits);
     border-radius: 1vh;
     border: 1px solid var(--font-color);
     font-size: 5vh;
+    line-height: 5vh;
     color: var(--accent-color);
   }
 

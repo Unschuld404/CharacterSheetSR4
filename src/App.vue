@@ -13,6 +13,7 @@ import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
 import RangedWeapons from "@/components/Dialoge/RangedWeapons.vue";
 import DiceResult from "@/components/Dialoge/DiceResult.vue";
+import ManageSpiritEdge from "@/components/Dialoge/ManageSpiritEdge.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -128,6 +129,7 @@ onBeforeUnmount(removeEventListeners);
   <ChangeKarma/>
   <RangedWeapons/>
   <DiceResult/>
+  <ManageSpiritEdge/>
 
   <Header  v-if="dataIsValid()"  />
 

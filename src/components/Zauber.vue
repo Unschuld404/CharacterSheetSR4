@@ -21,8 +21,8 @@ import {char} from "@/composables/char";
             <div class="value">{{ spell.duration }}</div>
           </div>
           <div class="formula">{{ spell.dv }}</div>
-          <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
          </div>
+         <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
        </div>
       </li>
     </ul>
@@ -31,6 +31,17 @@ import {char} from "@/composables/char";
 </template>
 
 <style scoped>
+
+.dice {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.category {
+  width: 50%;
+}
 
   .value-group {
     display: flex;
@@ -52,7 +63,7 @@ import {char} from "@/composables/char";
     margin-bottom: 1vh;
     margin-left: 6vh;
     margin-right: 6vh;
-    justify-content: space-between;
+    justify-content: space-around;
   }
 
   .item {

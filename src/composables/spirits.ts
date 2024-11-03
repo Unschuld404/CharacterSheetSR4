@@ -175,7 +175,7 @@ export type SpiritPower = {
 }
 
 export function powerHasPool(power: SpiritPower): boolean {
-    return power.range !== 'Selbst';
+    return power.hasPool;
 }
 
 export function isWatcher(type: SpiritType | null): boolean {
@@ -605,7 +605,7 @@ export const SpiritTypes : SpiritType[] = [
             {name: 'EDG', value: -1},
             {name: 'INI', value:  0},
         ],
-        movement: '',
+        movement: '-',
         skills: 'Askennen, Astralkampf, Ausweichen',
         powers: 'Astrale Gestalt, Suche',
         optional: '',

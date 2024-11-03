@@ -6,8 +6,6 @@ import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import {char} from "@/composables/char";
 import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
 import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
-import ManageSpiritEdge from "@/components/Dialoge/ManageSpiritEdge.vue";
-import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritPowerInfo from "@/components/Dialoge/SpiritPowerInfo.vue";
 import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 
@@ -68,7 +66,7 @@ function onCancelPowersDialog() {
 
   <ChooseSpiritPowers v-if="powersDialogVisible" :count="spirit.maxOptionalPowersCount" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
 
-  <ManageSpiritEdge v-if="DialogManageSpiritEdge.visible"/>
+
 
   <SpiritPowerInfo v-if="DialogSpiritPowerInfo.visible"/>
 
