@@ -229,7 +229,7 @@ button{
 .modal-content {
   width: 80vh;
   background-color: transparent;
-  border: 1px solid var(--accent-color);
+  border: none;
   z-index: 1001;
 }
 

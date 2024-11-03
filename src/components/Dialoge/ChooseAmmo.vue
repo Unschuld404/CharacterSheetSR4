@@ -57,7 +57,7 @@ function setSelection(item: Gear) {
     <div class="overlay" @click.self="cancel">
       <div class="modal-content" @click.stop>
 
-        <div v-if="sizeSelection.length > 1" class="header">
+        <div v-if="sizeSelection.length > 1" class="size">
           <RadioButtons :options="sizeSelection" model-value="selectedSize" />
         </div>
 
@@ -68,7 +68,12 @@ function setSelection(item: Gear) {
               :class="{ selected: selectedItem === item }"
               @click="setSelection(item)"
           >
-            {{ item.name }} ({{ item.count }})
+            <div>
+              {{ item.name }}
+            </div>
+            <div>
+              ({{ item.count }})
+            </div>
           </li>
         </ul>
 
@@ -79,6 +84,14 @@ function setSelection(item: Gear) {
 </template>
 
 <style scoped>
+
+.size {
+  height: 10vh;
+}
+
+.radio {
+  height: 6vh;
+}
 
 ul {
   list-style-type: none;
@@ -109,10 +122,9 @@ ul {
 }
 
 .modal-content{
-  width: 50vh;
-  height: fit-content;
+  width: 60vh;
   z-index: 6001;
-  padding-bottom: 67px;
+  padding-bottom: 6vh;
 }
 
 .overlay {
