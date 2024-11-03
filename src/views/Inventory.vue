@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import Items from "@/components/Items.vue";
+import Weapons from "@/components/Weapons.vue";
 </script>
 
 <template>
   <div class="collection">
-    <div class="box">
-      <Items/>
+    <div class="weapons">
+      <Weapons/>
     </div>
   </div>
 </template>
 
 <style scoped>
 
-.box {
+.collection {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.weapons {
   height: 100%;
 }
 
