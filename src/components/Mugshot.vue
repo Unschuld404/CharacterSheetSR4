@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {char} from "@/composables/char";
-import {DialogChangeKarma} from "@/composables/dialogs";
+import {DialogChangeKarma, DialogDiceResult} from "@/composables/dialogs";
 </script>
 
 <template>
@@ -16,7 +16,7 @@ import {DialogChangeKarma} from "@/composables/dialogs";
 
           <div class="box chummer">
             <h1>{{ char.name }}</h1>
-            <img src="../assets/Kaya_1zu1.png" alt="Kaya Mugshot" style="width:100% ; min-height: 100%; object-fit: cover">
+            <img src="../assets/Kaya_1zu1.png" alt="Kaya Mugshot" style="width:100% ; min-height: 100%; object-fit: cover" @click="DialogDiceResult.show">
           </div>
 
           <div class="box appearance">

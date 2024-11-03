@@ -9,6 +9,7 @@ import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
 import ManageSpiritEdge from "@/components/Dialoge/ManageSpiritEdge.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritPowerInfo from "@/components/Dialoge/SpiritPowerInfo.vue";
+import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
@@ -98,7 +99,7 @@ function onCancelPowersDialog() {
                   + {{ skill.attribute_value }} {{ skill.attribute }}
                 </div>
                 <div>
-                  <div class="dice skill-dice" @click="showPowersDialog()">{{ skill.total }}</div>
+                  <div class="dice skill-dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</div>
                 </div>
               </div>
 
@@ -120,9 +121,7 @@ function onCancelPowersDialog() {
             <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/><br>
           </div>
           <div class="box damage">
-            <div class="monitor">
-
-            </div>
+            <SpiritSchadensmonitor/>
             <div class="lower-header">
               Schadensmonitor
             </div>
@@ -272,11 +271,6 @@ i {
   flex-direction: column;
   justify-content: space-evenly;
   text-align: left;
-}
-
-.damage {
-  flex: 7;
-  overflow: hidden;
 }
 
 .name {
