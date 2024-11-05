@@ -8,6 +8,7 @@ import Specials from "@/components/Specials.vue";
 import Widerstand from "@/components/Widerstand.vue";
 import Edge from "@/components/Edge.vue";
 import Nuyen from "@/components/Nuyen.vue";
+import Ausweichen from "@/components/Ausweichen.vue";
 
 </script>
 
@@ -27,6 +28,10 @@ import Nuyen from "@/components/Nuyen.vue";
 
       <div class="resistance">
         <Widerstand/>
+      </div>
+
+      <div class="dodge">
+        <Ausweichen/>
       </div>
 
       <div class="row monitors">
@@ -72,7 +77,11 @@ import Nuyen from "@/components/Nuyen.vue";
   }
 
   .ini-edg-nuy {
-    flex: 2;
+    flex: 1.5;
+  }
+
+  .dodge {
+    flex: 1.5;
   }
 
   .resistance {

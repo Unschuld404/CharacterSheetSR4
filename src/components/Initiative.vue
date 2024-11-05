@@ -21,7 +21,7 @@ import {DialogRollDice} from "@/composables/dialogs";
           <button class="dice" @click="DialogRollDice.setName('Matrix Initiative').setDiceCount(char.initiative.matrix.total).show()" >{{ char.initiative.matrix.total }}</button>
         </div>
 
-        <div class="column">
+        <div class="column" v-if="char.magician">
           <div class="initiative-category">Astral</div>
           <button class="dice" @click="DialogRollDice.setName('Astrale Initiative').setDiceCount(char.initiative.astral.total).show()">{{ char.initiative.astral.total }}</button>
         </div>
@@ -32,7 +32,7 @@ import {DialogRollDice} from "@/composables/dialogs";
       <div class="row">
         <div class="passes">1</div>
         <div class="passes">1</div>
-        <div class="passes">3</div>
+        <div v-if="char.magician" class="passes">3</div>
       </div>
 
     </div>
@@ -58,7 +58,7 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 .row {
   width: 100%;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
   justify-content: space-around;
 }
 
@@ -66,12 +66,10 @@ import {DialogRollDice} from "@/composables/dialogs";
   flex: 1;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1vh;
 }
 
 button {
   position: relative;
-  top: 1vh;
 }
 
 </style>

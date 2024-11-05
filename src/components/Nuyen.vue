@@ -8,7 +8,7 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
 
   <div class="box">
 
-    <div class="edg" @click="DialogChangeNuyen.show">{{ char.nuyen }} ¥</div>
+    <div class="nuy" @click="DialogChangeNuyen.show">{{ char.nuyen }} ¥</div>
     <div class="lower-header">Nuyen</div>
 
   </div>
@@ -17,7 +17,7 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
 
 <style scoped>
 
-.edg {
+.nuy {
   display: flex;
   flex-direction: column;
   justify-content: center;
