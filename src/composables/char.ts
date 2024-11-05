@@ -1,5 +1,5 @@
 import {Spirit, type SpiritType} from "@/composables/spirits";
-import {toInt} from "@/composables/utils";
+import {toBool, toInt} from "@/composables/utils";
 import {reactive} from "vue";
 import {
     data,
@@ -17,7 +17,7 @@ import type {
     DamageMonitor,
     Drain, Gear,
     Initiative,
-    Movement,
+    Movement, Resistance,
     SheetData,
     Skill,
     Spell,
@@ -47,6 +47,7 @@ export class Charakter {
     weapons!: Weapon[];
     gear!: Gear[];
     monitor!: DamageMonitor;
+    magician: boolean;
 
     sheet! : Sheet;
     data! : SheetData;
@@ -149,6 +150,7 @@ export class Charakter {
         this.skin = data?.skin  || 'unknown';
         this.eyes = data?.eyes  || 'unknown';
         this.hair = data?.hair  || 'unknown';
+        this.magician = toBool(data?.magician);
         this.armor = {
             impact : toInt(data?.armori),
             ballistic : toInt(data?.armorb),
@@ -281,6 +283,16 @@ export class Charakter {
 
     get maxPhysicalDamage(): number {
         return 8 + Math.ceil(this.attributes.body.total / 2);
+    }
+
+    get resist(): Resistance {
+        return {
+            ballistic: this.armor.ballistic + this.attributes.body.total,
+            impact: this.armor.impact + this.attributes.body.total,
+            mana: this.attributes.willpower.total,
+            physical: this.attributes.body.total,
+            drain: this.drain.total,
+        }
     }
 
     isSkillSelected(value: string): boolean {

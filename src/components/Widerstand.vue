@@ -11,27 +11,27 @@ import {char} from "@/composables/char";
 
       <div class="column">
         <div class="resistance-category">Ballis.</div>
-        <button class="dice" @click="DialogRollDice.setName('Ballistischer Widerstand').setDiceCount(char.armor.ballistic).show()">{{ char.armor.ballistic }}</button>
+        <button class="dice" @click="DialogRollDice.setName('Ballistischer Widerstand').setDiceCount(char.resist.ballistic).show()">{{ char.resist.ballistic }}</button>
       </div>
 
       <div class="column">
         <div class="resistance-category">Stoß</div>
-        <button class="dice" @click="DialogRollDice.setName('Stoß Widerstand').setDiceCount(char.armor.impact).show()">{{ char.armor.impact  }}</button>
+        <button class="dice" @click="DialogRollDice.setName('Stoß Widerstand').setDiceCount(char.resist.impact ).show()">{{ char.resist.impact  }}</button>
       </div>
 
       <div class="column">
-        <div class="resistance-category">Körper</div>
-        <button class="dice" @click="DialogRollDice.setName('Körper').setDiceCount(char.attributes.body.total).show()">{{ char.attributes.body.total }}</button>
+        <div class="resistance-category">Physisch</div>
+        <button class="dice" @click="DialogRollDice.setName('Widerstand gegen physischen Zauber').setDiceCount(char.resist.physical).show()">{{ char.resist.physical }}</button>
       </div>
 
       <div class="column">
-        <div class="resistance-category">Wille</div>
-        <button class="dice" @click="DialogRollDice.setName('Willenskraft').setDiceCount(char.attributes.willpower.total).show()">{{ char.attributes.willpower.total }}</button>
+        <div class="resistance-category">Mana</div>
+        <button class="dice" @click="DialogRollDice.setName('Widerstand gegen Manazauber').setDiceCount(char.resist.mana).show()">{{ char.resist.mana  }}</button>
       </div>
 
-      <div class="column">
+      <div v-if="char.magician" class="column">
         <div class="resistance-category">Entzug</div>
-        <button class="dice" @click="DialogRollDice.setName('Entzug').setDiceCount(char.drain.total).show()">{{ char.drain.total }}</button>
+        <button class="dice" @click="DialogRollDice.setName('Widerstand gegen magischen Entzug').setDiceCount(char.resist.drain).show()">{{  char.resist.drain }}</button>
       </div>
 
     </div>

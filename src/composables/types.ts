@@ -87,6 +87,14 @@ export type Armor = {
     ballistic: number;
     impact: number;
 }
+export type Resistance = {
+    ballistic: number;
+    impact: number;
+    mana: number;
+    physical: number;
+    drain: number;
+}
+
 export type Skill = {
     name: string;
     type: string;
