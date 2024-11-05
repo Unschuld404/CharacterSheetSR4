@@ -21,6 +21,10 @@ export function getRangeModifierForRange(range: string): number {
     return reachModifiers.find((item) => { return item.value === range})?.modifier ?? 0;
 }
 
+export function isMeleeWeapon(weapon: Weapon): boolean {
+    return weapon.type == 'melee';
+}
+
 export function getModeModifier(mode: string, ammoLeft: number, rc: number, secondPhase: boolean): number {
     const item = shootingMode.find((item) => { return item.value === mode}) ?? null;
     if (item === null)

@@ -64,7 +64,7 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
             <div class="line"><div>Geister des Tieres</div><div>+2</div></div>
           </div>
 
-          <div class="box handycaps">
+          <div class="box handicaps">
             <div class="lower-header">Nachteile</div>
             <div class="line"><div>Allergie (selten, leicht)</div><div>Nickel</div></div>
             <div class="line"><div>Empfindliches Nervensystem</div><div>Tech</div></div>
@@ -80,16 +80,6 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
       <div class="column">
 
         <div class="flex-scroll">
-
-          <div class="box commlink">
-            <div class="lower-header">Kommlink</div>
-            <div class="line"><div>Kommlink</div><div>Sony Emperor</div></div>
-            <div class="line"><div>Prozessor</div><div>X</div></div>
-            <div class="line"><div>System</div><div>X</div></div>
-            <div class="line"><div>Firewall</div><div>X</div></div>
-            <div class="line"><div>Signal</div><div>X</div></div>
-            <div class="line"><div>Programme</div><div>X</div></div>
-          </div>
 
           <div class="box armor">
             <div class="lower-header">Rüstung</div>

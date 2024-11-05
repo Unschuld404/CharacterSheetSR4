@@ -2,6 +2,7 @@
 import {char} from "@/composables/char";
 import {DialogWeapon, DialogRollDice} from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
+import {isMeleeWeapon} from "@/composables/weapons";
 
 </script>
 
@@ -22,7 +23,9 @@ import {toInt} from "@/composables/utils";
                <div class="value">PB: <strong>{{ weapon.ap }}</strong></div>
                <div class="value">Distanz: <strong>{{ weapon.ranges.short }} m</strong></div>
              </div>
-             <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(toInt(weapon.dicepool)).show()">{{ weapon.dicepool }}</button>
+             <template v-if="isMeleeWeapon(weapon)">
+               <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(toInt(weapon.dicepool)).show()">{{ weapon.dicepool }}</button>
+             </template>
            </div>
          </div>
         </div>
@@ -33,6 +36,10 @@ import {toInt} from "@/composables/utils";
 </template>
 
 <style scoped>
+
+.box {
+  cursor: pointer;
+}
 
 .dice {
   position: absolute;

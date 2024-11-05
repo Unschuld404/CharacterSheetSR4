@@ -132,6 +132,7 @@ export type Weapon = {
     mode: string;
     rc: string;
     ammo: string;
+    type: string;
     ranges: {
         short: string;
         medium: string;

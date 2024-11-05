@@ -149,6 +149,7 @@ export function getWeapons(data: any): Array<Weapon> {
         mode: weapon.mode || '',
         rc: weapon.rc || '0',
         ammo: weapon.ammo || '0',
+        type: weapon.type || '',
         ranges: {
             short: weapon.ranges?.short || '0',
             medium: weapon.ranges?.medium || '0',
