@@ -22,7 +22,7 @@ export function getRangeModifierForRange(range: string): number {
 }
 
 export function isMeleeWeapon(weapon: Weapon): boolean {
-    return weapon.type == 'melee';
+    return weapon.type == 'Melee';
 }
 
 export function getModeModifier(mode: string, ammoLeft: number, rc: number, secondPhase: boolean): number {

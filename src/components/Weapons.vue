@@ -20,8 +20,8 @@ import {isMeleeWeapon} from "@/composables/weapons";
            <div class="row">
              <div class="info">
                <div class="value">Schaden: <strong>{{ weapon.damage }}</strong></div>
-               <div class="value">PB: <strong>{{ weapon.ap }}</strong></div>
-               <div class="value">Distanz: <strong>{{ weapon.ranges.short }} m</strong></div>
+               <div v-if="weapon.ap != '-'" class="value">PB: <strong>{{ weapon.ap }}</strong></div>
+               <div v-if="!isMeleeWeapon(weapon)" class="value">Munition: <strong>{{ weapon.ranges.short }} m</strong></div>
              </div>
              <template v-if="isMeleeWeapon(weapon)">
                <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(toInt(weapon.dicepool)).show()">{{ weapon.dicepool }}</button>
