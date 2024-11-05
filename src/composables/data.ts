@@ -170,6 +170,10 @@ export function getGear(data: any): Array<Gear> {
         extra: item.extra || '',
         equipped: toBool(item.equipped),
         count : toInt(item.qty),
+        signal: toInt(item.signal),
+        firewall: toInt(item.firewall),
+        system: toInt(item.system),
+        processorlimit: toInt(item.processorlimit),
     }));
 }
 export function dataIsValid(): boolean {

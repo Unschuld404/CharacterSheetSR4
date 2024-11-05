@@ -1,17 +1,32 @@
 <script setup lang="ts">
 import {char} from "../composables/char";
+import {computed} from "vue";
+import {type Gear, GearType} from "@/composables/types";
+const commlink = computed(()=>{
+  return char.gear.find((item:Gear) =>{
+    return (item.type == GearType.Commlink) && item.equipped;
+  }) ?? null;
+})
 </script>
 
 <template>
 
-  <div class="box row">
-    <div class="header">Mein Kommlink</div>
+  <div v-if="commlink != null" class="box row commlink">
+    <div class="header">{{commlink.name}}</div>
     <div class="column">
-      <strong>3</strong>
+      <strong>{{commlink.system}}</strong>
+      <div>System</div>
+    </div>
+    <div class="column">
+      <strong>{{commlink.firewall}}</strong>
+      <div>Firewall</div>
+    </div>
+    <div class="column">
+      <strong>{{commlink.processorlimit}}</strong>
       <div>Prozessor</div>
     </div>
     <div class="column">
-      <strong>2</strong>
+      <strong>{{commlink.signal}}</strong>
       <div>Signal</div>
     </div>
   </div>
@@ -36,11 +51,15 @@ import {char} from "../composables/char";
 
 .header {
   line-height: 5.5vh;
-  width: 70%;
+  width: 50%;
 }
 
 strong {
   margin-bottom: 1vh;
+}
+
+.commlink {
+  position: relative;
 }
 
 </style>

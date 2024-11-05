@@ -14,10 +14,10 @@ import {GearType} from "@/composables/types";
       <div v-for="item in char.gear" class="item">
         <div class="row">
           <h2>{{item.name}}</h2>
-          <p v-if="item.count!=1||item.type==GearType.Ammo">{{ item.count }}</p>
         </div>
         <div class="row">
           <h3>{{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template></h3>
+          <p v-if="item.count!=1||item.type==GearType.Ammo">{{ item.count }}</p>
         </div>
       </div>
 

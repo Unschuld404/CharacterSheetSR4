@@ -160,6 +160,10 @@ export type Gear = {
     extra: string,
     equipped: boolean,
     count: number,
+    signal: number;
+    firewall: number;
+    system: number;
+    processorlimit: number;
 }
 
 export type SheetData = {

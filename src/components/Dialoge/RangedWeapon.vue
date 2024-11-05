@@ -125,19 +125,19 @@ function shoot()
             <div class="row">
               <div class="column box narrow">
                 <div class="lower-header">
-                  Distanz
+                  Distanz-Mod
                 </div>
                 <div class="mod">
                   {{ rangeModifier }}
                 </div>
               </div>
               <div class="column box narrow">
-                <div class="lower-header">Modus</div>
+                <div class="lower-header">Modus-Mod</div>
                 <div class="mod">
                   {{ modeModifier }}
                 </div>
               </div>
-              <button @click="shoot" class="dice wide">{{ toInt(weapon.dicepool) + rangeModifier - modeModifier }} </button>
+              <button @click="shoot" class="dice wide">Würfel: {{ toInt(weapon.dicepool) + rangeModifier - modeModifier }} </button>
             </div>
           </div>
         </div>
@@ -227,7 +227,7 @@ button{
 }
 
 .modal-content {
-  width: 80vh;
+  width: 100vh;
   background-color: transparent;
   border: none;
   z-index: 1001;
