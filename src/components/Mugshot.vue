@@ -83,36 +83,32 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
             <div class="flex-scroll">
 
-              <div class="box social">
-                <div class="lower-header">Sozial</div>
-                <div class="line"><div>Lebensstil</div><div>Unterschicht</div></div>
-                <div class="line"><div>Straßenruf</div><div>-</div></div>
-                <div class="line"><div>Schlechter Ruf</div><div>-</div></div>
-                <div class="line"><div>Prominenz</div><div>-</div></div>
+              <div class="box cyberware">
+                <div class="lower-header">Cyber- und Bioware</div>
+                <div class="line"><div>-</div><div></div></div>
               </div>
 
-              <div class="box contacts">
-                <div class="lower-header">Kontakte</div>
-                <div class="line"><div>Taliskrämer</div><div>Stufe 3</div></div>
-                <div class="line"><div>Schieber</div><div>Stufe 2</div></div>
+              <div v-if="char.initiategrade > 0" class="box initiation">
+                <div class="lower-header">Initiation</div>
+                <div class="line"><div>Initiationsgrad</div><div>{{char.initiategrade}}</div></div>
               </div>
 
               <div class="box gifts">
                 <div class="lower-header">Gaben</div>
                 <div class="line"><div>Infrarotsicht</div><div></div></div>
-                <div class="line"><div>Zauberer</div><div>Schamane</div></div>
-                <div class="line"><div>Totem</div><div>Wolf</div></div>
-                <div class="line"><div>Kampfzauber</div><div>+2</div></div>
-                <div class="line"><div>Geister des Tieres</div><div>+2</div></div>
+                <div class="line"><div>Zauberer</div><div>-</div></div>
+                <div class="line"><div>Totem</div><div>-</div></div>
+                <div class="line"><div>Kampfzauber</div><div>-</div></div>
+                <div class="line"><div>Geister des Tieres</div><div>-</div></div>
               </div>
 
               <div class="box handicaps">
                 <div class="lower-header">Nachteile</div>
-                <div class="line"><div>Allergie (selten, leicht)</div><div>Nickel</div></div>
-                <div class="line"><div>Empfindliches Nervensystem</div><div>Tech</div></div>
-                <div class="line"><div>Gremlins</div><div>Stufe 1</div></div>
-                <div class="line"><div>Immunabstoßung</div><div></div></div>
-                <div class="line"><div>Rückzug aus Kampf</div><div>WIL + CHA (3)</div></div>
+                <div class="line"><div>Allergie (selten, leicht)</div><div>-</div></div>
+                <div class="line"><div>Empfindliches Nervensystem</div><div>-</div></div>
+                <div class="line"><div>Gremlins</div><div>-</div></div>
+                <div class="line"><div>Immunabstoßung</div><div>-</div></div>
+                <div class="line"><div>Rückzug aus Kampf</div><div>-</div></div>
               </div>
 
             </div>
@@ -123,20 +119,32 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
             <div class="flex-scroll">
 
-              <div class="box armor">
-                <div class="lower-header">Rüstung</div>
-                <div class="line"><div>Panzerweste</div><div>6/8</div></div>
+              <div class="box description">
+                <div>
+                  {{char.description}}
+                </div>
+                <div class="lower-header">Beschreibung</div>
               </div>
 
-              <div class="box cyberware">
-                <div class="lower-header">Cyber- und Bioware</div>
-                <div class="line"><div>nichts</div><div></div></div>
+              <div class="box background">
+                <div>
+                  {{char.background}}
+                </div>
+                <div class="lower-header">Hintergrund</div>
               </div>
 
-              <div class="box initiation">
-                <div class="lower-header">Initiation</div>
-                <div class="line"><div>Magisches Refugium</div><div>Stufe 5</div></div>
-                <div class="line"><div>Initiationsgrad</div><div>0</div></div>
+              <div class="box concept">
+                <div>
+                  {{char.concept}}
+                </div>
+                <div class="lower-header">Konzept</div>
+              </div>
+
+              <div class="box notes">
+                <div>
+                  {{char.notes}}}
+                </div>
+                <div class="lower-header">Notizen</div>
               </div>
 
             </div>
@@ -154,43 +162,18 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
                 <div class="line" style="border-bottom: none"><div>Aktuell</div><div>4</div></div>
               </div>
 
-              <div class="box description">
-                <div>
-                  Kaya ist eine zwergische Schamanin mit wilden Dreads, die mit Federn und Blättern verziert sind.
-                  Ihre intensiven grünen Augen und die tätowierten Hände verleihen ihr eine einzigartige Ausstrahlung.
-                  Ihr Refugium, ein verlassenes Schwimmbad in einem Hochhaus, ist ein kleiner Bauernhof voller Hochbeete,
-                  Pflanzkübel und Tieren wie Hühnern, Kaninchen, Ziegen und Katzen. Innerhalb ihres Refugiums ist Kaya
-                  ausgeglichen, ruhig und zuckersüß, unterstützt von einem Wassergeist bei ihrer Arbeit.
-                </div>
-                <div class="lower-header">Beschreibung</div>
+              <div class="box contacts">
+                <div class="lower-header">Kontakte</div>
+                <div class="line"><div>-</div><div>-</div></div>
+                <div class="line"><div>-</div><div>-</div></div>
               </div>
 
-              <div class="box background">
-                <div>
-                  Kaya stammt aus einer von Konzernen geprägten Stadt, die sie mit ihrer toxischen Umgebung und dem
-                  Kapitalismus in Konflikt brachte. Diese Erfahrungen haben ihre antikapitalistische Haltung und ihren
-                  unruhigen, rüpelhaften Charakter außerhalb ihres Refugiums geprägt.
-                </div>
-                <div class="lower-header">Hintergrund</div>
-              </div>
-
-              <div class="box concept">
-                <div>
-                  Kaya lebt ein Hippie/Boho-Leben, widmet sich der Natur und Selbstversorgung.
-                  Ihr Refugium dient als Oase der Ruhe und Balance, während sie draußen eine kompromisslose Kämpferin gegen
-                  die Konzerne ist. Ihr totemtier Wolf symbolisiert ihre innere Stärke und ihren Schutzinstinkt.
-                </div>
-                <div class="lower-header">Konzept</div>
-              </div>
-
-              <div class="box notes">
-                <div>
-                  Ziele: Sabotage von Konzernen, idealerweise bezahlt, aber auch aus Prinzip.
-                  Verhalten außerhalb des Refugiums: Unausgeglichen, rüpelhaft, mit einem derben Humor über ihre Größe.
-                  <br>
-                  Erster Run: 10.000 nY + 4 Karma
-                </div>
-                <div class="lower-header">Nozizen</div>
+              <div class="box social">
+                <div class="lower-header">Sozial</div>
+                <div class="line"><div>Lebensstil</div><div>-</div></div>
+                <div class="line"><div>Straßenruf</div><div>{{char.totalstreetcred}}</div></div>
+                <div class="line"><div>Schlechter Ruf</div><div>{{char.totalnotoriety}}</div></div>
+                <div class="line"><div>Prominenz</div><div>{{char.totalpublicawareness}}</div></div>
               </div>
 
             </div>
@@ -272,6 +255,7 @@ strong {
   overflow: hidden;
   padding: 0;
   margin-bottom: 2vh;
+  height: 77vh;
 }
 
 .appearance {

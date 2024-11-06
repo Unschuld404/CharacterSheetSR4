@@ -48,6 +48,15 @@ export class Charakter {
     gear!: Gear[];
     monitor!: DamageMonitor;
     magician!: boolean;
+    initiategrade: number;
+    description: string;
+    background: string;
+    concept: string;
+    notes: string;
+    totalstreetcred: number;
+    totalnotoriety: number;
+    totalpublicawareness: number;
+
 
     sheet! : Sheet;
     data! : SheetData;
@@ -153,6 +162,15 @@ export class Charakter {
         this.eyes = data?.eyes  || 'unknown';
         this.hair = data?.hair  || 'unknown';
         this.magician = toBool(data?.magician);
+        this.initiategrade = toInt(data?.initiategrade);
+        this.description = data?.description || 'unknown';
+        this.background = data?.background || 'unknown';
+        this.concept = data?.concept || 'unknown';
+        this.notes = data?.notes || 'unknown';
+        this.totalstreetcred = toInt(data?.totalstreetcred);
+        this.totalnotoriety = toInt(data?.totalnotoriety);
+        this.totalpublicawareness = toInt(data?.totalpublicawareness);
+
         this.armor = {
             impact : toInt(data?.armori),
             ballistic : toInt(data?.armorb),

@@ -13,8 +13,8 @@ import {GearType} from "@/composables/types";
 
       <div v-for="item in char.gear" class="item">
         <div class="row">
-          <h2>{{item.name}}</h2>
-          <h2 v-if="item.rating > 1">Stufe {{item.rating}}</h2>
+          <h2>{{item.name}} <template v-if="item.rating > 1"> ({{item.rating}})</template> </h2>
+          <i v-if="item.type==GearType.Ammo" class='bx bx-transfer-alt'></i>
         </div>
         <div class="row">
           <h3>{{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template></h3>
@@ -55,5 +55,13 @@ h3 {
   overflow: scroll;
 }
 
+i {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 5vh;
+  position: absolute;
+  right: 5vh;
+  margin-top: 1.5vh;
+}
 
 </style>
