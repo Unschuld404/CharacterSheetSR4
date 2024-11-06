@@ -140,7 +140,7 @@ function onCancelPowersDialog() {
           </div>
           <div class="item-special">
             <div>Bewegung</div>
-            <div>{{spirit.spiritType.movement}}</div>
+            <div>{{spirit.spiritType?.movement ?? ''}}</div>
           </div>
         </div>
         <div class="box resistance">
@@ -158,7 +158,7 @@ function onCancelPowersDialog() {
           </div>
         </div>
         <div class="box flaws">
-          <div>{{ spirit.spiritType.flaws }}</div>
+          <div>{{ spirit.spiritType?.flaws }}</div>
 
         </div>
         <div class="box service">

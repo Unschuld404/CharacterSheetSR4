@@ -1,49 +1,51 @@
 import {toInt} from "@/composables/utils";
 import {
-    type Damage, type Gear,
-    type InitiativeValues,
-    type Resistance, type Skill, type VehicleMod,
+    type Damage,
+    type Gear,
+    type Initiative,
+    type VehicleMod,
     VehicleMode,
-    type VehicleResistance, type VehicleSkill, type Weapon
+    type VehicleResistance,
+    type VehicleSkill,
+    type Weapon
 } from "@/composables/types";
 
 export class Vehicle  {
-    name: string;
-    nickname: string;
+    name: string = '';
+    nickname: string = '';
 
-    handling: string;
-    accel: string;
-    speed: string;
-    rating: number;
+    handling: number = 0;
+    accel: string = '';
+    speed: number = 0;
+    rating: number = 0;
 
-    processor: number;
-    signal: number;
-    system: number;
-    firewall: number;
+    processor: number = 0;
+    signal: number = 0;
+    system: number = 0;
+    firewall: number = 0;
 
-    body: string;
-    armor: string;
-    pilot: string;
-    sensor: string;
+    body: number = 0;
+    armor: number = 0;
+    pilot: number = 0;
+    sensor: number = 0;
 
-    monitor: Damage;
+    monitor: Damage = { filled: 0, max:0 };
 
-    weapons: Weapon[];
-    skills: VehicleSkill[];
-    mods : VehicleMod[];
-    items: Gear[];
+    weapons: Weapon[] = [];
+    skills: VehicleSkill[] = [];
+    mods : VehicleMod[] = [];
+    items: Gear[] = [];
 
-    maneuver: number;
-    mode: VehicleMode;      // (Auto /  Remote / VR)
+    maneuver: number = 0;
+    mode: VehicleMode = VehicleMode.Auto;      // (Auto /  Remote / VR)
 
-    get initiative(): InitiativeValues | null {
+    get initiative(): Initiative | null {
         if (this.mode == VehicleMode.Auto)
         {
             return {
-                base: this.pilot + this.processor,
-                base: this.pilot + this.processor,
+                value: this.pilot + this.processor,
                 passes: 3,
-            };
+            }
         }
 
         return null; //Rigger Initiative

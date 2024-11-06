@@ -12,11 +12,11 @@ const selectReach = ref<string>('short');
 const selectShootingMode = ref<string>('einzelschuss');
 const chooseAmmoDialogVisible = ref(false);
 
-const weapon : Weapon = computed( () => {
+const weapon  = computed( () => {
     return DialogWeapon.weapon;
 })
 
-const setting : WeaponSetting = computed(() => {
+const setting = computed(() => {
   return DialogWeapon.setting;
 })
 
@@ -34,7 +34,7 @@ const rangeModifier = computed(() => {
 })
 
 const modeModifier = computed(() => {
-  return getModeModifier( selectShootingMode.value, setting.value.ammoLeft, toInt(weapon.rc), false );
+  return getModeModifier( selectShootingMode.value, setting.value.ammoLeft, toInt(weapon.value.rc), false );
 })
 
 function reload()
@@ -57,7 +57,7 @@ function shoot()
   const item = shootingMode.find((item) => { return item.value === selectShootingMode.value}) ?? null;
   if (item === null)
   {
-    console.error('mode not found: ' + mode)
+    console.error('mode not found: ' + selectShootingMode.value)
     return;
   }
 
