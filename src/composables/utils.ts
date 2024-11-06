@@ -1,4 +1,5 @@
 import {GearType} from "@/composables/types";
+import {translations} from "@/composables/consts";
 
 export function toInt(value: string|number|undefined|null): number {
     if (value === undefined || value === null) {
@@ -82,4 +83,9 @@ export function toGearType(data_item: any): GearType {
     }
 
     return GearType.Other;
+}
+
+export function translate(value: string): string
+{
+    return translations[value] ?? value;
 }

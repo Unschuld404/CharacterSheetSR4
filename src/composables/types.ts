@@ -189,9 +189,28 @@ export type SheetData = {
     damage: DamageTaken;
 }
 
-
 export enum VehicleMode {
     Auto= 'Auto',
     Remote = 'Remote',
     VR = 'VR',
+}
+
+export enum EvadeType {
+    Ranged = 'Ranged',
+    Melee = 'Melee',
+}
+
+export type Translation = {
+    [name: string]: string;
+}
+
+export type RollDiceValue = {
+    name: string;
+    value: number;
+}
+
+export type RollDiceValues = {
+    name: string;
+    value: number;
+    values: RollDiceValue[],
 }

@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import {char} from "../composables/char";
+import {computed, ref} from "vue";
+import {EvadeType} from "@/composables/types";
+import {char} from "@/composables/char";
+import {DialogRollDice} from "@/composables/dialogs";
 
 const isActive = ref(false);
 
 function fullDefense() {
   isActive.value = !isActive.value;
 }
+
+const evadeMelee = computed( () => {
+    return char.evade(EvadeType.Melee, isActive.value );
+});
+
+const evadeRanged = computed( () => {
+  return char.evade(EvadeType.Ranged, isActive.value );
+});
+
 </script>
 
 <template>
@@ -14,8 +25,8 @@ function fullDefense() {
   <div class="box row">
 
     <div class="column">
-      <div>Fernkampf</div>
-      <div class="dice">??</div>
+      <div>{{ evadeRanged.name }}</div>
+      <div class="dice" @click="DialogRollDice.setValues(evadeRanged).show()">{{ evadeRanged.value }}</div>
     </div>
 
     <div class="column">
@@ -23,8 +34,8 @@ function fullDefense() {
     </div>
 
     <div class="column">
-      <div>Nahkampf</div>
-      <div class="dice">??</div>
+      <div>{{ evadeMelee.name }}</div>
+      <div class="dice" @click="DialogRollDice.setValues(evadeMelee).show()">{{ evadeMelee.value }}</div>
     </div>
 
   <div class="lower-header">

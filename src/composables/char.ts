@@ -1,29 +1,35 @@
 import {Spirit, type SpiritType} from "@/composables/spirits";
-import {toBool, toInt} from "@/composables/utils";
+import {toBool, toInt, translate} from "@/composables/utils";
 import {reactive} from "vue";
 import {
     data,
     extractAttributeFromDrain,
-    getActionSkills, getGear,
+    getActionSkills,
+    getGear,
     getKnowledgeSkills,
-    getSpells, getSpirits,
+    getSpells,
+    getSpirits,
     getVehicles,
     getWeapons
 } from "@/composables/data";
 import {Sheet, sheet_data} from "@/composables/sheet";
-import type {
-    Armor,
-    Attributes,
-    DamageMonitor,
-    Drain, Gear,
-    CharInitiative,
-    Movement, Resistance,
-    SheetData,
-    Skill,
-    Spell,
-    Weapon
+import {
+    type Armor,
+    type Attributes,
+    type CharInitiative,
+    type DamageMonitor,
+    type Drain,
+    EvadeType,
+    type Gear,
+    type Movement,
+    type Resistance,
+    type SheetData,
+    type Skill,
+    type Spell,
+    type Weapon
 } from "@/composables/types";
 import type {Vehicle} from "@/composables/vehicle";
+import {translations} from "@/composables/consts";
 
 export class Charakter {
     name!: string;
@@ -52,8 +58,7 @@ export class Charakter {
     sheet! : Sheet;
     data! : SheetData;
 
-    constructor(data: any, sheet: any )
-    {
+    constructor(data: any, sheet: any ) {
         this.update(data, sheet);
     }
 
@@ -80,13 +85,11 @@ export class Charakter {
             Spirit.create(type, force, services)
         );
     }
-
     releaseSpirit(spirit: Spirit) {
         this.sheet.spirits = this.sheet.spirits.filter((item: Spirit) => {
             return !spirit.equals(item);
         });
     }
-
     get karma(): number { return this.sheet.karma; }
     addKarma(value: number, reason: string) {
         this.sheet.karma_log.push( {
@@ -97,7 +100,6 @@ export class Charakter {
 
         this.sheet.karma += value;
     }
-
     get spirits(): Spirit[] { return this.sheet.spirits; }
 
     update(data: any, sheet: any) {
@@ -267,16 +269,7 @@ export class Charakter {
     }
 
     get spellcasting(): Skill {
-        return this.skillByName('Spellcasting')
-            ?? this.skillByName('Spruchzauberei')
-            ?? {
-                name: 'Spellcasting',
-                type: 'unknown',
-                attribute: 'unknown',
-                attribute_value: 0,
-                rating: 0,
-                total: 0,
-            };
+        return this.skillByName('Spruchzauberei');
     }
 
     get maxStunDamage(): number {
@@ -297,6 +290,138 @@ export class Charakter {
         }
     }
 
+
+
+
+    evade(type: EvadeType, fullDefense: boolean) {
+        const evade = this.skillByName('Ausweichen');
+        const acrobatic = this.skillByName('Akrobatik');
+        const unarmed = this.skillByName('Waffenlos');
+        const melee = this.skillByName(this.sheet.defenseMeleeSkill);
+        const reaction = this.attributes.reaction;
+        let name = 'Verteidigung';
+
+        /*
+        melee
+            parieren: Waffenfertigkeit + Reaktion
+            blocken:  Waffenloser Kampf + Reaktion
+            ausweichen: Ausweichen + Reaktion
+
+        ranged:
+            ausweichen: Reaktion
+
+        volle Abwehr:
+            ranged:
+                Volles Ausweichen: Ausweichen + Reaktion
+                akrobatisches Ausweichen: Akrobatik + Reaktion
+            melee:
+                Volles Ausweichen: Ausweichen + Ausweichen + Reaktion
+                             oder Nahkampfertigkeit + Ausweichen + Reaktion
+
+                volles Parieren: Waffenfertigkeit + Waffenfertigkeit + Reaktion
+
+                Akrobatisches Ausweichen: Akrobatik + Ausweichen + Reaktion
+         */
+
+        let values = [];
+
+        if (type == EvadeType.Melee)
+        {
+            if (fullDefense)
+            {
+                const maxSkill = Math.max(
+                    evade.total * 2,
+                    unarmed.total + evade.total,
+                    melee.total + evade.total,
+                    melee.total * 2,
+                    acrobatic.total + evade.total,
+                );
+
+                if ((acrobatic.total + evade.total) >= maxSkill)
+                {
+                    name = 'Akrobatisches Ausweichen';
+                    values.push({ name: acrobatic.name, value: acrobatic.total });
+                    values.push({ name: evade.name, value: evade.total });
+                }
+
+                if ((melee.total * 2) >= maxSkill)
+                {
+                    name = 'Volles Parieren';
+                    values.push({ name: melee.name + ' x2', value: melee.total * 2 });
+                }
+
+                if ((melee.total + evade.total) >= maxSkill)
+                {
+                    name = 'Volles Ausweichen';
+                    values.push({ name: melee.name, value: melee.total });
+                    values.push({ name: evade.name, value: evade.total });
+                }
+
+                if ((unarmed.total + evade.total) >= maxSkill)
+                {
+                    name = 'Volles Ausweichen';
+                    values.push({ name: unarmed.name, value: unarmed.total });
+                    values.push({ name: evade.name, value: evade.total });
+                }
+
+                if (evade.total * 2 >= maxSkill)
+                {
+                    name = 'Volles Ausweichen';
+                    values.push({ name: evade.name + ' x2', value: evade.total * 2 });
+                }
+            }
+            else
+            {
+                const maxSkill = Math.max(evade.total, unarmed.total, melee.total);
+
+                if (evade.total >= maxSkill)
+                {
+                    name = 'Ausweichen';
+                    values.push({ name: evade.name, value: evade.total });
+                }
+                if (unarmed.total >= maxSkill)
+                {
+                    name = 'Blocken';
+                    values.push({ name: unarmed.name, value: unarmed.total });
+                }
+                if (melee.total >= maxSkill)
+                {
+                    name = 'Parieren';
+                    values.push({ name: melee.name, value: melee.total });
+                }
+            }
+        }
+        else if (type == EvadeType.Ranged)
+        {
+            if (fullDefense)
+            {
+                if (evade.total > acrobatic.total)
+                {
+                    name = 'Volles Ausweichen';
+                    values.push({ name: evade.name, value: evade.total });
+                }
+                else
+                {
+                    name = 'Akrobatisches Ausweichen';
+                    values.push({ name: acrobatic.name, value: acrobatic.total });
+                }
+            }
+            else
+            {
+                name = 'Ausweichen';
+            }
+        }
+
+        values.push({ name: reaction.name, value: reaction.total });
+
+        return {
+            name: name,
+            value: values.reduce((acc, cur) => acc + cur.value, 0),
+            values: values,
+        }
+    }
+
+
     isSkillSelected(value: string): boolean {
         return this.sheet.selectedSkills.includes(value);
     }
@@ -307,10 +432,20 @@ export class Charakter {
         this.sheet.selectedSkills = this.sheet.selectedSkills.filter((item: string) => item !== value)
     }
 
-    skillByName(name: string): Skill | null {
+    skillByName(name: string): Skill {
+
         return this.actionSkills.find((item: any) => item.name === name)
-            ?? this.knowledgeSkills.find((item: any) => item.name === name)
-            ?? null;
+        ?? this.knowledgeSkills.find((item: any) => item.name === name)
+        ?? this.actionSkills.find((item: any) => item.name === translate(name))
+        ?? this.knowledgeSkills.find((item: any) => item.name === translate(name))
+        ?? {
+                name: name,
+                type: 'unknown',
+                attribute: 'unknown',
+                attribute_value: 0,
+                rating: 0,
+                total: 0,
+            };
     }
 }
 

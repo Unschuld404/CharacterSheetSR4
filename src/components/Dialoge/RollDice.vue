@@ -1,6 +1,13 @@
 <script setup lang="ts">
   import {DialogRollDice} from "@/composables/dialogs";
+  import {computed} from "vue";
+
+  const values = computed(() => DialogRollDice.values?.values ?? [])
+
 </script>/
+
+
+
 
 <template>
 
@@ -18,6 +25,11 @@
         <p><strong>{{ DialogRollDice.dice_count}}</strong> Würfel</p>
         <div class="mutator" @click="DialogRollDice.addDice()">+</div>
       </div>
+      <div class="row">
+        <div v-for="(value, index) in values">{{ value.name }} ({{ value.value }})<span v-if="index < values.length -1">,</span>&nbsp; </div>
+      </div>
+
+
       <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
     </div>
   </div>

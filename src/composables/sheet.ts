@@ -11,6 +11,7 @@ export class Sheet {
     selectedSkills : string[];
     selectedItems : SelectedItem[];
     weaponSettings : WeaponSetting[];
+    defenseMeleeSkill: string = 'Waffenlos';
 
     edge : number | null;
     nuyen!: number;

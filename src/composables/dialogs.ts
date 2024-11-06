@@ -2,7 +2,7 @@ import {reactive} from "vue";
 import {uploadSheet} from "@/composables/fetch";
 import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
-import type {Weapon, WeaponSetting} from "@/composables/types";
+import type {RollDiceValues, Weapon, WeaponSetting} from "@/composables/types";
 import {validateWeaponSettingForWeapon} from "@/composables/weapons";
 
 export class Dialog  {
@@ -122,6 +122,15 @@ export class RollDiceDialog extends Dialog {
     dice_count: number = 0;
 
     edge_checked : boolean = false;
+
+    values: RollDiceValues | null = null;
+
+    setValues(values: RollDiceValues): RollDiceDialog {
+        this.values = values;
+        this.name = values.name;
+        this.dice_count = values.value;
+        return this;
+    }
 
     setName(name: string): RollDiceDialog {
         this.name = name;

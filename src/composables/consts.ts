@@ -1,4 +1,4 @@
-import type {Signal} from "@/composables/types";
+import type {Signal, Translation} from "@/composables/types";
 
 export const SignalTiers: Signal[] = [
     { signal: 0, range: '3 m'},
@@ -12,3 +12,12 @@ export const SignalTiers: Signal[] = [
     { signal: 8, range: '100 km'},
     { signal: 9, range: '400 km'},
 ]
+
+
+export const translations: Translation = {
+    Spruchzauberei: 'Spellcasting',
+    Waffenlos: 'Unarmed Attack',
+    Ausweichen: 'Dodge',
+    Akrobatik: 'Gymnastics',
+}
+
