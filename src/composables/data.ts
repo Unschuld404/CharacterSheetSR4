@@ -167,7 +167,8 @@ export function getGear(data: any): Array<Gear> {
         signal: toInt(item.signal),
         firewall: toInt(item.firewall),
         system: toInt(item.system),
-        processorlimit: toInt(item.processorlimit),
+        response: toInt(item.response),
+        rating: toInt(item.rating),
     }));
 }
 export function dataIsValid(): boolean {

@@ -14,6 +14,7 @@ import {GearType} from "@/composables/types";
       <div v-for="item in char.gear" class="item">
         <div class="row">
           <h2>{{item.name}}</h2>
+          <h2 v-if="item.rating > 1">Stufe {{item.rating}}</h2>
         </div>
         <div class="row">
           <h3>{{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template></h3>

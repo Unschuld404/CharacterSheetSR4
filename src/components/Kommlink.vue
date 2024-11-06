@@ -22,7 +22,7 @@ const commlink = computed(()=>{
       <div>Firewall</div>
     </div>
     <div class="column">
-      <strong>{{commlink.processorlimit}}</strong>
+      <strong>{{commlink.response}}</strong>
       <div>Prozessor</div>
     </div>
     <div class="column">

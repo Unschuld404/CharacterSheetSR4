@@ -178,7 +178,8 @@ export type Gear = {
     signal: number;
     firewall: number;
     system: number;
-    processorlimit: number;
+    response: number;
+    rating: number;
 }
 
 export type SheetData = {
