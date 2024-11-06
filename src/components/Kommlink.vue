@@ -13,19 +13,19 @@ const commlink = computed(()=>{
 
   <div v-if="commlink != null" class="box row commlink">
     <div class="header">{{commlink.name}}</div>
-    <div class="column">
+    <div v-if="commlink.system > 0" class="column">
       <strong>{{commlink.system}}</strong>
       <div>System</div>
     </div>
-    <div class="column">
+    <div v-if="commlink.firewall > 0" class="column">
       <strong>{{commlink.firewall}}</strong>
       <div>Firewall</div>
     </div>
-    <div class="column">
+    <div v-if="commlink.response > 0" class="column">
       <strong>{{commlink.response}}</strong>
       <div>Prozessor</div>
     </div>
-    <div class="column">
+    <div v-if="commlink.signal > 0" class="column">
       <strong>{{commlink.signal}}</strong>
       <div>Signal</div>
     </div>
