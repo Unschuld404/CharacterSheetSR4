@@ -112,16 +112,16 @@ export class Charakter {
         this.name = data?.name ?? 'The Shadow';
         this.initiative = {
             normal : {
-                value : toInt(data?.init?.total),
-                passes : toInt(data?.ip?.total),
+                value : toInt(data?.init?.total ?? data?.init?.base),
+                passes : toInt(data?.ip?.total ?? data?.ip?.base),
             },
             astral : {
-                value : toInt(data?.atralinit?.base),
-                passes : toInt(data?.astralip?.base),
+                value : toInt(data?.astralinit?.total ?? data?.astralinit?.base),
+                passes : toInt(data?.astralip?.total ?? data?.astralip?.base),
             },
             matrix : {
-                value : toInt(data?.matrixinit?.base),
-                passes : toInt(data?.matrixip?.base),
+                value : toInt(data?.matrixinit?.total ?? data?.matrixinit?.base),
+                passes : toInt(data?.matrixip?.total ?? data?.matrixip?.base),
             },
             base : {
                 normal : {
