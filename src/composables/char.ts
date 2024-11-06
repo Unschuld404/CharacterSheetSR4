@@ -21,9 +21,9 @@ import type {
     SheetData,
     Skill,
     Spell,
-    Vehicle,
     Weapon
 } from "@/composables/types";
+import type {Vehicle} from "@/composables/vehicle";
 
 export class Charakter {
     name!: string;

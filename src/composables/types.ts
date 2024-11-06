@@ -111,17 +111,6 @@ export type Spell = {
     duration: string;
     dv: string;
 }
-export type Vehicle = {
-    name: string;
-    handling: string;
-    accel: string;
-    speed: string;
-    pilot: string;
-    body: string;
-    armor: string;
-    sensor: string;
-
-}
 
 export type Weapon = {
     name: string;

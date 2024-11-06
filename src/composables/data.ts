@@ -6,13 +6,12 @@ import type {
     SelectedItem,
     Skill,
     Spell,
-    Vehicle,
     Weapon,
-    WeaponSetting,
-    GearType
+    WeaponSetting
 } from "@/composables/types";
 import {toBool, toGearType, toInt} from "@/composables/utils";
 import {Spirit} from "@/composables/spirits";
+import {Vehicle} from "@/composables/vehicle";
 
 export const data = ref<any | null>(null);
 
@@ -119,16 +118,7 @@ export function getVehicles(data: any): Array<Vehicle> {
     let vehicles = data?.vehicles;
     vehicles = Array.isArray(vehicles) ? vehicles : [];
 
-    return vehicles.map((vehicle: any) => ({
-        name: vehicle.name || 'Unknown',
-        handling: vehicle.handling || '0',
-        accel: vehicle.accel || '0/0',
-        speed: vehicle.speed || '0',
-        pilot: vehicle.pilot || '0',
-        body: vehicle.body || '0',
-        armor: vehicle.armor || '0',
-        sensor: vehicle.sensor || '0'
-    }));
+    return vehicles.map((vehicle: any) => Vehicle.createFromDataObject(vehicle));
 }
 export function getWeapons(data: any): Array<Weapon> {
     let weapons = data?.weapons;
