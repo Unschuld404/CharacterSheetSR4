@@ -122,7 +122,11 @@ export function getVehicles(data: any): Array<Vehicle> {
 }
 export function getWeapons(data: any): Array<Weapon> {
     let weapons = data?.weapons;
-    weapons = Array.isArray(weapons) ? weapons : [];
+    if (weapons === null || weapons === undefined) {
+        return [];
+    }
+
+    weapons = Array.isArray(weapons) ? weapons : [weapons];
 
     return weapons.map((weapon: any) => ({
         name: weapon.name || 'Unknown',

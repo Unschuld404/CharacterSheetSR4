@@ -95,6 +95,12 @@ export type Resistance = {
     drain: number;
 }
 
+export type VehicleResistance = {
+    mundan: number; //weltlicher Schaden
+    magic: number;  //direkte Zauber
+    elemental: number; //indirekte Zauber
+}
+
 export type Skill = {
     name: string;
     type: string;
@@ -103,6 +109,21 @@ export type Skill = {
     rating: number;
     total: number;
 }
+
+export type VehicleSkill = {
+    name: string;
+    attribute: string;
+    attribute_value: number;
+    rating: number;
+    total: number;
+}
+
+export type VehicleMod = {
+    name: string;
+    rating: number;
+    mods: VehicleMod[];
+}
+
 export type Spell = {
     name: string;
     category: string;
@@ -129,6 +150,11 @@ export type Weapon = {
         extreme: string;
     };
     dicepool: string;
+}
+
+export type Signal = {
+    signal: number;
+    range: string;
 }
 
 export enum GearType {
@@ -158,4 +184,11 @@ export type Gear = {
 export type SheetData = {
     edge : number;
     damage: DamageTaken;
+}
+
+
+export enum VehicleMode {
+    Auto= 'Auto',
+    Remote = 'Remote',
+    VR = 'VR',
 }

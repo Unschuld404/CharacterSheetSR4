@@ -1,0 +1,60 @@
+
+Name
+
+Handling  
+Beschleunigung  
+Geschwindigkeit 
+Gerätestufe
+
+Prozessor (Response auf eng.)
+Signal (km ?)
+System
+Firewall
+
+Rumpf
+Panzerung
+Pilot  / Prozessor / Befehl (Rigger)
+Sensor
+
+Schadenswiderstand  (Schaden, Magie)
+
+Steuerung (Auto /  Remote / VR)
+
+Initiative
+
+Verteidigung  ( Nahkampf/Fernkampf  [x] volle Abwehr)
+
+Skills:
+	Wahrnehmung  [ Pool ]  (speziell, Sensor muss ausgewählt werden)
+	Skill        [ Pool ] 
+	Skill        [ Pool ] 
+	Skill        [ Pool ] 
+	Skill        [ Pool ] 
+	Skill        [ Pool ] 
+	Skill        [ Pool ] 
+
+
+Waffen:
+    Wie Waffen des Chars
+
+
+Liste: Gear[]
+
+	Liste der Modifikationen
+		Kamera (6) + Infrarot + Restlichtverstärkung
+		Chamäleonüberzug
+		Radar (5)
+		Mikrofon (4) + Audioverbesserung (3) + Selektiver Geräuschfilter (3)
+
+	Liste der Programme
+
+
+	Liste der Munition
+
+
+
+
+
+
+
+
