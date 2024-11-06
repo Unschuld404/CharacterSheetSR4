@@ -13,17 +13,17 @@ import {DialogRollDice} from "@/composables/dialogs";
 
         <div class="column">
           <div class="initiative-category">Normal</div>
-          <button class="dice" @click="DialogRollDice.setName('Initiative').setDiceCount(char.initiative.normal.total).show()" >{{ char.initiative.normal.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName('Initiative').setDiceCount(char.initiative.normal.value).show()" >{{ char.initiative.normal.value }}</button>
         </div>
 
         <div class="column">
           <div class="initiative-category">Matrix</div>
-          <button class="dice" @click="DialogRollDice.setName('Matrix Initiative').setDiceCount(char.initiative.matrix.total).show()" >{{ char.initiative.matrix.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName('Matrix Initiative').setDiceCount(char.initiative.matrix.value).show()" >{{ char.initiative.matrix.value }}</button>
         </div>
 
         <div class="column" v-if="char.magician">
           <div class="initiative-category">Astral</div>
-          <button class="dice" @click="DialogRollDice.setName('Astrale Initiative').setDiceCount(char.initiative.astral.total).show()">{{ char.initiative.astral.total }}</button>
+          <button class="dice" @click="DialogRollDice.setName('Astrale Initiative').setDiceCount(char.initiative.astral.value).show()">{{ char.initiative.astral.value }}</button>
         </div>
 
       </div>

@@ -69,20 +69,22 @@ export type DamageTaken = {
     physical: number | null;
     stun: number | null;
 }
-export type InitiativePasses = {
-    base: number;
-    total: number;
-}
-export type InitiativeValues = {
-    base: number;
-    total: number;
-    passes: InitiativePasses;
-}
+
 export type Initiative = {
-    normal: InitiativeValues;
-    matrix: InitiativeValues;
-    astral: InitiativeValues;
+    value: number;
+    passes: number;
 }
+
+export type InitiativeSections = {
+    normal: Initiative;
+    matrix: Initiative;
+    astral: Initiative;
+}
+
+export type CharInitiative = InitiativeSections & {
+    base: InitiativeSections;
+}
+
 export type Armor = {
     ballistic: number;
     impact: number;

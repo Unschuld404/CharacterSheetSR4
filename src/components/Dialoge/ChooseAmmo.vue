@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, type ComputedRef, ref} from "vue";
 import {DialogWeapon} from "@/composables/dialogs";
 import {getSizeTypesFromAmmo} from "@/composables/weapons";
 import RadioButtons from "@/components/RadioButtons.vue";
@@ -13,15 +13,18 @@ const emit = defineEmits<{
 }>();
 function confirm(): void  {
 
-  const size = selectedSize.value || (sizeSelection.value[0]?.label ?? '');
-  const regex = /^(\d+)\s*\(([^)]+)\)$/;
-  const match = size.match(regex);
+  if (selectedItem.value !== null)
+  {
+    const size = selectedSize.value || (sizeSelection.value[0]?.label ?? '');
+    const regex = /^(\d+)\s*\(([^)]+)\)$/;
+    const match = size.match(regex);
 
-  DialogWeapon.setting.ammoLoaded = selectedItem.value.name;
-  DialogWeapon.setting.magType = match ? match[2].trim() : '';
-  DialogWeapon.setting.magSize = match ? toInt(match[1]) : 0;
-  DialogWeapon.setting.ammoLeft = Math.min(DialogWeapon.setting.magSize, selectedItem.value.count);
-  selectedItem.value.count -= DialogWeapon.setting.ammoLeft;
+    DialogWeapon.setting.ammoLoaded = selectedItem.value.name;
+    DialogWeapon.setting.magType = match ? match[2].trim() : '';
+    DialogWeapon.setting.magSize = match ? toInt(match[1]) : 0;
+    DialogWeapon.setting.ammoLeft = Math.min(DialogWeapon.setting.magSize, selectedItem.value.count);
+    selectedItem.value.count -= DialogWeapon.setting.ammoLeft;
+  }
 
   emit('confirm');
 }
@@ -38,13 +41,13 @@ const sizeSelection = computed(() => {
 
 const selectedSize = ref<string>(sizeSelection.value[0]?.label ?? '');
 
-const items: Gear[] = computed(() => {
+const items = computed(() => {
   return char.gear.filter((item: Gear) => {
     return item.type === GearType.Ammo && item.extra == DialogWeapon.weapon.category && item.count > 0
-  });
+  }) ?? [];
 })
 
-const selectedItem = ref<Gear>(null );
+const selectedItem = ref<Gear|null>(null );
 
 function setSelection(item: Gear) {
   selectedItem.value = item;

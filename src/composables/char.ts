@@ -16,7 +16,7 @@ import type {
     Attributes,
     DamageMonitor,
     Drain, Gear,
-    Initiative,
+    CharInitiative,
     Movement, Resistance,
     SheetData,
     Skill,
@@ -27,7 +27,7 @@ import type {Vehicle} from "@/composables/vehicle";
 
 export class Charakter {
     name!: string;
-    initiative!: Initiative;
+    initiative!: CharInitiative;
     metatype! : string;
     movement!: Movement;
     height!: string;
@@ -47,7 +47,7 @@ export class Charakter {
     weapons!: Weapon[];
     gear!: Gear[];
     monitor!: DamageMonitor;
-    magician: boolean;
+    magician!: boolean;
 
     sheet! : Sheet;
     data! : SheetData;
@@ -112,29 +112,31 @@ export class Charakter {
         this.name = data?.name ?? 'The Shadow';
         this.initiative = {
             normal : {
-                base : toInt(data?.init?.base),
-                total : toInt(data?.init?.total ?? data?.init?.base),
-                passes : {
-                    base : toInt(data?.ip?.base),
-                    total : toInt(data?.ip?.total ?? data?.ip?.base),
-                },
+                value : toInt(data?.init?.total),
+                passes : toInt(data?.ip?.total),
             },
             astral : {
-                base : toInt(data?.atralinit?.base),
-                total : toInt(data?.astralinit?.total ?? data?.astralinit?.base),
-                passes : {
-                    base : toInt(data?.astralip?.base),
-                    total : toInt(data?.astralip?.total ?? data?.astralip?.base),
-                },
+                value : toInt(data?.atralinit?.base),
+                passes : toInt(data?.astralip?.base),
             },
             matrix : {
-                base : toInt(data?.matrixinit?.base),
-                total : toInt(data?.matrixinit?.total ?? data?.matrixinit?.base),
-                passes : {
-                    base : toInt(data?.matrixip?.base),
-                    total : toInt(data?.matrixip?.total ?? data?.matrixip?.base),
-                },
+                value : toInt(data?.matrixinit?.base),
+                passes : toInt(data?.matrixip?.base),
             },
+            base : {
+                normal : {
+                    value : toInt(data?.init?.base),
+                    passes : toInt(data?.ip?.base),
+                },
+                astral : {
+                    value : toInt(data?.atralinit?.base),
+                    passes : toInt(data?.astralip?.base),
+                },
+                matrix : {
+                    value : toInt(data?.matrixinit?.base),
+                    passes : toInt(data?.matrixip?.base),
+                },
+            }
         }
         this.metatype = data?.metatype || 'unknown';
         this.movement = {

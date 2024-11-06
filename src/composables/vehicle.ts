@@ -2,7 +2,7 @@ import {toInt} from "@/composables/utils";
 import {
     type Damage,
     type Gear,
-    type InitiativeValues,
+    type Initiative,
     type VehicleMod,
     VehicleMode,
     type VehicleResistance,
@@ -14,9 +14,9 @@ export class Vehicle  {
     name: string = '';
     nickname: string = '';
 
-    handling: string = '';
+    handling: number = 0;
     accel: string = '';
-    speed: string = '';
+    speed: number = 0;
     rating: number = 0;
 
     processor: number = 0;
@@ -24,10 +24,10 @@ export class Vehicle  {
     system: number = 0;
     firewall: number = 0;
 
-    body: string = '';
-    armor: string = '';
-    pilot: string = '';
-    sensor: string = '';
+    body: number = 0;
+    armor: number = 0;
+    pilot: number = 0;
+    sensor: number = 0;
 
     monitor: Damage = { filled: 0, max:0 };
 
@@ -39,9 +39,13 @@ export class Vehicle  {
     maneuver: number = 0;
     mode: VehicleMode = VehicleMode.Auto;      // (Auto /  Remote / VR)
 
-    get initiative(): InitiativeValues | null {
+    get initiative(): Initiative | null {
         if (this.mode == VehicleMode.Auto)
         {
+            return {
+                value: this.pilot + this.processor,
+                passes: 3,
+            }
         }
 
         return null; //Rigger Initiative
