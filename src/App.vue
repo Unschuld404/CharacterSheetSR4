@@ -15,6 +15,7 @@ import DiceResult from "@/components/Dialoge/DiceResult.vue";
 import RangedWeapons from "@/components/Dialoge/RangedWeapon.vue";
 import ManageSpiritEdge from "@/components/Dialoge/ManageSpiritEdge.vue";
 import EdgeDiceResult from "@/components/Dialoge/EdgeDiceResult.vue";
+import CommlinkSheet from "@/components/Dialoge/CommlinkSheet.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -132,6 +133,7 @@ onBeforeUnmount(removeEventListeners);
   <DiceResult/>
   <EdgeDiceResult/>
   <ManageSpiritEdge/>
+  <CommlinkSheet/>
 
   <Header  v-if="dataIsValid()"  />
 

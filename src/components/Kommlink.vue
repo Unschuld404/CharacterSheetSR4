@@ -2,6 +2,7 @@
 import {char} from "../composables/char";
 import {computed} from "vue";
 import {type Gear, GearType} from "@/composables/types";
+import {DialogCommlink} from "@/composables/dialogs";
 const commlink = computed(()=>{
   return char.gear.find((item:Gear) =>{
     return (item.type == GearType.Commlink) && item.equipped;
@@ -11,7 +12,7 @@ const commlink = computed(()=>{
 
 <template>
 
-  <div v-if="commlink != null" class="box row commlink">
+  <div v-if="commlink != null" class="box row commlink" @click="DialogCommlink.show">
     <div class="header">{{commlink.name}}</div>
     <div v-if="commlink.system > 0" class="column">
       <strong>{{commlink.system}}</strong>

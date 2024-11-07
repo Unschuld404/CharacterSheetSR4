@@ -115,42 +115,6 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
           </div>
 
-          <div class="column equip">
-
-            <div class="flex-scroll">
-
-              <div class="box description">
-                <div>
-                  {{char.description}}
-                </div>
-                <div class="lower-header">Beschreibung</div>
-              </div>
-
-              <div class="box background">
-                <div>
-                  {{char.background}}
-                </div>
-                <div class="lower-header">Hintergrund</div>
-              </div>
-
-              <div class="box concept">
-                <div>
-                  {{char.concept}}
-                </div>
-                <div class="lower-header">Konzept</div>
-              </div>
-
-              <div class="box notes">
-                <div>
-                  {{char.notes}}}
-                </div>
-                <div class="lower-header">Notizen</div>
-              </div>
-
-            </div>
-
-          </div>
-
           <div class="column karma">
 
             <div class="flex-scroll">
@@ -179,6 +143,43 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
             </div>
 
           </div>
+
+          <div class="column story">
+
+            <div class="flex-scroll">
+
+              <div class="box description">
+                <p>
+                  {{char.description}}
+                </p>
+                <div class="lower-header">Beschreibung</div>
+              </div>
+
+              <div class="box background">
+                <p>
+                  {{char.background}}
+                </p>
+                <div class="lower-header">Hintergrund</div>
+              </div>
+
+              <div class="box concept">
+                <p>
+                  {{char.concept}}
+                </p>
+                <div class="lower-header">Konzept</div>
+              </div>
+
+              <div class="box notes">
+                <p>
+                  {{char.notes}}}
+                </p>
+                <div class="lower-header">Notizen</div>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
       </div>
 
@@ -187,6 +188,10 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 </template>
 
 <style scoped>
+
+p {
+  text-transform: none;
+}
 
 strong {
   text-align: center;
@@ -218,15 +223,15 @@ strong {
   margin-right: 2vh;
 }
 
-.equip {
+.story {
   flex: 1;
   height: 100%;
-  margin-right: 2vh;
 }
 
 .karma {
   flex: 1;
   height: 100%;
+  margin-right: 2vh;
 }
 
 .optic {
