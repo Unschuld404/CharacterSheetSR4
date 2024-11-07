@@ -1,13 +1,26 @@
 <script setup lang="ts">
   import {DialogRollDice} from "@/composables/dialogs";
-  import {computed} from "vue";
+  import {computed, ref} from "vue";
+  import {fetchRoll} from "@/composables/fetch";
+  import type {RollDiceResult} from "@/composables/types";
 
   const values = computed(() => DialogRollDice.values?.values ?? [])
 
+  const rollResult = ref<RollDiceResult | null >(null);
+
+  async function roll()
+  {
+    try {
+      const result = await fetchRoll(DialogRollDice.dice_count);
+      rollResult.value = result;
+      DialogRollDice.result = result;
+      console.log("roll result", result);
+    }
+    catch(err) {
+      console.error(err);
+    }
+  }
 </script>/
-
-
-
 
 <template>
 
@@ -26,11 +39,17 @@
         <div class="mutator" @click="DialogRollDice.addDice()">+</div>
       </div>
       <div class="row">
+        <div>{{ DialogRollDice.result }} </div>
+      </div>
+      <div class="row">
+        <div>{{ rollResult }} </div>
+      </div>
+      <div class="row">
         <div v-for="(value, index) in values">{{ value.name }} ({{ value.value }})<span v-if="index < values.length -1">,</span>&nbsp; </div>
       </div>
 
 
-      <button class="confirm" @click="DialogRollDice.hide">Würfeln</button>
+      <button class="confirm" @click="roll">Würfeln</button>
     </div>
   </div>
 
@@ -44,7 +63,7 @@
 
 .modal-content{
   width: 50vh;
-  height: 45vh;
+  height: 60vh;
   text-align: center;
   align-items: center;
   display: flex;

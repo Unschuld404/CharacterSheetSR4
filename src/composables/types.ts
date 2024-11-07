@@ -214,3 +214,8 @@ export type RollDiceValues = {
     value: number;
     values: RollDiceValue[],
 }
+
+export type RollDiceResult = {
+    results: number[];
+    hits: number;
+}

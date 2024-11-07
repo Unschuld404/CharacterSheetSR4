@@ -5,6 +5,11 @@ import {sheet_data} from "@/composables/sheet";
 
 const basePath = 'https://api.blackserver.de/chummer';
 
+export async function fetchRoll(count: number) {
+    const url = `${basePath}/roll/${count}`;
+    return fetchDataFromAPI(url);
+}
+
 export async function uploadSheet(): Promise<void> {
     if (uid.value === null)
     {
