@@ -13,8 +13,8 @@ Firewall
 
 Rumpf
 Panzerung
-Pilot  / Prozessor / Befehl (Rigger)
-Sensor
+Pilot  / Befehl (Rigger) / Prozessor
+Sensor (ausgewählter Sensor)
 
 Schadenswiderstand  (Schaden, Magie)
 
@@ -34,27 +34,136 @@ Skills:
 	Skill        [ Pool ] 
 
 
-Waffen:
-    Wie Waffen des Chars
+Waffen: (siehe Beispiel weapons)
+
+Liste der Modifikationen  (siehe Beispiel mods)
+    Kamera (6) + Infrarot + Restlichtverstärkung
+    Chamäleonüberzug
+    Radar (5)
+    Mikrofon (4) + Audioverbesserung (3) + Selektiver Geräuschfilter (3)
+
+Liste der Programme:   (siehe Beispiel autosofts)
 
 
-Liste: Gear[]
-
-	Liste der Modifikationen
-		Kamera (6) + Infrarot + Restlichtverstärkung
-		Chamäleonüberzug
-		Radar (5)
-		Mikrofon (4) + Audioverbesserung (3) + Selektiver Geräuschfilter (3)
-
-	Liste der Programme
+Liste der Munition: (siehe Beispiel ammunitions)
 
 
-	Liste der Munition
+Beispiel:
 
+weapons: (bei mir immer nur eine, vlt 2, sehr selten 3)
+  -
+    name: 'Ingram White Knight'
+    category_english: 'Light Machine Guns'
+    accessories:
+      -
+        name: Schulterstütze
+        rc: (1)
+      -
+        name: 'Smartgunsystem, External'
+        mount: Top/Under
+  -
+    name: 'HK 227-X'
+    category_english: 'Submachine Guns'
+    mods:
+      -
+        name: 'Ausklappbare Schulterstütze'
+        rc: '1'
+      -
+        name: Smartgunsystem
+      -
+        name: Schallunterdrücker
 
+mods:
+      -
+        name: Riggeradaption
+      -
+        name: Läufer-Modus
+      -
+        name: 'Verbessertes Start-/Landeprofil Level 2'
+      -
+        name: Chamäleonüberzug
+      -
+        name: 'Pilotprogram (Stufe 5)'
+        rating: '0'
+      -
+        name: 'Firewall 5'
+        rating: '0'
+      -
+        name: 'System 5'
+        rating: '0'
 
+sensors: (bis zu 3 normal, 4 - 5 möglich, drüber selten )
+  -
+    name: Kamera
+    rating: '6'
+  -
+    name: Radar
+    rating: '6'
+  -
+    name: Ultrabreitbandradar
+    rating: '4'
+  -
+    name: Kamera
+    rating: '4'
+    children:
+      -
+        name: Infrarot
+  -
+    name: Mikrofon
+    rating: '4'
+    children:
+      -
+        name: 'Selektiver Geräuschfilter'
+        rating: '1'
 
+autosofts: (ziemlich genau diese, weniger wenn nicht geladen oder kein Geld, mehr bei besonderen skills, aber nicht viel mehr)
+  -
+    name: 'Elektronische Kriegsführung'
+    category_english: Autosofts
+    isprogram: 'True'
+    rating: '4'
+  -
+    name: Steuerung
+    category_english: Autosofts
+    isprogram: 'True'
+    rating: '4'
+  -
+    name: Abwehr
+    category_english: Autosofts
+    isprogram: 'True'
+    rating: '4'
+  -
+    name: Zielerfassung
+    category_english: Autosofts
+    isprogram: 'True'
+    rating: '4'
+    extra: 'Schwere Waffen'
+  -
+    name: Clearsight
+    category_english: Autosofts
+    isprogram: 'True'
+    rating: '4'
+  -
+    name: 'Verdeckte Operation'
+    category_english: 'Autosofts, Drone'
+    isprogram: 'True'
+    rating: '4'
 
+ammunitions: (2, 3 Stapel. vlt mehr. kann transferiert werden)
+      -
+        name: 'Munition: Standardmunition'
+        category_english: Ammunition
+        isammo: 'True'
+        qty: '50'
+        extra: 'Leichte Maschinengewehre'
+      -
+        name: 'Munition: Explosivgeschosse'
+        category_english: Ammunition
+        isammo: 'True'
+        qty: '100'
+        extra: 'Leichte Maschinengewehre'
+        weaponbonusdamage: '+1'
+        weaponbonusap: '+0'
 
-
-
+gears: (der Rest ...sollte aber nix übrig sein)
+  - name: Wasserflasche

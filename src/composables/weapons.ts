@@ -1,6 +1,5 @@
 import type {Weapon, WeaponSetting} from "@/composables/types";
 import {char} from "@/composables/char";
-import {DialogWeapon} from "@/composables/dialogs";
 
 export const shootingMode = [
     { label: 'Einzelschuss', value: 'einzelschuss', count: 1, secondPhase: true },
