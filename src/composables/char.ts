@@ -54,14 +54,14 @@ export class Charakter {
     gear!: Gear[];
     monitor!: DamageMonitor;
     magician!: boolean;
-    initiategrade: number;
-    description: string;
-    background: string;
-    concept: string;
-    notes: string;
-    totalstreetcred: number;
-    totalnotoriety: number;
-    totalpublicawareness: number;
+    initiategrade!: number;
+    description!: string;
+    background!: string;
+    concept!: string;
+    notes!: string;
+    totalstreetcred!: number;
+    totalnotoriety!: number;
+    totalpublicawareness!: number;
 
 
     sheet! : Sheet;
