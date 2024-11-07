@@ -1,4 +1,4 @@
-import type {Signal, Translation} from "@/composables/types";
+import {type Signal, type Translation, VehicleMode} from "@/composables/types";
 
 export const SignalTiers: Signal[] = [
     { signal: 0, range: '3 m'},
@@ -21,3 +21,8 @@ export const translations: Translation = {
     Akrobatik: 'Gymnastics',
 }
 
+export const VehicleModes = [
+    { label: 'Auto', value: VehicleMode.Auto },
+    { label: 'Remote', value: VehicleMode.Remote },
+    { label: 'VR', value: VehicleMode.VR },
+]

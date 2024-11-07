@@ -18,7 +18,7 @@ import {GearType} from "@/composables/types";
         <h2>
 
           <template v-if="item.count!=1||item.type==GearType.Ammo">
-            {{ item.count }} x
+            {{item.count}} x
           </template>
 
           {{item.name}}

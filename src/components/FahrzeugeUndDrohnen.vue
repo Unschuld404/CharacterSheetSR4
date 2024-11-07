@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
+import {DialogVehicleSheet} from "@/composables/dialogs";
 </script>
 
 <template>
 
   <ul>
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
-      <div class="box">
+      <div class="box" @click="DialogVehicleSheet.show">
         <div class="header">{{ vehicle.name }}</div>
         <div class="info">
           <div class="value-small">Handling: <strong>{{ vehicle.handling }}</strong></div>

@@ -3,22 +3,22 @@ import { computed } from 'vue';
 
 interface RadioOption {
   label: string;
-  value: string;
+  value: any;
 }
 
 const props = defineProps<{
   options: RadioOption[];
-  modelValue: string;
+  modelValue: any;
   group?: string;
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
+  (e: 'update:modelValue', value: any): void;
 }>();
 
 const selectedValue = computed({
   get: () => props.modelValue,
-  set: (value: string) => emit('update:modelValue', value),
+  set: (value: any) => emit('update:modelValue', value),
 });
 
 const groupName = computed(() => props.group || `radio-group-${Math.random().toString(36)}`);
