@@ -1,5 +1,5 @@
 import {toArray, toInt} from "@/composables/utils";
-import type {Skill} from "@/composables/types";
+import type {IdObject, Skill} from "@/composables/types";
 import {char} from "@/composables/char";
 
 export type SpiritType = {
@@ -29,7 +29,10 @@ export const SpiritPlanes = [
     { label: 'Heimat', value: 'heimat' },
 ];
 
-export class Spirit {
+export class Spirit implements IdObject {
+    static nextId: number = 0;
+    id: number = 0;
+
     type: string = 'unknown';
     name: string = '';
     services: number = 0;
@@ -118,6 +121,17 @@ export class Spirit {
     get edge(): number { return this.edgeMax - this.spentEdge}
     set edge(value: number) { this.spentEdge = this.edgeMax - value; }
 
+    setNextId(): Spirit
+    {
+        this.id = Spirit.nextId++;
+        return this;
+    }
+
+    generateId(): string {
+        return this.type
+            + '.' + this.name
+            + '.' + this.id;
+    }
     equals(spirit: Spirit): boolean {
         return this.type === spirit.type
             && this.name === spirit.name
@@ -141,6 +155,7 @@ export class Spirit {
 
     static create(type: SpiritType, force: number, services: number): Spirit {
         const newSpirit: Spirit = new Spirit();
+        newSpirit.setNextId();
         newSpirit.spiritType = type;
         newSpirit.force = force;
         newSpirit.services = services;
@@ -149,6 +164,7 @@ export class Spirit {
     static createFromDataObject(obj: any): Spirit {
         let newSpirit = new Spirit();
 
+        newSpirit.setNextId();
         newSpirit.type = obj.name || obj.type;
         newSpirit.name = obj.critternam || '';
         newSpirit.services = toInt(obj.services);

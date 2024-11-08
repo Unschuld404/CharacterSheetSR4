@@ -19,7 +19,6 @@ export class Sheet {
     spirits!: Spirit[];
     damage: DamageTaken;
 
-
     constructor(sheet: any) {
         this.karma_log = getKarmaLog(sheet);
         this.nuyen_log = getNuyenLog(sheet);

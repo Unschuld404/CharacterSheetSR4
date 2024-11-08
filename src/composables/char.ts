@@ -1,5 +1,5 @@
 import {Spirit, type SpiritType} from "@/composables/spirits";
-import {toBool, toInt, translate} from "@/composables/utils";
+import {toBool, toInt, toSelectedItem, translate} from "@/composables/utils";
 import {reactive} from "vue";
 import {
     data,
@@ -22,10 +22,9 @@ import {
     EvadeType,
     type Gear,
     type Movement,
-    type Resistance,
+    type Resistance, type SelectedItem,
     type SheetData,
-    type Skill,
-    type Spell
+    type Skill, Spell
 } from "@/composables/types";
 import type {Vehicle} from "@/composables/vehicle";
 import type {Weapon} from "@/composables/weapons";
@@ -453,6 +452,17 @@ export class Charakter {
     }
     unselectSkill(value: string): void {
         this.sheet.selectedSkills = this.sheet.selectedSkills.filter((item: string) => item !== value)
+    }
+
+    isItemSelected( obj: any ): boolean {
+        return this.sheet.selectedItems.includes(toSelectedItem(obj));
+    }
+    selectItem(obj: any): void {
+        this.sheet.selectedItems.push(toSelectedItem(obj));
+    }
+    unselectItem(obj: any): void {
+        const item = toSelectedItem(obj);
+        this.sheet.selectedItems = this.sheet.selectedItems.filter((item: any) => item !== item)
     }
 
     skillByName(name: string): Skill {

@@ -1,4 +1,4 @@
-import type { WeaponSetting} from "@/composables/types";
+import type {IdObject, WeaponSetting} from "@/composables/types";
 import {char} from "@/composables/char";
 
 export type WeaponRange = {
@@ -8,16 +8,20 @@ export type WeaponRange = {
     extreme: string;
 }
 
-export class Weapon  {
+export class Weapon implements IdObject  {
+    static nextId: number = 0;
+    id: number = 0;
+
     name: string = '';
-    id: string = '';
     damage: string = '';
     ap: string = '';
     category: string = '';
+    conceal: string = '';
     mode: string = '';
     rc: string = '';
     ammo: string = '';
     type: string = '';
+    weaponname: string = '';
     ranges: WeaponRange = { short: '', medium: '', long: '', extreme: '' };
     dicepool: string = '';
 
@@ -30,14 +34,20 @@ export class Weapon  {
         return validateWeaponSettingForWeapon(this);
     }
 
+    setNextId(): Weapon
+    {
+        this.id = Weapon.nextId++;
+        return this;
+    }
+
+    generateId(): string {
+        return this.category
+            + '.' + this.name
+            + '.' + this.id;
+    }
+
     loadFromData(data: any): Weapon {
         this.name = data.name || 'Unknown';
-        this.id=            data.category_english
-                    + '.' + data.name_english
-                    + '.' + data.damage_english
-                    + '.rc(' + data.rc + ')'
-                    + '.conceal(' + data.conceal+ ')'
-                    + '.' + data.weaponname;
         this.damage= data.damage || '0';
         this.category= data.category || '';
         this.ap= data.ap || '0';
@@ -45,6 +55,8 @@ export class Weapon  {
         this.rc= data.rc || '0';
         this.ammo= data.ammo || '0';
         this.type= data.type || '';
+        this.weaponname = data.weaponname || '';
+        this.conceal = data.conceal || '';
         this.ranges= {
                 short: data.ranges?.short || '0',
                 medium: data.ranges?.medium || '0',
@@ -55,7 +67,7 @@ export class Weapon  {
         return this;
     }
     static createFromDataObject(data: any): Weapon {
-        return (new Weapon()).loadFromData(data);
+        return (new Weapon()).setNextId().loadFromData(data);
     }
 }
 
@@ -101,10 +113,10 @@ export function getModeModifier(mode: string, ammoLeft: number, rc: number, seco
 
 function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
 {
-    let setting = char.sheet.weaponSettings.find((item: WeaponSetting) => { return item.weaponId == weapon.id }) ?? null;
+    let setting = char.sheet.weaponSettings.find((item: WeaponSetting) => { return item.weaponId == weapon.generateId() }) ?? null;
     if (setting == null) {
         setting = {
-            weaponId: weapon.id,
+            weaponId:  weapon.generateId(),
             selectedMode: 'einzelschuss',
             ammoLoaded: '',
             magType: '',

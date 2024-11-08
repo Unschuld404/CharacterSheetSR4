@@ -8,7 +8,7 @@ export type Ammunition = {
 
 export type SelectedItem = {
     type : string;
-    name : string;
+    id : string;
 }
 export type NuyenEntry = {
     date: Date;
@@ -135,6 +135,8 @@ export type VehicleResistance = {
     elemental: number; //indirekte Zauber
 }
 
+export interface Vehicle {}
+
 export type Skill = {
     name: string;
     type: string;
@@ -144,13 +146,31 @@ export type Skill = {
     total: number;
 }
 
-export type Spell = {
-    name: string;
-    category: string;
-    type: string;
-    range: string;
-    duration: string;
-    dv: string;
+export interface IdObject {
+    generateId(): string;
+}
+
+export class Spell implements IdObject {
+
+    name!: string;
+    category!: string;
+    type!: string;
+    range!: string;
+    duration!: string;
+    dv!: string;
+
+    generateId(): string {
+        return this.name;
+    }
+
+    constructor(data: any) {
+        this.name = data?.name || 'Unbekannt';
+        this.category = data?.category || 'Unbekannt';
+        this.type = data?.type || 'Unbekannt';
+        this.range = data?.range || 'Unbekannt';
+        this.duration = data?.duration || 'Unbekannt';
+        this.dv = data?.dv || 'Unbekannt';
+    }
 }
 
 export type Signal = {
