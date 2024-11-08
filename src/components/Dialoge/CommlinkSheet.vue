@@ -13,25 +13,25 @@ const commlink = computed(()=>{
 
 <template>
 
-  <div v-if="DialogCommlink.visible" class="modal-overlay" @click="DialogCommlink.hide">
+  <div v-if="DialogCommlink.visible && char.commlink" class="modal-overlay" @click="DialogCommlink.hide">
     <div class="modal-content" @click.stop>
 
-      <h1>{{commlink.name}}</h1>
+      <h1>{{ char.commlink.name}}</h1>
       <div class="row stats">
-        <div v-if="commlink.system > 0" class="column">
-          <strong>{{commlink.system}}</strong>
+        <div v-if="char.commlink.system > 0" class="column">
+          <strong>{{ char.commlink.system}}</strong>
           <div>System</div>
         </div>
-        <div v-if="commlink.firewall > 0" class="column">
-          <strong>{{commlink.firewall}}</strong>
+        <div v-if="char.commlink.firewall > 0" class="column">
+          <strong>{{char.commlink.firewall}}</strong>
           <div>Firewall</div>
         </div>
-        <div v-if="commlink.response > 0" class="column">
-          <strong>{{commlink.response}}</strong>
+        <div v-if="char.commlink.response > 0" class="column">
+          <strong>{{char.commlink.response}}</strong>
           <div>Prozessor</div>
         </div>
-        <div v-if="commlink.signal > 0" class="column">
-          <strong>{{commlink.signal}}</strong>
+        <div v-if="char.commlink.signal > 0" class="column">
+          <strong>{{char.commlink.signal}}</strong>
           <div>Signal</div>
         </div>
       </div>
