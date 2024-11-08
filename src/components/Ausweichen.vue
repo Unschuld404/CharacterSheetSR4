@@ -54,7 +54,7 @@ const evadeRanged = computed( () => {
 
 .box {
   height: 100%;
-  padding-top: 2vh;
+  padding-top: 3vh;
 }
 
 .column {

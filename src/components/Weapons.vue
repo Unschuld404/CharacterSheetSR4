@@ -10,7 +10,7 @@ import {toInt} from "@/composables/utils";
   <div class="flex-scroll">
     <ul>
       <li v-for="weapon in char.weapons" :key="weapon.name">
-        <div class="box" @click="DialogWeapon.setWeapon(weapon).show()">
+        <div class="box" @click="!weapon.isMelee && DialogWeapon.setWeapon(weapon).show() ">
          <div class="item column">
            <div class="header row">
              <input type="checkbox" class="favourite" @click.stop>
@@ -23,7 +23,18 @@ import {toInt} from "@/composables/utils";
                <div v-if="!weapon.isMelee" class="value">{{ weapon.settings.ammoLoaded}}</div>
              </div>
              <template v-if="weapon.isMelee">
-               <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(toInt(weapon.dicepool)).show()">{{ weapon.dicepool }}</button>
+
+               <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: weapon.name,
+                value: weapon.dicepool,
+                values: [
+                    {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                    {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                    ]
+              }
+              ).show()">{{ weapon.dicepool }}
+               </button>
              </template>
            </div>
          </div>
@@ -69,6 +80,7 @@ import {toInt} from "@/composables/utils";
 .value {
   line-height: 5vh;
 }
+
 
 strong {
   margin-left: 1vh;

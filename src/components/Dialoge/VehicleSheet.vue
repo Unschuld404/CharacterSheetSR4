@@ -59,15 +59,15 @@ const selectedVehicletMode = computed ({
 
           <div class="box">
             <div class="line sensor">
-              <div>Kamera (5)</div>
+              <div class="sensor-name">Kamera (5)</div>
               <div>Subcaption</div>
             </div>
             <div class="line sensor">
-              <div>Radar (5)</div>
+              <div class="sensor-name">Radar (5)</div>
               <div>Subcaption</div>
             </div>
             <div class="line sensor">
-              <div>Mikrofon (5)</div>
+              <div class="sensor-name">Mikrofon (5)</div>
               <div>Selektiver Geräuschfilter (1)</div>
             </div>
           </div>

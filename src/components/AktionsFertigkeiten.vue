@@ -33,7 +33,17 @@ function toggleSkill(value: string)
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div class="name">{{ skill.name }}</div>
           <div class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-          <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
+          <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: skill.name,
+                value: skill.total,
+                values: [
+                    {name: skill.attribute, value: skill.attribute_value},
+                    {name: skill.name, value: skill.rating},
+                    ]
+              }
+              ).show()">{{ skill.total }}
+          </button>
         </li>
       </ul>
     </div>
