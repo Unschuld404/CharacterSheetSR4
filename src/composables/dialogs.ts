@@ -1,9 +1,14 @@
 import {reactive} from "vue";
 import {uploadSheet} from "@/composables/fetch";
-import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
+import {isWatcher, Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
-import type {RollDiceResult, RollDiceValues, Vehicle, WeaponSetting} from "@/composables/types";
-import type {Weapon} from "@/composables/weapons";
+import {
+    type RollDiceResult,
+    type RollDiceValues,
+    type WeaponSetting
+} from "@/composables/types";
+import {Weapon} from "@/composables/weapons";
+import {Vehicle} from "@/composables/vehicle";
 
 export class Dialog  {
     visible: boolean;
@@ -87,11 +92,14 @@ export class SpiritSheetDialog extends Dialog {
 }
 
 export class VehicleSheetDialog extends Dialog {
-    vehicle!: Vehicle;
+    vehicle: Vehicle | null = null;
     setVehicle(vehicle: Vehicle): VehicleSheetDialog
     {
         this.vehicle = vehicle;
         return this;
+    }
+    getVehicle(): Vehicle {
+        return this.vehicle ?? new Vehicle();
     }
 }
 

@@ -3,16 +3,26 @@
 import {DialogVehicleSheet} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
-import {computed, ref} from "vue";
-import {Vehicle} from "@/composables/vehicle";
+import {computed} from "vue";
 import Ausweichen from "@/components/Ausweichen.vue";
+import {Vehicle} from "@/composables/vehicle";
+import {char} from "@/composables/char";
+import {type Initiative, VehicleMode} from "@/composables/types";
 
-const vehicle = ref<Vehicle>(new Vehicle())
+const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
-const selectedVehicletMode = computed ({
+const selectedVehicleMode = computed ({
   get() { return vehicle.value.mode },
   set(value) { vehicle.value.mode = value  }
 })
+
+const initiative = computed<Initiative>(() =>
+    vehicle.value.initiative
+      ?? (selectedVehicleMode.value == VehicleMode.Remote
+            ? char.initiative.normal
+            : char.initiative.matrix) );
+
+
 </script>/
 
 <template>
@@ -141,18 +151,18 @@ const selectedVehicletMode = computed ({
           </div>
 
           <div class="pilot toggle">
-            <RadioButtons class="mode" v-model="selectedVehicletMode" :options="VehicleModes" group="pilot"/>
+            <RadioButtons class="mode" v-model="selectedVehicleMode" :options="VehicleModes" group="pilot"/>
           </div>
 
           <div class="box row">
 
             <div class="column initiative">
               <div>Initiative</div>
-              <div class="dice">XX</div>
+              <div class="dice">{{ initiative.value }}</div>
             </div>
             <div class="column initiative">
               <div>Durchgänge</div>
-              <strong>3</strong>
+              <strong>{{ initiative.passes }}</strong>
             </div>
 
           </div>

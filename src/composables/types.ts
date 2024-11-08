@@ -135,8 +135,6 @@ export type VehicleResistance = {
     elemental: number; //indirekte Zauber
 }
 
-export interface Vehicle {}
-
 export type Skill = {
     name: string;
     type: string;
