@@ -135,25 +135,6 @@ export type Spell = {
     dv: string;
 }
 
-export type Weapon = {
-    name: string;
-    id: string;
-    damage: string;
-    ap: string;
-    category: string;
-    mode: string;
-    rc: string;
-    ammo: string;
-    type: string;
-    ranges: {
-        short: string;
-        medium: string;
-        long: string;
-        extreme: string;
-    };
-    dicepool: string;
-}
-
 export type Signal = {
     signal: number;
     range: string;

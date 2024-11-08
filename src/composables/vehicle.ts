@@ -7,8 +7,9 @@ import {
     VehicleMode,
     type VehicleResistance,
     type VehicleSkill,
-    type Weapon
 } from "@/composables/types";
+
+import type {Weapon} from "@/composables/weapons";
 
 export class Vehicle  {
     name: string = '';
@@ -86,7 +87,7 @@ export class Vehicle  {
         return this;
     }
 
-    static createFromDataObject(data: Vehicle): Vehicle {
+    static createFromDataObject(data: any): Vehicle {
         return (new Vehicle()).loadFromData(data);
     }
 

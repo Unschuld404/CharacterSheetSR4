@@ -6,12 +6,12 @@ import type {
     SelectedItem,
     Skill,
     Spell,
-    Weapon,
     WeaponSetting
 } from "@/composables/types";
 import {toBool, toGearType, toInt} from "@/composables/utils";
 import {Spirit} from "@/composables/spirits";
 import {Vehicle} from "@/composables/vehicle";
+import {Weapon} from "@/composables/weapons";
 
 export const data = ref<any | null>(null);
 
@@ -122,36 +122,9 @@ export function getVehicles(data: any): Array<Vehicle> {
 }
 export function getWeapons(data: any): Array<Weapon> {
     let weapons = data?.weapons;
-    if (weapons === null || weapons === undefined) {
-        return [];
-    }
+    weapons = Array.isArray(weapons) ? weapons : [];
 
-    weapons = Array.isArray(weapons) ? weapons : [weapons];
-
-    return weapons.map((weapon: any) => ({
-        name: weapon.name || 'Unknown',
-        id:         weapon.category_english
-            + '.' + weapon.name_english
-            + '.' + weapon.damage_english
-            + '.rc(' + weapon.rc + ')'
-            + '.conceal(' + weapon.conceal+ ')'
-            + '.' + weapon.weaponname,
-        category_english: weapon.category_english || 'Unknown',
-        damage: weapon.damage || '0',
-        category: weapon.category || '',
-        ap: weapon.ap || '0',
-        mode: weapon.mode || '',
-        rc: weapon.rc || '0',
-        ammo: weapon.ammo || '0',
-        type: weapon.type || '',
-        ranges: {
-            short: weapon.ranges?.short || '0',
-            medium: weapon.ranges?.medium || '0',
-            long: weapon.ranges?.long || '0',
-            extreme: weapon.ranges?.extreme || '0'
-        },
-        dicepool: weapon.dicepool || '0'
-    }));
+    return weapons.map((weapon: any) => Weapon.createFromDataObject(weapon));
 }
 export function getGear(data: any): Array<Gear> {
     let items = data?.gears;
