@@ -20,7 +20,7 @@ const selectedVehicletMode = computed ({
   <div v-if="DialogVehicleSheet.visible" class="modal-overlay" @click="DialogVehicleSheet.hide">
     <div class="modal-content" @click.stop>
 
-      <h1 class="box">Name der Drohne</h1>
+      <h1 class="box">{{ vehicle.name }}</h1>
 
       <div class="main-row row">
 

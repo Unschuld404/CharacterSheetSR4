@@ -2,7 +2,7 @@ import {reactive} from "vue";
 import {uploadSheet} from "@/composables/fetch";
 import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
-import type {RollDiceResult, RollDiceValues, WeaponSetting} from "@/composables/types";
+import type {RollDiceResult, RollDiceValues, Vehicle, WeaponSetting} from "@/composables/types";
 import type {Weapon} from "@/composables/weapons";
 
 export class Dialog  {
@@ -82,6 +82,15 @@ export class SpiritSheetDialog extends Dialog {
     spirit!: Spirit;
     setSpirit(spirit: Spirit): SpiritSheetDialog {
         this.spirit = spirit;
+        return this;
+    }
+}
+
+export class VehicleSheetDialog extends Dialog {
+    vehicle!: Vehicle;
+    setVehicle(vehicle: Vehicle): VehicleSheetDialog
+    {
+        this.vehicle = vehicle;
         return this;
     }
 }
@@ -167,7 +176,7 @@ export const DialogChangeNuyen = reactive(new Dialog());
 export const DialogSpiritSheet = reactive(new SpiritSheetDialog());
 export const DialogManageEdge = reactive(new Dialog());
 export const DialogAddSpirit = reactive(new AddSpiritDialog());
-export const DialogVehicleSheet = reactive(new Dialog());
+export const DialogVehicleSheet = reactive(new VehicleSheetDialog());
 export const DialogChangeKarma = reactive(new Dialog());
 export const DialogWeapon = reactive(new WeaponDialog());
 export const DialogManageSpiritEdge = reactive(new Dialog());

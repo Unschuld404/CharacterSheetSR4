@@ -7,7 +7,7 @@ import {DialogVehicleSheet} from "@/composables/dialogs";
 
   <ul>
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
-      <div class="box" @click="DialogVehicleSheet.show">
+      <div class="box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div class="header">{{ vehicle.name }}</div>
         <div class="info">
           <div class="value-small">Handling: <strong>{{ vehicle.handling }}</strong></div>
