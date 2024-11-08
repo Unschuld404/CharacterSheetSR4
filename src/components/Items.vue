@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
-import {DialogRollDice} from "@/composables/dialogs";
-import {getGear} from "@/composables/data";
 import {GearType} from "@/composables/types";
 </script>
 

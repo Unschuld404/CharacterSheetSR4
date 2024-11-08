@@ -103,7 +103,7 @@ export class Vehicle implements IdObject  {
 
         for (const gear of gears)
         {
-            if (gear.category_english == 'Sensor')
+            if (gear.category_english == 'Sensors')
             {
                 this.sensors.push(...getSensorFunctionsFromSensorData(gear));
             }

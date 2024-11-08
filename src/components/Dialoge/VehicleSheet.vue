@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {DialogVehicleSheet} from "@/composables/dialogs";
+import {DialogRollDice, DialogVehicleSheet} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
 import {computed} from "vue";
@@ -8,6 +8,7 @@ import Ausweichen from "@/components/Ausweichen.vue";
 import {Vehicle} from "@/composables/vehicle";
 import {char} from "@/composables/char";
 import {type Initiative, VehicleMode} from "@/composables/types";
+import VehicleAusweichen from "@/components/VehicleAusweichen.vue";
 
 const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
@@ -38,27 +39,27 @@ const initiative = computed<Initiative>(() =>
 
           <div class="box">
 
-            <div class="line">Handling<span>X</span></div>
-            <div class="line">Beschleunigung<span>X</span></div>
-            <div class="line">Geschwindigkeit<span>X</span></div>
-            <div class="line">Gerätestufe<span>X</span></div>
+            <div class="line">Handling<span>{{ vehicle.handling }}</span></div>
+            <div class="line">Beschleunigung<span>{{ vehicle.accel }}</span></div>
+            <div class="line">Geschwindigkeit<span>{{ vehicle.speed }}</span></div>
+            <div class="line">Gerätestufe<span>{{ vehicle.rating }}</span></div>
 
           </div>
 
           <div class="box">
 
-            <div class="line">Prozessor (Response)<span>X</span></div>
-            <div class="line">Signal(km)<span>X</span></div>
-            <div class="line">System<span>X</span></div>
-            <div class="line">Firewall<span>X</span></div>
+            <div class="line">Prozessor (Response)<span>{{ vehicle.processor }}</span></div>
+            <div class="line">Signal(km)<span>{{ vehicle.signal }}</span></div>
+            <div class="line">System<span>{{ vehicle.system }}</span></div>
+            <div class="line">Firewall<span>{{ vehicle.firewall }}</span></div>
 
           </div>
 
           <div class="box">
 
-            <div class="line">Rumpf<span>X</span></div>
-            <div class="line">Panzerung<span>X</span></div>
-            <div class="line">Sensor<span>X</span></div>
+            <div class="line">Rumpf<span>{{ vehicle.body }}</span></div>
+            <div class="line">Panzerung<span>{{ vehicle.armor }}</span></div>
+            <div class="line">Sensor<span>{{ vehicle.sensor }}</span></div>
             <div class="line">Pilot/Befehl/Prozessor<span>X</span></div>
 
           </div>
@@ -67,66 +68,37 @@ const initiative = computed<Initiative>(() =>
 
         <div class="main-column column lists">
 
-          <div class="box">
-            <div class="line sensor">
-              <div class="sensor-name">Kamera (5)</div>
-              <div>Subcaption</div>
-            </div>
-            <div class="line sensor">
-              <div class="sensor-name">Radar (5)</div>
-              <div>Subcaption</div>
-            </div>
-            <div class="line sensor">
-              <div class="sensor-name">Mikrofon (5)</div>
-              <div>Selektiver Geräuschfilter (1)</div>
+          <div class="box" v-if="vehicle.sensors.length > 0">
+            <div v-for="sensor in vehicle.sensors" class="line sensor">
+              <div class="sensor-name">{{ sensor.name }} ({{ sensor.rating }})</div>
             </div>
           </div>
 
           <div class="flex-scroll">
 
-            <div class="box">
-              <div class="line autosoft">
-                <div>Eletronische Kriegsführung (5)</div>
-                <div class="dice line-dice">XX</div>
-              </div>
-              <div class="line autosoft">
-                <div>Steuerung (5)</div>
-                <div class="dice line-dice">XX</div>
-              </div>
-              <div class="line autosoft">
-                <div>Abwehr (5)</div>
-                <div class="dice line-dice">XX</div>
-              </div>
-              <div class="line autosoft">
-                <div>Zielerfassung (5)</div>
-                <div class="dice line-dice">XX</div>
-              </div>
-              <div class="line autosoft">
-                <div>Clearsight (5)</div>
-                <div class="dice line-dice">XX</div>
-              </div>
-              <div class="line autosoft">
-                <div>Verdeckte Operation (5)</div>
+            <div class="box" v-if="vehicle.autosofts.length > 0">
+              <div class="line autosoft" v-for="autosoft in vehicle.autosofts">
+                <div>{{ autosoft.name }} ({{ autosoft.rating }}) {{ autosoft.skill }}</div>
                 <div class="dice line-dice">XX</div>
               </div>
             </div>
 
-            <div class="box">
-              <div class="line">Riggeradaption</div>
-              <div class="line">Läufer-Modus</div>
-              <div class="line">Verbessertes Start-/Landeprofil Level 2</div>
-              <div class="line">Chamäleonüberzug</div>
-              <div class="line">Pilotprogram (Stufe 5)</div>
+            <div class="box" v-if="vehicle.mods.length > 0">
+              <div class="line" v-for="mod in vehicle.mods">
+                {{ mod.name }}
+              </div>
             </div>
 
-            <div class="box">
-              <div class="line">Ingram White Knight</div>
-              <div class="line">HK 227-X</div>
+            <div class="box" v-if="vehicle.weapons.length > 0">
+              <div class="line" v-for="weapon in vehicle.weapons">
+                {{ weapon.name }}
+              </div>
             </div>
 
-            <div class="box">
-              <div class="line">250 X Munition: Standardmunition<i class='bx bx-transfer-alt'></i></div>
-              <div class="line">30 X Munition: Explosivgeschosse<i class='bx bx-transfer-alt'></i></div>
+            <div class="box" v-if="vehicle.ammunitions.length > 0">
+              <div class="line" v-for="ammunition in vehicle.ammunitions">
+                {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
+              </div>
             </div>
 
           </div>
@@ -138,12 +110,31 @@ const initiative = computed<Initiative>(() =>
           <div class="box row resistances">
 
             <div class="column resistance">
-              <div>Physisch</div>
-              <div class="dice">XX</div>
+              <div>Normal</div>
+              <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Normaler Widerstand',
+                value: vehicle.resistance.mundan,
+                values: [
+                    {name: 'Rumpf', value: vehicle.body},
+                    ...(vehicle.armor > 0 ? [{ name: 'Panzerung', value: vehicle.armor }] : []),
+                    ]
+              }
+              ).show()">{{ vehicle.resistance.mundan }}
+              </button>
             </div>
             <div class="column resistance">
-              <div>Magisch</div>
-              <div class="dice">XX</div>
+              <div>Elementar</div>
+              <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Elementarwiderstand',
+                value: vehicle.resistance.elemental,
+                values: [
+                    ...(vehicle.armor > 0 ? [{ name: '2x Panzerung', value: (vehicle.armor)*2 }] : []),
+                    ]
+              }
+              ).show()">{{ vehicle.resistance.elemental }}
+              </button>
             </div>
 
             <div class="lower-header">Schadenswiderstand</div>
@@ -168,7 +159,7 @@ const initiative = computed<Initiative>(() =>
           </div>
 
           <div class="dodge">
-            <Ausweichen/>
+            <VehicleAusweichen/>
           </div>
 
           <div class="box damage">
