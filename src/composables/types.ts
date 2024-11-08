@@ -1,3 +1,10 @@
+export type Ammunition = {
+    name: string;
+    extra: string;
+    count: number;
+    dmg: number;
+    ap: number;
+}
 
 export type SelectedItem = {
     type : string;
@@ -20,6 +27,31 @@ export type WeaponSetting = {
     magType: string;
     magSize: number;
     ammoLeft: number;
+}
+
+export type VehicleMod = {
+    name: string;
+    rating: number;
+    limit: string;
+}
+
+export type SensorMod = {
+    name: string;
+    rating: number;
+    category: string;
+}
+
+export type Sensor = {
+    name: string;
+    rating: number;
+    mods: SensorMod[];
+}
+
+export type AutoSoft = {
+    name: string;
+    rating: number;
+    skill: string;
+    sensorBased: boolean;
 }
 
 export type Attribute = {
@@ -112,20 +144,6 @@ export type Skill = {
     total: number;
 }
 
-export type VehicleSkill = {
-    name: string;
-    attribute: string;
-    attribute_value: number;
-    rating: number;
-    total: number;
-}
-
-export type VehicleMod = {
-    name: string;
-    rating: number;
-    mods: VehicleMod[];
-}
-
 export type Spell = {
     name: string;
     category: string;
@@ -151,6 +169,16 @@ export enum GearType {
     Other
 }
 
+export type Commlink = {
+    name: string;
+    extra: string,
+    signal: number;
+    firewall: number;
+    system: number;
+    response: number;
+    rating: number;
+}
+
 export type Gear = {
     name: string;
     category : string;
@@ -158,10 +186,6 @@ export type Gear = {
     extra: string,
     equipped: boolean,
     count: number,
-    signal: number;
-    firewall: number;
-    system: number;
-    response: number;
     rating: number;
 }
 

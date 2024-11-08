@@ -4,7 +4,7 @@ import {reactive} from "vue";
 import {
     data,
     extractAttributeFromDrain,
-    getActionSkills,
+    getActionSkills, getCommlink,
     getGear,
     getKnowledgeSkills,
     getSpells,
@@ -16,7 +16,7 @@ import {Sheet, sheet_data} from "@/composables/sheet";
 import {
     type Armor,
     type Attributes,
-    type CharInitiative,
+    type CharInitiative, type Commlink,
     type DamageMonitor,
     type Drain,
     EvadeType,
@@ -25,11 +25,11 @@ import {
     type Resistance,
     type SheetData,
     type Skill,
-    type Spell,
-    type Weapon
+    type Spell
 } from "@/composables/types";
 import type {Vehicle} from "@/composables/vehicle";
-import {translations} from "@/composables/consts";
+import type {Weapon} from "@/composables/weapons";
+
 
 export class Charakter {
     name!: string;
@@ -62,6 +62,7 @@ export class Charakter {
     totalstreetcred!: number;
     totalnotoriety!: number;
     totalpublicawareness!: number;
+    commlink: Commlink | null = null;
 
 
     sheet! : Sheet;
@@ -172,6 +173,8 @@ export class Charakter {
         this.totalstreetcred = toInt(data?.totalstreetcred);
         this.totalnotoriety = toInt(data?.totalnotoriety);
         this.totalpublicawareness = toInt(data?.totalpublicawareness);
+
+
 
         this.armor = {
             impact : toInt(data?.armori),
@@ -284,6 +287,8 @@ export class Charakter {
         this.weapons = getWeapons(data);
         this.gear = getGear(data);
         this.spells = getSpells(data);
+
+        this.commlink = getCommlink(data);
     }
 
     get spellcasting(): Skill {

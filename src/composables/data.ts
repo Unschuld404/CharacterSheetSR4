@@ -1,12 +1,14 @@
 import {ref} from "vue";
-import type {
-    Gear,
-    KarmaEntry,
-    NuyenEntry,
-    SelectedItem,
-    Skill,
-    Spell,
-    WeaponSetting
+import {
+    type Commlink,
+    type Gear,
+    GearType,
+    type KarmaEntry,
+    type NuyenEntry,
+    type SelectedItem,
+    type Skill,
+    type Spell,
+    type WeaponSetting
 } from "@/composables/types";
 import {toBool, toGearType, toInt} from "@/composables/utils";
 import {Spirit} from "@/composables/spirits";
@@ -130,19 +132,51 @@ export function getGear(data: any): Array<Gear> {
     let items = data?.gears;
     items = Array.isArray(items) ? items : [];
 
-    return items.map((item: any) => ({
+    return items.map((item: any) => getGearFromGearData(item));
+}
+
+export function getGearFromGearData(data: any): Gear {
+    return {
+        name: data.name || 'Unknown',
+            category: data.category || 'Unknown',
+        type: toGearType(data),
+        extra: data.extra || '',
+        equipped: toBool(data.equipped),
+        count : toInt(data.qty),
+        rating: toInt(data.rating),
+    }
+}
+
+export function getCommlink(data: any): Commlink | null {
+    let items = data?.gears;
+    items = Array.isArray(items) ? items : [];
+
+    let item =
+        items.find((item: any) =>
+            toGearType(item) === GearType.Commlink
+            && toBool(item.equipped)
+            && (toInt(item.qty) > 0)
+        )
+    ??
+        items.find((item: any) =>
+            toGearType(item) === GearType.Commlink
+            && (toInt(item.qty) > 0)
+        )
+    ?? null;
+
+    if (item == null) {
+        return null;
+    }
+
+    return {
         name: item.name || 'Unknown',
-        category: item.category || 'Unknown',
-        type: toGearType(item),
         extra: item.extra || '',
-        equipped: toBool(item.equipped),
-        count : toInt(item.qty),
         signal: toInt(item.signal),
         firewall: toInt(item.firewall),
         system: toInt(item.system),
         response: toInt(item.response),
         rating: toInt(item.rating),
-    }));
+    }
 }
 export function dataIsValid(): boolean {
     return data.value !== null;

@@ -1,15 +1,17 @@
-import {toInt} from "@/composables/utils";
+import {toBool, toInt} from "@/composables/utils";
 import {
+    type Ammunition,
+    type AutoSoft,
     type Damage,
     type Gear,
-    type Initiative,
+    type Initiative, type Sensor, type SensorMod,
     type VehicleMod,
     VehicleMode,
     type VehicleResistance,
-    type VehicleSkill,
 } from "@/composables/types";
 
 import type {Weapon} from "@/composables/weapons";
+import {getGearFromGearData, getWeapons} from "@/composables/data";
 
 export class Vehicle  {
     name: string = '';
@@ -33,9 +35,11 @@ export class Vehicle  {
     monitor: Damage = { filled: 0, max:0 };
 
     weapons: Weapon[] = [];
-    skills: VehicleSkill[] = [];
+    sensors: Sensor[] = [];
+    autosofts: AutoSoft[] = [];
     mods : VehicleMod[] = [];
     items: Gear[] = [];
+    ammunitions: Ammunition[] = [];
 
     maneuver: number = 0;
     mode: VehicleMode = VehicleMode.Auto;      // (Auto /  Remote / VR)
@@ -49,7 +53,10 @@ export class Vehicle  {
             }
         }
 
-        return null; //Rigger Initiative
+        return null;
+    }
+    getInitiative(riggerIni: Initiative): Initiative | null {
+        return this.initiative ?? riggerIni;
     }
 
     get resistance(): VehicleResistance {
@@ -80,9 +87,46 @@ export class Vehicle  {
 
         this.mode = VehicleMode.Auto;
 
-        const mods = data.mods;
+        this.weapons = [];
+        this.sensors = [];
+        this.autosofts = [];
+        this.mods = [];
+        this.items = [];
 
+        const gears = getGearsFromData(data);
 
+        for (const gear of gears)
+        {
+            if (gear.category_english == 'Sensor')
+            {
+                this.sensors.push(...getSensorFunctionsFromSensorData(gear));
+            }
+            else if (gear.category_english == 'Autosofts')
+            {
+                this.autosofts.push(getAutoSoftFromAutoSoftData(gear));
+            }
+            else if (toBool(gear.isammo))
+            {
+                this.ammunitions.push(getAmmunitionFromGearData(gear))
+            }
+            else {
+                this.items.push(getGearFromGearData(gear));
+            }
+        }
+
+        const mods = getModsFromData(data);
+
+        for (const mod of mods)
+        {
+            if (Array.isArray(mod.weapons))
+            {
+                this.weapons.push(...getWeapons(mod));
+            }
+            else
+            {
+                this.mods.push(getVehicleModFromModData(mod));
+            }
+        }
 
         return this;
     }
@@ -91,4 +135,86 @@ export class Vehicle  {
         return (new Vehicle()).loadFromData(data);
     }
 
+}
+
+function getVehicleModFromModData(data: any): VehicleMod {
+    return {
+        name: data.name || '',
+        rating: toInt(data.rating),
+        limit: data.limit || '',
+    }
+}
+
+function getAutoSoftFromAutoSoftData(data: any): AutoSoft {
+    return {
+        name : data.name,
+        rating: toInt(data.rating),
+        skill: autoSoftNameToSkillName(data.name_english),
+        sensorBased: data.name_english == 'Clearsight',
+    }
+}
+
+function getSensorFunctionsFromSensorData(sensor: any): Sensor[] {
+    const items = getChildrenFromData(sensor);
+    return items
+        .filter((item: any) => item.category_english == 'Sensor Functions' )
+        .map((item: any) => ({
+            name : item.name,
+            rating: toInt(item.rating),
+            mods: getSensorModsFromSensorFunctionData(item),
+        }));
+}
+
+function getSensorModsFromSensorFunctionData(data: any): SensorMod[] {
+    const items = getChildrenFromData(data ?? {});
+    return items
+        .map((item: any) => ({
+            name : item.name,
+            rating: toInt(item.rating),
+            category: item.category || '',
+        }));
+}
+
+function getAmmunitionFromGearData(data: any): Ammunition {
+    return {
+        name: data.name,
+        extra: data.extra,
+        count: toInt(data.qty),
+        dmg: toInt(data.weaponbonusdamage),
+        ap: toInt(data.weaponbonusap),
+    }
+}
+
+function getModsFromData(data: any): any[] {
+    let mods = data?.mods ?? [];
+    return Array.isArray(mods) ? mods : [];
+}
+
+function getGearsFromData(data: any): any[] {
+    let gears = data?.gears ?? [];
+    return Array.isArray(gears) ? gears : [];
+}
+
+function getChildrenFromData(data: any): any[]  {
+    let children = data?.children ?? [];
+    return Array.isArray(children) ? children : [];
+}
+
+function autoSoftNameToSkillName(name: string): string {
+    switch (name) {
+        case 'Clearsight':
+            return 'Wahrnehmung';
+        case 'Maneuver':
+            return 'Manövrieren';
+        case 'Targeting':
+            return 'Angriff';
+        case 'Covert Ops':
+            return 'Infiltration / Heimlichkeit';
+        case 'Defense':
+            return 'Verteidigung';
+        case 'Electronic Warfare':
+            return 'Signale abfangen/stören';
+        default:
+            return '';
+    }
 }

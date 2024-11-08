@@ -27,7 +27,6 @@ Dronen:
 		Prozessor + Fahrzeugfertigkeit (VR)
 		Befehl + Fahrzeugfertigkeit (CMD)
 
-
 	Infiltration
 		Pilot + Verdeckte Operation (AUTO)
 		Prozessor + Infiltration (VR)
