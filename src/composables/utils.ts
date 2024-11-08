@@ -61,6 +61,10 @@ export function toSelectedItem(obj: any): SelectedItem {
     }
 }
 
+export function selectedItemEquals(item1: SelectedItem, item2: SelectedItem): boolean {
+    return item1.type === item2.type && item2.id === item1.id;
+}
+
 export function toGearType(data_item: any): GearType {
     if (toBool(data_item.iscommlink))
     {

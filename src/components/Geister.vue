@@ -2,8 +2,29 @@
 import { computed } from 'vue';
 import {DialogSpiritSheet, DialogAddSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/char";
+import type {Spirit} from "@/composables/spirits";
+import {uploadSheet} from "@/composables/fetch";
 
 const spirits = computed(() => char.spirits);
+
+function toggleSelection(item: Spirit): void
+{
+  if (char.isItemSelected(item))
+  {
+    char.unselectItem(item);
+  }
+  else
+  {
+    char.selectItem(item);
+  }
+
+  uploadSheet().then();
+}
+
+
+
+
+
 </script>
 
 <template>
@@ -14,7 +35,7 @@ const spirits = computed(() => char.spirits);
         <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()">
           <div class="box ghost">
             <div class="header row">
-              <input type="checkbox" class="favourite" @click.stop>
+              <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spirit)" @change="toggleSelection(spirit)">
               <div  class="header">{{ spirit.caption }}</div>
             </div>
             <div class="info">
