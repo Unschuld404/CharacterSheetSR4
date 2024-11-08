@@ -25,6 +25,11 @@ export class Weapon  {
         return this.type == 'Melee';
     }
 
+    get settings(): WeaponSetting
+    {
+        return validateWeaponSettingForWeapon(this);
+    }
+
     loadFromData(data: any): Weapon {
         this.name = data.name || 'Unknown';
         this.id=            data.category_english
@@ -94,7 +99,7 @@ export function getModeModifier(mode: string, ammoLeft: number, rc: number, seco
     return modifier + rc;
 }
 
-export function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
+function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
 {
     let setting = char.sheet.weaponSettings.find((item: WeaponSetting) => { return item.weaponId == weapon.id }) ?? null;
     if (setting == null) {

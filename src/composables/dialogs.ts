@@ -2,8 +2,8 @@ import {reactive} from "vue";
 import {uploadSheet} from "@/composables/fetch";
 import {isWatcher, type Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
-import type {RollDiceResult, RollDiceValues, Weapon, WeaponSetting} from "@/composables/types";
-import {validateWeaponSettingForWeapon} from "@/composables/weapons";
+import type {RollDiceResult, RollDiceValues, WeaponSetting} from "@/composables/types";
+import type {Weapon} from "@/composables/weapons";
 
 export class Dialog  {
     visible: boolean;
@@ -100,12 +100,12 @@ export class WeaponDialog extends Dialog {
 
     show() {
 
-        if ( (this.weapon ?? null) === null || this.weapon.mode == '' )
+        if ( this.weapon == null)
         {
             return;
         }
 
-        this.setting = validateWeaponSettingForWeapon(this.weapon);
+        this.setting = this.weapon.settings;
         super.show();
     }
 
