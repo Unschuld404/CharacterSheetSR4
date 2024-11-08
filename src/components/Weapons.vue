@@ -2,6 +2,23 @@
 import {char} from "@/composables/char";
 import {DialogWeapon, DialogRollDice} from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
+import {uploadSheet} from "@/composables/fetch";
+import {Weapon} from "@/composables/weapons";
+
+function toggleSelection(item: Weapon): void
+{
+  if (char.isItemSelected(item))
+  {
+    char.unselectItem(item);
+  }
+  else
+  {
+    char.selectItem(item);
+  }
+
+  uploadSheet().then();
+}
+
 
 </script>
 
@@ -13,7 +30,7 @@ import {toInt} from "@/composables/utils";
         <div class="box" @click="!weapon.isMelee && DialogWeapon.setWeapon(weapon).show() ">
          <div class="item column">
            <div class="header row">
-             <input type="checkbox" class="favourite" @click.stop>
+             <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
              <div>{{ weapon.name }}</div>
            </div>
            <div class="row">

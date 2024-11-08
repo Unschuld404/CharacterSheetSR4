@@ -68,18 +68,11 @@ const initiative = computed<Initiative>(() =>
         <div class="main-column column lists">
 
           <div class="box">
-            <div class="line sensor">
-              <div class="sensor-name">Kamera (5)</div>
-              <div>Subcaption</div>
+            <div v-for="(sensor, index) in vehicle.sensors" class="line sensor" >
+              <div class="sensor-name">{{ sensor.name}}</div>
+              <div></div>
             </div>
-            <div class="line sensor">
-              <div class="sensor-name">Radar (5)</div>
-              <div>Subcaption</div>
-            </div>
-            <div class="line sensor">
-              <div class="sensor-name">Mikrofon (5)</div>
-              <div>Selektiver Geräuschfilter (1)</div>
-            </div>
+
           </div>
 
           <div class="flex-scroll">

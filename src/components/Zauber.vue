@@ -1,6 +1,25 @@
 <script setup lang="ts">
 import {DialogRollDice} from "@/composables/dialogs";
 import {char} from "@/composables/char";
+import {uploadSheet} from "@/composables/fetch";
+import {Spell} from "@/composables/types";
+
+
+function toggleSelection(item: Spell): void
+{
+  if (char.isItemSelected(item))
+  {
+    char.unselectItem(item);
+  }
+  else
+  {
+    char.selectItem(item);
+  }
+
+  uploadSheet().then();
+}
+
+
 </script>
 
 <template>
@@ -10,7 +29,7 @@ import {char} from "@/composables/char";
       <li v-for="spell in char.spells" :key="spell.name" class="item">
        <div class="item column">
          <div class="header-row">
-           <input type="checkbox" class="favourite">
+           <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spell)" @change="toggleSelection(spell)">
            <div  class="header">{{ spell.name }}</div>
          </div>
          <div class="row">

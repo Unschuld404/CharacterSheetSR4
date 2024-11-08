@@ -1,5 +1,5 @@
 import {Spirit, type SpiritType} from "@/composables/spirits";
-import {toBool, toInt, toSelectedItem, translate} from "@/composables/utils";
+import {selectedItemEquals, toBool, toInt, toSelectedItem, translate} from "@/composables/utils";
 import {reactive} from "vue";
 import {
     data,
@@ -20,14 +20,15 @@ import {
     type DamageMonitor,
     type Drain,
     EvadeType,
-    type Gear,
+    type Gear, type IdObject,
     type Movement,
     type Resistance, type SelectedItem,
     type SheetData,
-    type Skill, Spell
+    type Skill,
+    Spell
 } from "@/composables/types";
-import type {Vehicle} from "@/composables/vehicle";
-import type {Weapon} from "@/composables/weapons";
+import {Vehicle} from "@/composables/vehicle";
+import {Weapon} from "@/composables/weapons";
 
 
 export class Charakter {
@@ -173,8 +174,6 @@ export class Charakter {
         this.totalnotoriety = toInt(data?.totalnotoriety);
         this.totalpublicawareness = toInt(data?.totalpublicawareness);
 
-
-
         this.armor = {
             impact : toInt(data?.armori),
             ballistic : toInt(data?.armorb),
@@ -288,6 +287,47 @@ export class Charakter {
         this.spells = getSpells(data);
 
         this.commlink = getCommlink(data);
+
+        //ids festlegen
+        Weapon.nextId = 1;
+        Vehicle.nextId = 1;
+        Spirit.nextId = 1;
+        let selectedItems = [];
+        for (let weapon of this.weapons) {
+            weapon.setNextId();
+            if (this.isItemSelected(weapon))
+            {
+                selectedItems.push(toSelectedItem(weapon));
+            }
+        }
+        for (let vehicle of this.vehicles) {
+            vehicle.setNextId();
+            if (this.isItemSelected(vehicle))
+            {
+                selectedItems.push(toSelectedItem(vehicle));
+            }
+
+            for (let weapon of vehicle.weapons) {
+                weapon.setNextId();
+            }
+        }
+        for (let spirit of this.spirits) {
+            spirit.setNextId();
+            if (this.isItemSelected(spirit))
+            {
+                selectedItems.push(toSelectedItem(spirit));
+            }
+        }
+
+        for (let spell of this.spells) {
+            if (this.isItemSelected(spell))
+            {
+                selectedItems.push(toSelectedItem(spell));
+            }
+        }
+
+        this.sheet.selectedItems = selectedItems;
+
     }
 
     get spellcasting(): Skill {
@@ -311,8 +351,6 @@ export class Charakter {
             drain: this.drain.total,
         }
     }
-
-
 
 
     evade(type: EvadeType, fullDefense: boolean) {
@@ -443,7 +481,6 @@ export class Charakter {
         }
     }
 
-
     isSkillSelected(value: string): boolean {
         return this.sheet.selectedSkills.includes(value);
     }
@@ -454,15 +491,26 @@ export class Charakter {
         this.sheet.selectedSkills = this.sheet.selectedSkills.filter((item: string) => item !== value)
     }
 
+    getObjectForSelectedItem(item: SelectedItem): Spell | Weapon | Spirit | Vehicle | null {
+        switch (item.type) {
+            case 'Vehicle': return this.vehicles.find((obj: IdObject) => obj.generateId() == item.id) ?? null;
+            case 'Weapon' : return this.weapons.find((obj: IdObject) => obj.generateId() == item.id) ?? null;
+            case 'Spell' : return this.spells.find((obj: IdObject) => obj.generateId() == item.id) ?? null;
+            case 'Spirit' : return this.spirits.find((obj: IdObject) => obj.generateId() == item.id) ?? null;
+        }
+        return null;
+    }
+
     isItemSelected( obj: any ): boolean {
-        return this.sheet.selectedItems.includes(toSelectedItem(obj));
+        const item = toSelectedItem(obj);
+        return (this.sheet.selectedItems.find((selectedItem: SelectedItem) => selectedItemEquals(selectedItem, item)) ?? null) !== null;
     }
     selectItem(obj: any): void {
         this.sheet.selectedItems.push(toSelectedItem(obj));
     }
     unselectItem(obj: any): void {
         const item = toSelectedItem(obj);
-        this.sheet.selectedItems = this.sheet.selectedItems.filter((item: any) => item !== item)
+        this.sheet.selectedItems = this.sheet.selectedItems.filter((selectedItem: any) => !selectedItemEquals(selectedItem, item));
     }
 
     skillByName(name: string): Skill {

@@ -32,7 +32,7 @@ export function extractAttributeFromDrain(drain: string|null): string|null {
     return null;
 }
 export function getKarmaLog(data: any): KarmaEntry[] {
-    let log = data?.value?.karma_log;
+    let log = data?.karma_log;
     log = Array.isArray(log) ? log : [];
     return log.map((entry: any) => ({
         date: entry.date,
@@ -41,7 +41,7 @@ export function getKarmaLog(data: any): KarmaEntry[] {
     }));
 }
 export function getNuyenLog(data: any): NuyenEntry[]  {
-    let log = data?.value?.nuyen_log;
+    let log = data?.nuyen_log;
     log = Array.isArray(log) ? log : [];
     return log.map((entry: any) => ({
         date: entry.date,
@@ -50,7 +50,7 @@ export function getNuyenLog(data: any): NuyenEntry[]  {
     }));
 }
 export function getSelectedItems(data: any): SelectedItem[] {
-    let list = data?.value?.selectedItems;
+    let list = data?.selectedItems;
     list = Array.isArray(list) ? list : [];
     return list.map((entry: any) => ({
         type: entry.type,
@@ -58,7 +58,7 @@ export function getSelectedItems(data: any): SelectedItem[] {
     }));
 }
 export function getWeaponSettings(data: any): WeaponSetting[] {
-    let list = data?.value?.weaponSettings;
+    let list = data?.weaponSettings;
     list = Array.isArray(list) ? list : [];
     return list.map((entry: any) => ({
         weaponId: entry.weaponId,
@@ -169,5 +169,5 @@ export function getCommlink(data: any): Commlink | null {
     }
 }
 export function dataIsValid(): boolean {
-    return data.value !== null;
+    return data !== null;
 }
