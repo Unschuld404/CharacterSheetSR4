@@ -5,6 +5,7 @@ import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
 import {computed, ref} from "vue";
 import {Vehicle} from "@/composables/vehicle";
+import Ausweichen from "@/components/Ausweichen.vue";
 
 const vehicle = ref<Vehicle>(new Vehicle())
 
@@ -56,17 +57,69 @@ const selectedVehicletMode = computed ({
 
         <div class="main-column column lists">
 
-          <div>Skills</div>
+          <div class="box">
+            <div class="line sensor">
+              <div>Kamera (5)</div>
+              <div>Subcaption</div>
+            </div>
+            <div class="line sensor">
+              <div>Radar (5)</div>
+              <div>Subcaption</div>
+            </div>
+            <div class="line sensor">
+              <div>Mikrofon (5)</div>
+              <div>Selektiver Geräuschfilter (1)</div>
+            </div>
+          </div>
 
-          <div>Waffenliste</div>
+          <div class="flex-scroll">
 
-          <div>Gear-Liste</div>
+            <div class="box">
+              <div class="line autosoft">
+                <div>Eletronische Kriegsführung (5)</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+              <div class="line autosoft">
+                <div>Steuerung (5)</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+              <div class="line autosoft">
+                <div>Abwehr (5)</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+              <div class="line autosoft">
+                <div>Zielerfassung (5)</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+              <div class="line autosoft">
+                <div>Clearsight (5)</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+              <div class="line autosoft">
+                <div>Verdeckte Operation (5)</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+            </div>
 
-          <div>Modifikations-Liste</div>
+            <div class="box">
+              <div class="line">Riggeradaption</div>
+              <div class="line">Läufer-Modus</div>
+              <div class="line">Verbessertes Start-/Landeprofil Level 2</div>
+              <div class="line">Chamäleonüberzug</div>
+              <div class="line">Pilotprogram (Stufe 5)</div>
+            </div>
 
-          <div>Programmliste</div>
+            <div class="box">
+              <div class="line">Ingram White Knight</div>
+              <div class="line">HK 227-X</div>
+            </div>
 
-          <div>Munitionsliste</div>
+            <div class="box">
+              <div class="line">250 X Munition: Standardmunition<i class='bx bx-transfer-alt'></i></div>
+              <div class="line">30 X Munition: Explosivgeschosse<i class='bx bx-transfer-alt'></i></div>
+            </div>
+
+          </div>
 
         </div>
 
@@ -91,13 +144,26 @@ const selectedVehicletMode = computed ({
             <RadioButtons class="mode" v-model="selectedVehicletMode" :options="VehicleModes" group="pilot"/>
           </div>
 
-          <div>Toggle für Steuerung: Auto, Remote, VR</div>
+          <div class="box row">
 
-          <div>Initiative</div>
+            <div class="column initiative">
+              <div>Initiative</div>
+              <div class="dice">XX</div>
+            </div>
+            <div class="column initiative">
+              <div>Durchgänge</div>
+              <strong>3</strong>
+            </div>
 
-          <div>Verteidigung</div>
+          </div>
 
-          <div>Schadensmonitor 8 + Rumpf/2 (aufgerundet)</div>
+          <div class="dodge">
+            <Ausweichen/>
+          </div>
+
+          <div class="box damage">
+            <div class="lower-header">Schaden</div>
+          </div>
 
         </div>
 
@@ -110,20 +176,64 @@ const selectedVehicletMode = computed ({
 
 <style scoped>
 
-.mode {
-  border: 1px solid var(--font-color);
-  height: 10vh;
+i {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 3vh;
+  position: absolute;
+  right: 0;
+  margin-top: 1vh;
 }
 
-.resistance {
+.sensor {
+  display: flex;
+  justify-content: space-between;
+}
+
+.line-dice {
+  line-height: 4vh;
+}
+
+.autosoft {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box {
+  width: 100%;
+}
+
+.flex-scroll {
+  padding-right: 0;
+}
+
+.damage {
+  height: 20vh;
+}
+
+.dodge {
+  height: 13vh;
+}
+
+.mode {
+  border: 1px solid var(--font-color);
+  height: 8vh;
+}
+
+.resistance, .initiative {
   height: 80%;
   width: 50%;
   justify-content: space-evenly;
   align-items: center;
 }
 
+.initiative {
+ align-items: center;
+}
+
 .resistances {
-  height: 15vh;
+  height: 12vh;
 }
 
 .line {
@@ -159,7 +269,6 @@ h1 {
 }
 
 .main-column {
-  border: 1px solid red;
   height: 75vh;
   gap: 2vh;
 }

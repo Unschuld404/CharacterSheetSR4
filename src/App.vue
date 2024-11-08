@@ -8,7 +8,6 @@ import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
 import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
-import DroneSheet from "@/components/Dialoge/VehicleSheet.vue";
 import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
 import DiceResult from "@/components/Dialoge/DiceResult.vue";
@@ -128,7 +127,6 @@ onBeforeUnmount(removeEventListeners);
   <SpiritSheet />
   <ManageEdge/>
   <AddSpirit/>
-  <DroneSheet/>
   <ChangeKarma/>
   <RangedWeapons/>
   <DiceResult/>

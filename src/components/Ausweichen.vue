@@ -25,7 +25,6 @@ const evadeRanged = computed( () => {
   <div class="box row">
 
     <div class="column">
-      <div>{{ evadeRanged.name }}</div>
       <div class="dice" @click="DialogRollDice.setValues(evadeRanged).show()">{{ evadeRanged.value }}</div>
     </div>
 
@@ -34,12 +33,12 @@ const evadeRanged = computed( () => {
     </div>
 
     <div class="column">
-      <div>{{ evadeMelee.name }}</div>
       <div class="dice" @click="DialogRollDice.setValues(evadeMelee).show()">{{ evadeMelee.value }}</div>
     </div>
 
   <div class="lower-header">
-    Ausweichen
+    <div>{{ evadeRanged.name }}</div>
+    <div>{{ evadeMelee.name }}</div>
   </div>
 
   </div>
@@ -47,6 +46,11 @@ const evadeRanged = computed( () => {
 </template>
 
 <style scoped>
+
+.lower-header {
+  display: flex;
+  justify-content: space-evenly;
+}
 
 .box {
   height: 100%;
@@ -59,16 +63,13 @@ const evadeRanged = computed( () => {
 }
 
 .row{
-  justify-content: space-evenly;
-}
-
-.dice {
-  margin-top: 1vh;
+  justify-content: space-between;
+  padding-left: 3vh;
+  padding-right: 3vh;
 }
 
 .defense {
   width: 15vh;
-  margin-top: 3.5vh;
   font-weight: normal;
   font-size: 2vh;
 }

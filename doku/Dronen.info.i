@@ -10,12 +10,12 @@ Dronen:
 
 	Wahrnehmung
 		Sensorstufe des Sensors 
-			+ Clearsight Autosoft (Drohne)
-			+ Wahrnehmung (Rigger)
+			+ Clearsight Autosoft (Auto)
+			+ Wahrnehmung (VR und CMD)
 
 	Initiative
-		Pilot + Prozessor / 3
-		wie Rigger
+		Pilot + Prozessor / 3 (Auto)
+		wie Rigger (VR und CMD)
 
 	Angriff
 		Pilot + Zielerfassung (AUTO)
