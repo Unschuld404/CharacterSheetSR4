@@ -23,6 +23,17 @@ import {char} from "@/composables/char";
           <div class="formula">{{ spell.dv }}</div>
          </div>
          <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
+         <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: spell.name,
+                value: char.spellcasting.total,
+                values: [
+                    {name: 'MAG', value: char.attributes.magic.total},
+                    {name: 'Zauberwirken', value: char.spellcasting.total - char.attributes.magic.total},
+                    ]
+              }
+              ).show()">{{ char.spellcasting.total }}
+         </button>
        </div>
       </li>
     </ul>
@@ -76,7 +87,7 @@ import {char} from "@/composables/char";
   }
 
   .value {
-    width: 3vh;
+    width: 5vh;
     text-align: center;
   }
 

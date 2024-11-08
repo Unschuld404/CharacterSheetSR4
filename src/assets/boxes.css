@@ -9,7 +9,6 @@
 .scroll-box {
     overflow: scroll;
     height: 90%;
-    padding-right: 3vh;
 }
 
 .scroll-box::-webkit-scrollbar {

@@ -27,7 +27,7 @@ import {toInt} from "@/composables/utils";
                <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: weapon.name,
-                value: weapon.dicepool,
+                value: toInt(weapon.dicepool),
                 values: [
                     {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
                     {name: 'Geschicklichkeit', value: char.attributes.agility.total},

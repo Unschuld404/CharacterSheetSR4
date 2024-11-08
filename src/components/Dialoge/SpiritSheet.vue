@@ -132,7 +132,16 @@ function onCancelPowersDialog() {
         <div class="box initiative">
           <div class="item-special">
             <div>Initiative</div>
-            <div class="dice skill-dice" @click="DialogRollDice.setName('Initiative').setDiceCount(spirit.initiative.pool).show">{{spirit.initiative.pool}}</div>
+            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Initiative',
+                value: spirit.initiative.pool,
+                values: [
+                    {name: 'Initiative', value: spirit.initiative.pool},
+                    ]
+              }
+              ).show()">{{ spirit.initiative.pool }}
+            </button>
           </div>
           <div class="item-special">
             <div>Durchgänge</div>
@@ -144,18 +153,50 @@ function onCancelPowersDialog() {
           </div>
         </div>
         <div class="box resistance">
+
           <div class="item-special">
             <div>Panzerung</div>
-            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.armor).setName('Panzerung').show">{{ spirit.armor }}</div>
+            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Panzerung',
+                value: spirit.armor,
+                values: [
+                    {name: '2 x Kraftstufe', value: spirit.force},
+                    ]
+              }
+              ).show()">{{ spirit.armor }}
+            </button>
           </div>
+
           <div class="item-special">
             <div>Widerstand: Bannen</div>
-            <div class="dice skill-dice" @click="DialogRollDice.setName('Widerstand: Bannen').setDiceCount(spirit.force + char.attributes.magic.total).show">{{ spirit.force + char.attributes.magic.total}}</div>
+            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Widerstand gegen Bannen',
+                value: spirit.force + char.attributes.magic.total,
+                values: [
+                    {name: 'MAG', value: char.attributes.magic},
+                    {name: 'Kraftstufe', value: spirit.force},
+                    ]
+              }
+              ).show()">{{ spirit.force + char.attributes.magic.total }}
+            </button>
           </div>
+
           <div class="item-special">
             <div>Widerstand: Binden</div>
-            <div class="dice skill-dice" @click="DialogRollDice.setDiceCount(spirit.force * 2).setName('Widerstand: Binden').show">{{ spirit.force * 2 }}</div>
+            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Widerstand gegen Binden',
+                value: (spirit.force)*2,
+                values: [
+                    {name: '2 x Kraftstufe', value: spirit.force},
+                    ]
+              }
+              ).show()">{{ (spirit.force)*2 }}
+            </button>
           </div>
+
         </div>
         <div class="box flaws">
           <div>{{ spirit.spiritType?.flaws }}</div>

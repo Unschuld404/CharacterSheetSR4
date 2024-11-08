@@ -27,16 +27,25 @@ function toggleSkill(value: string)
       <ul>
         <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
-          <div class="name">{{ skill.name }}</div>
 
           <template v-if="skill.rating == 0 && skill.type == 'Language'">
-            <div class="value"></div>
-            <div class="nat">NAT</div>
+            <div>{{ skill.name }} ( nat )</div>
           </template>
 
           <template v-else>
-            <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-            <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
+            <div>{{ skill.name }} ( {{skill.rating}} )</div>
+
+            <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: skill.name,
+                value: skill.total,
+                values: [
+                    {name: skill.attribute, value: skill.attribute_value},
+                    {name: skill.name, value: skill.rating},
+                    ]
+              }
+              ).show()">{{ skill.total }}
+            </button>
           </template>
 
         </li>
@@ -51,23 +60,18 @@ function toggleSkill(value: string)
 
 .item {
   display: flex;
+  height: 7vh;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding-left: 5vh;
 }
 
 .favourite {
-  position: relative;
+  position: absolute;
+  left: 0;
   bottom: 2vh;
 }
 
-.name {
-  width: 40vh;
-}
-
-.value {
-  width: 10vh;
-  text-align: center;
-}
 
 </style>

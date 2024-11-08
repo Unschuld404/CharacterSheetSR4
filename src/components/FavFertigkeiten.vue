@@ -35,14 +35,27 @@ const skills = computed(() => {
     <div class="scroll-box">
 
       <div class="item" v-for="skill in skills" :key="skill.name">
-       <div>{{ skill.name }}</div>
+
         <template v-if="skill.rating == 0 && skill.type == 'Language'">
-          <div>NAT</div>
+          <div>{{ skill.name }} ( nat )</div>
         </template>
+
         <template v-else>
-          <div class="value" ><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
-          <button class="dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</button>
+          <div>{{ skill.name }} ( {{skill.rating}} )</div>
+
+          <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: skill.name,
+                value: skill.total,
+                values: [
+                    {name: skill.attribute, value: skill.attribute_value},
+                    {name: skill.name, value: skill.rating},
+                    ]
+              }
+              ).show()">{{ skill.total }}
+          </button>
         </template>
+
       </div>
     </div>
 

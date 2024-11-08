@@ -13,17 +13,64 @@ import {DialogRollDice} from "@/composables/dialogs";
 
         <div class="column">
           <div class="initiative-category">Normal</div>
-          <button class="dice" @click="DialogRollDice.setName('Initiative').setDiceCount(char.initiative.normal.value).show()" >{{ char.initiative.normal.value }}</button>
+          <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Normal',
+                value: char.initiative.normal.value,
+                values: [
+                    {name: 'Reaktion', value: char.attributes.reaction.total},
+                    {name: 'Intuition', value: char.attributes.intuition.total},
+                    ]
+              }
+              ).show()">{{ char.initiative.normal.value }}
+          </button>
         </div>
 
         <div class="column">
           <div class="initiative-category">Matrix</div>
-          <button class="dice" @click="DialogRollDice.setName('Matrix Initiative').setDiceCount(char.initiative.matrix.value).show()" >{{ char.initiative.matrix.value }}</button>
+
+          <template v-if="char.initiative.matrix.passes==3">
+            <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Matrix',
+                value: char.initiative.matrix.value,
+                values: [
+                    {name: 'Prozessor', value: char.commlink.response},
+                    {name: 'Intuition', value: char.attributes.intuition.total},
+                    {name: 'Heiße Sim', value: 1},
+                    ]
+              }
+              ).show()">{{ char.initiative.matrix.value }}
+            </button>
+          </template>
+          <template v-else>
+            <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Matrix',
+                value: char.initiative.matrix.value,
+                values: [
+                    {name: 'Prozessor', value: char.commlink.response},
+                    {name: 'Intuition', value: char.attributes.intuition.total},
+                    ]
+              }
+              ).show()">{{ char.initiative.matrix.value }}
+            </button>
+          </template>
+
         </div>
 
         <div class="column" v-if="char.magician">
           <div class="initiative-category">Astral</div>
-          <button class="dice" @click="DialogRollDice.setName('Astrale Initiative').setDiceCount(char.initiative.astral.value).show()">{{ char.initiative.astral.value }}</button>
+          <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Astral',
+                value: char.initiative.astral.value,
+                values: [
+                    {name: '2 x Intuition', value: (char.attributes.intuition.total)*2},
+                    ]
+              }
+              ).show()">{{ char.initiative.astral.value }}
+          </button>
         </div>
 
       </div>

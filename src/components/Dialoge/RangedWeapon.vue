@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {DialogWeapon} from "@/composables/dialogs";
+import {DialogRollDice, DialogWeapon} from "@/composables/dialogs";
 import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {getModeModifier, getRangeModifierForRange, shootingMode} from "@/composables/weapons";
 import {toInt} from "@/composables/utils";
 import ChooseAmmo from "@/components/Dialoge/ChooseAmmo.vue";
+import {char} from "@/composables/char";
 
 
 const selectReach = ref<string>('short');
@@ -133,10 +134,23 @@ function shoot()
               <div class="column box narrow">
                 <div class="lower-header">Modus-Mod</div>
                 <div class="mod">
-                  {{ modeModifier }}
+                  -{{ modeModifier }}
                 </div>
               </div>
-              <button @click="shoot" class="dice wide">Würfel: {{ toInt(weapon.dicepool) + rangeModifier - modeModifier }} </button>
+
+              <button class="dice wide" @click="DialogRollDice.setValues(
+              {
+                name: weapon.name,
+                value: toInt(weapon.dicepool) + rangeModifier - modeModifier,
+                values: [
+                    {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                    {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                    {name: 'Distanz', value: rangeModifier},
+                    {name: 'Modus', value: modeModifier},
+                    ]
+              }
+              ).show()">{{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}
+              </button>
             </div>
           </div>
         </div>

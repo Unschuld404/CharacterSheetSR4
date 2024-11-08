@@ -39,7 +39,7 @@
       </div>
 
       <div class="column">
-        <div v-for="(value, index) in values" class="line">{{ value.name }} ({{ value.value }})<span v-if="index < values.length -1"> +</span></div>
+        <div v-for="(value, index) in values" class="line">{{ value.name }} ({{ value.value }})</div>
       </div>
     </div>
   </div>

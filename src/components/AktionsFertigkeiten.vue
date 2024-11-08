@@ -31,8 +31,8 @@ function toggleSkill(value: string)
       <ul>
         <li v-for="skill in skills" :key="skill.name" class="item">
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
-          <div class="name">{{ skill.name }}</div>
-          <div class="value"><strong>{{ skill.rating }}</strong> + {{ skill.attribute }} {{ skill.attribute_value }}</div>
+          <div>{{ skill.name }} ( {{skill.rating}} )</div>
+
           <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: skill.name,
@@ -56,24 +56,17 @@ function toggleSkill(value: string)
 
 .item {
   display: flex;
+  height: 7vh;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  padding-left: 5vh;
 }
 
 .favourite {
-  position: relative;
+  position: absolute;
+  left: 0;
   bottom: 2vh;
 }
-
-.name {
-  width: 40vh;
-}
-
-.value {
-  width: 10vh;
-  text-align: center;
-}
-
 
 </style>
