@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, type ComputedRef, ref} from "vue";
+import {computed, ref} from "vue";
 import {DialogWeapon} from "@/composables/dialogs";
 import {getSizeTypesFromAmmo} from "@/composables/weapons";
 import RadioButtons from "@/components/RadioButtons.vue";

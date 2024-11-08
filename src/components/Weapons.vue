@@ -2,7 +2,7 @@
 import {char} from "@/composables/char";
 import {DialogWeapon, DialogRollDice} from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
-import {isMeleeWeapon, validateWeaponSettingForWeapon} from "@/composables/weapons";
+import {validateWeaponSettingForWeapon} from "@/composables/weapons";
 
 
 
@@ -23,9 +23,9 @@ import {isMeleeWeapon, validateWeaponSettingForWeapon} from "@/composables/weapo
              <div class="info">
                <div class="value">Schaden: <strong>{{ weapon.damage }}</strong></div>
                <div v-if="weapon.ap != '-'" class="value">PB: <strong>{{ weapon.ap }}</strong></div>
-               <div v-if="!isMeleeWeapon(weapon)" class="value">{{ validateWeaponSettingForWeapon(weapon).ammoLoaded}}</div>
+               <div v-if="!weapon.isMelee" class="value">{{ validateWeaponSettingForWeapon(weapon).ammoLoaded}}</div>
              </div>
-             <template v-if="isMeleeWeapon(weapon)">
+             <template v-if="weapon.isMelee">
                <button class="dice" @click="DialogRollDice.setName(weapon.name).setDiceCount(toInt(weapon.dicepool)).show()">{{ weapon.dicepool }}</button>
              </template>
            </div>

@@ -3,7 +3,6 @@ import {DialogWeapon} from "@/composables/dialogs";
 import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {getModeModifier, getRangeModifierForRange, shootingMode} from "@/composables/weapons";
-import type {Weapon, WeaponSetting} from "@/composables/types";
 import {toInt} from "@/composables/utils";
 import ChooseAmmo from "@/components/Dialoge/ChooseAmmo.vue";
 

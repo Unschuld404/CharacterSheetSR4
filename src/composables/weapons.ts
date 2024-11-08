@@ -1,5 +1,58 @@
-import type {Weapon, WeaponSetting} from "@/composables/types";
+import type { WeaponSetting} from "@/composables/types";
 import {char} from "@/composables/char";
+
+export type WeaponRange = {
+    short: string;
+    medium: string;
+    long: string;
+    extreme: string;
+}
+
+export class Weapon  {
+    name: string = '';
+    id: string = '';
+    damage: string = '';
+    ap: string = '';
+    category: string = '';
+    mode: string = '';
+    rc: string = '';
+    ammo: string = '';
+    type: string = '';
+    ranges: WeaponRange = { short: '', medium: '', long: '', extreme: '' };
+    dicepool: string = '';
+
+    get isMelee(): boolean {
+        return this.type == 'Melee';
+    }
+
+    loadFromData(data: any): Weapon {
+        this.name = data.name || 'Unknown';
+        this.id=            data.category_english
+                    + '.' + data.name_english
+                    + '.' + data.damage_english
+                    + '.rc(' + data.rc + ')'
+                    + '.conceal(' + data.conceal+ ')'
+                    + '.' + data.weaponname;
+        this.damage= data.damage || '0';
+        this.category= data.category || '';
+        this.ap= data.ap || '0';
+        this.mode= data.mode || '';
+        this.rc= data.rc || '0';
+        this.ammo= data.ammo || '0';
+        this.type= data.type || '';
+        this.ranges= {
+                short: data.ranges?.short || '0',
+                medium: data.ranges?.medium || '0',
+                long: data.ranges?.long || '0',
+                extreme: data.ranges?.extreme || '0'
+        };
+        this.dicepool= data.dicepool || '0';
+        return this;
+    }
+    static createFromDataObject(data: any): Weapon {
+        return (new Weapon()).loadFromData(data);
+    }
+}
 
 export const shootingMode = [
     { label: 'Einzelschuss', value: 'einzelschuss', count: 1, secondPhase: true },
@@ -18,10 +71,6 @@ export const reachModifiers = [
 
 export function getRangeModifierForRange(range: string): number {
     return reachModifiers.find((item) => { return item.value === range})?.modifier ?? 0;
-}
-
-export function isMeleeWeapon(weapon: Weapon): boolean {
-    return weapon.type == 'Melee';
 }
 
 export function getModeModifier(mode: string, ammoLeft: number, rc: number, secondPhase: boolean): number {
