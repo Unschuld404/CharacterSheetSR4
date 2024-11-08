@@ -3,7 +3,7 @@ import {
     type Ammunition,
     type AutoSoft,
     type Damage,
-    type Gear,
+    type Gear, type IdObject,
     type Initiative, type Sensor, type SensorMod,
     type VehicleMod,
     VehicleMode,
@@ -13,7 +13,10 @@ import {
 import type {Weapon} from "@/composables/weapons";
 import {getGearFromGearData, getWeapons} from "@/composables/data";
 
-export class Vehicle  {
+export class Vehicle implements IdObject  {
+    static nextId: number = 0;
+    id: number = 0;
+
     name: string = '';
     nickname: string = '';
 
@@ -67,6 +70,9 @@ export class Vehicle  {
         }
     }
 
+    generateId(): string {
+        return this.name + '.' + this.id;
+    }
 
     loadFromData(data: any): Vehicle {
         this.name = data.name || 'Unknown';
@@ -131,8 +137,14 @@ export class Vehicle  {
         return this;
     }
 
+    setNextId(): Vehicle
+    {
+        this.id = Vehicle.nextId++;
+        return this;
+    }
+
     static createFromDataObject(data: any): Vehicle {
-        return (new Vehicle()).loadFromData(data);
+        return (new Vehicle()).setNextId().loadFromData(data);
     }
 
 }

@@ -1,5 +1,8 @@
-import {GearType} from "@/composables/types";
+import {GearType, type IdObject, type SelectedItem, Spell} from "@/composables/types";
 import {translations} from "@/composables/consts";
+import {Spirit} from "@/composables/spirits";
+import {Weapon} from "@/composables/weapons";
+import {Vehicle} from "@/composables/vehicle";
 
 export function toInt(value: string|number|undefined|null): number {
     if (value === undefined || value === null) {
@@ -46,6 +49,18 @@ export function toArray(valuesAsString: string | null): string[] {
         .map(item => item.trim())
         .filter(item => item.length > 0);
 }
+
+function isIdObject(obj: any): obj is IdObject {
+    return obj && typeof obj.generateId === 'function';
+}
+
+export function toSelectedItem(obj: any): SelectedItem {
+    return {
+        type: obj?.constructor?.name ?? '',
+        id: isIdObject(obj) ? obj.generateId() : obj?.toString() ?? '',
+    }
+}
+
 export function toGearType(data_item: any): GearType {
     if (toBool(data_item.iscommlink))
     {

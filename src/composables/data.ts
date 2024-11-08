@@ -6,8 +6,7 @@ import {
     type KarmaEntry,
     type NuyenEntry,
     type SelectedItem,
-    type Skill,
-    type Spell,
+    type Skill, Spell,
     type WeaponSetting
 } from "@/composables/types";
 import {toBool, toGearType, toInt} from "@/composables/utils";
@@ -55,7 +54,7 @@ export function getSelectedItems(data: any): SelectedItem[] {
     list = Array.isArray(list) ? list : [];
     return list.map((entry: any) => ({
         type: entry.type,
-        name: entry.name,
+        id: entry.id,
     }));
 }
 export function getWeaponSettings(data: any): WeaponSetting[] {
@@ -96,14 +95,7 @@ export function getSpells(data: any): Array<Spell> {
     let spells = data?.spells;
     spells = Array.isArray(spells) ? spells : [];
 
-    return spells.map((spell: any) => ({
-        name: spell.name || 'Unbekannt',
-        category: spell.category || 'Unbekannt',
-        type: spell.type || 'Unbekannt',
-        range: spell.range || 'Unbekannt',
-        duration: spell.duration || 'Unbekannt',
-        dv: spell.dv || 'Unbekannt'
-    }));
+    return spells.map((spell: any) => new Spell(spell));
 }
 export function getSpirits(data: any): Spirit[] | null {
     const spiritData = data?.spirits;
@@ -134,7 +126,6 @@ export function getGear(data: any): Array<Gear> {
 
     return items.map((item: any) => getGearFromGearData(item));
 }
-
 export function getGearFromGearData(data: any): Gear {
     return {
         name: data.name || 'Unknown',
@@ -146,7 +137,6 @@ export function getGearFromGearData(data: any): Gear {
         rating: toInt(data.rating),
     }
 }
-
 export function getCommlink(data: any): Commlink | null {
     let items = data?.gears;
     items = Array.isArray(items) ? items : [];
