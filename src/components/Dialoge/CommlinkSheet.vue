@@ -16,8 +16,7 @@ const commlink = computed(()=>{
   <div v-if="DialogCommlink.visible && char.commlink" class="modal-overlay" @click="DialogCommlink.hide">
     <div class="modal-content" @click.stop>
 
-      <h1>{{ char.commlink.name}}</h1>
-      <h4><span v-for="mod in char.commlink.mods" > {{ mod.name }}</span></h4>
+      <h1>{{ char.commlink.name}}<span v-for="mod in char.commlink.mods" >{{ mod.name }}</span></h1>
       <div class="row stats">
         <div v-if="char.commlink.system > 0" class="column">
           <strong>{{ char.commlink.system}}</strong>
@@ -41,44 +40,30 @@ const commlink = computed(()=>{
 
         <template v-for="item in char.commlink.programs">
           <div class="item">
-
             <div class="row">
-
               <h2>
-
                 {{item.name}} <span v-if="item.extra">({{ item.extra }})</span>
-
                 <template v-if="item.rating > 1">
                   ({{item.rating}})
                 </template>
-
               </h2>
-
             </div>
-
           </div>
         </template>
 
         <template v-for="item in char.commlink.autosofts">
-          <div class="item">
-
-            <div class="row">
-
-              <h2>
-
-                {{item.name}} <span v-if="item.extra"> ({{ item.extra }})</span>
-
-                <template v-if="item.rating > 1">
-                  ({{item.rating}})
-                </template>
-
-              </h2>
-
-              <i class='bx bx-transfer-alt'></i>
+            <div class="item">
+              <div class="row">
+                <h2>
+                  {{item.name}} <span v-if="item.extra"> ({{ item.extra }})</span>
+                  <template v-if="item.rating > 1">
+                    ({{item.rating}})
+                  </template>
+                </h2>
+                <i class='bx bx-transfer-alt'></i>
+              </div>
             </div>
-
-          </div>
-        </template>
+          </template>
 
       </div>
 
@@ -89,6 +74,15 @@ const commlink = computed(()=>{
 
 <style scoped>
 
+h1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+span {
+  font-weight: normal;
+}
+
 .stats {
   border-bottom: 2px solid var(--background-color);
 }
@@ -96,6 +90,7 @@ const commlink = computed(()=>{
 .scroll-box {
   padding-right: 0;
   margin-top: 1vh;
+  height: 55vh;
 }
 
 .item {
@@ -134,7 +129,7 @@ i {
 
 .modal-content{
   width: 90vh;
-  height: 60vh;
+  height: 80vh;
   z-index: 3001;
 }
 

@@ -35,7 +35,7 @@ import {DialogRollDice} from "@/composables/dialogs";
                 name: 'Matrix',
                 value: char.initiative.matrix.value,
                 values: [
-                    {name: 'Prozessor', value: char.commlink.response},
+                    {name: 'Prozessor', value: char.commlink?.response ?? 0},
                     {name: 'Intuition', value: char.attributes.intuition.total},
                     {name: 'Heiße Sim', value: 1},
                     ]
@@ -49,7 +49,7 @@ import {DialogRollDice} from "@/composables/dialogs";
                 name: 'Matrix',
                 value: char.initiative.matrix.value,
                 values: [
-                    {name: 'Prozessor', value: char.commlink.response},
+                    {name: 'Prozessor', value: char.commlink?.response ?? 0},
                     {name: 'Intuition', value: char.attributes.intuition.total},
                     ]
               }

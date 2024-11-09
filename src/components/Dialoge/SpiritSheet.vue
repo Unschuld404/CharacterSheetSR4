@@ -175,7 +175,7 @@ function onCancelPowersDialog() {
                 name: 'Widerstand gegen Bannen',
                 value: spirit.force + char.attributes.magic.total,
                 values: [
-                    {name: 'MAG', value: char.attributes.magic},
+                    {name: 'MAG', value: char.attributes.magic.total},
                     {name: 'Kraftstufe', value: spirit.force},
                     ]
               }
