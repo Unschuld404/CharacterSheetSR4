@@ -1,4 +1,4 @@
-import {toArray, toInt} from "@/composables/utils";
+import {toArray, toBool, toInt} from "@/composables/utils";
 import type {IdObject, Skill} from "@/composables/types";
 import {char} from "@/composables/char";
 
@@ -169,8 +169,8 @@ export class Spirit implements IdObject {
         newSpirit.name = obj.critternam || '';
         newSpirit.services = toInt(obj.services);
         newSpirit.force = toInt(obj.force);
-        newSpirit.bound = obj.bound === 'True';
-        newSpirit.created = false;
+        newSpirit.bound = toBool(obj.bound);
+        newSpirit.created = toBool(obj.created);
         newSpirit.optionalPowers = obj.optionalPowers || [];
         newSpirit.plane = obj.plane || 'heimat';
         newSpirit.spentEdge = toInt(obj.spentEdge);
