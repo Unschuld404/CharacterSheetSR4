@@ -58,9 +58,6 @@ export class Vehicle implements IdObject  {
 
         return null;
     }
-    getInitiative(riggerIni: Initiative): Initiative | null {
-        return this.initiative ?? riggerIni;
-    }
 
     get resistance(): VehicleResistance {
         return {
