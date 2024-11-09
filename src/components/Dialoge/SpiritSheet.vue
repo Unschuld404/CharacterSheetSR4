@@ -91,19 +91,26 @@ function onCancelPowersDialog() {
             <div class="scroll-box">
               <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
                 <div>
-                  {{ skill.name }}
-                </div>
-                <div class="value">
-                  + {{ skill.attribute_value }} {{ skill.attribute }}
+                  {{ skill.name }} ({{ skill.rating }})
                 </div>
                 <div>
-                  <div class="dice skill-dice" @click="DialogRollDice.setName(skill.name).setDiceCount(skill.total).show()">{{ skill.total }}</div>
+                  <button class="dice" @click="DialogRollDice.setValues(
+                    {
+                      name: skill.name,
+                      value: skill.total,
+                      values: [
+                          {name: skill.attribute, value: skill.attribute_value},
+                          {name: skill.name, value: skill.rating},
+                          ]
+                    }
+                    ).show()">{{ skill.total }}
+                  </button>
                 </div>
               </div>
 
               <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
                 <div class="formula">{{ power.name }}</div>
-                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">{{ spirit.force }}</div>
+                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">X</div>
               </div>
             </div>
 

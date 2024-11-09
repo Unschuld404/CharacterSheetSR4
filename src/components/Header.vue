@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {RouterLink} from "vue-router";
 import {menuRoutes} from "@/router";
+import {char} from "@/composables/char";
 
 </script>
 

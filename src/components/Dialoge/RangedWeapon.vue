@@ -77,6 +77,17 @@ function shoot()
 
         <div class="row box name"><h1>{{ weapon.name }}</h1></div>
         <div class="row">
+          <div class="column box">
+            <div class="line">
+              Name ( Rating)
+            </div>
+            <div class="line">
+              Name ( Rating)
+            </div>
+            <div class="line">
+              Längerer Nameö ( Rating)
+            </div>
+          </div>
           <div class="column">
             <div class="shooting-mode">
               <RadioButtons class="mode" v-model="selectShootingMode" :options="shootingMode" group="modes" id="mode"/>
@@ -174,7 +185,7 @@ function shoot()
 .mod {
   font-weight: bold;
   font-size: 3vh;
-  line-height: 5vh;
+  line-height: 7vh;
 }
 
 .dice {
@@ -183,6 +194,8 @@ function shoot()
 }
 
 .narrow {
+  width: 15vh;
+  height: 10vh;
   flex: 1;
   text-align: center;
 }
@@ -240,7 +253,6 @@ button{
 }
 
 .modal-content {
-  width: 100vh;
   background-color: transparent;
   border: none;
   z-index: 1001;
