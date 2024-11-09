@@ -152,12 +152,12 @@ const initiative = computed<Initiative>(() =>
               <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Initiative',
-                value: vehicle.initiative?.value,
+                value: initiative.value,
                 values: [
                     ...(vehicle.armor > 0 ? [{ name: '2x Panzerung', value: (vehicle.armor)*2 }] : []),
                     ]
               }
-              ).show()">{{ vehicle.initiative.value }}
+              ).show()">{{ initiative.value }}
               </button>
             </div>
             <div class="column initiative">
