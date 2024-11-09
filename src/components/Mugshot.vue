@@ -85,7 +85,6 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
               <div class="box cyberware">
                 <div class="lower-header">Cyber- und Bioware</div>
-                <div class="line"><div>-</div><div></div></div>
               </div>
 
               <div v-if="char.initiategrade > 0" class="box initiation">
@@ -95,20 +94,10 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
               <div class="box gifts">
                 <div class="lower-header">Gaben</div>
-                <div class="line"><div>Infrarotsicht</div><div></div></div>
-                <div class="line"><div>Zauberer</div><div>-</div></div>
-                <div class="line"><div>Totem</div><div>-</div></div>
-                <div class="line"><div>Kampfzauber</div><div>-</div></div>
-                <div class="line"><div>Geister des Tieres</div><div>-</div></div>
               </div>
 
               <div class="box handicaps">
                 <div class="lower-header">Nachteile</div>
-                <div class="line"><div>Allergie (selten, leicht)</div><div>-</div></div>
-                <div class="line"><div>Empfindliches Nervensystem</div><div>-</div></div>
-                <div class="line"><div>Gremlins</div><div>-</div></div>
-                <div class="line"><div>Immunabstoßung</div><div>-</div></div>
-                <div class="line"><div>Rückzug aus Kampf</div><div>-</div></div>
               </div>
 
             </div>
@@ -128,16 +117,10 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
               <div class="box contacts">
                 <div class="lower-header">Kontakte</div>
-                <div class="line"><div>-</div><div>-</div></div>
-                <div class="line"><div>-</div><div>-</div></div>
               </div>
 
               <div class="box social">
                 <div class="lower-header">Sozial</div>
-                <div class="line"><div>Lebensstil</div><div>-</div></div>
-                <div class="line"><div>Straßenruf</div><div>{{char.totalstreetcred}}</div></div>
-                <div class="line"><div>Schlechter Ruf</div><div>{{char.totalnotoriety}}</div></div>
-                <div class="line"><div>Prominenz</div><div>{{char.totalpublicawareness}}</div></div>
               </div>
 
             </div>

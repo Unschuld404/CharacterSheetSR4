@@ -63,7 +63,7 @@ function toggleSelection(item: Spirit): void
   }
 
   .header {
-    margin-top: 1.5vh;
+    align-content: center;
   }
 
   .column {

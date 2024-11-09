@@ -29,15 +29,15 @@ const initiative = computed<Initiative>(() =>
 <template>
 
   <div v-if="DialogVehicleSheet.visible" class="modal-overlay" @click="DialogVehicleSheet.hide">
-    <div class="modal-content" @click.stop>
+    <div class="modal-content">
 
-      <h1 class="box">{{ vehicle.name }}</h1>
+      <h1 class="box" @click.stop>{{ vehicle.name }}</h1>
 
       <div class="main-row row">
 
         <div class="main-column column info">
 
-          <div class="box">
+          <div class="box" @click.stop>
 
             <div class="line">Handling<span>{{ vehicle.handling }}</span></div>
             <div class="line">Beschleunigung<span>{{ vehicle.accel }}</span></div>
@@ -46,16 +46,16 @@ const initiative = computed<Initiative>(() =>
 
           </div>
 
-          <div class="box">
+          <div class="box" @click.stop>
 
-            <div class="line">Prozessor (Response)<span>{{ vehicle.processor }}</span></div>
-            <div class="line">Signal(km)<span>{{ vehicle.signal }}</span></div>
+            <div class="line">Prozessor<span>{{ vehicle.processor }}</span></div>
+            <div class="line">Signal<span>{{ vehicle.signal }}</span></div>
             <div class="line">System<span>{{ vehicle.system }}</span></div>
             <div class="line">Firewall<span>{{ vehicle.firewall }}</span></div>
 
           </div>
 
-          <div class="box">
+          <div class="box" @click.stop>
 
             <div class="line">Rumpf<span>{{ vehicle.body }}</span></div>
             <div class="line">Panzerung<span>{{ vehicle.armor }}</span></div>
@@ -68,7 +68,7 @@ const initiative = computed<Initiative>(() =>
 
         <div class="main-column column lists">
 
-          <div class="box" v-if="vehicle.sensors.length > 0">
+          <div class="box" v-if="vehicle.sensors.length > 0" @click.stop>
             <div v-for="sensor in vehicle.sensors" class="line sensor">
               <div class="sensor-name">{{ sensor.name }} ({{ sensor.rating }})</div>
             </div>
@@ -76,26 +76,26 @@ const initiative = computed<Initiative>(() =>
 
           <div class="flex-scroll">
 
-            <div class="box" v-if="vehicle.autosofts.length > 0">
+            <div class="box" v-if="vehicle.autosofts.length > 0" @click.stop>
               <div class="line autosoft" v-for="autosoft in vehicle.autosofts">
                 <div>{{ autosoft.name }} ({{ autosoft.rating }}) {{ autosoft.skill }}</div>
                 <div class="dice line-dice">XX</div>
               </div>
             </div>
 
-            <div class="box" v-if="vehicle.mods.length > 0">
+            <div class="box" v-if="vehicle.mods.length > 0" @click.stop>
               <div class="line" v-for="mod in vehicle.mods">
                 {{ mod.name }}
               </div>
             </div>
 
-            <div class="box" v-if="vehicle.weapons.length > 0">
+            <div class="box" v-if="vehicle.weapons.length > 0" @click.stop>
               <div class="line" v-for="weapon in vehicle.weapons">
                 {{ weapon.name }}
               </div>
             </div>
 
-            <div class="box" v-if="vehicle.ammunitions.length > 0">
+            <div class="box" v-if="vehicle.ammunitions.length > 0" @click.stop>
               <div class="line" v-for="ammunition in vehicle.ammunitions">
                 {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
               </div>
@@ -107,7 +107,7 @@ const initiative = computed<Initiative>(() =>
 
         <div class="main-column column active">
 
-          <div class="box row resistances">
+          <div class="box row resistances" @click.stop>
 
             <div class="column resistance">
               <div>Normal</div>
@@ -141,15 +141,24 @@ const initiative = computed<Initiative>(() =>
 
           </div>
 
-          <div class="pilot toggle">
+          <div class="pilot toggle" @click.stop>
             <RadioButtons class="mode" v-model="selectedVehicleMode" :options="VehicleModes" group="pilot"/>
           </div>
 
-          <div class="box row">
+          <div class="box row" @click.stop>
 
             <div class="column initiative">
               <div>Initiative</div>
-              <div class="dice">{{ initiative.value }}</div>
+              <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: 'Initiative',
+                value: vehicle.initiative?.value,
+                values: [
+                    ...(vehicle.armor > 0 ? [{ name: '2x Panzerung', value: (vehicle.armor)*2 }] : []),
+                    ]
+              }
+              ).show()">{{ vehicle.initiative.value }}
+              </button>
             </div>
             <div class="column initiative">
               <div>Durchgänge</div>
@@ -158,11 +167,11 @@ const initiative = computed<Initiative>(() =>
 
           </div>
 
-          <div class="dodge">
+          <div class="dodge" @click.stop>
             <VehicleAusweichen/>
           </div>
 
-          <div class="box damage">
+          <div class="box damage" @click.stop>
             <div class="lower-header">Schaden</div>
           </div>
 
@@ -281,6 +290,7 @@ h1 {
 
 .modal-overlay {
   z-index: 1000;
+  background-color: var(--background-color);
 }
 
 .modal-content {

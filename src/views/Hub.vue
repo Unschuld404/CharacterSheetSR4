@@ -51,9 +51,6 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
       <div class="fav-actions">
         <FavAktionen/>
       </div>
-      <div class="specials">
-        <Specials/>
-      </div>
     </div>
 
   </div>

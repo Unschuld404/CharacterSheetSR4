@@ -24,7 +24,7 @@ function toggleSelection(item: Vehicle): void
   <ul>
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
       <div class="box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
-        <div class="header-row">
+        <div class="row">
           <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(vehicle)" @change="toggleSelection(vehicle)">
           <div class="header">{{ vehicle.name }} </div>
         </div>
@@ -44,6 +44,20 @@ function toggleSelection(item: Vehicle): void
 </template>
 
 <style scoped>
+
+  .header {
+    align-content: center;
+    padding-left: 5vh;
+  }
+
+  .favourite {
+    position: absolute;
+    bottom: 1vh;
+  }
+
+  .row {
+    position: relative;
+  }
 
   .box {
     padding-top: 2vh;
