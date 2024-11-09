@@ -69,8 +69,11 @@ const initiative = computed<Initiative>(() =>
         <div class="main-column column lists">
 
           <div class="box" v-if="vehicle.sensors.length > 0" @click.stop>
-            <div v-for="sensor in vehicle.sensors" class="line sensor">
+            <div v-for="sensor in vehicle.sensors" class="line sensor column">
               <div class="sensor-name">{{ sensor.name }} ({{ sensor.rating }})</div>
+              <div v-for="mod in sensor.mods" class="line mod">{{ mod.name }}
+                <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
+              </div>
             </div>
           </div>
 
@@ -186,6 +189,11 @@ const initiative = computed<Initiative>(() =>
 </template>
 
 <style scoped>
+
+.mod {
+  padding-left: 5vh;
+  display: flex;
+}
 
 i {
   color: var(--accent-color);
