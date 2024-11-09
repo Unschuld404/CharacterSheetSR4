@@ -41,6 +41,12 @@ export type SensorMod = {
     category: string;
 }
 
+export type WeaponMod = {
+    name: string;
+    rating: number;
+    rc: number;
+}
+
 export type Sensor = {
     name: string;
     rating: number;

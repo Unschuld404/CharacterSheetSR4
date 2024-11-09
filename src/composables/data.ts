@@ -7,7 +7,7 @@ import {
     type KarmaEntry,
     type NuyenEntry, type Program,
     type SelectedItem,
-    type Skill, Spell,
+    type Skill, Spell, type WeaponMod,
     type WeaponSetting
 } from "@/composables/types";
 import {toBool, toGearType, toInt} from "@/composables/utils";
@@ -181,6 +181,15 @@ export function getCommlinkModsFromData(data: any[]): CommlinkMod[] {
             name: item.name || '',
             rating: toInt(item.rating),
             category: item.category || '',
+        }));
+}
+export function getWeaponModsFromData(data: any[]): WeaponMod[] {
+
+    return data
+        .map((item: any) => ({
+            name: item.name || '',
+            rating: toInt(item.rating),
+            rc: toInt(item.rc),
         }));
 }
 

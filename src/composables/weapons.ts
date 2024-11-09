@@ -1,5 +1,6 @@
-import type {IdObject, WeaponSetting} from "@/composables/types";
+import type {IdObject, WeaponMod, WeaponSetting} from "@/composables/types";
 import {char} from "@/composables/char";
+import {getWeaponModsFromData} from "@/composables/data";
 
 export type WeaponRange = {
     short: string;
@@ -24,6 +25,7 @@ export class Weapon implements IdObject  {
     weaponname: string = '';
     ranges: WeaponRange = { short: '', medium: '', long: '', extreme: '' };
     dicepool: string = '';
+    mods: WeaponMod[] = [];
 
     get isMelee(): boolean {
         return this.type == 'Melee';
@@ -64,6 +66,7 @@ export class Weapon implements IdObject  {
                 extreme: data.ranges?.extreme || '0'
         };
         this.dicepool= data.dicepool || '0';
+        this.mods = getWeaponModsFromData(data.mods || []);
         return this;
     }
     static createFromDataObject(data: any): Weapon {
