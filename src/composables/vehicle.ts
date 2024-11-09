@@ -2,9 +2,9 @@ import {toBool, toInt} from "@/composables/utils";
 import {
     type Ammunition,
     type AutoSoft,
-    type Damage,
+    type Damage, EvadeType,
     type Gear, type IdObject,
-    type Initiative, type Sensor, type SensorMod,
+    type Initiative, type Sensor, type SensorMod, type Skill,
     type VehicleMod,
     VehicleMode,
     type VehicleResistance,
@@ -64,6 +64,31 @@ export class Vehicle implements IdObject  {
             mundan: this.body + this.armor,
             magic: this.rating,
             elemental: this.armor * 2,
+        }
+    }
+
+    evade(type: EvadeType, fullDefense: boolean, evadeSkill: Skill, combatSkill: Skill, commandRating: number, responseRating: number) {
+        /*
+        Verteidigung
+            Nahkampf
+                Pilot + Abwehr (AUTO)
+                Prozessor + Nahkampffertigkeit (VR)
+                Befehl + Nahkampffertigkeit (CMD)
+            Fernkampf
+                Pilot (AUTO)
+                Prozessor (VR)
+                Befehl (CMD)
+            Voll Abwehr
+                 + Abwehr  (AUTO)
+                 + Ausweichen (VR + CMD)
+
+        */
+
+        
+        return {
+            name: 'Ausweichen',
+            value: 0,
+            values: [],
         }
     }
 
