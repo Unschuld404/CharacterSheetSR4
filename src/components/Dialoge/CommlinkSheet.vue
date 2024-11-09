@@ -17,6 +17,7 @@ const commlink = computed(()=>{
     <div class="modal-content" @click.stop>
 
       <h1>{{ char.commlink.name}}</h1>
+      <h4><span v-for="mod in char.commlink.mods" > {{ mod.name }}</span></h4>
       <div class="row stats">
         <div v-if="char.commlink.system > 0" class="column">
           <strong>{{ char.commlink.system}}</strong>
@@ -38,14 +39,34 @@ const commlink = computed(()=>{
 
       <div class="scroll-box">
 
-        <template v-for="item in char.gear">
-          <div class="item" v-if="item.type==GearType.Program">
+        <template v-for="item in char.commlink.programs">
+          <div class="item">
 
             <div class="row">
 
               <h2>
 
-                {{item.name}}
+                {{item.name}} <span v-if="item.extra">({{ item.extra }})</span>
+
+                <template v-if="item.rating > 1">
+                  ({{item.rating}})
+                </template>
+
+              </h2>
+
+            </div>
+
+          </div>
+        </template>
+
+        <template v-for="item in char.commlink.autosofts">
+          <div class="item">
+
+            <div class="row">
+
+              <h2>
+
+                {{item.name}} <span v-if="item.extra"> ({{ item.extra }})</span>
 
                 <template v-if="item.rating > 1">
                   ({{item.rating}})
