@@ -187,6 +187,18 @@ export enum GearType {
     Other
 }
 
+export type Program = {
+    name: string;
+    rating: number;
+    extra: string;
+}
+
+export type CommlinkMod = {
+    name: string;
+    rating: number;
+    category: string;
+}
+
 export type Commlink = {
     name: string;
     extra: string,
@@ -195,6 +207,9 @@ export type Commlink = {
     system: number;
     response: number;
     rating: number;
+    programs: Program[];
+    mods: CommlinkMod[];
+    autosofts: Program[];
 }
 
 export type Gear = {

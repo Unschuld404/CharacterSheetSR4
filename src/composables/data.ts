@@ -1,10 +1,11 @@
 import {ref} from "vue";
 import {
-    type Commlink,
+    type AutoSoft,
+    type Commlink, type CommlinkMod,
     type Gear,
     GearType,
     type KarmaEntry,
-    type NuyenEntry,
+    type NuyenEntry, type Program,
     type SelectedItem,
     type Skill, Spell,
     type WeaponSetting
@@ -166,8 +167,44 @@ export function getCommlink(data: any): Commlink | null {
         system: toInt(item.system),
         response: toInt(item.response),
         rating: toInt(item.rating),
+        programs: getProgramsFromData(item.children || []),
+        autosofts: getAutoSoftFromData(item.children || []),
+        mods: getCommlinkModsFromData(item.children || []),
     }
 }
+
+export function getCommlinkModsFromData(data: any[]): CommlinkMod[] {
+
+    return data
+        .filter((item: any) => item.category_english == 'Commlink Accessories')
+        .map((item: any) => ({
+            name: item.name || '',
+            rating: toInt(item.rating),
+            category: item.category || '',
+        }));
+}
+
+export function getAutoSoftFromData(data: any[]): Program[] {
+
+    return data
+        .filter((item: any) => item.category_english == 'Autosofts')
+        .map((item: any) => ({
+            name: item.name || '',
+            rating: toInt(item.rating),
+            extra: item.extra || '',
+        }));
+}
+export function getProgramsFromData(data: any[]): Program[] {
+    return data
+        .filter((item: any) => item.category_english == 'Matrix Programs')
+        .map((item: any) => ({
+            name: item.name || '',
+            rating: toInt(item.rating),
+            extra: item.extra || '',
+        }));
+}
+
+
 export function dataIsValid(): boolean {
     return data !== null;
 }
