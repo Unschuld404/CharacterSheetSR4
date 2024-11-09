@@ -77,15 +77,14 @@ function shoot()
 
         <div class="row box name"><h1>{{ weapon.name }}</h1></div>
         <div class="row">
-          <div class="column box">
-            <div class="line">
-              Name ( Rating)
+          <div v-if="weapon.mods.length > 0" class="column box">
+            <div class="lower-header">
+              Waffen-Mods
             </div>
-            <div class="line">
-              Name ( Rating)
-            </div>
-            <div class="line">
-              Längerer Nameö ( Rating)
+            <div v-for="mod in weapon.mods" class="line">
+              {{ mod.name }}
+              <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
+              <template v-if="mod.rc != 0">- RC: ( {{ mod.rc }} )</template>
             </div>
           </div>
           <div class="column">
@@ -174,6 +173,15 @@ function shoot()
 </template>
 
 <style scoped>
+
+.line {
+  height: 6vh;
+  align-content: center;
+  border-bottom: 1px solid var(--background-color)
+}
+.line:last-child{
+  border: none;
+}
 
 .row-info {
   display: flex;
