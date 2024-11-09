@@ -2,7 +2,10 @@
 import {computed, ref} from "vue";
 import {EvadeType} from "@/composables/types";
 import {char} from "@/composables/char";
-import {DialogRollDice} from "@/composables/dialogs";
+import {DialogRollDice, DialogVehicleSheet} from "@/composables/dialogs";
+import {Vehicle} from "@/composables/vehicle";
+
+const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
 const isActive = ref(false);
 
@@ -10,12 +13,20 @@ function fullDefense() {
   isActive.value = !isActive.value;
 }
 
+function evade(type: EvadeType, fullDefense: boolean)
+{
+  const evade = char.skillByName('Ausweichen');
+  const melee = char.skillByName(char.sheet.defenseMeleeSkill);
+
+  return vehicle.value.evade(type, fullDefense, evade, melee,0, 0);
+}
+
 const evadeMelee = computed( () => {
-    return char.evade(EvadeType.Melee, isActive.value );
+    return evade(EvadeType.Melee, isActive.value );
 });
 
 const evadeRanged = computed( () => {
-  return char.evade(EvadeType.Ranged, isActive.value );
+  return evade(EvadeType.Ranged, isActive.value );
 });
 
 </script>
