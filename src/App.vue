@@ -135,14 +135,13 @@ onBeforeUnmount(removeEventListeners);
   <CommlinkSheet/>
   <VehicleSheet/>
 
-  <Header  v-if="dataIsValid()"  />
+
+  <Header  v-if="dataIsValid()"/>
+
 
   <RouterView
       :style="{ transform: 'translateX(' + offset + 'px)' }"
       @mousedown="onMouseDown" v-slot="{ Component }">
-      <transition name="fade">
-        <component :is="Component" />
-      </transition>
   </RouterView>
 
 </template>

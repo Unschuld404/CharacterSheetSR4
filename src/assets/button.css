@@ -2,6 +2,14 @@ button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spiri
     cursor: pointer;
 }
 
+button {
+    position: relative;
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    border: 1px solid var(--font-color);
+    border-radius: 10px;
+}
+
 .dice {
     font-weight: bold;
     font-size: 3vh;

@@ -5,29 +5,11 @@ import Geister from "@/components/Geister.vue";
 
 <template>
   <div class="collection">
-    <div class="box spells">
-      <Zauber />
-    </div>
-
-    <div class="flex-scroll spirits">
-      <Geister />
-    </div>
+    <Geister/>
+    <Zauber/>
   </div>
 </template>
 
 <style scoped>
-
-  .collection {
-    display: flex;
-    gap: 2vh;
-  }
-
-  .spells {
-    flex: 2;
-  }
-
-  .spirits {
-    flex: 1;
-  }
 
 </style>

@@ -24,25 +24,27 @@ function toggleSelection(item: Spell): void
 
 <template>
 
-  <div class="scroll-box">
-    <ul>
-      <li v-for="spell in char.spells" :key="spell.name" class="item">
-       <div class="item column">
-         <div class="header-row">
-           <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spell)" @change="toggleSelection(spell)">
-           <div  class="header">{{ spell.name }}</div>
-         </div>
-         <div class="row">
-          <div class="category">{{ spell.category }}</div>
-          <div class="value-group">
+  <ul class="box">
+    <li v-for="spell in char.spells" :key="spell.name" class="item">
+      <div class="column">
+        <div class="row">
+          <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spell)" @change="toggleSelection(spell)">
+          <div  class="header">{{ spell.name }}</div>
+        </div>
+        <div class="row info">
+          <div>{{ spell.category }}</div>
+          <div class="row group">
             <div class="value">{{ spell.type }}</div>
             <div class="value">{{ spell.range }}</div>
             <div class="value">{{ spell.duration }}</div>
           </div>
-          <div class="formula">{{ spell.dv }}</div>
-         </div>
-         <button class="dice" @click="DialogRollDice.setName(spell.name).show()">{{ char.spellcasting.total }}</button>
-         <button class="dice" @click="DialogRollDice.setValues(
+          <div class="drain">{{ spell.dv }}</div>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <button @click="DialogRollDice.setValues(
               {
                 name: spell.name,
                 value: char.spellcasting.total,
@@ -51,73 +53,39 @@ function toggleSelection(item: Spell): void
                     {name: 'Zauberwirken', value: char.spellcasting.total - char.attributes.magic.total},
                     ]
               }
-              ).show()">{{ char.spellcasting.total }}
-         </button>
-       </div>
-      </li>
-    </ul>
-  </div>
+              ).show()">Spruchzauberei: {{ char.spellcasting.total }}
+  </button>
 
 </template>
 
 <style scoped>
 
-.dice {
+.info {
+  justify-content: space-between;
+}
+
+.value {
+  width: 20px;
+  text-align: center;
+}
+
+.group {
   position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 80px;
 }
 
-.category {
-  width: 50%;
+.drain {
+  position: absolute;
+  right: 10px;
 }
 
-  .value-group {
-    display: flex;
-  }
-
-  .header {
-    margin-top: 1.5vh;
-  }
-
-  .header-row{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .row {
-    height: 8vh;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    margin-left: 6vh;
-    margin-right: 6vh;
-    justify-content: space-around;
-  }
-
-  .item {
-    height: 14vh;
-    width: 100%;
-  }
-
-  .item:last-child {
-    border-bottom: 1px solid var(--background-color);
-  }
-
-  .value {
-    width: 5vh;
-    text-align: center;
-  }
-
-  .formula{
-    width: 8vh;
-  }
-
-  .favourite{
-    position: relative;
-    bottom: 2vh;
-    margin-right: 3vh;
-  }
+button {
+  height: 70px;
+  width: 100%;
+  font-size: 36px;
+  font-weight: bold;
+  padding-top: 10px;
+  margin-top: 10px;
+}
 
 </style>/

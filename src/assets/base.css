@@ -21,7 +21,7 @@ html {
 
 body {
   background-color: var(--background-color);
-  font-size: 2vh;
+  font-size: 18px;
 }
 
 /* Für Chrome, Safari und Edge */

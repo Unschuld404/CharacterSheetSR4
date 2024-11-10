@@ -1,10 +1,15 @@
 .header {
-    height: 5vh;
-    font-size: 3vh;
+    font-size: 22px;
     color: var(--accent-color);
     font-weight: bold;
+    align-content: center;
 }
 
 strong {
     font-size: 3vh;
+}
+
+.drain {
+    text-align: right;
+    color: var(--accent-color);
 }

@@ -1,9 +1,9 @@
 .box {
     background-color: var(--primary-color);
-    border-radius: 1vh;
+    border-radius: 10px;
     position: relative;
     border: 1px solid var(--font-color);
-    padding: 1vh;
+    padding: 10px;
 }
 
 .scroll-box {
@@ -23,13 +23,11 @@
 
 .flex-scroll {
     overflow: scroll;
-    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2vh;
+    gap: 10px;
     overflow-x: hidden;
-    padding-right: 2vh;
 }
 
 .lower-header {
@@ -47,14 +45,10 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .item:last-child {
     border-bottom: none;
-}
-
-.formula {
-    text-align: right;
-    font-weight: bold;
-    color: var(--accent-color);
 }

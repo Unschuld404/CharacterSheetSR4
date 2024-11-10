@@ -6,38 +6,35 @@ import {char} from "@/composables/char";
 </script>
 
 <template>
-  <header class="main-header">
-
-    <nav class="navbar">
-      <ul>
-        <li v-for="item in menuRoutes">
-          <RouterLink :to="item.path" class="nav-link" active-class="active-link"><i :class="item.icon"></i></RouterLink></li>
-      </ul>
-    </nav>
-
-  </header>
+  <nav class="navbar">
+    <ul>
+      <li v-for="item in menuRoutes">
+        <RouterLink :to="item.path" class="nav-link" active-class="active-link"><i :class="item.icon"></i></RouterLink></li>
+    </ul>
+  </nav>
 </template>
 
 <style scoped>
 
-.main-header {
-  background-color: var(--background-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4vh;
-}
-
 .navbar {
-  width: 30%;
-  align-items: center;
+  background-color: var(--background-color);
+  font-size: 40px;
+  position: fixed;
+  padding-top: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  align-content: center;
+  z-index: 10000;
 }
 
 .navbar ul {
-  list-style: none;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  height: 60px;
+  width: 100%;
+  align-items: center;
 }
 
 .nav-link {
