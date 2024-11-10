@@ -64,21 +64,23 @@ function setSelection(item: Gear) {
           <RadioButtons :options="sizeSelection" model-value="selectedSize" />
         </div>
 
-        <ul class="selection-list">
-          <li
-              v-for="(item, index) in items"
-              :key="index"
-              :class="{ selected: selectedItem === item }"
-              @click="setSelection(item)"
-          >
-            <div>
-              {{ item.name }}
-            </div>
-            <div>
-              ({{ item.count }})
-            </div>
-          </li>
-        </ul>
+        <div class="scroll-box">
+          <ul class="selection-list">
+            <li
+                v-for="(item, index) in items"
+                :key="index"
+                :class="{ selected: selectedItem === item }"
+                @click="setSelection(item)"
+            >
+              <div>
+                {{ item.name }}
+              </div>
+              <div>
+                ({{ item.count }})
+              </div>
+            </li>
+          </ul>
+        </div>
 
         <button class="confirm" @click="confirm()">that's the stuff</button>
       </div>
@@ -98,6 +100,7 @@ function setSelection(item: Gear) {
 
 ul {
   list-style-type: none;
+  max-height: 70vh;
   padding: 0;
   margin: 0;
 }
@@ -109,7 +112,7 @@ ul {
   border-radius: 1vh;
   margin-bottom: 2vh;
   text-align: center;
-  font-size: 2vw;
+  font-size: 3vh;
   background-color: var(--background-color);
   color: var(--accent-color);
 }
@@ -126,6 +129,7 @@ ul {
 
 .modal-content{
   width: 60vh;
+  max-height: 80vh;
   z-index: 6001;
   padding-bottom: 6vh;
 }

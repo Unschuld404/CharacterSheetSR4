@@ -156,7 +156,7 @@ function shoot()
                     {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
                     {name: 'Geschicklichkeit', value: char.attributes.agility.total},
                     {name: 'Distanz', value: rangeModifier},
-                    {name: 'Modus', value: modeModifier},
+                    {name: 'Modus', value: -modeModifier},
                     ]
               }
               ).show()">{{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}
