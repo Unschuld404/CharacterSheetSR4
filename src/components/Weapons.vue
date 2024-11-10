@@ -27,7 +27,7 @@ function toggleSelection(item: Weapon): void
   <div class="flex-scroll">
     <ul>
       <li v-for="weapon in char.weapons" :key="weapon.name">
-        <div class="box" @click="!weapon.isMelee && DialogWeapon.setWeapon(weapon).show() ">
+        <div class="box" @click="!weapon.isMelee && DialogWeapon.setWeapon(weapon).show()">
          <div class="item column">
            <div class="header row">
              <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
