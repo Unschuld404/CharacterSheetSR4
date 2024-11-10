@@ -67,59 +67,6 @@ const initiative = computed<Initiative>(() =>
 
         </div>
 
-        <div class="main-column column lists">
-
-          <div class="box" v-if="vehicle.sensors.length > 0" @click.stop>
-            <div v-for="sensor in vehicle.sensors" class="line sensor column">
-              <div class="sensor-name">{{ sensor.name }} ({{ sensor.rating }})</div>
-              <div v-for="mod in sensor.mods" class="line mod">{{ mod.name }}
-                <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex-scroll">
-
-            <div class="box" v-if="vehicle.autosofts.length > 0" @click.stop>
-              <div class="line autosoft" v-for="autosoft in vehicle.autosofts">
-                <div>{{ autosoft.name }} ({{ autosoft.rating }}) {{ autosoft.skill }}</div>
-                <div class="dice line-dice">XX</div>
-              </div>
-            </div>
-
-            <div class="box" v-if="vehicle.mods.length > 0" @click.stop>
-              <div class="line" v-for="mod in vehicle.mods">
-                {{ mod.name }}
-              </div>
-            </div>
-
-            <div class="box" v-if="vehicle.weapons.length > 0" @click.stop>
-              <div class="line" v-for="weapon in vehicle.weapons" @click="!weapon.isMelee
-              ? DialogWeapon.setWeapon(weapon).show()
-              : DialogRollDice.setValues(
-              {
-                name: weapon.name,
-                value: toInt(weapon.dicepool),
-                values: [
-                    {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
-                    {name: 'Geschicklichkeit', value: char.attributes.agility.total},
-                    ]
-              }
-              ).show()">
-                {{ weapon.name }}
-              </div>
-            </div>
-
-            <div class="box" v-if="vehicle.ammunitions.length > 0" @click.stop>
-              <div class="line" v-for="ammunition in vehicle.ammunitions">
-                {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
         <div class="main-column column active">
 
           <div class="box row resistances" @click.stop>
@@ -189,6 +136,59 @@ const initiative = computed<Initiative>(() =>
 
           <div class="box damage" @click.stop>
             <div class="lower-header">Schaden</div>
+          </div>
+
+        </div>
+
+        <div class="main-column column lists">
+
+          <div class="box" v-if="vehicle.sensors.length > 0" @click.stop>
+            <div v-for="sensor in vehicle.sensors" class="line sensor column">
+              <div class="sensor-name">{{ sensor.name }} ({{ sensor.rating }})</div>
+              <div v-for="mod in sensor.mods" class="line mod">{{ mod.name }}
+                <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-scroll">
+
+            <div class="box" v-if="vehicle.autosofts.length > 0" @click.stop>
+              <div class="line autosoft" v-for="autosoft in vehicle.autosofts">
+                <div>{{ autosoft.name }} ({{ autosoft.rating }}) {{ autosoft.skill }}</div>
+                <div class="dice line-dice">XX</div>
+              </div>
+            </div>
+
+            <div class="box" v-if="vehicle.mods.length > 0" @click.stop>
+              <div class="line" v-for="mod in vehicle.mods">
+                {{ mod.name }}
+              </div>
+            </div>
+
+            <div class="box" v-if="vehicle.weapons.length > 0" @click.stop>
+              <div class="line" v-for="weapon in vehicle.weapons" @click="!weapon.isMelee
+              ? DialogWeapon.setWeapon(weapon).show()
+              : DialogRollDice.setValues(
+              {
+                name: weapon.name,
+                value: toInt(weapon.dicepool),
+                values: [
+                    {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                    {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                    ]
+              }
+              ).show()">
+                {{ weapon.name }}
+              </div>
+            </div>
+
+            <div class="box" v-if="vehicle.ammunitions.length > 0" @click.stop>
+              <div class="line" v-for="ammunition in vehicle.ammunitions">
+                {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -288,15 +288,12 @@ h1 {
 }
 
 .info {
-  flex: 1;
+  min-width: 25vh;
 }
 
 .active {
   flex: 1;
-}
-
-.lists {
-  flex: 2;
+  min-width: 40vh;
 }
 
 .main-column {
@@ -317,7 +314,6 @@ h1 {
 .modal-content {
   z-index: 1001;
   height: 85vh;
-  width: 90vw;
   border: none;
   padding: 0;
   background: transparent;

@@ -14,4 +14,8 @@ import FahrzeugeUndDrohnen from "@/components/FahrzeugeUndDrohnen.vue";
 
 <style scoped>
 
+.flex-scroll {
+  height: 100%;
+}
+
 </style>
