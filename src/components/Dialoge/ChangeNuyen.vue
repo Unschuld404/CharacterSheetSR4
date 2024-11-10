@@ -12,6 +12,7 @@ function add()
   char.addNuyen(toInt(nuyen.value), reason.value);
   DialogChangeNuyen.hide();
   nuyen.value = '';
+  reason.value = '';
 }
 
 function spend()
@@ -19,6 +20,7 @@ function spend()
   char.spendNuyen(toInt(nuyen.value), reason.value);
   DialogChangeNuyen.hide();
   nuyen.value = '';
+  reason.value = '';
 }
 
 </script>/
