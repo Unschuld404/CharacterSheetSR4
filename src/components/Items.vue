@@ -65,7 +65,6 @@ h3 {
 
 .box {
   height: 73vh;
-  overflow: scroll;
 }
 
 i {
