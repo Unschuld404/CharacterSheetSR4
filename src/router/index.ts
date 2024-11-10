@@ -23,12 +23,6 @@ export const menuRoutes: Array<RouterMenuRecord> = [
     icon: 'bx bx-street-view',
   },
   {
-    path: 'character',
-    name: 'Character',
-    component: Character,
-    icon: 'bx bx-dna',
-  },
-  {
     path: 'vehicles',
     name: 'Vehicles',
     component: Vehicles,
@@ -51,6 +45,12 @@ export const menuRoutes: Array<RouterMenuRecord> = [
     name: 'Magic',
     component: Magic,
     icon: 'bx bxs-magic-wand',
+  },
+  {
+    path: 'character',
+    name: 'Character',
+    component: Character,
+    icon: 'bx bx-dna',
   },
 ];
 

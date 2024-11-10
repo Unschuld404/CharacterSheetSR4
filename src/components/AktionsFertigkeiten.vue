@@ -33,7 +33,8 @@ function toggleSkill(value: string)
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
           <div>{{ skill.name }} ( {{skill.rating}} )</div>
 
-          <button class="dice" @click="DialogRollDice.setValues(
+          <template v-if="skill.rating > 0">
+            <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: skill.name,
                 value: skill.total,
@@ -43,7 +44,23 @@ function toggleSkill(value: string)
                     ]
               }
               ).show()">{{ skill.total }}
-          </button>
+            </button>
+          </template>
+
+          <template v-else>
+            <button class="dice" @click="DialogRollDice.setValues(
+              {
+                name: skill.name,
+                value: skill.total,
+                values: [
+                    {name: skill.attribute, value: skill.attribute_value},
+                    {name: 'Ungeübt', value: -1},
+                    ]
+              }
+              ).show()">{{ skill.total }}
+            </button>
+          </template>
+
         </li>
       </ul>
     </div>
