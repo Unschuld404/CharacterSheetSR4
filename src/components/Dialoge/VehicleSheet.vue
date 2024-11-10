@@ -115,9 +115,8 @@ const initiative = computed<Initiative>(() =>
               {
                 name: 'Initiative',
                 value: initiative.value,
-                values:
-                [
-                    ...(vehicle.armor > 0 ? [{ name: '2x Panzerung', value: (vehicle.armor)*2 }] : []),
+                values: [
+                    {name: 'Initiative', value: initiative.value},
                     ]
               }
               ).show()">{{ initiative.value }}
@@ -223,6 +222,7 @@ i {
 
 .line-dice {
   line-height: 4vh;
+  margin-left: 2vh;
 }
 
 .autosoft {
