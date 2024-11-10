@@ -27,14 +27,13 @@ function toggleSkill(value: string)
 <template>
 
   <div class="box">
-    <div class="scroll-box">
-      <ul>
-        <li v-for="skill in skills" :key="skill.name" class="item">
-          <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
-          <div>{{ skill.name }} ( {{skill.rating}} )</div>
+    <ul>
+      <li v-for="skill in skills" :key="skill.name" class="item">
+        <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
+        <div>{{ skill.name }} ( {{skill.rating}} )</div>
 
-          <template v-if="skill.rating > 0">
-            <button class="dice" @click="DialogRollDice.setValues(
+        <template v-if="skill.rating > 0">
+          <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: skill.name,
                 value: skill.total,
@@ -44,11 +43,11 @@ function toggleSkill(value: string)
                     ]
               }
               ).show()">{{ skill.total }}
-            </button>
-          </template>
+          </button>
+        </template>
 
-          <template v-else>
-            <button class="dice" @click="DialogRollDice.setValues(
+        <template v-else>
+          <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: skill.name,
                 value: skill.total,
@@ -58,12 +57,11 @@ function toggleSkill(value: string)
                     ]
               }
               ).show()">{{ skill.total }}
-            </button>
-          </template>
+          </button>
+        </template>
 
-        </li>
-      </ul>
-    </div>
+      </li>
+    </ul>
     <div class="lower-header">Aktionsfertigkeiten</div>
   </div>
 
@@ -71,19 +69,17 @@ function toggleSkill(value: string)
 
 <style scoped>
 
+.box {
+  padding-bottom: 30px;
+}
+
 .item {
-  display: flex;
-  height: 7vh;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
   padding-left: 5vh;
 }
 
 .favourite {
   position: absolute;
   left: 0;
-  bottom: 2vh;
 }
 
 </style>

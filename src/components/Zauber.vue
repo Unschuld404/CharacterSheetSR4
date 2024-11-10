@@ -43,13 +43,12 @@ function toggleSelection(item: Spell): void
       </div>
     </li>
   </ul>
-
   <button @click="DialogRollDice.setValues(
               {
-                name: spell.name,
+                name: 'Spruchzauberei',
                 value: char.spellcasting.total,
                 values: [
-                    {name: 'MAG', value: char.attributes.magic.total},
+                    {name: 'Magie', value: char.attributes.magic.total},
                     {name: 'Zauberwirken', value: char.spellcasting.total - char.attributes.magic.total},
                     ]
               }

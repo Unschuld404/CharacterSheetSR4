@@ -73,6 +73,8 @@ i {
 }
 
 .modal-content{
+  width: 100%;
+  max-width: 400px;
   text-align: center;
   align-items: center;
   display: flex;
