@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {DialogRollDice, DialogVehicleSheet} from "@/composables/dialogs";
+import {DialogRollDice, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
 import {computed} from "vue";
@@ -9,6 +9,7 @@ import {Vehicle} from "@/composables/vehicle";
 import {char} from "@/composables/char";
 import {type Initiative, VehicleMode} from "@/composables/types";
 import VehicleAusweichen from "@/components/VehicleAusweichen.vue";
+import {toInt} from "@/composables/utils";
 
 const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
@@ -93,7 +94,18 @@ const initiative = computed<Initiative>(() =>
             </div>
 
             <div class="box" v-if="vehicle.weapons.length > 0" @click.stop>
-              <div class="line" v-for="weapon in vehicle.weapons">
+              <div class="line" v-for="weapon in vehicle.weapons" @click="!weapon.isMelee
+              ? DialogWeapon.setWeapon(weapon).show()
+              : DialogRollDice.setValues(
+              {
+                name: weapon.name,
+                value: toInt(weapon.dicepool),
+                values: [
+                    {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                    {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                    ]
+              }
+              ).show()">
                 {{ weapon.name }}
               </div>
             </div>

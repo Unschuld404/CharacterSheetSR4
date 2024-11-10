@@ -256,14 +256,14 @@ button{
 }
 
 .modal-overlay {
-  z-index: 1000;
+  z-index: 2000;
   background-color: var(--background-color);
 }
 
 .modal-content {
   background-color: transparent;
   border: none;
-  z-index: 1001;
+  z-index: 2001;
 }
 
 #mode.radio {
