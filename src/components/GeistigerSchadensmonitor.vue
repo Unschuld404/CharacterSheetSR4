@@ -19,13 +19,13 @@ import {char} from "@/composables/char";
 <style scoped>
 
 .box {
-  height: 100;
+  height: 100%;
   width: 50%;
   padding-top: 1vh;
 }
 
 .row {
-  height: 5vh;
+  height: 9vw;
   line-height: 5vh;
   align-items: center;
   justify-content: space-around;
@@ -35,14 +35,20 @@ import {char} from "@/composables/char";
 .disabled
 {
   background-color: var(--primary-color);
-  cursor: default;
-  border: transparent;
+  border: 1px solid var(--background-color);
 }
 
 .malus {
-  height: 4vh;
-  width: 2vh;
+  height: 7vw;
+  width: 4vw;
   line-height: 4vh;
+}
+
+.disabled
+{
+  background-color: var(--primary-color);
+  cursor: default;
+  border: transparent;
 }
 
 </style>

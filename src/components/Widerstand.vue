@@ -95,9 +95,7 @@ import {char} from "@/composables/char";
 <style scoped>
 
   .box {
-    display: flex;
-    width: 100%;
-    height: 100%;
+    padding-bottom: 1.5rem;
   }
 
   .row {

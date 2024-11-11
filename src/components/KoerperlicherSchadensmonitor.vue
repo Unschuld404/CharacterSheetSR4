@@ -22,10 +22,11 @@ import {char} from "@/composables/char";
     height: 100%;
     width: 50%;
     padding-top: 1vh;
+    padding-bottom: 8vh;
   }
 
   .row {
-    height: 5vh;
+    height: 9vw;
     line-height: 5vh;
     align-items: center;
     justify-content: space-around;
@@ -43,8 +44,8 @@ import {char} from "@/composables/char";
   }
 
   .malus {
-    height: 4vh;
-    width: 2vh;
+    height: 7vw;
+    width: 4vw;
     line-height: 4vh;
   }
 

@@ -16,9 +16,9 @@
 
 .damage-box {
     appearance: none;
-    width: 4vh;
-    height: 4vh;
-    border-radius: 0.5vh;
+    width: 8vw;
+    height: 8vw;
+    border-radius: 0.5vw;
     background-color: var(--background-color);
     position: relative;
     bottom: 2vh;

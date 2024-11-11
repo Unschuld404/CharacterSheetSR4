@@ -21,10 +21,10 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100%;
+  margin-top: 1vh;
   text-align: center;
   font-weight: bold;
-  font-size: 3vh;
+  font-size: 1.5rem;
   color: var(--accent-color);
   cursor: pointer;
 }

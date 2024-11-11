@@ -77,9 +77,9 @@ import {DialogRollDice} from "@/composables/dialogs";
 
       <div class="row">Durchgänge</div>
       <div class="row">
-        <div class="passes">{{ char.initiative.normal.passes }}</div>
-        <div class="passes">{{ char.initiative.matrix.passes }}</div>
-        <div v-if="char.magician" class="passes">{{ char.initiative.astral.passes }}</div>
+        <strong>{{ char.initiative.normal.passes }}</strong>
+        <strong>{{ char.initiative.matrix.passes }}</strong>
+        <strong v-if="char.magician">{{ char.initiative.astral.passes }}</strong>
       </div>
 
     </div>
@@ -92,15 +92,10 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 <style scoped>
 
-.passes {
-  font-weight: bold;
-  font-size: 3vh;
-}
-
 .box {
   display: flex;
   width: 100%;
-  height: 100%;
+  padding-bottom: 1.5rem;
 }
 
 .row {

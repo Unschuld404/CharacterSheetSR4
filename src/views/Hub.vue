@@ -18,42 +18,25 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
 
   <div class="collection">
 
-    <div class="column">
-
-      <div class="row ini-edg-nuy">
-        <div class="edg-nuyen column">
+      <div class="row">
+        <div class="column">
           <Edge/>
           <Nuyen/>
         </div>
-        <div class="initiative-box"><Initiative/></div>
+        <Initiative/>
       </div>
 
-      <div class="resistance">
-        <Widerstand/>
-      </div>
+      <Widerstand/>
+      <Ausweichen/>
 
-      <div class="dodge">
-        <Ausweichen/>
-      </div>
-
-      <div class="row monitors">
+      <div class="row">
         <KoerperlicherSchadensmonitor/>
         <GeistigerSchadensmonitor/>
       </div>
-
-    </div>
-
-    <div class="column">
+      <FavAktionen/>
       <FavFertigkeiten/>
-    </div>
 
-    <div class="column">
-      <div class="fav-actions">
-        <FavAktionen/>
-      </div>
     </div>
-
-  </div>
 
 </template>
 
@@ -61,50 +44,17 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
 
   .collection {
     display: flex;
-    gap: 1vh;
-  }
-  .column {
-    flex: 1;
-    display: flex;
     flex-direction: column;
     gap: 1vh;
   }
+
   .row {
-    display: flex;
-    flex-direction: row;
     gap: 1vh;
   }
 
-  .ini-edg-nuy {
-    flex: 1.5;
-  }
-
-  .dodge {
-    flex: 1.5;
-  }
-
-  .resistance {
-    flex: 1.5;
-  }
-
-  .monitors {
-    flex: 4;
-  }
-
-  .edg-nuyen {
-    flex: 1;
-  }
-
-  .initiative-box {
-    flex: 1.5;
-  }
-
-  .fav-actions {
-    flex: 3;
-  }
-
-  .specials {
-    flex: 1;
+  .column {
+    width: 50%;
+    gap: 1vh;
   }
 
 </style>
