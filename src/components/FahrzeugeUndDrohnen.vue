@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
-import {DialogVehicleSheet} from "@/composables/dialogs";
+import {DialogRollDice, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
 import {uploadSheet} from "@/composables/fetch";
 import {Vehicle} from "@/composables/vehicle";
+import {toInt} from "@/composables/utils";
 
 function toggleSelection(item: Vehicle): void
 {
@@ -28,15 +29,25 @@ function toggleSelection(item: Vehicle): void
           <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(vehicle)" @change="toggleSelection(vehicle)">
           <div class="header">{{ vehicle.name }} </div>
         </div>
-        <div class="info">
-          <div class="value-small">Handling: <strong>{{ vehicle.handling }}</strong></div>
-          <div class="value">Beschl.: <strong>{{ vehicle.accel }}</strong></div>
-          <div class="value">Geschw.: <strong>{{ vehicle.speed }}</strong></div>
-          <div class="value-small">Pilot: <strong>{{ vehicle.pilot }}</strong></div>
-          <div class="value-small">Rumpf: <strong>{{ vehicle.body }}</strong></div>
-          <div class="value-small">Panzerung: <strong>{{ vehicle.armor }}</strong></div>
-          <div class="value-small">Sensor: <strong>{{ vehicle.sensor }}</strong></div>
+
+        <div class="spacer" v-if="vehicle.weapons.length">
+          <div v-for="weapon in vehicle.weapons">
+            {{ weapon.name }}
+          </div>
         </div>
+
+        <div class="spacer" v-if="vehicle.sensors.length">
+          <div v-for="sensor in vehicle.sensors">
+            {{ sensor.name }} ({{ sensor.rating }})
+          </div>
+        </div>
+
+        <div class="spacer" v-if="vehicle.mods.length">
+          <div v-for="mod in vehicle.mods">
+            {{ mod.name }}
+          </div>
+        </div>
+
       </div>
     </li>
   </ul>
@@ -45,45 +56,28 @@ function toggleSelection(item: Vehicle): void
 
 <style scoped>
 
-  .header {
-    align-content: center;
-    padding-left: 5vh;
-  }
+li {
+  margin-bottom: 1vh;
+}
 
-  .favourite {
-    position: absolute;
-    bottom: 1vh;
-  }
+li:last-of-type {
+  margin-bottom: 0;
+}
 
-  .row {
-    position: relative;
-  }
+.spacer {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  border-bottom: 1px solid var(--background-color)
+}
 
-  .box {
-    padding-top: 2vh;
-    margin-bottom: 2vh;
-    width: 100%;
-    cursor: pointer;
-  }
+.spacer:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
 
-  .info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .value {
-    width: 20vh;
-    text-align: center;
-    line-height: 6vh;
-    font-size: 2vh;
-  }
-
-  .value-small {
-    width: 15vh;
-    text-align: center;
-    line-height: 6vh;
-    font-size: 2vh;
-  }
-
-</style>/
+</style>

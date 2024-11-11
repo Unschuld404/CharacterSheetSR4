@@ -7,16 +7,12 @@ import {GearType} from "@/composables/types";
 
   <div class="box">
 
-    <div class="scroll-box">
-
     <template v-for="item in char.gear">
       <div class="item" v-if="item.type!==GearType.Commlink && item.type!==GearType.Program">
-      <div class="row">
-
-        <h2>
+      <strong class="row">
 
           <template v-if="item.count!=1||item.type==GearType.Ammo">
-            {{item.count}} x
+            {{item.count}} -
           </template>
 
           {{item.name}}
@@ -24,18 +20,12 @@ import {GearType} from "@/composables/types";
           <template v-if="item.rating > 1">
             ({{item.rating}})
           </template>
-
-        </h2>
-
-        <i v-if="item.type==GearType.Ammo" class='bx bx-transfer-alt'></i>
-      </div>
-      <div class="row">
-        <h3>{{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template></h3>
+      </strong>
+      <div class="row caption">
+        {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
       </div>
     </div>
     </template>
-
-    </div>
 
     <div class="lower-header">Inventar</div>
 
@@ -48,32 +38,11 @@ import {GearType} from "@/composables/types";
 .item {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 1vh;
+  align-items: start;
 }
 
-.row {
-  justify-content: space-between;
-  align-items: center;
-}
-
-h3 {
-  font-size: 2vh;
+.caption {
   color: var(--accent-color);
-  font-weight: normal;
-}
-
-.box {
-  height: 73vh;
-}
-
-i {
-  color: var(--accent-color);
-  font-weight: bold;
-  font-size: 5vh;
-  position: absolute;
-  right: 0;
-  margin-top: 1.5vh;
 }
 
 </style>

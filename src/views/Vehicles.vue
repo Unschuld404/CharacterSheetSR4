@@ -5,17 +5,11 @@ import FahrzeugeUndDrohnen from "@/components/FahrzeugeUndDrohnen.vue";
 <template>
 
   <div class="collection">
-    <div class="flex-scroll">
-      <FahrzeugeUndDrohnen/>
-    </div>
+    <FahrzeugeUndDrohnen/>
   </div>
 
 </template>
 
 <style scoped>
-
-.flex-scroll {
-  height: 100%;
-}
 
 </style>

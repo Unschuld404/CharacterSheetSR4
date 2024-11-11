@@ -1,12 +1,12 @@
 .header {
-    font-size: 22px;
+    font-size: 1.5rem;
     color: var(--accent-color);
     font-weight: bold;
     align-content: center;
 }
 
 strong {
-    font-size: 3vh;
+    font-size: 1.4rem;
 }
 
 .drain {

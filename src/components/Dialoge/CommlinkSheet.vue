@@ -128,8 +128,8 @@ i {
 }
 
 .modal-content{
-  width: 90vh;
-  height: 80vh;
+  width: 90vw;
+  height: 60vh;
   z-index: 3001;
 }
 

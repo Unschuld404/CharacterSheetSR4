@@ -9,23 +9,25 @@ const commlink = computed(()=>{
 
 <template>
 
-  <div v-if="commlink != null" class="box row commlink" @click="DialogCommlink.show">
+  <div v-if="commlink != null" class="box" @click="DialogCommlink.show">
     <div class="header">{{commlink.name}}</div>
-    <div v-if="commlink.system > 0" class="column">
-      <strong>{{commlink.system}}</strong>
-      <div>System</div>
-    </div>
-    <div v-if="commlink.firewall > 0" class="column">
-      <strong>{{commlink.firewall}}</strong>
-      <div>Firewall</div>
-    </div>
-    <div v-if="commlink.response > 0" class="column">
-      <strong>{{commlink.response}}</strong>
-      <div>Prozessor</div>
-    </div>
-    <div v-if="commlink.signal > 0" class="column">
-      <strong>{{commlink.signal}}</strong>
-      <div>Signal</div>
+    <div class="row">
+      <div v-if="commlink.system > 0" class="column">
+        <strong>{{commlink.system}}</strong>
+        <div>System</div>
+      </div>
+      <div v-if="commlink.firewall > 0" class="column">
+        <strong>{{commlink.firewall}}</strong>
+        <div>Firewall</div>
+      </div>
+      <div v-if="commlink.response > 0" class="column">
+        <strong>{{commlink.response}}</strong>
+        <div>Prozessor</div>
+      </div>
+      <div v-if="commlink.signal > 0" class="column">
+        <strong>{{commlink.signal}}</strong>
+        <div>Signal</div>
+      </div>
     </div>
   </div>
 
@@ -33,31 +35,13 @@ const commlink = computed(()=>{
 
 <style scoped>
 
-.box {
-  height: 100%;
+.column {
+  width: 25%;
+  text-align: center;
 }
 
 .row {
-  justify-content: space-between;
-  align-items: center;
-}
-
-.column {
-  text-align: center;
-  width: 10vh;
-}
-
-.header {
-  line-height: 5.5vh;
-  width: 50%;
-}
-
-strong {
-  margin-bottom: 1vh;
-}
-
-.commlink {
-  position: relative;
+  justify-content: space-around;
 }
 
 </style>
