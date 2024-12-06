@@ -3,7 +3,7 @@
     margin-top: 65px;
     margin-left: auto;
     margin-right: auto;
-    height: calc(100vh - 60px);
+    height: 100%;
 }
 
 .collection::-webkit-scrollbar {

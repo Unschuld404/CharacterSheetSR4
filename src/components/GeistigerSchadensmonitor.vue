@@ -19,7 +19,6 @@ import {char} from "@/composables/char";
 <style scoped>
 
 .box {
-  height: 100%;
   width: 50%;
   padding-top: 1vh;
 }
