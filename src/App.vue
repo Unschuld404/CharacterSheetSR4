@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
-import { dataIsValid } from "@/composables/data";
 import Header from "@/components/Header.vue";
+import { dataIsValid } from "@/composables/data";
 import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
