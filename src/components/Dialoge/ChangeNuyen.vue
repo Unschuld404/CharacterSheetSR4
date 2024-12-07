@@ -55,7 +55,7 @@ function spend()
 }
 
 .modal-content{
-  width: 60vh;
+  width: 90vw;
   height: 40vh;
   display: flex;
   flex-direction: column;
