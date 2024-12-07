@@ -2,13 +2,27 @@
 import {RouterLink} from "vue-router";
 import {menuRoutes} from "@/router";
 import {char} from "@/composables/char";
+import {computed} from "vue";
+
+const routes = computed(() => menuRoutes.filter(route => isRouteVisible(route.path)));
+
+function isRouteVisible(path: string): boolean {
+  if (path == 'magic') {
+    return char.magician;
+  }
+  if (path == 'vehicles')
+  {
+    return char.vehicles.length > 0;
+  }
+  return true;
+}
 
 </script>
 
 <template>
   <nav class="navbar">
     <ul>
-      <li v-for="item in menuRoutes">
+      <li v-for="item in routes" :key="item.path">
         <RouterLink :to="item.path" class="nav-link" active-class="active-link"><i :class="item.icon"></i></RouterLink></li>
     </ul>
   </nav>
