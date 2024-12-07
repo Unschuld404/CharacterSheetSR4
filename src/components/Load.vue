@@ -22,7 +22,7 @@ function setUid(): void {
 
       <h1>Wer bist du, Chummer?</h1>
       <input v-model="uidInput" type="text" @keyup.enter="setUid" autofocus/>
-      <button @click="setUid">Weiter</button>
+      <button class="confirm" @click="setUid">Weiter</button>
 
     </div>
   </div>
@@ -40,21 +40,6 @@ function setUid(): void {
 
 .modal-overlay {
   background-color: var(--background-color);
-}
-
-input {
-  text-transform: none;
-  width: 90%;
-  margin-top: 2vh;
-}
-
-button {
-  margin-top: 2vh;
-  border: none;
-  width: 50%;
-  height: 5vh;
-  font-size: 4vh;
-  font-weight: bold;
 }
 
 </style>
