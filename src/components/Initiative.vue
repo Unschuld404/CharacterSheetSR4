@@ -12,7 +12,6 @@ import {DialogRollDice} from "@/composables/dialogs";
       <div class="row">
 
         <div class="column">
-          <div class="initiative-category">Normal</div>
           <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Normal',
@@ -24,10 +23,10 @@ import {DialogRollDice} from "@/composables/dialogs";
               }
               ).show()">{{ char.initiative.normal.value }}
           </button>
+          <div class="initiative-category">Normal</div>
         </div>
 
         <div class="column">
-          <div class="initiative-category">Matrix</div>
 
           <template v-if="char.initiative.matrix.passes==3">
             <button class="dice" @click="DialogRollDice.setValues(
@@ -56,11 +55,11 @@ import {DialogRollDice} from "@/composables/dialogs";
               ).show()">{{ char.initiative.matrix.value }}
             </button>
           </template>
+          <div class="initiative-category">Matrix</div>
 
         </div>
 
         <div class="column" v-if="char.magician">
-          <div class="initiative-category">Astral</div>
           <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Astral',
@@ -71,20 +70,21 @@ import {DialogRollDice} from "@/composables/dialogs";
               }
               ).show()">{{ char.initiative.astral.value }}
           </button>
+          <div class="initiative-category">Astral</div>
         </div>
 
       </div>
 
-      <div class="row">Durchgänge</div>
       <div class="row">
         <strong>{{ char.initiative.normal.passes }}</strong>
         <strong>{{ char.initiative.matrix.passes }}</strong>
         <strong v-if="char.magician">{{ char.initiative.astral.passes }}</strong>
       </div>
+      <div class="row">Durchgänge</div>
 
     </div>
 
-    <div class="lower-header">Initiative</div>
+    <div class="upper-header">Initiative</div>
 
   </div>
 
@@ -95,7 +95,6 @@ import {DialogRollDice} from "@/composables/dialogs";
 .box {
   display: flex;
   width: 100%;
-  padding-bottom: 1.5rem;
 }
 
 .row {
@@ -112,6 +111,8 @@ import {DialogRollDice} from "@/composables/dialogs";
 
 button {
   position: relative;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 }
 
 </style>

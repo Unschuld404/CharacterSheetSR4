@@ -32,16 +32,17 @@ const skills = computed(() => {
 
   <div class="box">
 
-    <div class="item" v-for="skill in skills" :key="skill.name">
+    <div>
+      <div class="item" v-for="skill in skills" :key="skill.name">
 
-      <template v-if="skill.rating == 0 && skill.type == 'Language'">
-        <div>{{ skill.name }} ( nat )</div>
-      </template>
+        <template v-if="skill.rating == 0 && skill.type == 'Language'">
+          <div>{{ skill.name }} ( nat )</div>
+        </template>
 
-      <template v-else>
-        <div>{{ skill.name }} ( {{skill.rating}} )</div>
+        <template v-else>
+          <div>{{ skill.name }} ({{skill.rating}})</div>
 
-        <button class="dice" @click="DialogRollDice.setValues(
+          <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: skill.name,
                 value: skill.total,
@@ -51,22 +52,19 @@ const skills = computed(() => {
                     ]
               }
               ).show()">{{ skill.total }}
-        </button>
-      </template>
+          </button>
+        </template>
 
+      </div>
     </div>
 
-    <div class="lower-header">Fähigkeiten</div>
+    <div class="upper-header">Fähigkeiten</div>
 
   </div>
 
 </template>
 
 <style scoped>
-
-  .box {
-    padding-bottom: 2rem;
-  }
 
   .item {
     display: flex;
@@ -78,7 +76,6 @@ const skills = computed(() => {
 
   button {
     position: relative;
-    top: 1vh;
   }
 
 </style>

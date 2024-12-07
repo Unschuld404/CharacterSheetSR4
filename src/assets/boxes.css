@@ -4,6 +4,7 @@
     position: relative;
     border: 1px solid var(--font-color);
     padding: 1vh;
+    padding-top: 4vh;
 }
 
 .scroll-box {
@@ -40,6 +41,16 @@
     text-align: center;
 }
 
+.upper-header {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0.5vh;
+    left: 0;
+    width: 100%;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
 .item {
     border-bottom: 1px solid var(--background-color);
     display: flex;
@@ -51,5 +62,9 @@
 }
 
 .item:last-child {
+    border-bottom: none;
+}
+
+.item:last-of-type {
     border-bottom: none;
 }

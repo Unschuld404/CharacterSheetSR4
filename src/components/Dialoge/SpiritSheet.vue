@@ -87,40 +87,23 @@ function onCancelPowersDialog() {
 
           <div class="column gap">
 
-            <div class="skills box">
-
-              <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
-                <div>
-                  {{ skill.name }} ({{ skill.rating }})
-                </div>
-                <div>
-                  <button class="dice" @click="DialogRollDice.setValues(
-                  {
-                    name: skill.name,
-                    value: skill.total,
-                    values: [
-                        {name: skill.attribute, value: skill.attribute_value},
-                        {name: skill.name, value: skill.rating},
-                        ]
-                  }
-                  ).show()">{{ skill.total }}
-                  </button>
-                </div>
-              </div>
-
-              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
-                <div class="formula">{{ power.name }}</div>
-                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">X</div>
-              </div>
-
+            <div class="binding toggle">
+              <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/>
             </div>
 
             <div class="plane toggle">
               <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
             </div>
 
-            <div class="binding toggle">
-              <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/>
+            <div class="box service">
+              <div class="row mod">
+                <div class="mutator" @click="removeService">-</div>
+                <h1>{{ services }}</h1>
+                <div class="mutator" @click="addService">+</div>
+              </div>
+              <div class="lower-header">
+                Dienste
+              </div>
             </div>
 
             <div class="box initiative">
@@ -196,19 +179,36 @@ function onCancelPowersDialog() {
 
             </div>
 
-            <div class="box flaws">
-              <div>{{ spirit.spiritType?.flaws }}</div>
+            <div class="skills box">
+
+              <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
+                <div>
+                  {{ skill.name }} ({{ skill.rating }})
+                </div>
+                <div>
+                  <button class="dice" @click="DialogRollDice.setValues(
+                  {
+                    name: skill.name,
+                    value: skill.total,
+                    values: [
+                        {name: skill.attribute, value: skill.attribute_value},
+                        {name: skill.name, value: skill.rating},
+                        ]
+                  }
+                  ).show()">{{ skill.total }}
+                  </button>
+                </div>
+              </div>
+
+              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
+                <div class="formula">{{ power.name }}</div>
+                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">X</div>
+              </div>
+
             </div>
 
-            <div class="box service">
-              <div class="row mod">
-                <div class="mutator" @click="removeService">-</div>
-                <h1>{{ services }}</h1>
-                <div class="mutator" @click="addService">+</div>
-              </div>
-              <div class="lower-header">
-                Dienste
-              </div>
+            <div class="box flaws">
+              <div>{{ spirit.spiritType?.flaws }}</div>
             </div>
 
           </div>
@@ -226,6 +226,10 @@ function onCancelPowersDialog() {
 </template>
 
 <style scoped>
+
+strong {
+  padding-right: 1vh;
+}
 
 .gap {
   gap: 10px;

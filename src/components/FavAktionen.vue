@@ -29,23 +29,25 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
   <div class="box">
 
-    <div v-for="spell in spells" class="item" >
-      <div>{{ spell.name }}</div>
-      <div class="extra">{{ spell.dv }}</div>
-    </div>
+    <div>
 
-    <div v-for="spirit in spirits" class="item" @click="DialogSpiritSheet.setSpirit(spirit).show()">
-      <div>{{ spirit.type }}</div>
-      <div class="extra">{{ spirit.bound ? 'gebunden' : 'ungebunden' }}</div>
-    </div>
+      <div v-for="spell in spells" class="item" >
+        <div>{{ spell.name }}</div>
+        <div class="extra">{{ spell.dv }}</div>
+      </div>
 
-    <div v-for="vehicle in vehicles" class="item"@click="DialogVehicleSheet.setVehicle(vehicle).show()">
-      <div>{{ vehicle.name }}</div>
-      <div class="extra">{{ vehicle.mode }}</div>
-    </div>
+      <div v-for="spirit in spirits" class="item" @click="DialogSpiritSheet.setSpirit(spirit).show()">
+        <div>{{ spirit.type }}</div>
+        <div class="extra">{{ spirit.bound ? 'gebunden' : 'ungebunden' }}</div>
+      </div>
 
-    <div v-for="weapon in weapons" class="item"
-         @click="!weapon.isMelee
+      <div v-for="vehicle in vehicles" class="item" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
+        <div>{{ vehicle.name }}</div>
+        <div class="extra">{{ vehicle.mode }}</div>
+      </div>
+
+      <div v-for="weapon in weapons" class="item"
+           @click="!weapon.isMelee
               ? DialogWeapon.setWeapon(weapon).show()
               : DialogRollDice.setValues(
               {
@@ -57,21 +59,19 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
                     ]
               }
               ).show()">
-      <div>{{ weapon.name }}</div>
-      <div class="extra">{{ weapon.category }}  ({{ toInt(weapon.dicepool)-char.attributes.agility.total }})</div>
+        <div>{{ weapon.name }}</div>
+        <div class="extra">{{ weapon.category }}  ({{ toInt(weapon.dicepool)-char.attributes.agility.total }})</div>
+      </div>
+
     </div>
 
-    <div class="lower-header">Aktionen</div>
+    <div class="upper-header">Aktionen</div>
 
   </div>
 
 </template>
 
 <style scoped>
-
-.box {
-  padding-bottom: 2rem;
-}
 
 .extra {
   color: var(--accent-color);
@@ -82,6 +82,10 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
   height: 6vh;
   line-height: 6vh;
   justify-content: space-between;
+}
+
+.item:last-child {
+  border-bottom: none;
 }
 
 </style>

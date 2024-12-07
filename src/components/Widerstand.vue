@@ -10,7 +10,6 @@ import {char} from "@/composables/char";
     <div class="row">
 
       <div class="column">
-        <div class="resistance-category">Ballis.</div>
         <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Ballistischer Widerstand',
@@ -23,10 +22,10 @@ import {char} from "@/composables/char";
               }
               ).show()">{{ char.resist.ballistic }}
         </button>
+        <div class="resistance-category">Ballis.</div>
       </div>
 
       <div class="column">
-        <div class="resistance-category">Stoß</div>
         <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Stoßwiderstand',
@@ -39,10 +38,10 @@ import {char} from "@/composables/char";
               }
               ).show()">{{ char.resist.impact }}
         </button>
+        <div class="resistance-category">Stoß</div>
       </div>
 
       <div class="column">
-        <div class="resistance-category">Physisch</div>
         <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Physischer Widerstand',
@@ -53,10 +52,10 @@ import {char} from "@/composables/char";
               }
               ).show()">{{ char.resist.physical }}
         </button>
+        <div class="resistance-category">Physisch</div>
       </div>
 
       <div class="column">
-        <div class="resistance-category">Mana</div>
         <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Manawiderstand',
@@ -67,10 +66,10 @@ import {char} from "@/composables/char";
               }
               ).show()">{{ char.resist.mana }}
         </button>
+        <div class="resistance-category">Mana</div>
       </div>
 
       <div v-if="char.magician" class="column">
-        <div class="resistance-category">Entzug</div>
         <button class="dice" @click="DialogRollDice.setValues(
               {
                 name: 'Widerstand gegen magischen Entzug',
@@ -82,11 +81,12 @@ import {char} from "@/composables/char";
               }
               ).show()">{{ char.resist.drain }}
         </button>
+        <div class="resistance-category">Entzug</div>
       </div>
 
     </div>
 
-    <div class="lower-header">Widerstand</div>
+    <div class="upper-header">Widerstand</div>
 
   </div>
 
@@ -94,13 +94,8 @@ import {char} from "@/composables/char";
 
 <style scoped>
 
-  .box {
-    padding-bottom: 1.5rem;
-  }
-
   .row {
     width: 100%;
-    margin-bottom: 2vh;
   }
 
   .column {
@@ -110,8 +105,8 @@ import {char} from "@/composables/char";
   }
 
   button {
-    position: relative;
-    top: 1vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
   }
 
 </style>
