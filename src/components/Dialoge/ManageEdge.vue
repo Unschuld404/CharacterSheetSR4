@@ -66,9 +66,11 @@
 }
 
 .modal-content{
-  width: 40vh;
-  height: 30vh;
+  width: 80vw;
   z-index: 3001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -76,7 +78,8 @@ h1 {
 }
 
 .row {
-  justify-content: space-around;
+  justify-content: space-evenly;
+  width: 70vw;
   height: 15vh;
   align-items: center;
   font-size: 8vh;
