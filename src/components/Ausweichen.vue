@@ -36,9 +36,9 @@ const evadeRanged = computed( () => {
       <div class="dice" @click="DialogRollDice.setValues(evadeMelee).show()">{{ evadeMelee.value }}</div>
     </div>
 
-  <div class="lower-header">
-    <div>{{ evadeRanged.name }}</div>
-    <div>{{ evadeMelee.name }}</div>
+  <div class="upper-header row">
+    <div>Fernkampf</div>
+    <div>Nahkampf</div>
   </div>
 
   </div>
@@ -46,15 +46,6 @@ const evadeRanged = computed( () => {
 </template>
 
 <style scoped>
-
-.lower-header {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.box {
-  padding-bottom: 2rem;
-}
 
 .column {
   text-align: center;

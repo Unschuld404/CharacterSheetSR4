@@ -11,7 +11,7 @@ import {char} from "@/composables/char";
       <input v-for="col in 3" :key="col" type="checkbox" :class="{'damage-box': true, 'disabled': (row -1) * 3 + col > char.maxStunDamage }">
       <div class="malus">{{ row * -1 }}</div>
     </div>
-    <div class="lower-header">Geistiger Zustand</div>
+    <div class="upper-header">Geistiger Zustand</div>
   </div>
 
 </template>
@@ -20,7 +20,7 @@ import {char} from "@/composables/char";
 
 .box {
   width: 50%;
-  padding-top: 1vh;
+  padding-top: 9vh;
 }
 
 .row {

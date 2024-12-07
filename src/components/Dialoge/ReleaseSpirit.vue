@@ -40,6 +40,10 @@ p {
   text-align: center;
 }
 
+.confirm {
+  width: 100%;
+  background-color: transparent;
+}
 
 .modal-content{
   width: 50vh;

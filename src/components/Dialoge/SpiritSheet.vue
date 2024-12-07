@@ -66,80 +66,51 @@ function onCancelPowersDialog() {
 
   <ChooseSpiritPowers v-if="powersDialogVisible" :count="spirit.maxOptionalPowersCount" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
 
-
-
   <SpiritPowerInfo v-if="DialogSpiritPowerInfo.visible"/>
 
   <div v-if="DialogSpiritSheet.visible" class="modal-overlay" @click="DialogSpiritSheet.hide">
-    <div class="modal-content" @click.stop>
 
-      <div class="box row spirit">
-        <div class="name">
-          {{ spirit.caption }} - Stufe {{ spirit.force }}
-        </div>
-        <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
-        <div class="dice" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
+    <div class="column">
 
-        <div class="formula" @click="DialogManageSpiritEdge.show">{{spirit.edge}} Edge</div>
-      </div>
-
-      <div class="content">
-
-        <div class="column skill-column">
-          <div class="skills box">
-
-            <div class="scroll-box">
-              <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
-                <div>
-                  {{ skill.name }} ({{ skill.rating }})
-                </div>
-                <div>
-                  <button class="dice" @click="DialogRollDice.setValues(
-                    {
-                      name: skill.name,
-                      value: skill.total,
-                      values: [
-                          {name: skill.attribute, value: skill.attribute_value},
-                          {name: skill.name, value: skill.rating},
-                          ]
-                    }
-                    ).show()">{{ skill.total }}
-                  </button>
-                </div>
-              </div>
-
-              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
-                <div class="formula">{{ power.name }}</div>
-                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">X</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
+      <div class="modal-content" @click.stop>
 
         <div class="column">
-
-          <div class="plane toggle">
-            <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
+          <h1 class="name">{{ spirit.caption }} ({{ spirit.force }})</h1>
+          <div class="row">
+            <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
+            <div class="formula" @click="DialogManageSpiritEdge.show">{{spirit.edge}} Edge</div>
+            <div class="dice" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
           </div>
-          <div class="binding toggle">
-            <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/><br>
-          </div>
-          <div class="box damage">
-            <SpiritSchadensmonitor/>
-            <div class="lower-header">
-              Schadensmonitor
-            </div>
-          </div>
-
         </div>
 
-      <div class="column">
+        <div class="content">
 
-        <div class="box initiative">
-          <div class="item-special">
-            <div>Initiative</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+          <div class="column gap">
+
+            <div class="binding toggle">
+              <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/>
+            </div>
+
+            <div class="plane toggle">
+              <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
+            </div>
+
+            <div class="box service">
+              <div class="row mod">
+                <div class="mutator" @click="removeService">-</div>
+                <h1>{{ services }}</h1>
+                <div class="mutator" @click="addService">+</div>
+              </div>
+              <div class="lower-header">
+                Dienste
+              </div>
+            </div>
+
+            <div class="box initiative">
+
+              <div class="row item">
+                <div>Initiative</div>
+                <button class="dice skill-dice" @click="DialogRollDice.setValues(
               {
                 name: 'Initiative',
                 value: spirit.initiative.pool,
@@ -148,22 +119,24 @@ function onCancelPowersDialog() {
                     ]
               }
               ).show()">{{ spirit.initiative.pool }}
-            </button>
-          </div>
-          <div class="item-special">
-            <div>Durchgänge</div>
-            <strong>{{spirit.initiative.passes}}</strong>
-          </div>
-          <div class="item-special">
-            <div>Bewegung</div>
-            <div>{{spirit.spiritType?.movement ?? ''}}</div>
-          </div>
-        </div>
-        <div class="box resistance">
+                </button>
+              </div>
+              <div class="row item">
+                <div>Durchgänge</div>
+                <strong>{{spirit.initiative.passes}}</strong>
+              </div>
+              <div class="row item">
+                <div>Bewegung</div>
+                <div>{{spirit.spiritType?.movement ?? ''}}</div>
+              </div>
 
-          <div class="item-special">
-            <div>Panzerung</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+            </div>
+
+            <div class="box resistance">
+
+              <div class="row item">
+                <div>Panzerung</div>
+                <button class="dice skill-dice" @click="DialogRollDice.setValues(
               {
                 name: 'Panzerung',
                 value: spirit.armor,
@@ -172,12 +145,12 @@ function onCancelPowersDialog() {
                     ]
               }
               ).show()">{{ spirit.armor }}
-            </button>
-          </div>
+                </button>
+              </div>
 
-          <div class="item-special">
-            <div>Widerstand: Bannen</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+              <div class="row item">
+                <div>Widerstand: Bannen</div>
+                <button class="dice skill-dice" @click="DialogRollDice.setValues(
               {
                 name: 'Widerstand gegen Bannen',
                 value: spirit.force + char.attributes.magic.total,
@@ -187,12 +160,12 @@ function onCancelPowersDialog() {
                     ]
               }
               ).show()">{{ spirit.force + char.attributes.magic.total }}
-            </button>
-          </div>
+                </button>
+              </div>
 
-          <div class="item-special">
-            <div>Widerstand: Binden</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+              <div class="row item">
+                <div>Widerstand: Binden</div>
+                <button class="dice skill-dice" @click="DialogRollDice.setValues(
               {
                 name: 'Widerstand gegen Binden',
                 value: (spirit.force)*2,
@@ -201,29 +174,52 @@ function onCancelPowersDialog() {
                     ]
               }
               ).show()">{{ (spirit.force)*2 }}
-            </button>
+                </button>
+              </div>
+
+            </div>
+
+            <div class="skills box">
+
+              <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
+                <div>
+                  {{ skill.name }} ({{ skill.rating }})
+                </div>
+                <div>
+                  <button class="dice" @click="DialogRollDice.setValues(
+                  {
+                    name: skill.name,
+                    value: skill.total,
+                    values: [
+                        {name: skill.attribute, value: skill.attribute_value},
+                        {name: skill.name, value: skill.rating},
+                        ]
+                  }
+                  ).show()">{{ skill.total }}
+                  </button>
+                </div>
+              </div>
+
+              <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
+                <div class="formula">{{ power.name }}</div>
+                <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">X</div>
+              </div>
+
+            </div>
+
+            <div class="box flaws">
+              <div>{{ spirit.spiritType?.flaws }}</div>
+            </div>
+
           </div>
 
         </div>
-        <div class="box flaws">
-          <div>{{ spirit.spiritType?.flaws }}</div>
 
-        </div>
-        <div class="box service">
-          <div class="row mod">
-            <div class="mutator" @click="removeService">-</div>
-            <h1>{{ services }}</h1>
-            <div class="mutator" @click="addService">+</div>
-          </div>
-          <div class="lower-header">
-            Dienste
-          </div>
-        </div>
       </div>
+
+      <i class='bx bx-chevron-down'></i>
 
     </div>
-
-      </div>
 
   </div>
 
@@ -231,137 +227,45 @@ function onCancelPowersDialog() {
 
 <style scoped>
 
-.flaws {
-  flex: 1;
+strong {
+  padding-right: 1vh;
 }
 
-.optional-powers {
-  position: absolute;
-  left: 10vh;
+.gap {
+  gap: 10px;
 }
 
-.value {
+.mode {
+  height: 5vh;
+}
+
+.mod {
+  margin-left: 5vw;
+  margin-right: 5vw;
+  height: 10vh;
+  align-items: center;
+}
+
+.item {
+  height: 5vh;
+}
+
+.bx-chevron-down {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 5vh;
   position: absolute;
-  right: 7vh;
+  top: 80vh;
+  align-self: center;
+}
+
+.row {
+  justify-content: space-between;
 }
 
 .toggle {
   border: 1px solid var(--font-color);
   border-radius: 1vh;
-}
-
-i {
-  margin-top: 0.4vh;
-}
-
-.mode {
-  height: 100%;
-}
-
-.mod {
-  align-content: center;
-  justify-content: space-evenly;
-  margin-bottom: 1vh;
-}
-
-.spirit{
-  width: 100%;
-  height: 8vh;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2vh;
-}
-
-.item-special {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 2vh;
-  padding-right: 2vh;
-  height: 4vh;
-}
-
-.box {
-  align-content: center;
-  text-align: center;
-}
-
-.resistance {
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  text-align: left;
-}
-
-.binding{
-  flex: 1;
-}
-
-.service{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.plane {
-  flex: 1;
-}
-
-.initiative {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  text-align: left;
-}
-
-.name {
-  position: absolute;
-  font-size: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-}
-
-.scroll-box {
-  height: 100%;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 7vh;
-}
-
-strong {
-  width: 4vh;
-  text-align: center;
-}
-
-.skills{
-  height: 100%;
-}
-
-.column {
-  flex: 1;
-  gap: 2vh;
-}
-
-.skill-column{
-  flex: 1.3;
-}
-
-.content{
-  display: flex;
-  height: 65vh;
-  margin-top: 2vh;
-  position: relative;
-  gap: 2vh;
 }
 
 .modal-overlay {
@@ -370,14 +274,15 @@ strong {
 }
 
 .modal-content {
-  height: 80vh;
-  width: 90vw;
-  margin-top: 10vh;
+  height: 75vh;
+  margin-top: 70px;
+  width: 100vw;
   z-index: 1001;
   position: relative;
   background-color: transparent;
   border: none;
   bottom: 5vh;
+  overflow: scroll;
 }
 
 </style>/

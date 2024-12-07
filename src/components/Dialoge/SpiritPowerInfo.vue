@@ -5,35 +5,50 @@ import {DialogSpiritPowerInfo} from "@/composables/dialogs";
 <template>
 
   <div class="overlay" @click.self="DialogSpiritPowerInfo.hide">
-    <div class="modal-content" @click.stop>
-      <h1>{{ DialogSpiritPowerInfo.spiritPower.name }}</h1>
-      <div class="row">
-        <div class="value">Art</div>
-        <div class="value">Handlung</div>
-        <div class="value">Reichweite</div>
-        <div class="value">Dauer</div>
+
+    <div class="column">
+
+      <div class="modal-content" @click.stop>
+        <h1>{{ DialogSpiritPowerInfo.spiritPower.name }}</h1>
+        <div class="row">
+          <div class="value">Art</div>
+          <div class="value">{{ DialogSpiritPowerInfo.spiritPower.type }}</div>
+        </div>
+        <div class="row">
+          <div class="value">Handlung</div>
+          <div class="value">{{ DialogSpiritPowerInfo.spiritPower.action }}</div>
+        </div>
+        <div class="row">
+          <div class="value">Reichweite</div>
+          <div class="value">{{ DialogSpiritPowerInfo.spiritPower.range }}</div>
+        </div>
+        <div class="row">
+          <div class="value">Dauer</div>
+          <div class="value">{{ DialogSpiritPowerInfo.spiritPower.duration }}</div>
+        </div>
+        <p>{{ DialogSpiritPowerInfo.spiritPower.description }}</p>
       </div>
-      <div class="row">
-        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.type }}</div>
-        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.action }}</div>
-        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.range }}</div>
-        <div class="value">{{ DialogSpiritPowerInfo.spiritPower.duration }}</div>
-      </div>
-      <p>{{ DialogSpiritPowerInfo.spiritPower.description }}</p>
+
+      <i class='bx bx-chevron-down'></i>
+
     </div>
+
   </div>
 
 </template>
 
 <style scoped>
 
-h1 {
-  margin-bottom: 2vh;
+.bx-chevron-down {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 5vh;
+  position: absolute;
+  top: 80vh;
+  align-self: center;
 }
 
 .value {
-  width: 25%;
-  text-align: center;
   font-size: 2.5vh;
 }
 
@@ -42,10 +57,6 @@ h1 {
   margin-bottom: 1vh;
   border-bottom: 1px solid var(--background-color);
   line-height: 5vh;
-}
-
-.row:last-of-type{
-  border: none;
 }
 
 p {
@@ -57,7 +68,9 @@ p {
 
 
 .modal-content{
-  width: 100vh;
+  width: 100vw;
+  height: 70vh;
+  overflow: scroll;
   z-index: 6001;
 }
 

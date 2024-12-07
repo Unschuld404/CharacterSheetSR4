@@ -9,7 +9,7 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
   <div class="box">
 
     <div class="nuy" @click="DialogChangeNuyen.show">{{ char.nuyen }} ¥</div>
-    <div class="lower-header">Nuyen</div>
+    <div class="upper-header">Nuyen</div>
 
   </div>
 
