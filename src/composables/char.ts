@@ -16,7 +16,7 @@ import {Sheet, sheet_data} from "@/composables/sheet";
 import {
     type Armor,
     type Attributes,
-    type CharInitiative, type Commlink,
+    type CharInitiative, type Commlink, type Contact,
     type DamageMonitor,
     type Drain,
     EvadeType,
@@ -55,6 +55,7 @@ export class Charakter {
     monitor!: DamageMonitor;
     magician!: boolean;
     initiategrade!: number;
+    tradition: string| null = null;
     description!: string;
     background!: string;
     concept!: string;
@@ -173,6 +174,7 @@ export class Charakter {
         this.totalstreetcred = toInt(data?.totalstreetcred);
         this.totalnotoriety = toInt(data?.totalnotoriety);
         this.totalpublicawareness = toInt(data?.totalpublicawareness);
+        this.tradition = data?.tradition || 'unknown';
 
         this.armor = {
             impact : toInt(data?.armori),
