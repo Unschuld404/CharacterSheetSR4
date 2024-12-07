@@ -97,10 +97,16 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
     <div class="box gifts">
       <div class="lower-header">Gaben</div>
+      <p v-for="trait in char.traits">
+        {{ trait }}
+      </p>
     </div>
 
     <div class="box handicaps">
       <div class="lower-header">Nachteile</div>
+      <p v-for="flaw in char.flaws">
+        {{ flaw }}
+      </p>
     </div>
 
     <div class="box karma">
