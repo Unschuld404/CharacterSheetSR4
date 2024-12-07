@@ -98,6 +98,9 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
     <div class="box contacts">
       <div class="lower-header">Kontakte</div>
+      <p v-for="contact in char.contacts" :key="contact.name">
+          {{ contact.name }} ( {{ contact.rating }} )
+      </p>
     </div>
 
     <div class="box social">

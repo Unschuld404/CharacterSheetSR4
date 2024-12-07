@@ -4,7 +4,7 @@ import {reactive} from "vue";
 import {
     data,
     extractAttributeFromDrain,
-    getActionSkills, getCommlink,
+    getActionSkills, getCommlink, getContacts,
     getGear,
     getKnowledgeSkills,
     getSpells,
@@ -64,6 +64,7 @@ export class Charakter {
     totalnotoriety!: number;
     totalpublicawareness!: number;
     commlink: Commlink | null = null;
+    contacts: Contact[] = [];
 
 
     sheet! : Sheet;
@@ -287,6 +288,7 @@ export class Charakter {
         this.weapons = getWeapons(data);
         this.gear = getGear(data);
         this.spells = getSpells(data);
+        this.contacts = getContacts(data);
 
         this.commlink = getCommlink(data);
 

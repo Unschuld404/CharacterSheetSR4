@@ -1,7 +1,7 @@
 import {ref} from "vue";
 import {
     type AutoSoft,
-    type Commlink, type CommlinkMod,
+    type Commlink, type CommlinkMod, type Contact,
     type Gear,
     GearType,
     type KarmaEntry,
@@ -97,6 +97,19 @@ export function getSpells(data: any): Array<Spell> {
     spells = Array.isArray(spells) ? spells : [];
 
     return spells.map((spell: any) => new Spell(spell));
+}
+export function getContacts(data: any): Array<Contact> {
+    let contacts = data?.contacts;
+    contacts = Array.isArray(contacts) ? contacts : [];
+    return contacts.map((contact: any) =>  getContactFromContactData(contact));
+}
+function getContactFromContactData(data: any): Contact {
+    return {
+        name: data.name || 'Unknown',
+        rating: toInt(data.connection),
+        loyalty: toInt(data.loyalty),
+        type: data.type || 'Unknown',
+    }
 }
 export function getSpirits(data: any): Spirit[] | null {
     const spiritData = data?.spirits;

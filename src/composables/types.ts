@@ -263,3 +263,10 @@ export type RollDiceResult = {
     results: number[];
     hits: number;
 }
+
+export type Contact = {
+    name: string;
+    rating: number;
+    loyalty: number;
+    type: string;
+}
