@@ -6,7 +6,7 @@ import {
     extractAttributeFromDrain,
     getActionSkills, getCommlink, getContacts,
     getGear,
-    getKnowledgeSkills,
+    getKnowledgeSkills, getLifestyles,
     getSpells,
     getSpirits,
     getVehicles,
@@ -20,7 +20,7 @@ import {
     type DamageMonitor,
     type Drain,
     EvadeType,
-    type Gear, type IdObject,
+    type Gear, type IdObject, type Lifestyle,
     type Movement,
     type Resistance, type SelectedItem,
     type SheetData,
@@ -65,6 +65,7 @@ export class Charakter {
     totalpublicawareness!: number;
     commlink: Commlink | null = null;
     contacts: Contact[] = [];
+    lifestyles : Lifestyle[] = [];
 
 
     sheet! : Sheet;
@@ -289,6 +290,7 @@ export class Charakter {
         this.gear = getGear(data);
         this.spells = getSpells(data);
         this.contacts = getContacts(data);
+        this.lifestyles = getLifestyles(data);
 
         this.commlink = getCommlink(data);
 

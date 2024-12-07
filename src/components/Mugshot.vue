@@ -103,6 +103,13 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
       </p>
     </div>
 
+    <div class="box contacts">
+      <div class="lower-header">Lebensstil</div>
+      <p v-for="lifestyle in char.lifestyles" :key="lifestyle.name">
+        {{ lifestyle.name }} (  {{ lifestyle.cost }} ¥ für {{ lifestyle.months }} Monate )
+      </p>
+    </div>
+
     <div class="box social">
       <div class="lower-header">Sozial</div>
     </div>

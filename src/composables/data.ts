@@ -4,7 +4,7 @@ import {
     type Commlink, type CommlinkMod, type Contact,
     type Gear,
     GearType,
-    type KarmaEntry,
+    type KarmaEntry, type Lifestyle,
     type NuyenEntry, type Program,
     type SelectedItem,
     type Skill, Spell, type WeaponMod,
@@ -109,6 +109,18 @@ function getContactFromContactData(data: any): Contact {
         rating: toInt(data.connection),
         loyalty: toInt(data.loyalty),
         type: data.type || 'Unknown',
+    }
+}
+export function getLifestyles(data: any): Array<Lifestyle> {
+    let lifestyles = data?.lifestyles;
+    lifestyles = Array.isArray(lifestyles) ? lifestyles : [];
+    return lifestyles.map((lifestyle: any) => getLifestyleFromLifestyleData(lifestyle));
+}
+function getLifestyleFromLifestyleData(data: any): Lifestyle {
+    return {
+        name: data.name || 'Unknown',
+        cost: toInt(data.cost),
+        months: toInt(data.months),
     }
 }
 export function getSpirits(data: any): Spirit[] | null {

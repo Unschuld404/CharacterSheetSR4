@@ -270,3 +270,9 @@ export type Contact = {
     loyalty: number;
     type: string;
 }
+
+export type Lifestyle = {
+    name: string;
+    cost: number;
+    months: number;
+}
