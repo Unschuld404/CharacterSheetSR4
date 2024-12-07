@@ -88,7 +88,11 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
     <div v-if="char.initiategrade > 0" class="box initiation">
       <div class="lower-header">Initiation</div>
-      <div class="line"><div>Initiationsgrad</div><div>{{char.initiategrade}}</div></div>
+      <div class="line"><div>Initiationsgrad {{char.initiategrade}}</div>
+        <p v-for="metamagic in char.metamagics" :key="metamagic">
+          {{ metamagic }}
+        </p>
+      </div>
     </div>
 
     <div class="box gifts">

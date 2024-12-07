@@ -68,6 +68,7 @@ export class Charakter {
     contacts: Contact[] = [];
     lifestyles : Lifestyle[] = [];
     armors: Armor[] = [];
+    metamagics: string[] = [];
 
 
     sheet! : Sheet;
@@ -179,6 +180,7 @@ export class Charakter {
         this.totalnotoriety = toInt(data?.totalnotoriety);
         this.totalpublicawareness = toInt(data?.totalpublicawareness);
         this.tradition = data?.tradition || 'unknown';
+        this.metamagics = (data?.metamagics || []).map((item: any) => item.name);
 
         this.armorValues = {
             impact : toInt(data?.armori),
