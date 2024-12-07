@@ -4,7 +4,7 @@ import {reactive} from "vue";
 import {
     data,
     extractAttributeFromDrain,
-    getActionSkills, getCommlink, getContacts,
+    getActionSkills, getArmors, getCommlink, getContacts,
     getGear,
     getKnowledgeSkills, getLifestyles,
     getSpells,
@@ -14,6 +14,7 @@ import {
 } from "@/composables/data";
 import {Sheet, sheet_data} from "@/composables/sheet";
 import {
+    type Armor,
     type ArmorValues,
     type Attributes,
     type CharInitiative, type Commlink, type Contact,
@@ -66,6 +67,7 @@ export class Charakter {
     commlink: Commlink | null = null;
     contacts: Contact[] = [];
     lifestyles : Lifestyle[] = [];
+    armors: Armor[] = [];
 
 
     sheet! : Sheet;
@@ -287,6 +289,7 @@ export class Charakter {
 
         this.vehicles = getVehicles(data);
         this.weapons = getWeapons(data);
+        this.armors = getArmors(data);
         this.gear = getGear(data);
         this.spells = getSpells(data);
         this.contacts = getContacts(data);

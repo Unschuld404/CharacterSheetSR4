@@ -1,5 +1,6 @@
 import {ref} from "vue";
 import {
+    type Armor, type ArmorMod, type ArmorValues,
     type AutoSoft,
     type Commlink, type CommlinkMod, type Contact,
     type Gear,
@@ -123,6 +124,36 @@ function getLifestyleFromLifestyleData(data: any): Lifestyle {
         months: toInt(data.months),
     }
 }
+export function getArmors(data: any): Array<Armor> {
+    let armors = data?.armors;
+    armors = Array.isArray(armors) ? armors : [];
+    return armors.map((armor: any) => getArmorFromArmorData(armor));
+}
+function getArmorFromArmorData(data: any): Armor {
+    return {
+        name: data.name || 'Unknown',
+        equipped: toBool(data.equipped),
+        values: getArmorValuesFromData(data),
+        mods: getArmorModsFromData(data),
+    }
+}
+function getArmorValuesFromData(data: any): ArmorValues {
+    return {
+        impact : toInt(data?.b),
+        ballistic : toInt(data?.i),
+    }
+}
+function getArmorModsFromData(data: any): ArmorMod[] {
+    let mods = data?.armormods ?? [];
+    mods = Array.isArray(mods) ? mods : [];
+    return mods.map((mod: any) => ({
+        name : mod.name || 'Unknown',
+        rating: toInt(mod.rating),
+        category: mod.category || '',
+        value: getArmorValuesFromData(mod),
+    }));
+}
+
 export function getSpirits(data: any): Spirit[] | null {
     const spiritData = data?.spirits;
 

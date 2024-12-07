@@ -72,6 +72,16 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
 
     </div>
 
+    <div class="box contacts">
+      <div class="lower-header">Rüstung</div>
+      <p v-for="armor in char.armors" :key="armor.name">
+        {{ armor.name }} ( {{ armor.values.ballistic }} / {{ armor.values.impact }}) <template v-if="armor.equipped"> - angelegt</template>
+        <ul>
+          <li v-for="mod in armor.mods"> {{ mod.name }}  ( {{ mod.rating }} )</li>
+        </ul>
+      </p>
+    </div>
+
     <div class="box cyberware">
       <div class="lower-header">Cyber- und Bioware</div>
     </div>

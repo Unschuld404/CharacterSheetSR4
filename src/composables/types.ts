@@ -127,6 +127,21 @@ export type ArmorValues = {
     ballistic: number;
     impact: number;
 }
+
+export type ArmorMod = {
+    name: string;
+    values: ArmorValues;
+    rating: number;
+    category: string;
+}
+
+export type Armor = {
+    name: string;
+    equipped: boolean;
+    values: ArmorValues;
+    mods: ArmorMod[];
+}
+
 export type Resistance = {
     ballistic: number;
     impact: number;
