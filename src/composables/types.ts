@@ -123,7 +123,7 @@ export type CharInitiative = InitiativeSections & {
     base: InitiativeSections;
 }
 
-export type Armor = {
+export type ArmorValues = {
     ballistic: number;
     impact: number;
 }

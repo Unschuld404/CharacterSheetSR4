@@ -14,7 +14,7 @@ import {
 } from "@/composables/data";
 import {Sheet, sheet_data} from "@/composables/sheet";
 import {
-    type Armor,
+    type ArmorValues,
     type Attributes,
     type CharInitiative, type Commlink, type Contact,
     type DamageMonitor,
@@ -43,7 +43,7 @@ export class Charakter {
     skin! : string;
     eyes! : string;
     hair! : string;
-    armor! : Armor;
+    armorValues! : ArmorValues;
     drain!: Drain;
     attributes!: Attributes;
     knowledgeSkills!: Skill[];
@@ -178,7 +178,7 @@ export class Charakter {
         this.totalpublicawareness = toInt(data?.totalpublicawareness);
         this.tradition = data?.tradition || 'unknown';
 
-        this.armor = {
+        this.armorValues = {
             impact : toInt(data?.armori),
             ballistic : toInt(data?.armorb),
         }
@@ -350,8 +350,8 @@ export class Charakter {
 
     get resist(): Resistance {
         return {
-            ballistic: this.armor.ballistic + this.attributes.body.total,
-            impact: this.armor.impact + this.attributes.body.total,
+            ballistic: this.armorValues.ballistic + this.attributes.body.total,
+            impact: this.armorValues.impact + this.attributes.body.total,
             mana: this.attributes.willpower.total,
             physical: this.attributes.body.total,
             drain: this.drain.total,

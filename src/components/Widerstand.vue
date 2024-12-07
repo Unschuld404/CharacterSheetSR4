@@ -17,7 +17,7 @@ import {char} from "@/composables/char";
                 value: char.resist.ballistic,
                 values: [
                     {name: 'Konstitution', value: char.attributes.body.total},
-                    {name: 'Rüstung', value: char.armor.ballistic
+                    {name: 'Rüstung', value: char.armorValues.ballistic
                     },
                     ]
               }
@@ -33,7 +33,7 @@ import {char} from "@/composables/char";
                 value: char.resist.impact,
                 values: [
                     {name: 'Konstitution', value: char.attributes.body.total},
-                    {name: 'Rüstung', value: char.armor.impact
+                    {name: 'Rüstung', value: char.armorValues.impact
                     },
                     ]
               }
