@@ -249,15 +249,6 @@ strong {
   height: 5vh;
 }
 
-.bx-chevron-down {
-  color: var(--accent-color);
-  font-weight: bold;
-  font-size: 5vh;
-  position: absolute;
-  top: 80vh;
-  align-self: center;
-}
-
 .row {
   justify-content: space-between;
 }
