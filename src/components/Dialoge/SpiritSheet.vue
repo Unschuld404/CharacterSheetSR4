@@ -7,7 +7,6 @@ import {char} from "@/composables/char";
 import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
 import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
 import SpiritPowerInfo from "@/components/Dialoge/SpiritPowerInfo.vue";
-import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
