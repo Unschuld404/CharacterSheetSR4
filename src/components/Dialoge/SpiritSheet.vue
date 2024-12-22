@@ -7,7 +7,6 @@ import {char} from "@/composables/char";
 import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
 import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
 import SpiritPowerInfo from "@/components/Dialoge/SpiritPowerInfo.vue";
-import SpiritSchadensmonitor from "@/components/SpiritSchadensmonitor.vue";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
@@ -248,15 +247,6 @@ strong {
 
 .item {
   height: 5vh;
-}
-
-.bx-chevron-down {
-  color: var(--accent-color);
-  font-weight: bold;
-  font-size: 5vh;
-  position: absolute;
-  top: 80vh;
-  align-self: center;
 }
 
 .row {

@@ -27,6 +27,7 @@ function toggleSelection(item: Weapon): void
       <li v-for="weapon in char.weapons" :key="weapon.name">
 
         <div v-if="!weapon.isMelee" class="box" @click="DialogWeapon.setWeapon(weapon).show()">
+          <div class="upper-header">Fernkampfwaffe</div>
          <div class="item column">
            <div class="header row">
              <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
@@ -58,6 +59,7 @@ function toggleSelection(item: Weapon): void
                       ]
                 }
                 ).show()">
+          <div class="upper-header">Nahkampfwaffe</div>
           <div class="item column">
             <div class="header row">
               <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">

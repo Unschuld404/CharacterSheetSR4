@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {char} from "@/composables/char";
-import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/composables/dialogs";
+import {DialogChangeKarma, DialogEdgeDiceResult} from "@/composables/dialogs";
 </script>
 
 <template>
@@ -30,50 +30,50 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
     <div class="row">
 
       <div class="box column">
-          <div class="lower-header">KON</div>
+          <div class="upper-header">KON</div>
           <strong>{{ char.attributes.body.total }}</strong>
         </div>
       <div class="box column">
-        <div class="lower-header">GES</div>
+        <div class="upper-header">GES</div>
         <strong>{{ char.attributes.agility.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">REA</div>
+        <div class="upper-header">REA</div>
         <strong>{{ char.attributes.reaction.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">STR</div>
+        <div class="upper-header">STR</div>
         <strong>{{ char.attributes.strength.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">CHA</div>
+        <div class="upper-header">CHA</div>
         <strong>{{ char.attributes.charisma.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">INT</div>
+        <div class="upper-header">INT</div>
         <strong>{{ char.attributes.intuition.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">LOG</div>
+        <div class="upper-header">LOG</div>
         <strong>{{ char.attributes.logic.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">WIL</div>
+        <div class="upper-header">WIL</div>
         <strong>{{ char.attributes.willpower.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">EDG</div>
+        <div class="upper-header">EDG</div>
         <strong>{{ char.attributes.edge.total }}</strong>
       </div>
       <div class="box column">
-        <div class="lower-header">MAG</div>
+        <div class="upper-header">MAG</div>
         <strong>{{ char.attributes.magic.total }}</strong>
       </div>
 
     </div>
 
     <div class="box contacts">
-      <div class="lower-header">Rüstung</div>
+      <div class="upper-header">Rüstung</div>
       <p v-for="armor in char.armors" :key="armor.name">
         {{ armor.name }} ( {{ armor.values.ballistic }} / {{ armor.values.impact }}) <template v-if="armor.equipped"> - angelegt</template>
         <ul>
@@ -83,11 +83,11 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
     </div>
 
     <div class="box cyberware">
-      <div class="lower-header">Cyber- und Bioware</div>
+      <div class="upper-header">Cyber- und Bioware</div>
     </div>
 
     <div v-if="char.initiategrade > 0" class="box initiation">
-      <div class="lower-header">Initiation</div>
+      <div class="upper-header">Initiation</div>
       <div class="line"><div>Initiationsgrad {{char.initiategrade}}</div>
         <p v-for="metamagic in char.metamagics" :key="metamagic">
           {{ metamagic }}
@@ -96,70 +96,70 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
     </div>
 
     <div class="box gifts">
-      <div class="lower-header">Gaben</div>
+      <div class="upper-header">Gaben</div>
       <p v-for="trait in char.traits">
         {{ trait }}
       </p>
     </div>
 
     <div class="box handicaps">
-      <div class="lower-header">Nachteile</div>
+      <div class="upper-header">Nachteile</div>
       <p v-for="flaw in char.flaws">
         {{ flaw }}
       </p>
     </div>
 
     <div class="box karma">
-      <div class="lower-header">Karma</div>
+      <div class="upper-header">Karma</div>
       <button class="confirm" @click="DialogChangeKarma.show">Karma hinzufügen</button>
       <div class="line" style="border-bottom: none"><div>Gesamt</div><div>8</div></div>
       <div class="line" style="border-bottom: none"><div>Aktuell</div><div>4</div></div>
     </div>
 
     <div class="box contacts">
-      <div class="lower-header">Kontakte</div>
+      <div class="upper-header">Kontakte</div>
       <p v-for="contact in char.contacts" :key="contact.name">
           {{ contact.name }} ( {{ contact.rating }} )
       </p>
     </div>
 
     <div class="box contacts">
-      <div class="lower-header">Lebensstil</div>
+      <div class="upper-header">Lebensstil</div>
       <p v-for="lifestyle in char.lifestyles" :key="lifestyle.name">
         {{ lifestyle.name }} (  {{ lifestyle.cost }} ¥ für {{ lifestyle.months }} Monate )
       </p>
     </div>
 
     <div class="box social">
-      <div class="lower-header">Sozial</div>
+      <div class="upper-header">Sozial</div>
     </div>
 
     <div class="box description">
       <p>
         {{char.description}}
       </p>
-      <div class="lower-header">Beschreibung</div>
+      <div class="upper-header">Beschreibung</div>
     </div>
 
     <div class="box background">
       <p>
         {{char.background}}
       </p>
-      <div class="lower-header">Hintergrund</div>
+      <div class="upper-header">Hintergrund</div>
     </div>
 
     <div class="box concept">
       <p>
         {{char.concept}}
       </p>
-      <div class="lower-header">Konzept</div>
+      <div class="upper-header">Konzept</div>
     </div>
 
     <div class="box notes">
       <p>
         {{char.notes}}}
       </p>
-      <div class="lower-header">Notizen</div>
+      <div class="upper-header">Notizen</div>
     </div>
 
 
@@ -187,6 +187,11 @@ import {DialogChangeKarma, DialogDiceResult, DialogEdgeDiceResult} from "@/compo
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
 }
 
 </style>

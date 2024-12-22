@@ -62,16 +62,12 @@ function toggleSkill(value: string)
 
       </li>
     </ul>
-    <div class="lower-header">Aktionsfertigkeiten</div>
+    <div class="upper-header">Aktionsfertigkeiten</div>
   </div>
 
 </template>
 
 <style scoped>
-
-.box {
-  padding-bottom: 30px;
-}
 
 .item {
   padding-left: 5vh;

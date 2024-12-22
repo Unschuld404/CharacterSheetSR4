@@ -50,7 +50,9 @@ const choose = (type: SpiritType) => {
 
       </div>
 
-      <button class="confirm" @click="DialogAddSpirit.commit()">Hinzufügen</button>
+      <div class="row">
+        <button class="confirm" @click="DialogAddSpirit.commit()">Hinzufügen</button>
+      </div>
     </div>
   </div>
 </template>
@@ -59,19 +61,19 @@ const choose = (type: SpiritType) => {
 
 .modal-content-choose {
   width: 55vh;
-  height: 75vh;
+  max-height: 65vh;
   z-index: 1001;
 }
 
 .column-choose {
   margin-top: 1vh;
-  height: 100%;
   justify-content: space-evenly;
 }
 
 .modal-content {
   width: 50vh;
-  height: 45vh;
+  max-height: 65vh;
+  overflow: scroll;
   z-index: 1001;
 }
 
@@ -90,6 +92,7 @@ const choose = (type: SpiritType) => {
   font-size: 4vh;
   align-items: center;
   gap: 2vh;
+  justify-content: center;
 }
 
 .value {
@@ -105,7 +108,7 @@ const choose = (type: SpiritType) => {
 .type {
   appearance: none;
   text-align: center;
-  font-size: 3vw;
+  font-size: 3vh;
   color: var(--accent-color);
   line-height: 7vh;
   background-color: var(--background-color);
@@ -117,6 +120,10 @@ const choose = (type: SpiritType) => {
 .box {
   padding-left: 3vh;
   padding-right: 3vh;
+}
+
+.confirm {
+  margin-bottom: 2vh;
 }
 
 </style>

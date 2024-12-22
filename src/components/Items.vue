@@ -6,28 +6,26 @@ import {GearType} from "@/composables/types";
 <template>
 
   <div class="box">
-
+    <div class="upper-header">Gegenstände</div>
     <template v-for="item in char.gear">
       <div class="item" v-if="item.type!==GearType.Commlink && item.type!==GearType.Program">
-      <strong class="row">
+        <strong class="row">
 
-          <template v-if="item.count!=1||item.type==GearType.Ammo">
-            {{item.count}} -
-          </template>
+            <template v-if="item.count!=1||item.type==GearType.Ammo">
+              {{item.count}} -
+            </template>
 
-          {{item.name}}
+            {{item.name}}
 
-          <template v-if="item.rating > 1">
-            ({{item.rating}})
-          </template>
-      </strong>
-      <div class="row caption">
-        {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
-      </div>
+            <template v-if="item.rating > 1">
+              ({{item.rating}})
+            </template>
+        </strong>
+        <div class="row caption">
+          {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
+        </div>
     </div>
     </template>
-
-    <div class="lower-header">Inventar</div>
 
   </div>
 
