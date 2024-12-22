@@ -51,6 +51,10 @@
     text-align: center;
 }
 
+.bxs-cog {
+    font-size: 1rem;
+}
+
 .item {
     border-bottom: 1px solid var(--background-color);
     display: flex;

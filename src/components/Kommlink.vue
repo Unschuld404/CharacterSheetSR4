@@ -45,4 +45,8 @@ const commlink = computed(()=>{
   justify-content: space-around;
 }
 
+.header {
+  text-align: center;
+}
+
 </style>

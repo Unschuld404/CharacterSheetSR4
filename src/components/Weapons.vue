@@ -23,15 +23,16 @@ function toggleSelection(item: Weapon): void
 </script>
 
 <template>
+  <div class="box">
+    <div class="upper-header">Waffen</div>
   <ul>
-      <li v-for="weapon in char.weapons" :key="weapon.name">
+      <li v-for="weapon in char.weapons" :key="weapon.name" class="item">
 
-        <div v-if="!weapon.isMelee" class="box" @click="DialogWeapon.setWeapon(weapon).show()">
-          <div class="upper-header">Fernkampfwaffe</div>
+        <div v-if="!weapon.isMelee" @click="DialogWeapon.setWeapon(weapon).show()">
          <div class="item column">
-           <div class="header row">
+           <div class="row">
              <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
-             <div>{{ weapon.name }}</div>
+             <div class="header">{{ weapon.name }}</div>
            </div>
 
            <div class="row">
@@ -49,7 +50,7 @@ function toggleSelection(item: Weapon): void
          </div>
         </div>
 
-        <div v-else class="box" @click="DialogRollDice.setValues(
+        <div v-else @click="DialogRollDice.setValues(
                 {
                   name: weapon.name,
                   value: toInt(weapon.dicepool),
@@ -59,11 +60,10 @@ function toggleSelection(item: Weapon): void
                       ]
                 }
                 ).show()">
-          <div class="upper-header">Nahkampfwaffe</div>
-          <div class="item column">
-            <div class="header row">
+          <div class="column">
+            <div class="row">
               <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
-              <div>{{ weapon.name }}</div>
+              <div class="header">{{ weapon.name }}</div>
             </div>
 
             <div class="row">
@@ -78,6 +78,7 @@ function toggleSelection(item: Weapon): void
         </div>
       </li>
     </ul>
+  </div>
 </template>
 
 <style scoped>
@@ -88,10 +89,6 @@ function toggleSelection(item: Weapon): void
 
 .damage-code {
   width: 40vw;
-}
-
-li {
-  margin-bottom: 1vh;
 }
 
 li:last-child {

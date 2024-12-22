@@ -29,6 +29,8 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
   <div class="box">
 
+    <div class="upper-header">Aktionen <i class='bx bxs-cog'></i></div>
+
     <div>
 
       <div v-for="spell in spells" class="item" >
@@ -64,8 +66,6 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
       </div>
 
     </div>
-
-    <div class="upper-header">Aktionen</div>
 
   </div>
 

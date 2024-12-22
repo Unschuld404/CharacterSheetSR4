@@ -32,6 +32,7 @@ const skills = computed(() => {
 
   <div class="box">
 
+    <div class="upper-header">Fähigkeiten <i class='bx bxs-cog'></i></div>
     <div>
       <div class="item" v-for="skill in skills" :key="skill.name">
 
@@ -57,8 +58,6 @@ const skills = computed(() => {
 
       </div>
     </div>
-
-    <div class="upper-header">Fähigkeiten</div>
 
   </div>
 

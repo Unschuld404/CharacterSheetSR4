@@ -25,22 +25,24 @@ function toggleSelection(item: Spirit): void
 <template>
 
   <div class="column">
-    <ul>
-      <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()">
-        <div class="box">
-          <div class="row">
-            <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spirit)" @change="toggleSelection(spirit)">
-            <div  class="header">{{ spirit.caption }} ( {{ spirit.force }} )</div>
+    <div class="box">
+      <div>
+        <div class="upper-header">Geister <i class='bx bxs-cog' @click="DialogAddSpirit.show()"></i></div>
+      </div>
+      <ul>
+        <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()" class="item">
+          <div class="column">
+            <div class="row">
+              <div  class="header">{{ spirit.caption }} ( {{ spirit.force }} )</div>
+            </div>
+            <div class="row">
+              <div>Dienste: {{ spirit.services }}</div>
+              <div class="bound">{{ spirit.bound ? 'Gebunden' : 'Ungebunden' }}</div>
+            </div>
           </div>
-          <div class="row">
-            <div>Dienste: {{ spirit.services }}</div>
-            <div class="bound">{{ spirit.bound ? 'Gebunden' : 'Ungebunden' }}</div>
-          </div>
-        </div>
-      </li>
-    </ul>
-
-    <button @click="DialogAddSpirit.show()"><i class='bx bxs-ghost'></i></button>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </template>

@@ -30,19 +30,19 @@ function toggleSelection(item: Vehicle): void
           <div class="header">{{ vehicle.name }} </div>
         </div>
 
-        <div class="spacer" v-if="vehicle.weapons.length">
+        <div class="item" v-if="vehicle.weapons.length">
           <div v-for="weapon in vehicle.weapons">
             {{ weapon.name }}
           </div>
         </div>
 
-        <div class="spacer" v-if="vehicle.sensors.length">
+        <div class="item" v-if="vehicle.sensors.length">
           <div v-for="sensor in vehicle.sensors">
             {{ sensor.name }} ({{ sensor.rating }})
           </div>
         </div>
 
-        <div class="spacer" v-if="vehicle.mods.length">
+        <div class="item" v-if="vehicle.mods.length">
           <div v-for="mod in vehicle.mods">
             {{ mod.name }}
           </div>
@@ -57,27 +57,11 @@ function toggleSelection(item: Vehicle): void
 <style scoped>
 
 li {
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
 }
 
-li:last-of-type {
-  margin-bottom: 0;
-}
-
-.spacer {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-  border-bottom: 1px solid var(--background-color)
-}
-
-.spacer:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
+.box {
+  padding-top: 1vh;
 }
 
 </style>

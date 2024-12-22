@@ -10,7 +10,6 @@ import {DialogChangeKarma, DialogEdgeDiceResult} from "@/composables/dialogs";
 
     <div class="box chummer">
       <h1>{{ char.name }}</h1>
-      <img src="../assets/Kaya_1zu1.png" alt="Kaya Mugshot" style="width:100% ; min-height: 100%; object-fit: cover" @click="DialogEdgeDiceResult.show">
     </div>
 
     <div class="box appearance">
