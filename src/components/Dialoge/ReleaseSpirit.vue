@@ -20,7 +20,7 @@ function cancel(): void
 <template>
 
   <div class="overlay" @click.self="cancel()">
-    <div class="modal-content" @click.stop>
+    <div class="dialog-box" @click.stop>
       <h1>Geist entfernen</h1>
       <p>Löst diesen Geist von dir.</p>
       <p>Alle noch vorhandenen Dienste verschwinden und der Geist wird aus deiner Liste entfernt.</p>
@@ -45,10 +45,8 @@ p {
   background-color: transparent;
 }
 
-.modal-content{
-  width: 50vh;
-  height: 25vh;
-  z-index: 6001;
+.dialog-box {
+  padding-top: 2vh;
 }
 
 .overlay {

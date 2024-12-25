@@ -49,7 +49,7 @@ function toggleSelection(item: string) {
 <template>
 
     <div class="overlay" @click.self="cancel">
-      <div class="modal-content" @click.stop>
+      <div class="dialog-box" @click.stop>
 
         <ul class="selection-list">
           <li
@@ -80,8 +80,9 @@ function toggleSelection(item: string) {
 
 ul {
   list-style-type: none;
+  width: 90%;
   padding: 0;
-  margin: 0;
+  margin: 0 auto 0 auto;
 }
 
 .selection-list li {
@@ -106,22 +107,12 @@ ul {
   font-weight: bold;
 }
 
-.modal-content{
-  width: 50vh;
-  z-index: 6001;
+.overlay {
+  z-index: 6000;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 6000;
+.confirm {
+  background-color: transparent;
 }
 
 </style>

@@ -10,7 +10,7 @@ import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
 import DiceResult from "@/components/Dialoge/DiceResult.vue";
 import RangedWeapons from "@/components/Dialoge/RangedWeapon.vue";
-import ManageSpiritEdge from "@/components/Dialoge/ManageSpiritEdge.vue";
+import ChangeSpiritEdge from "@/components/Dialoge/ChangeSpiritEdge.vue";
 import EdgeDiceResult from "@/components/Dialoge/EdgeDiceResult.vue";
 import CommlinkSheet from "@/components/Dialoge/CommlinkSheet.vue";
 import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
@@ -32,7 +32,7 @@ import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
   <RangedWeapons/>
   <DiceResult/>
   <EdgeDiceResult/>
-  <ManageSpiritEdge/>
+  <ChangeSpiritEdge/>
   <CommlinkSheet/>
   <VehicleSheet/>
 

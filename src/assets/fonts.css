@@ -8,6 +8,7 @@ strong {
 
 h1 {
     text-align: center;
+    font-size: 7dvw;
 }
 
 .name {
@@ -43,7 +44,7 @@ h1 {
     box-sizing: border-box;
     top: 0.5dvh;
     left: 2dvw;
-    width: 100%;
+    width: 90%;
     font-size: 1.2rem;
     font-weight: bold;
 }

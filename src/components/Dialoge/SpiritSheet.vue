@@ -4,7 +4,7 @@ import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
 import {char} from "@/composables/char";
-import ChooseSpiritPowers from "@/components/Dialoge/ChooseSpiritPowers.vue";
+import ChangeSpiritPowers from "@/components/Dialoge/ChangeSpiritPowers.vue";
 import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
 import SpiritPowerInfo from "@/components/Dialoge/SpiritPowerInfo.vue";
 
@@ -62,17 +62,19 @@ function onCancelPowersDialog() {
 <template>
 
   <ReleaseSpirit v-if="releaseDialogVisible" @confirm="onConfirmReleaseDialog" @cancel="onCancelReleaseDialog"/>
-  <ChooseSpiritPowers v-if="powersDialogVisible" :count="spirit.maxOptionalPowersCount" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
+  <ChangeSpiritPowers v-if="powersDialogVisible" :count="spirit.maxOptionalPowersCount" :type="spirit.type" @confirm:selectedItems="onConfirmPowersDialog" @cancel="onCancelPowersDialog"/>
   <SpiritPowerInfo v-if="DialogSpiritPowerInfo.visible"/>
 
-  <div v-if="DialogSpiritSheet.visible" class="overlay" @click="DialogSpiritSheet.hide">
-    <div class="popup dialog-box" @click.stop>
-
-      <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
+  <div v-if="DialogSpiritSheet.visible" class="overlay">
+    <div class="sheet" @click.stop>
+      <div class="sheet-header">
+        <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
+        <button class="close" @click="DialogSpiritSheet.hide"><i class='bx bx-x'></i></button>
+        <button class="release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></button>
+      </div>
       <div class="row">
         <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
         <div class="formula" @click="DialogManageSpiritEdge.show">{{spirit.edge}} Edge</div>
-        <div class="dice" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></div>
       </div>
 
         <div class="toggle">
@@ -206,10 +208,6 @@ function onCancelPowersDialog() {
 
 <style scoped>
 
-strong {
-  padding-right: 1vh;
-}
-
 .mode {
   height: 8vh;
 }
@@ -233,10 +231,24 @@ strong {
 }
 
 .toggle {
-  border: 1px solid var(--font-color);
+  border: 1px solid var(--primary-color);
   border-radius: 1vh;
   width: 95%;
-  margin-top: 1vh;
+  margin: 2dvh auto 0 auto;
+}
+
+.release {
+  position: absolute;
+  top: 2dvw;
+  right: 2dvw;
+  width: 10dvw;
+  height: 10dvw;
+  padding: 0;
+  margin: 0;
+  font-size: 10dvw;
+  line-height: 5vh;
+  color: var(--accent-color);
+  background-color: var(--background-color);
 }
 
 </style>/

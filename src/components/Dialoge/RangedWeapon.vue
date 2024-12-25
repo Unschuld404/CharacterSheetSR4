@@ -4,7 +4,7 @@ import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {getModeModifier, getRangeModifierForRange, shootingMode} from "@/composables/weapons";
 import {toInt} from "@/composables/utils";
-import ChooseAmmo from "@/components/Dialoge/ChooseAmmo.vue";
+import ChangeAmmo from "@/components/Dialoge/ChangeAmmo.vue";
 import {char} from "@/composables/char";
 
 
@@ -68,7 +68,7 @@ function shoot()
 
 <template>
 
-  <ChooseAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
+  <ChangeAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
 
   <div v-if="DialogWeapon.visible" class="overlay" @click="DialogWeapon.hide">
     <div class="sheet" @click.stop>
@@ -196,6 +196,7 @@ function shoot()
 ::v-deep(.radio_label) {
   height: 5vh;
   border-radius: 1dvh;
+  border: 1px solid var(--primary-color);
 }
 
 .column {

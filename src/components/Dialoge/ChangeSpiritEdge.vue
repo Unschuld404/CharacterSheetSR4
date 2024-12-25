@@ -16,8 +16,8 @@ function substract()
 
 <template>
 
-  <div v-if="DialogManageSpiritEdge.visible" class="modal-overlay" @click="DialogManageSpiritEdge.hide">
-    <div class="modal-content" @click.stop>
+  <div v-if="DialogManageSpiritEdge.visible" class="overlay" @click="DialogManageSpiritEdge.hide">
+    <div class="dialog-box" @click.stop>
 
       <h1>Edge</h1>
       <div class="row">
@@ -37,6 +37,10 @@ function substract()
 
 <style scoped>
 
+.confirm {
+  background-color: transparent;
+}
+
 .mutator {
   width: 7vh;
   height: 7vh;
@@ -54,16 +58,6 @@ function substract()
   font-weight: normal;
   margin-left: 1vh;
   padding-top: 3vh;
-}
-
-.modal-overlay {
-  z-index: 3000;
-}
-
-.modal-content{
-  width: 40vh;
-  height: 30vh;
-  z-index: 3001;
 }
 
 h1 {

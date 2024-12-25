@@ -58,7 +58,7 @@ function setSelection(item: Gear) {
 <template>
 
     <div class="overlay" @click.self="cancel">
-      <div class="modal-content" @click.stop>
+      <div class="dialog-box" @click.stop>
 
         <div v-if="sizeSelection.length > 1" class="size">
           <RadioButtons :options="sizeSelection" model-value="selectedSize" />
@@ -101,18 +101,21 @@ function setSelection(item: Gear) {
 ul {
   list-style-type: none;
   max-height: 70vh;
+  width: 90%;
   padding: 0;
   margin: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .selection-list li {
   padding: 10px;
   cursor: pointer;
-  border: none;
   border-radius: 1vh;
+  border: 1px solid var(--primary-color);
   margin-bottom: 2vh;
   text-align: center;
-  font-size: 3vh;
+  font-size: 6dvw;
   background-color: var(--background-color);
   color: var(--accent-color);
 }
@@ -127,13 +130,6 @@ ul {
   font-weight: bold;
 }
 
-.modal-content{
-  width: 60vh;
-  max-height: 80vh;
-  z-index: 6001;
-  padding-bottom: 6vh;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -145,6 +141,14 @@ ul {
   align-items: center;
   justify-content: center;
   z-index: 6000;
+}
+
+.confirm {
+  background-color: transparent;
+}
+
+.dialog-box {
+  width: 95dvw;
 }
 
 </style>
