@@ -13,16 +13,11 @@ const commlink = computed(()=>{
 
 <template>
 
-  <div v-if="DialogCommlink.visible && char.commlink" class="modal-overlay" @click="DialogCommlink.hide">
-
-      <div class="modal-content" @click.stop>
-
-      <div class="commlink-header">
-        <h1>{{ char.commlink.name}}</h1>
-        <div v-for="mod in char.commlink.mods">{{ mod.name }}</div>
-      </div>
-
-      <div class="row stats">
+  <div v-if="DialogCommlink.visible && char.commlink" class="overlay" @click="DialogCommlink.hide">
+    <div class="popup box" @click.stop>
+      <h1>{{ char.commlink.name}}</h1>
+      <div v-for="mod in char.commlink.mods">{{ mod.name }}</div>
+      <div class="row">
         <div v-if="char.commlink.system > 0" class="value">
           <strong>{{ char.commlink.system}}</strong>
           <div>System</div>
@@ -40,59 +35,43 @@ const commlink = computed(()=>{
           <div>Signal</div>
         </div>
       </div>
-
+      <strong v-if="char.commlink.programs.length != 0">Programme</strong>
       <template v-for="item in char.commlink.programs">
         <div class="item">
-          <div class="column">
-            <div class="header">
-              {{item.name}}
-              <template v-if="item.rating > 1">
-                ({{item.rating}})
-              </template>
-            </div>
-            <div v-if="item.extra">{{ item.extra }}</div>
-          </div>
+          {{item.name}}
+          <template v-if="item.rating > 1">
+            ({{item.rating}})
+          </template>
         </div>
       </template>
-
+      <strong v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
       <template v-for="item in char.commlink.autosofts">
         <div class="item">
           <div class="column">
-            <div class="header">
-              {{item.name}}
-              <template v-if="item.rating > 1">
-                ({{item.rating}})
-              </template>
-            </div>
+            {{item.name}}
+            <template v-if="item.rating > 1">
+              ({{item.rating}})
+            </template>
             <div v-if="item.extra"> {{ item.extra }}</div>
-            <i class='bx bx-transfer-alt'></i>
           </div>
+          <i class='bx bx-transfer-alt'></i>
         </div>
       </template>
-
     </div>
-
-      <i class='bx bx-chevron-down'></i>
-
   </div>
 
 </template>
 
 <style scoped>
 
-.commlink-header {
-  text-align: center;
-}
-
-.stats {
-  border-bottom: 2px solid var(--background-color);
+strong {
+  margin-top: 2dvh;
+  border-bottom: 1px solid var(--background-color);
+  width: 100%;
 }
 
 .row {
-  width: 100%;
   justify-content: space-between;
-  margin-top: 2vh;
-  padding-bottom: 2vh;
 }
 
 .value {
@@ -104,21 +83,10 @@ const commlink = computed(()=>{
 .bx-transfer-alt {
   color: var(--accent-color);
   font-weight: bold;
-  font-size: 5vh;
+  font-size: 3dvh;
   position: absolute;
   right: 0;
   align-self: center;
-}
-
-.modal-overlay {
-  z-index: 3000;
-}
-
-.modal-content{
-  width: 90vw;
-  max-height: 80%;
-  overflow: scroll;
-  z-index: 3001;
 }
 
 </style>/

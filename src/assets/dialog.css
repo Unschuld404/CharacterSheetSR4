@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     width: 95dvw;
-    max-height: 90dvh;
+    max-height: 80dvh;
     overflow: scroll;
     padding-bottom: 1dvh;
 }

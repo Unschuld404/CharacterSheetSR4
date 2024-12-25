@@ -70,10 +70,9 @@ function shoot()
 
   <ChooseAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
 
-  <div v-if="DialogWeapon.visible" class="modal-overlay" @click="DialogWeapon.hide">
-    <div class="modal-content" @click.stop>
-      <h1>{{ weapon.name }}</h1>
-      <div class="column">
+  <div v-if="DialogWeapon.visible" class="overlay" @click="DialogWeapon.hide">
+    <div class="popup box" @click.stop>
+      <div class="upper-header">{{ weapon.name }}</div>
         <div class="item">
           <div>Schaden</div>
           <div>{{ weapon.damage }}</div>
@@ -90,15 +89,14 @@ function shoot()
           <div>Rückstoßkompensation</div>
           <div>{{ weapon.rc }}</div>
         </div>
-        <div v-if="weapon.mods.length > 0">
+        <template v-if="weapon.mods.length > 0">
           <div v-for="mod in weapon.mods" class="item">
             {{ mod.name }}
             <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
             <template v-if="mod.rc != 0">- RC: ( {{ mod.rc }} )</template>
           </div>
-        </div>
-      </div>
-      <div class="row">
+        </template>
+      <div class="row gap">
         <div class="column">
           <strong>Distanz-Mod</strong>
           <div>{{ rangeModifier }}</div>
@@ -155,11 +153,15 @@ function shoot()
 
 button {
   height: 6vh;
-  font-size: 4vw;
+  font-size: 4dvw;
   font-weight: bold;
-  padding-left: 3vw;
-  padding-right: 3vw;
+  padding-left: 2dvw;
+  padding-right: 2dvw;
   margin-top: 1vh;
+}
+
+.gap {
+  margin-top: 2dvh;
 }
 
 .ammo {
@@ -172,36 +174,20 @@ button {
   border-bottom: 1px solid var(--font-color);
 }
 
-.item:last-child {
-  margin-bottom: 2vh;
-  border-bottom: none;
-}
-
-.modal-overlay {
-  z-index: 2000;
-  background-color: var(--background-color);
-}
-
-.modal-content {
-  background-color: transparent;
-  border: none;
-  z-index: 2001;
-  max-height: 75vh;
-  overflow: scroll;
-}
-
 ::v-deep(.radio) {
   flex-direction: column;
-  border: 1px solid var(--font-color);
   width: 44vw;
+  gap: 1dvh;
 }
 
 ::v-deep(.radio_label) {
   height: 5vh;
+  border-radius: 1dvh;
 }
 
 .column {
   gap: 1vh;
+  align-items: center;
 }
 
 .row {

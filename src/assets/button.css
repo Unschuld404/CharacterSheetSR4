@@ -6,14 +6,13 @@ button {
     position: relative;
     background-color: var(--background-color);
     color: var(--accent-color);
-    border: 1px solid var(--font-color);
+    border: none;
     border-radius: 10px;
 }
 
 .dice {
     font-weight: bold;
     font-size: 3dvh;
-    border: none;
     text-align: center;
     align-content: center;
     border-radius: 0.5dvh;
@@ -42,7 +41,6 @@ button {
     border-radius: 10px;
     margin-top: 1dvh;
     padding: 0 2dvw 0 2dvw;
-    border: none;
     height: 8dvh;
     font-size: 3dvh;
     font-weight: bold;

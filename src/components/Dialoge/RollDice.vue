@@ -46,6 +46,10 @@
 
 <style scoped>
 
+.overlay {
+  z-index: 100000;
+}
+
 i {
   height: 10dvh;
   font-size: 8.5dvh;
@@ -60,6 +64,7 @@ i {
 
 .line {
   margin-top: 2vh;
+  text-align: center;
 }
 
 </style>/
