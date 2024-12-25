@@ -27,20 +27,14 @@ function spend()
 
 <template>
 
-  <div v-if="DialogChangeNuyen.visible" class="modal-overlay" @click="DialogChangeNuyen.hide">
-    <div class="modal-content" @click.stop>
-
-      <h1>Nuyen</h1>
-      <div class="row">
-        <input v-model="nuyen" type="number" placeholder="Summe" autofocus style="-moz-appearance: textfield">
-        <p>¥</p>
-      </div>
-      <div class="row">
+  <div v-if="DialogChangeNuyen.visible" class="overlay" @click="DialogChangeNuyen.hide">
+    <div class="popup box" @click.stop>
+      <div class="upper-header">Nuyen</div>
+        <input v-model="nuyen" type="number" placeholder="Summe ¥" autofocus style="-moz-appearance: textfield">
         <input v-model="reason" type="text" placeholder="Grund">
-      </div>
       <div class="row">
-        <button @click="spend()">Ausgeben</button>
-        <button @click="add()">Einnahmen</button>
+        <button class="confirm" @click="spend()">Ausgeben</button>
+        <button class="confirm" @click="add()">Einnahmen</button>
       </div>
 
     </div>
@@ -50,62 +44,10 @@ function spend()
 
 <style scoped>
 
-.modal-overlay {
-  z-index: 2000;
-}
-
-.modal-content{
-  width: 90vw;
-  height: 40vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 2001;
-}
-
-h1 {
-  font-weight: normal;
-}
-
-p {
-  font-size: 4vh;
-  position: absolute;
-  top: 1.4vh;
-  right: 3vh;
-}
-
-input {
-  margin-top: 0;
-  width: 90%;
-  color: var(--font-color);
-  caret-color: var(--font-color);
-  text-transform: none;
-}
-
-input::placeholder {
-  text-transform: uppercase;
-}
-
-input::placeholder {
-  font-size: 4vh;
-  font-weight: normal;
-}
-
-button {
-  border: none;
-  border-radius: 0.5vh;
-  background-color: var(--background-color);
-  width: 90%;
-  height: 8vh;
-  font-size: 4vh;
-  color: var(--accent-color);
-  position: relative;
-}
-
 .row {
-  justify-content: space-evenly;
-  gap: 2.5vh;
-  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  gap: 2dvw;
 }
 
 </style>/

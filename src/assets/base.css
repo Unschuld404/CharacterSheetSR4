@@ -12,6 +12,7 @@
   font-family: "Rajdhani", sans-serif;
   text-transform: uppercase;
   user-select: none;
+  -webkit-tap-highlight-color: transparent; /* Keine Hervorhebung */
 }
 
 html {

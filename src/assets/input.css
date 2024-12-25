@@ -9,3 +9,22 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
     appearance: none;
 }
+
+input {
+    margin-top: 0;
+    margin-bottom: 2dvh;
+    color: var(--font-color);
+    caret-color: var(--font-color);
+    text-transform: none;
+    text-align: center;
+    width: 100%;
+}
+
+input::placeholder {
+    text-transform: uppercase;
+}
+
+input::placeholder {
+    font-size: 4vh;
+    font-weight: normal;
+}

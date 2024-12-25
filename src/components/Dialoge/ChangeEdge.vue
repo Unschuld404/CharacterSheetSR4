@@ -21,10 +21,9 @@
 
 <template>
 
-  <div v-if="DialogManageEdge.visible" class="modal-overlay" @click="DialogManageEdge.hide">
-    <div class="modal-content" @click.stop>
-
-      <h1>Edge</h1>
+  <div v-if="DialogManageEdge.visible" class="overlay" @click="DialogManageEdge.hide">
+    <div class="popup box" @click.stop>
+      <div class="upper-header">Edge</div>
       <div class="row">
         <div class="mutator" @click="substract">-</div>
         <div class="edge">
@@ -34,7 +33,6 @@
         <div class="mutator" @click="add">+</div>
       </div>
       <button class="confirm" @click="DialogManageEdge.hide">OK</button>
-
     </div>
   </div>
 
@@ -59,22 +57,6 @@
   font-weight: normal;
   margin-left: 1vh;
   padding-top: 3vh;
-}
-
-.modal-overlay {
-  z-index: 3000;
-}
-
-.modal-content{
-  width: 80vw;
-  z-index: 3001;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-h1 {
-  font-weight: normal;
 }
 
 .row {

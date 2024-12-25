@@ -19,8 +19,7 @@ function setUid(): void {
 
   <div class="overlay">
     <div class="popup">
-      <h1>Wer bist du, Chummer?</h1>
-      <input v-model="uidInput" type="text" @keyup.enter="setUid" autofocus/>
+      <input v-model="uidInput" type="text" @keyup.enter="setUid" placeholder="Chummer Name" autofocus/>
       <button class="confirm" @click="setUid">Weiter</button>
     </div>
   </div>
@@ -32,6 +31,10 @@ function setUid(): void {
 input {
   background-color: transparent;
   border-bottom: 1px solid var(--font-color);
+}
+
+.overlay {
+  background-color: var(--background-color);
 }
 
 </style>

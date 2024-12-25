@@ -24,15 +24,13 @@
 
 <template>
 
-  <div v-if="DialogRollDice.visible" class="modal-overlay" @click="DialogRollDice.hide">
-    <div class="modal-content" @click.stop>
+  <div v-if="DialogRollDice.visible" class="overlay" @click="DialogRollDice.hide">
+    <div class="popup box" @click.stop>
 
-      <div class="name">
-        <h1>{{ DialogRollDice.name }}</h1>
-      </div>
+      <div class="upper-header">{{ DialogRollDice.name }}</div>
 
       <div class="row">
-        <div class="header">
+        <div class="pool">
           {{ DialogRollDice.dice_count}}
         </div>
         <i class='bx bxs-dice-6'></i>
@@ -49,38 +47,19 @@
 <style scoped>
 
 i {
-  height: 10vh;
-  font-size: 9vh;
-  padding-top: 2vh;
-  padding-left: 1vh;
-  color: var(--accent-color)
+  height: 10dvh;
+  font-size: 8.5dvh;
+  padding-top: 2dvh;
+  padding-left: 1dvh;
 }
 
-.header {
-  height: 10vh;
-  align-self: center;
-  font-size: 10vh;
+.pool {
+  font-size: 10dvh;
+  font-weight: bold;
 }
 
 .line {
   margin-top: 2vh;
-  height: 2vh;
-  align-content: center;
-}
-
-.modal-overlay {
-  z-index: 4000;
-}
-
-.modal-content{
-  width: 90vw;
-  max-width: 400px;
-  text-align: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  z-index: 4001;
-  padding-bottom: 2vh;
 }
 
 </style>/

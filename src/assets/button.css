@@ -40,10 +40,10 @@ button {
     background-color: var(--background-color);
     color: var(--accent-color);
     border-radius: 10px;
-    margin-top: 2dvh;
+    margin-top: 1dvh;
+    padding: 0 2dvw 0 2dvw;
     border: none;
-    width: 50%;
     height: 8dvh;
-    font-size: 4dvh;
+    font-size: 3dvh;
     font-weight: bold;
 }

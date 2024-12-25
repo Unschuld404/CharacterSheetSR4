@@ -5,7 +5,7 @@ import { dataIsValid } from "@/composables/data";
 import ChangeNuyen from "@/components/Dialoge/ChangeNuyen.vue";
 import RollDice from "@/components/Dialoge/RollDice.vue";
 import SpiritSheet from "@/components/Dialoge/SpiritSheet.vue";
-import ManageEdge from "@/components/Dialoge/ManageEdge.vue";
+import ChangeEdge from "@/components/Dialoge/ChangeEdge.vue";
 import ChangeKarma from "@/components/Dialoge/ChangeKarma.vue";
 import AddSpirit from "@/components/Dialoge/AddSpirit.vue";
 import DiceResult from "@/components/Dialoge/DiceResult.vue";
@@ -19,10 +19,12 @@ import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
 
 <template>
 
+  <RouterView />
+
   <ChangeNuyen/>
   <RollDice/>
   <SpiritSheet />
-  <ManageEdge/>
+  <ChangeEdge/>
   <AddSpirit/>
   <ChangeKarma/>
   <RangedWeapons/>
@@ -34,7 +36,6 @@ import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
 
   <Header  v-if="dataIsValid()"/>
 
-  <RouterView />
 </template>
 
 <style scoped>
