@@ -35,23 +35,30 @@ const commlink = computed(()=>{
           <div>Signal</div>
         </div>
       </div>
-      <strong class="item" v-if="char.commlink.programs.length != 0">Programme</strong>
+      <strong class="name" v-if="char.commlink.programs.length != 0">Programme</strong>
       <template v-for="item in char.commlink.programs">
         <div class="item">
-          {{item.name}}
-          <template v-if="item.rating > 1">
-            ({{item.rating}})
-          </template>
+          <div class="column">
+            <strong>
+              {{item.name}}
+              <template v-if="item.rating > 1">
+                ({{item.rating}})
+              </template>
+            </strong>
+            <div v-if="item.extra"> {{ item.extra }}</div>
+          </div>
+
         </div>
       </template>
-      <strong class="item" v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
+      <strong class="name" v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
       <template v-for="item in char.commlink.autosofts">
         <div class="item">
           <div class="column">
-            {{item.name}}
-            <template v-if="item.rating > 1">
-              ({{item.rating}})
-            </template>
+            <strong>{{item.name}}
+              <template v-if="item.rating > 1">
+                ({{item.rating}})
+              </template>
+            </strong>
             <div v-if="item.extra"> {{ item.extra }}</div>
           </div>
           <i class='bx bx-transfer-alt'></i>
@@ -67,6 +74,14 @@ const commlink = computed(()=>{
 strong {
   margin-top: 2dvh;
   width: 100%;
+}
+
+i{
+  padding-right: 2dvw;
+}
+
+.name {
+  padding-left: 2dvw;
 }
 
 .row {
@@ -90,6 +105,8 @@ strong {
 
 .dialog-box {
   padding-top: 2vh;
+  width: 90dvw;
 }
+
 
 </style>/

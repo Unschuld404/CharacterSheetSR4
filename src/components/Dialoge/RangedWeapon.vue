@@ -71,8 +71,11 @@ function shoot()
   <ChooseAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
 
   <div v-if="DialogWeapon.visible" class="overlay" @click="DialogWeapon.hide">
-    <div class="popup dialog-box" @click.stop>
-      <h1>{{ weapon.name }}</h1>
+    <div class="sheet" @click.stop>
+      <div class="sheet-header">
+        <button class="close" @click="DialogWeapon.hide"><i class='bx bx-x'></i></button>
+        <h1>{{ weapon.name }}</h1>
+      </div>
       <div class="row gap">
         <div class="column">
           <strong>Distanz-Mod</strong>
@@ -93,19 +96,19 @@ function shoot()
       <div class="row">
         <div class="column">
           <div v-if="isLoaded()">
-            <button @click="load">switch ammo</button>
+            <button class="weapon-buttons" @click="load">switch ammo</button>
           </div>
           <div v-if="isLoaded()">
-            <button @click="reload">reload</button>
+            <button class="weapon-buttons" @click="reload">reload</button>
           </div>
           <div v-else class="empty" >
-            <button @click="load">Munition laden</button>
+            <button class="weapon-buttons" @click="load">Munition laden</button>
           </div>
         </div>
         <div class="column">
-          <button>schiessen</button>
+          <button class="weapon-buttons">schiessen</button>
 
-          <button @click="DialogRollDice.setValues(
+          <button class="weapon-buttons" @click="DialogRollDice.setValues(
           {
             name: weapon.name,
             value: toInt(weapon.dicepool) + rangeModifier - modeModifier,
@@ -159,7 +162,7 @@ function shoot()
   border-bottom: none;
 }
 
-button {
+.weapon-buttons {
   height: 6vh;
   width: 45dvw;
   font-size: 5dvw;
