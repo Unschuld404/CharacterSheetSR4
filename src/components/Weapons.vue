@@ -32,7 +32,7 @@ function toggleSelection(item: Weapon): void
          <div class="item column">
            <div class="row">
              <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
-             <div class="header">{{ weapon.name }}</div>
+             <div class="clickable-name">{{ weapon.name }}</div>
            </div>
 
            <div class="row">
@@ -63,7 +63,7 @@ function toggleSelection(item: Weapon): void
           <div class="column">
             <div class="row">
               <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
-              <div class="header">{{ weapon.name }}</div>
+              <div class="clickable-name">{{ weapon.name }}</div>
             </div>
 
             <div class="row">

@@ -9,19 +9,16 @@ import {GearType} from "@/composables/types";
     <div class="left-header">Gegenstände</div>
     <template v-for="item in char.gear">
       <div class="item" v-if="item.type!==GearType.Commlink && item.type!==GearType.Program">
-        <strong class="row">
-
+        <div class="row name">
             <template v-if="item.count!=1||item.type==GearType.Ammo">
               {{item.count}} -
             </template>
-
             {{item.name}}
-
             <template v-if="item.rating > 1">
               ({{item.rating}})
             </template>
-        </strong>
-        <div class="row caption">
+        </div>
+        <div class="row">
           {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
         </div>
     </div>
@@ -37,10 +34,6 @@ import {GearType} from "@/composables/types";
   display: flex;
   flex-direction: column;
   align-items: start;
-}
-
-.caption {
-  color: var(--accent-color);
 }
 
 </style>

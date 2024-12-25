@@ -30,7 +30,7 @@ function toggleSelection(item: Spell): void
       <div class="column">
         <div class="row">
           <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spell)" @change="toggleSelection(spell)">
-          <div  class="header">{{ spell.name }}</div>
+          <div  class="name">{{ spell.name }}</div>
         </div>
         <div class="row info">
           <div>{{ spell.category }}</div>

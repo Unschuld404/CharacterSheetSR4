@@ -14,17 +14,26 @@ input {
     margin-top: 0;
     margin-bottom: 2dvh;
     color: var(--font-color);
-    caret-color: var(--font-color);
+    caret-color: rgba(224, 224, 224, 0.3);
     text-transform: none;
     text-align: center;
+    line-height: 8vh;
+    font-size: 8vw;
+    font-weight: bold;
     width: 90%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.3);
+    border-radius: 0;
 }
 
 input::placeholder {
     text-transform: uppercase;
-}
-
-input::placeholder {
     font-size: 4vh;
     font-weight: normal;
+    color: rgba(224, 224, 224, 0.3);
+}
+
+input:focus {
+    outline: none;
 }

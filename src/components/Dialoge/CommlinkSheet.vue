@@ -87,4 +87,9 @@ strong {
   right: 0;
   align-self: center;
 }
+
+.dialog-box {
+  padding-top: 2vh;
+}
+
 </style>/

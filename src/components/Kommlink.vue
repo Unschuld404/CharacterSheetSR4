@@ -11,7 +11,7 @@ const commlink = computed(()=>{
 
   <div v-if="commlink != null"class="transparent-box" @click="DialogCommlink.show">
     <div class="left-header">Kommlink</div>
-    <div class="header">{{commlink.name}}</div>
+    <div class="clickable-name">{{commlink.name}}</div>
     <div class="row">
       <div v-if="commlink.system > 0" class="column">
         <strong>{{commlink.system}}</strong>
@@ -45,7 +45,7 @@ const commlink = computed(()=>{
   justify-content: space-around;
 }
 
-.header {
+.clickable-name {
   padding-left: 2dvw;
 }
 

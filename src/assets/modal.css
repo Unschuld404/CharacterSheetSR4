@@ -41,10 +41,6 @@
     border-radius: 1vh;
 }
 
-h1 {
-    text-align: center;
-}
-
 .icon {
     color: var(--accent-color);
 }
@@ -53,22 +49,3 @@ h1 {
     color: var(--background-color);
 }
 
-input {
-    width: 90%;
-    height: 8vh;
-    line-height: 8vh;
-    font-size: 4vh;
-    font-weight: bold;
-    text-transform: none;
-    color: var(--accent-color);
-    margin-top: 2vh;
-    border: none;
-    border-bottom: 1px solid var(--background-color);
-    border-radius: 0;
-    background-color: var(--primary-color);
-    caret-color: var(--accent-color);
-}
-
-input:focus {
-    outline: none;
-}

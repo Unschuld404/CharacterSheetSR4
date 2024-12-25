@@ -27,9 +27,9 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
 <template>
 
-  <div class="box">
+  <div class="transparent-box">
 
-    <div class="upper-header">Aktionen <i class='bx bxs-cog'></i></div>
+    <div class="left-header">Aktionen <i class='bx bxs-cog'></i></div>
 
     <div>
 

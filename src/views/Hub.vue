@@ -33,8 +33,11 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
         <KoerperlicherSchadensmonitor/>
         <GeistigerSchadensmonitor/>
       </div>
+    <div class="column">
       <FavAktionen/>
       <FavFertigkeiten/>
+    </div>
+
 
     </div>
 
@@ -53,7 +56,6 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
   }
 
   .column {
-    width: 50%;
     gap: 1vh;
   }
 

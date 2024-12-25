@@ -28,11 +28,6 @@ function setUid(): void {
 
 <style scoped>
 
-input {
-  background-color: transparent;
-  border-bottom: 1px solid var(--font-color);
-}
-
 .overlay {
   background-color: var(--background-color);
 }

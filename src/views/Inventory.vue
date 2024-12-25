@@ -15,7 +15,7 @@ import Kommlink from "@/components/Kommlink.vue";
 <style scoped>
 
 .column {
-  gap: 1vh;
+  gap: 2vh;
 }
 
 </style>

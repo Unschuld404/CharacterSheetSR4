@@ -50,4 +50,8 @@ function spend()
   gap: 2dvw;
 }
 
+button {
+  background-color: transparent;
+}
+
 </style>/

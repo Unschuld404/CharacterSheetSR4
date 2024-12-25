@@ -33,7 +33,7 @@ function toggleSelection(item: Spirit): void
         <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()" class="item">
           <div class="column">
             <div class="row">
-              <div  class="header">{{ spirit.caption }} ( {{ spirit.force }} )</div>
+              <div  class="clickable-name">{{ spirit.caption }} ( {{ spirit.force }} )</div>
             </div>
             <div class="row">
               <div>Dienste: {{ spirit.services }}</div>
@@ -56,10 +56,6 @@ function toggleSelection(item: Spirit): void
 
 .column {
   width: 100%;
-}
-
-.box {
-  margin-bottom: 10px;
 }
 
 button {
