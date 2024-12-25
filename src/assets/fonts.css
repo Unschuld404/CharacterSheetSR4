@@ -37,3 +37,13 @@ strong {
     font-size: 1.2rem;
     text-align: center;
 }
+
+.left-header {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0.5dvh;
+    left: 2dvw;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+}

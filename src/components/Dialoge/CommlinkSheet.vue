@@ -14,7 +14,7 @@ const commlink = computed(()=>{
 <template>
 
   <div v-if="DialogCommlink.visible && char.commlink" class="overlay" @click="DialogCommlink.hide">
-    <div class="popup box" @click.stop>
+    <div class="popup dialog-box" @click.stop>
       <h1>{{ char.commlink.name}}</h1>
       <div v-for="mod in char.commlink.mods">{{ mod.name }}</div>
       <div class="row">
@@ -35,7 +35,7 @@ const commlink = computed(()=>{
           <div>Signal</div>
         </div>
       </div>
-      <strong v-if="char.commlink.programs.length != 0">Programme</strong>
+      <strong class="item" v-if="char.commlink.programs.length != 0">Programme</strong>
       <template v-for="item in char.commlink.programs">
         <div class="item">
           {{item.name}}
@@ -44,7 +44,7 @@ const commlink = computed(()=>{
           </template>
         </div>
       </template>
-      <strong v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
+      <strong class="item" v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
       <template v-for="item in char.commlink.autosofts">
         <div class="item">
           <div class="column">
@@ -66,7 +66,6 @@ const commlink = computed(()=>{
 
 strong {
   margin-top: 2dvh;
-  border-bottom: 1px solid var(--background-color);
   width: 100%;
 }
 
@@ -88,5 +87,4 @@ strong {
   right: 0;
   align-self: center;
 }
-
 </style>/

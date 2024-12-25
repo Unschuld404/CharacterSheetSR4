@@ -25,9 +25,9 @@ function toggleSelection(item: Spirit): void
 <template>
 
   <div class="column">
-    <div class="box">
+    <div class="transparent-box">
       <div>
-        <div class="upper-header">Geister <i class='bx bxs-cog' @click="DialogAddSpirit.show()"></i></div>
+        <div class="left-header">Geister <i class='bx bxs-cog' @click="DialogAddSpirit.show()"></i></div>
       </div>
       <ul>
         <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()" class="item">

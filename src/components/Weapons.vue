@@ -23,8 +23,8 @@ function toggleSelection(item: Weapon): void
 </script>
 
 <template>
-  <div class="box">
-    <div class="upper-header">Waffen</div>
+  <div class="transparent-box">
+    <div class="left-header">Waffen</div>
   <ul>
       <li v-for="weapon in char.weapons" :key="weapon.name" class="item">
 
@@ -85,6 +85,7 @@ function toggleSelection(item: Weapon): void
 
 .column {
   align-items: start;
+  padding-bottom: 0;
 }
 
 .damage-code {

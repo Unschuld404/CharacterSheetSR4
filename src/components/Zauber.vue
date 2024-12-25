@@ -24,8 +24,8 @@ function toggleSelection(item: Spell): void
 
 <template>
 
-  <ul class="box">
-    <li class="upper-header">Zaubersprüche</li>
+  <ul class="transparent-box">
+    <li class="left-header">Zaubersprüche</li>
     <li v-for="spell in char.spells" :key="spell.name" class="item">
       <div class="column">
         <div class="row">
@@ -86,6 +86,10 @@ button {
   font-weight: bold;
   padding-top: 10px;
   margin-top: 10px;
+}
+
+.left-header {
+  padding: 0;
 }
 
 </style>/

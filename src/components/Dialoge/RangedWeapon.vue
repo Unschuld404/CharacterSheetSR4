@@ -71,8 +71,59 @@ function shoot()
   <ChooseAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
 
   <div v-if="DialogWeapon.visible" class="overlay" @click="DialogWeapon.hide">
-    <div class="popup box" @click.stop>
-      <div class="upper-header">{{ weapon.name }}</div>
+    <div class="popup dialog-box" @click.stop>
+      <h1>{{ weapon.name }}</h1>
+      <div class="row gap">
+        <div class="column">
+          <strong>Distanz-Mod</strong>
+          <div>{{ rangeModifier }}</div>
+          <div>Entfernung</div>
+          <RadioButtons class="mode" v-model="selectReach" :options="ranges" group="distances"/>
+        </div>
+        <div class="column">
+          <strong>Modus-Mod</strong>
+          <div>-{{ modeModifier }}</div>
+          <div>Schussmodus</div>
+          <RadioButtons class="mode" v-model="selectShootingMode" :options="shootingMode" group="modes"/>
+        </div>
+      </div>
+      <div v-if="isLoaded()" class="ammo">
+        {{ setting.ammoLoaded }} {{ setting.ammoLeft }} / {{ setting.magSize }} ({{ setting.magType }})
+      </div>
+      <div class="row">
+        <div class="column">
+          <div v-if="isLoaded()">
+            <button @click="load">switch ammo</button>
+          </div>
+          <div v-if="isLoaded()">
+            <button @click="reload">reload</button>
+          </div>
+          <div v-else class="empty" >
+            <button @click="load">Munition laden</button>
+          </div>
+        </div>
+        <div class="column">
+          <button>schiessen</button>
+
+          <button @click="DialogRollDice.setValues(
+          {
+            name: weapon.name,
+            value: toInt(weapon.dicepool) + rangeModifier - modeModifier,
+            values: [
+                {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                {name: 'Distanz', value: rangeModifier},
+                {name: 'Modus', value: -modeModifier},
+                ]
+          }
+          ).show()">
+            ({{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}) Würfel
+          </button>
+        </div>
+
+
+      </div>
+      <div class="gap">
         <div class="item">
           <div>Schaden</div>
           <div>{{ weapon.damage }}</div>
@@ -96,54 +147,7 @@ function shoot()
             <template v-if="mod.rc != 0">- RC: ( {{ mod.rc }} )</template>
           </div>
         </template>
-      <div class="row gap">
-        <div class="column">
-          <strong>Distanz-Mod</strong>
-          <div>{{ rangeModifier }}</div>
-          <div>Entfernung</div>
-          <RadioButtons class="mode" v-model="selectReach" :options="ranges" group="distances"/>
-        </div>
-        <div class="column">
-          <strong>Modus-Mod</strong>
-          <div>-{{ modeModifier }}</div>
-          <div>Schussmodus</div>
-          <RadioButtons class="mode" v-model="selectShootingMode" :options="shootingMode" group="modes"/>
-        </div>
       </div>
-      <div v-if="isLoaded()" class="ammo">
-        {{ setting.ammoLoaded }} {{ setting.ammoLeft }} / {{ setting.magSize }} ({{ setting.magType }})
-      </div>
-
-
-      <div class="row">
-
-        <div v-if="isLoaded()">
-          <button @click="load">switch ammo</button>
-        </div>
-        <div v-if="isLoaded()">
-          <button @click="reload">reload</button>
-        </div>
-        <div v-else class="empty" >
-          <button @click="load">Munition laden</button>
-        </div>
-        <button>schiessen</button>
-
-        <button @click="DialogRollDice.setValues(
-      {
-        name: weapon.name,
-        value: toInt(weapon.dicepool) + rangeModifier - modeModifier,
-        values: [
-            {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
-            {name: 'Geschicklichkeit', value: char.attributes.agility.total},
-            {name: 'Distanz', value: rangeModifier},
-            {name: 'Modus', value: -modeModifier},
-            ]
-      }
-      ).show()">({{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}) Würfel
-        </button>
-
-      </div>
-
     </div>
   </div>
 
@@ -151,9 +155,14 @@ function shoot()
 
 <style scoped>
 
+.item:last-of-type {
+  border-bottom: none;
+}
+
 button {
   height: 6vh;
-  font-size: 4dvw;
+  width: 45dvw;
+  font-size: 5dvw;
   font-weight: bold;
   padding-left: 2dvw;
   padding-right: 2dvw;
@@ -162,6 +171,7 @@ button {
 
 .gap {
   margin-top: 2dvh;
+  width: 100%;
 }
 
 .ammo {
@@ -191,8 +201,11 @@ button {
 }
 
 .row {
-  gap: 1vh;
+  gap: 2dvw;
+  width: 100%;
   justify-content: space-between;
+  padding-left: 2dvw;
+  padding-right: 2dvw;
 }
 
 </style>/

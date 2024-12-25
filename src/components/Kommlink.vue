@@ -9,8 +9,8 @@ const commlink = computed(()=>{
 
 <template>
 
-  <div v-if="commlink != null" class="box" @click="DialogCommlink.show">
-    <div class="upper-header">Kommlink</div>
+  <div v-if="commlink != null"class="transparent-box" @click="DialogCommlink.show">
+    <div class="left-header">Kommlink</div>
     <div class="header">{{commlink.name}}</div>
     <div class="row">
       <div v-if="commlink.system > 0" class="column">
@@ -46,7 +46,7 @@ const commlink = computed(()=>{
 }
 
 .header {
-  text-align: center;
+  padding-left: 2dvw;
 }
 
 </style>

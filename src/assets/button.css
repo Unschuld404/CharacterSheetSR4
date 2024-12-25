@@ -12,25 +12,26 @@ button {
 
 .dice {
     font-weight: bold;
-    font-size: 3dvh;
+    font-size: 3vh;
     text-align: center;
     align-content: center;
-    border-radius: 0.5dvh;
-    height: 4dvh; /* reference for line-height */
-    width: 4dvh;
+    border-radius: 0.5vh;
+    height: 4vh; /* reference for line-height */
+    width: 4vh;
     background-color: var(--background-color);
     color: var(--accent-color);
+    border: 1px solid var(--font-color);
 }
 
 .mutator {
     width: 6dvh;
-    height: 6dvh;
-    border-radius: 0.5dvh;
+    height: 6vh;
+    border-radius: 0.5vh;
     background-color: var(--background-color);
     color: var(--accent-color);
-    font-size: 6dvh;
+    font-size: 6vh;
     font-weight: bold;
-    line-height: 6.5dvh;
+    line-height: 6.5vh;
     text-align: center;
 }
 

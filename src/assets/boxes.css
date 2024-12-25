@@ -3,8 +3,17 @@
     border-radius: 1dvh;
     position: relative;
     border: 1px solid var(--font-color);
-    padding: 1dvh;
-    padding-top: 4dvh;
+    padding: 4vh 1dvw 2vh 1dvw;
+}
+
+.transparent-box {
+    position: relative;
+    padding: 4vh 0 2dvh 0;
+    border-bottom: 2px solid var(--font-color);
+}
+
+.transparent-box:last-of-type {
+    border-bottom: none;
 }
 
 .scroll-box {
@@ -36,12 +45,14 @@
 }
 
 .item {
-    border-bottom: 1px solid var(--background-color);
+    border-bottom: 0.5px solid var(--font-color);
     display: flex;
     justify-content: space-between;
     position: relative;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    padding-left: 2dvw;
+    padding-right: 2dvw;
     align-items: center;
     width: 100%;
 }

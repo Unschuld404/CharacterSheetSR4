@@ -25,7 +25,7 @@
 <template>
 
   <div v-if="DialogRollDice.visible" class="overlay" @click="DialogRollDice.hide">
-    <div class="popup box" @click.stop>
+    <div class="popup dialog-box" @click.stop>
 
       <div class="upper-header">{{ DialogRollDice.name }}</div>
 

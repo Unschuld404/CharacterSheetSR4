@@ -10,27 +10,21 @@ const choose = (type: SpiritType) => {
 
 <template>
 
-  <div v-if="DialogAddSpirit.visible" class="modal-overlay" @click="DialogAddSpirit.hide()">
+  <div v-if="DialogAddSpirit.visible" class="overlay" @click="DialogAddSpirit.hide()">
 
-    <div v-if="DialogAddSpirit.doChooseType" class="modal-content-choose" @click.stop>
-
-      <div class="box">
-
-        <div class="column-choose">
-          <div  v-for="(item, index) in SpiritTypes"
-                :key="index"
-                :class="['type', {active: DialogAddSpirit.selectedType === item.name }]"
-                @click="choose(item)"
-          >
-            {{ item.name }}
-          </div>
+    <div v-if="DialogAddSpirit.doChooseType" class="popup dialog-box" @click.stop>
+      <div class="column-choose">
+        <div  v-for="(item, index) in SpiritTypes"
+              :key="index"
+              :class="['type', {active: DialogAddSpirit.selectedType === item.name }]"
+              @click="choose(item)"
+        >
+          {{ item.name }}
         </div>
-
       </div>
-
     </div>
 
-    <div v-else class="modal-content" @click.stop>
+    <div v-else class="popup dialog-box" @click.stop>
       <h1>{{ DialogAddSpirit.selectedType}}</h1>
 
       <div class="column">
@@ -59,15 +53,10 @@ const choose = (type: SpiritType) => {
 
 <style scoped>
 
-.modal-content-choose {
-  width: 55vh;
-  max-height: 65vh;
-  z-index: 1001;
-}
-
 .column-choose {
   margin-top: 1vh;
   justify-content: space-evenly;
+  width: 95%;
 }
 
 .modal-content {
@@ -75,10 +64,6 @@ const choose = (type: SpiritType) => {
   max-height: 65vh;
   overflow: scroll;
   z-index: 1001;
-}
-
-.modal-overlay {
-  z-index: 1000;
 }
 
 .column {
@@ -91,7 +76,7 @@ const choose = (type: SpiritType) => {
   line-height: 8vh;
   font-size: 4vh;
   align-items: center;
-  gap: 2vh;
+  gap: 1vh;
   justify-content: center;
 }
 
@@ -114,16 +99,7 @@ const choose = (type: SpiritType) => {
   background-color: var(--background-color);
   border: none;
   border-radius: 1vh;
-  margin-bottom: 2vh;
-}
-
-.box {
-  padding-left: 3vh;
-  padding-right: 3vh;
-}
-
-.confirm {
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
 }
 
 </style>

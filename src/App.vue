@@ -19,6 +19,8 @@ import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
 
 <template>
 
+
+
   <RouterView />
 
   <ChangeNuyen/>
@@ -37,6 +39,7 @@ import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
   <Header  v-if="dataIsValid()"/>
 
 </template>
+
 
 <style scoped>
 

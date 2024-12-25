@@ -5,8 +5,8 @@ import {GearType} from "@/composables/types";
 
 <template>
 
-  <div class="box">
-    <div class="upper-header">Gegenstände</div>
+  <div class="transparent-box">
+    <div class="left-header">Gegenstände</div>
     <template v-for="item in char.gear">
       <div class="item" v-if="item.type!==GearType.Commlink && item.type!==GearType.Program">
         <strong class="row">

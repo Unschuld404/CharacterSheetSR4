@@ -28,7 +28,7 @@ function spend()
 <template>
 
   <div v-if="DialogChangeNuyen.visible" class="overlay" @click="DialogChangeNuyen.hide">
-    <div class="popup box" @click.stop>
+    <div class="popup dialog-box" @click.stop>
       <div class="upper-header">Nuyen</div>
         <input v-model="nuyen" type="number" placeholder="Summe ¥" autofocus style="-moz-appearance: textfield">
         <input v-model="reason" type="text" placeholder="Grund">

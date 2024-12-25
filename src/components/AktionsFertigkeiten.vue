@@ -26,7 +26,8 @@ function toggleSkill(value: string)
 
 <template>
 
-  <div class="box">
+  <div class="transparent-box">
+    <div class="left-header">Aktionsfertigkeiten</div>
     <ul>
       <li v-for="skill in skills" :key="skill.name" class="item">
         <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
@@ -62,7 +63,6 @@ function toggleSkill(value: string)
 
       </li>
     </ul>
-    <div class="upper-header">Aktionsfertigkeiten</div>
   </div>
 
 </template>

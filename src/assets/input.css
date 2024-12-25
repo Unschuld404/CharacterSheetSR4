@@ -17,7 +17,7 @@ input {
     caret-color: var(--font-color);
     text-transform: none;
     text-align: center;
-    width: 100%;
+    width: 90%;
 }
 
 input::placeholder {

@@ -22,7 +22,7 @@
 <template>
 
   <div v-if="DialogManageEdge.visible" class="overlay" @click="DialogManageEdge.hide">
-    <div class="popup box" @click.stop>
+    <div class="popup dialog-box" @click.stop>
       <div class="upper-header">Edge</div>
       <div class="row">
         <div class="mutator" @click="substract">-</div>
