@@ -40,7 +40,7 @@ function isRouteVisible(path: string): boolean {
   width: 100%;
   height: 60px;
   align-content: center;
-  z-index: 10000;
+  z-index: 500;
 }
 
 .navbar ul {

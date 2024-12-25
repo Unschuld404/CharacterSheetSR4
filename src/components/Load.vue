@@ -17,13 +17,11 @@ function setUid(): void {
 
 <template>
 
-  <div class="modal-overlay">
-    <div class="modal-content">
-
+  <div class="overlay">
+    <div class="popup">
       <h1>Wer bist du, Chummer?</h1>
       <input v-model="uidInput" type="text" @keyup.enter="setUid" autofocus/>
       <button class="confirm" @click="setUid">Weiter</button>
-
     </div>
   </div>
 
@@ -31,15 +29,9 @@ function setUid(): void {
 
 <style scoped>
 
-.modal-content {
-  width: 80vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.modal-overlay {
-  background-color: var(--background-color);
+input {
+  background-color: transparent;
+  border-bottom: 1px solid var(--font-color);
 }
 
 </style>

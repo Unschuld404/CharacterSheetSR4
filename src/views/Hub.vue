@@ -45,7 +45,7 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
   .collection {
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 1dvh;
   }
 
   .row {

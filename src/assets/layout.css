@@ -1,9 +1,8 @@
 .collection {
-    max-width: 1280px;
+    width: 95dvw;
     margin-top: 65px;
     margin-left: auto;
     margin-right: auto;
-    height: 100%;
 }
 
 .collection::-webkit-scrollbar {

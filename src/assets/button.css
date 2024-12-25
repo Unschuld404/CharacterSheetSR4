@@ -1,4 +1,4 @@
-button:hover, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-selection, .dice, .mutator, .type, .ghost, .spirit-power, .damage-box {
+button, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-selection, .dice, .mutator, .type, .ghost, .spirit-power, .damage-box {
     cursor: pointer;
 }
 
@@ -12,26 +12,26 @@ button {
 
 .dice {
     font-weight: bold;
-    font-size: 3vh;
+    font-size: 3dvh;
     border: none;
     text-align: center;
     align-content: center;
-    border-radius: 0.5vh;
-    height: 4vh; /* reference for line-height */
-    width: 4vh;
+    border-radius: 0.5dvh;
+    height: 4dvh; /* reference for line-height */
+    width: 4dvh;
     background-color: var(--background-color);
     color: var(--accent-color);
 }
 
 .mutator {
-    width: 6vh;
-    height: 6vh;
-    border-radius: 0.5vh;
+    width: 6dvh;
+    height: 6dvh;
+    border-radius: 0.5dvh;
     background-color: var(--background-color);
     color: var(--accent-color);
-    font-size: 6vh;
+    font-size: 6dvh;
     font-weight: bold;
-    line-height: 6.5vh;
+    line-height: 6.5dvh;
     text-align: center;
 }
 
@@ -40,10 +40,10 @@ button {
     background-color: var(--background-color);
     color: var(--accent-color);
     border-radius: 10px;
-    margin-top: 2vh;
+    margin-top: 2dvh;
     border: none;
     width: 50%;
-    height: 8vh;
-    font-size: 4vh;
+    height: 8dvh;
+    font-size: 4dvh;
     font-weight: bold;
 }

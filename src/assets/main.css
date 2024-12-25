@@ -5,12 +5,10 @@
 @import './boxes.css';
 @import 'layout.css';
 @import './fonts.css';
+@import './dialog.css';
+@import './input.css';
 
 #app {
-  margin: 0 auto;
-  font-weight: normal;
-  margin-top: 2vh;
-  margin-left: 2vh;
-  margin-right: 2vh;
   margin-bottom: 5vh;
+  overflow: hidden;
 }

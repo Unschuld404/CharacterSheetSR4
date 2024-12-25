@@ -1,5 +1,5 @@
 :root {
-  --background-color: #101010;
+  --background-color: rgb(16, 16, 16);
   --primary-color: #232323;
   --accent-color: #81ffc0;
   --font-color: #e0e0e0;
@@ -21,17 +21,4 @@ html {
 
 body {
   background-color: var(--background-color);
-  font-size: 1.2rem;
-}
-
-/* Für Chrome, Safari und Edge */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Generell */
-input[type="number"] {
-  appearance: none;
 }
