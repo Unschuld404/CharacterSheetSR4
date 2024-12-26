@@ -9,35 +9,11 @@
 .transparent-box {
     position: relative;
     padding: 4vh 0 2dvh 0;
-    border-bottom: 2px solid var(--font-color);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .transparent-box:last-of-type {
     border-bottom: none;
-}
-
-.scroll-box {
-    overflow: scroll;
-    height: 90%;
-}
-
-.scroll-box::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
-
-.flex-scroll::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
-
-.flex-scroll {
-    overflow: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2dvh;
-    overflow-x: hidden;
 }
 
 .bxs-cog {
@@ -45,7 +21,7 @@
 }
 
 .item {
-    border-bottom: 0.5px solid var(--font-color);
+    border-bottom: 0.5px solid var(--primary-color);
     display: flex;
     justify-content: space-between;
     position: relative;

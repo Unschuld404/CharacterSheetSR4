@@ -22,25 +22,6 @@
     padding: 2vh;
 }
 
-.confirm {
-    width: 100%;
-    height: 5vh;
-    border: none;
-    border-radius: 0 0 0.5vh 0.5vh;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    line-height: 5vh;
-    font-size: 3vh;
-    font-weight: bold;
-    color: var(--background-color);
-}
-
-.confirm:active {
-    background-color: var(--primary-color);
-    border-radius: 1vh;
-}
-
 .icon {
     color: var(--accent-color);
 }

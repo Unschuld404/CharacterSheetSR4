@@ -20,7 +20,7 @@ button {
     width: 4vh;
     background-color: var(--background-color);
     color: var(--accent-color);
-    border: 1px solid var(--font-color);
+    border: 1px solid var(--primary-color);
 }
 
 .mutator {

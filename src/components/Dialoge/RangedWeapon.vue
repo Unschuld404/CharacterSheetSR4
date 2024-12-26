@@ -72,9 +72,10 @@ function shoot()
 
   <div v-if="DialogWeapon.visible" class="overlay" @click="DialogWeapon.hide">
     <div class="sheet" @click.stop>
-      <div class="sheet-header">
+      <div class="sheet-header row">
         <button class="close" @click="DialogWeapon.hide"><i class='bx bx-x'></i></button>
         <h1>{{ weapon.name }}</h1>
+        <div style="width: 5vh;"></div>
       </div>
       <div class="row gap">
         <div class="column">

@@ -1,92 +1,93 @@
 <script setup lang="ts">
 
 import {char} from "@/composables/char";
-import {DialogChangeKarma, DialogEdgeDiceResult} from "@/composables/dialogs";
+import {DialogChangeKarma} from "@/composables/dialogs";
 </script>
 
 <template>
 
   <div class="collection">
 
-    <div class="box chummer">
+    <div class="transparent-box chummer">
       <h1>{{ char.name }}</h1>
     </div>
 
-    <div class="box appearance">
-      <div class="line"><div>Rasse:</div><div>{{ char.metatype }}</div></div>
-      <div class="line"><div>Laufen:</div><div>{{ char.movement.walk }} m</div></div>
-      <div class="line"><div>Schwimmen:</div><div>{{ char.movement.swim }} m</div></div>
-      <div class="line"><div>Fliegen:</div><div>{{ char.movement.fly }} m</div></div>
-      <div class="line"><div>Größe:</div><div>{{ char.height }} m</div></div>
-      <div class="line"><div>Gewicht:</div><div>{{ char.weight }}</div></div>
-      <div class="line"><div>Alter:</div><div>{{ char.age }}</div></div>
-      <div class="line"><div>Geschlecht:</div><div>{{ char.sex }}</div></div>
-      <div class="line"><div>Hautfarbe:</div><div>{{ char.skin }}</div></div>
-      <div class="line"><div>Augenfarbe:</div><div>{{ char.eyes }}</div></div>
-      <div class="line"><div>Frisur:</div><div>{{ char.hair }}</div></div>
+    <div class="transparent-box appearance">
+      <div class="left-header">Allgemein</div>
+      <p class="line"><span>Rasse:</span><span>{{ char.metatype }}</span></p>
+      <p class="line"><span>Laufen:</span><span>{{ char.movement.walk }} m</span></p>
+      <p class="line"><span>Schwimmen:</span><span>{{ char.movement.swim }} m</span></p>
+      <p class="line"><span>Fliegen:</span><span>{{ char.movement.fly }} m</span></p>
+      <p class="line"><span>Größe:</span><span>{{ char.height }} m</span></p>
+      <p class="line"><span>Gewicht:</span><span>{{ char.weight }}</span></p>
+      <p class="line"><span>Alter:</span><span>{{ char.age }}</span></p>
+      <p class="line"><span>Geschlecht:</span><span>{{ char.sex }}</span></p>
+      <p class="line"><span>Hautfarbe:</span><span>{{ char.skin }}</span></p>
+      <p class="line"><span>Augenfarbe:</span><span>{{ char.eyes }}</span></p>
+      <p class="line"><span>Frisur:</span><span>{{ char.hair }}</span></p>
     </div>
 
     <div class="row">
 
-      <div class="box column">
+      <div class="transparent-box column">
           <div class="upper-header">KON</div>
           <strong>{{ char.attributes.body.total }}</strong>
         </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">GES</div>
         <strong>{{ char.attributes.agility.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">REA</div>
         <strong>{{ char.attributes.reaction.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">STR</div>
         <strong>{{ char.attributes.strength.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">CHA</div>
         <strong>{{ char.attributes.charisma.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">INT</div>
         <strong>{{ char.attributes.intuition.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">LOG</div>
         <strong>{{ char.attributes.logic.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">WIL</div>
         <strong>{{ char.attributes.willpower.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column">
         <div class="upper-header">EDG</div>
         <strong>{{ char.attributes.edge.total }}</strong>
       </div>
-      <div class="box column">
+      <div class="transparent-box column mag">
         <div class="upper-header">MAG</div>
         <strong>{{ char.attributes.magic.total }}</strong>
       </div>
 
     </div>
 
-    <div class="box contacts">
-      <div class="upper-header">Rüstung</div>
-      <p v-for="armor in char.armors" :key="armor.name">
+    <div class="transparent-box">
+      <div class="left-header">Rüstung</div>
+      <div v-for="armor in char.armors" :key="armor.name" class="armor">
         {{ armor.name }} ( {{ armor.values.ballistic }} / {{ armor.values.impact }}) <template v-if="armor.equipped"> - angelegt</template>
         <ul>
           <li v-for="mod in armor.mods"> {{ mod.name }}  ( {{ mod.rating }} )</li>
         </ul>
-      </p>
+      </div>
     </div>
 
-    <div class="box cyberware">
-      <div class="upper-header">Cyber- und Bioware</div>
+    <div class="transparent-box">
+      <div class="left-header">Cyber- und Bioware</div>
     </div>
 
-    <div v-if="char.initiategrade > 0" class="box initiation">
-      <div class="upper-header">Initiation</div>
+    <div v-if="char.initiategrade > 0" class="transparent-box">
+      <div class="left-header-header">Initiation</div>
       <div class="line"><div>Initiationsgrad {{char.initiategrade}}</div>
         <p v-for="metamagic in char.metamagics" :key="metamagic">
           {{ metamagic }}
@@ -94,71 +95,71 @@ import {DialogChangeKarma, DialogEdgeDiceResult} from "@/composables/dialogs";
       </div>
     </div>
 
-    <div class="box gifts">
-      <div class="upper-header">Gaben</div>
+    <div class="transparent-box">
+      <div class="left-header">Gaben</div>
       <p v-for="trait in char.traits">
         {{ trait }}
       </p>
     </div>
 
-    <div class="box handicaps">
-      <div class="upper-header">Nachteile</div>
+    <div class="transparent-box">
+      <div class="left-header">Nachteile</div>
       <p v-for="flaw in char.flaws">
         {{ flaw }}
       </p>
     </div>
 
-    <div class="box karma">
-      <div class="upper-header">Karma</div>
+    <div class="transparent-box">
+      <div class="left-header">Karma</div>
       <button class="confirm" @click="DialogChangeKarma.show">Karma hinzufügen</button>
-      <div class="line" style="border-bottom: none"><div>Gesamt</div><div>8</div></div>
-      <div class="line" style="border-bottom: none"><div>Aktuell</div><div>4</div></div>
+      <p class="line" style="border-bottom: none"><span>Gesamt</span><span>8</span></p>
+      <p class="line" style="border-bottom: none"><span>Aktuell</span><span>4</span></p>
     </div>
 
-    <div class="box contacts">
-      <div class="upper-header">Kontakte</div>
+    <div class="transparent-box">
+      <div class="left-header">Kontakte</div>
       <p v-for="contact in char.contacts" :key="contact.name">
           {{ contact.name }} ( {{ contact.rating }} )
       </p>
     </div>
 
-    <div class="box contacts">
-      <div class="upper-header">Lebensstil</div>
+    <div class="transparent-box">
+      <div class="left-header">Lebensstil</div>
       <p v-for="lifestyle in char.lifestyles" :key="lifestyle.name">
         {{ lifestyle.name }} (  {{ lifestyle.cost }} ¥ für {{ lifestyle.months }} Monate )
       </p>
     </div>
 
-    <div class="box social">
-      <div class="upper-header">Sozial</div>
+    <div class="transparent-box">
+      <div class="left-header">Sozial</div>
     </div>
 
-    <div class="box description">
+    <div class="transparent-box">
       <p>
         {{char.description}}
       </p>
-      <div class="upper-header">Beschreibung</div>
+      <div class="left-header">Beschreibung</div>
     </div>
 
-    <div class="box background">
+    <div class="transparent-box">
       <p>
         {{char.background}}
       </p>
-      <div class="upper-header">Hintergrund</div>
+      <div class="left-header">Hintergrund</div>
     </div>
 
-    <div class="box concept">
+    <div class="transparent-box">
       <p>
         {{char.concept}}
       </p>
-      <div class="upper-header">Konzept</div>
+      <div class="left-header">Konzept</div>
     </div>
 
-    <div class="box notes">
+    <div class="transparent-box">
       <p>
         {{char.notes}}}
       </p>
-      <div class="upper-header">Notizen</div>
+      <div class="left-header">Notizen</div>
     </div>
 
 
@@ -168,8 +169,17 @@ import {DialogChangeKarma, DialogEdgeDiceResult} from "@/composables/dialogs";
 
 <style scoped>
 
-.box {
-  min-height: 5vh;
+p {
+  margin-left: 2dvw;
+  margin-right: 2dvw;
+}
+
+.armor {
+  margin-left: 2dvw;
+}
+
+.mag {
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .column {
@@ -178,19 +188,17 @@ import {DialogChangeKarma, DialogEdgeDiceResult} from "@/composables/dialogs";
   height: 8vh;
 }
 
-.confirm {
-  width: 80%;
-}
-
-.karma {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .line {
   display: flex;
   justify-content: space-between;
+}
+
+.chummer {
+  padding-top: 2vh;
+}
+
+.left-header {
+  margin-top: 1vh;
 }
 
 </style>

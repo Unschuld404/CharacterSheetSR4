@@ -9,7 +9,7 @@ import {DialogRollDice, DialogSpiritSheet, DialogVehicleSheet, DialogWeapon} fro
 import {toInt} from "@/composables/utils";
 
 function handleWeapon() {
-  if (!weapon.isMelee) {
+  if (weapon.isMelee) {
     // Aktion, wenn die Bedingung erfüllt ist
     console.log("Bedingung ist wahr");
   } else {
@@ -35,17 +35,17 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
       <div v-for="spell in spells" class="item" >
         <div>{{ spell.name }}</div>
-        <div class="extra">{{ spell.dv }}</div>
+        <div>{{ spell.dv }}</div>
       </div>
 
       <div v-for="spirit in spirits" class="item" @click="DialogSpiritSheet.setSpirit(spirit).show()">
         <div>{{ spirit.type }}</div>
-        <div class="extra">{{ spirit.bound ? 'gebunden' : 'ungebunden' }}</div>
+        <div>{{ spirit.bound ? 'gebunden' : 'ungebunden' }}</div>
       </div>
 
       <div v-for="vehicle in vehicles" class="item" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div>{{ vehicle.name }}</div>
-        <div class="extra">{{ vehicle.mode }}</div>
+        <div>{{ vehicle.mode }}</div>
       </div>
 
       <div v-for="weapon in weapons" class="item"
@@ -72,10 +72,6 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 </template>
 
 <style scoped>
-
-.extra {
-  color: var(--accent-color);
-}
 
 .item {
   display: flex;

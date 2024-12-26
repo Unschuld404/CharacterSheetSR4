@@ -67,12 +67,12 @@ function onCancelPowersDialog() {
 
   <div v-if="DialogSpiritSheet.visible" class="overlay">
     <div class="sheet" @click.stop>
-      <div class="sheet-header">
-        <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
+      <div class="sheet-header row">
         <button class="close" @click="DialogSpiritSheet.hide"><i class='bx bx-x'></i></button>
+        <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
         <button class="release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></button>
       </div>
-      <div class="row">
+      <div class="row powers">
         <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
         <div class="formula" @click="DialogManageSpiritEdge.show">{{spirit.edge}} Edge</div>
       </div>
@@ -86,9 +86,7 @@ function onCancelPowersDialog() {
         </div>
 
         <div class="transparent-box">
-          <div class="left-header">
-            Dienste
-          </div>
+          <div class="left-header">Dienste</div>
           <div class="row services">
             <div class="mutator" @click="removeService">-</div>
             <h1>{{ services }}</h1>
@@ -97,7 +95,7 @@ function onCancelPowersDialog() {
         </div>
 
         <div class="transparent-box">
-
+          <div class="left-header">Initiative</div>
           <div class="row item">
             <div>Initiative</div>
             <button class="dice skill-dice" @click="DialogRollDice.setValues(
@@ -123,7 +121,7 @@ function onCancelPowersDialog() {
         </div>
 
         <div class="transparent-box">
-
+          <div class="left-header">Widerstände</div>
           <div class="row item">
             <div>Panzerung</div>
             <button class="dice skill-dice" @click="DialogRollDice.setValues(
@@ -170,7 +168,7 @@ function onCancelPowersDialog() {
         </div>
 
         <div class="transparent-box">
-
+          <div class="left-header">Skills</div>
           <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
             <div>
               {{ skill.name }} ({{ skill.rating }})
@@ -198,7 +196,8 @@ function onCancelPowersDialog() {
         </div>
 
         <div class="transparent-box">
-          <div>{{ spirit.spiritType?.flaws }}</div>
+          <div class="left-header">Allergien</div>
+          <div class="item">{{ spirit.spiritType?.flaws }}</div>
         </div>
     </div>
 
@@ -208,17 +207,18 @@ function onCancelPowersDialog() {
 
 <style scoped>
 
+.powers {
+  justify-content: space-between;
+  padding: 0 2dvw 0 2dvw;
+  color: var(--accent-color)
+}
+
 .mode {
   height: 8vh;
 }
 
 .item {
   height: 5vh;
-}
-
-.row {
-  justify-content: space-evenly;
-  width: 95%;
 }
 
 .services {
@@ -233,22 +233,21 @@ function onCancelPowersDialog() {
 .toggle {
   border: 1px solid var(--primary-color);
   border-radius: 1vh;
-  width: 95%;
-  margin: 2dvh auto 0 auto;
+  margin: 2dvh 2dvw 0 2dvw;
 }
 
 .release {
-  position: absolute;
-  top: 2dvw;
-  right: 2dvw;
-  width: 10dvw;
-  height: 10dvw;
+  width: 5vh;
+  height: 5vh;
   padding: 0;
   margin: 0;
-  font-size: 10dvw;
-  line-height: 5vh;
+  font-size: 5vh;
   color: var(--accent-color);
   background-color: var(--background-color);
+}
+
+.sheet-header {
+  padding: 0 2dvw 2vw 2dvw;
 }
 
 </style>/
