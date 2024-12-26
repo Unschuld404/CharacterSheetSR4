@@ -1,0 +1,73 @@
+<script setup lang="ts">
+
+  import {char} from "@/composables/char";
+  import {uploadSheet} from "@/composables/fetch";
+  import {computed} from "vue";
+  import {DialogRollDice} from "@/composables/dialogs";
+
+  function toggleSkill(value: string)
+  {
+    if (char.isSkillSelected(value))
+    {
+      char.unselectSkill(value);
+    }
+    else
+    {
+      char.selectSkill(value);
+    }
+
+    uploadSheet().then();
+  }
+</script>/
+
+<template>
+
+  <div class="overlay">
+    <div class="dialog-box column">
+      <strong>Wissensfertigkeiten</strong>
+      <ul>
+        <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">
+          <template v-if="skill.rating == 0 && skill.type == 'Language'">
+            <div>{{ skill.name }} ( nat )</div>
+          </template>
+
+          <template v-else>
+            <div>{{ skill.name }} ( {{skill.rating}} )</div>
+          </template>
+          <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
+        </li>
+      </ul>
+    <strong>Aktionsfertigkeiten</strong>
+    <ul>
+      <li v-for="skill in char.actionSkills" :key="skill.name">
+      <div class="item" v-if="skill.rating != 0">
+        <div>{{ skill.name }} ( {{skill.rating}} )</div>
+        <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
+      </div>
+      </li>
+    </ul>
+    </div>
+  </div>
+
+</template>
+
+<style scoped>
+
+.dialog-box {
+  height: 80dvh;
+  width: 90dvw;
+  overflow: scroll;
+  padding-top: 0;
+}
+
+strong {
+  padding-left: 4dvw;
+  padding-top: 4vh;
+}
+
+.item {
+  padding: 2vh 4dvw 2vh 4dvw;
+  border-bottom: 0.5px solid var(--primary-color);
+}
+
+</style>/

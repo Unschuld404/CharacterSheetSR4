@@ -14,6 +14,8 @@ import ChangeSpiritEdge from "@/components/Dialoge/ChangeSpiritEdge.vue";
 import EdgeDiceResult from "@/components/Dialoge/EdgeDiceResult.vue";
 import CommlinkSheet from "@/components/Dialoge/CommlinkSheet.vue";
 import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
+import ChooseAction from "@/components/Dialoge/ChooseAction.vue";
+import ChooseSkill from "@/components/Dialoge/ChooseSkill.vue";
 
 </script>
 
@@ -35,6 +37,8 @@ import VehicleSheet from "@/components/Dialoge/VehicleSheet.vue";
   <ChangeSpiritEdge/>
   <CommlinkSheet/>
   <VehicleSheet/>
+  <ChooseAction/>
+  <ChooseSkill/>
 
   <Header  v-if="dataIsValid()"/>
 

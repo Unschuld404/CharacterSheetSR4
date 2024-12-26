@@ -2,12 +2,10 @@
     appearance: none;
     border-radius: 0.2rem;
     background-color: var(--background-color);
-    border: none;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-top: 0;
-    margin-right: 12px;
-    align-self: center;
+    border: 1px solid var(--accent-color);
+    width: 5dvw;
+    height: 5dvw;
+    margin: 0;
 }
 
 .favourite:checked {
