@@ -37,7 +37,6 @@ import ChooseSkill from "@/components/Dialoge/ChooseSkill.vue";
   <ChangeSpiritEdge/>
   <CommlinkSheet/>
   <VehicleSheet/>
-  <ChooseAction/>
   <ChooseSkill/>
 
   <Header  v-if="dataIsValid()"/>

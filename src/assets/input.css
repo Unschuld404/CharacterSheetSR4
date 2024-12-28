@@ -17,8 +17,7 @@ input {
     caret-color: rgba(224, 224, 224, 0.3);
     text-transform: none;
     text-align: center;
-    line-height: 8vh;
-    font-size: 8vw;
+    font-size: 4vh;
     font-weight: bold;
     width: 90%;
     background-color: transparent;

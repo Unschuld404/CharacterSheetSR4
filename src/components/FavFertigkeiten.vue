@@ -2,7 +2,7 @@
 
 import {computed} from "vue";
 import {char} from "@/composables/char";
-import {DialogRollDice} from "@/composables/dialogs";
+import {DialogChooseSkill, DialogRollDice} from "@/composables/dialogs";
 
 const skills = computed(() => {
   let list = [];
@@ -32,7 +32,7 @@ const skills = computed(() => {
 
   <div class="transparent-box">
 
-    <div class="left-header">Fähigkeiten <i class='bx bxs-cog'></i></div>
+    <div class="left-header" @click="DialogChooseSkill.show">Fähigkeiten <i class='bx bxs-cog'></i></div>
     <div>
       <div class="item" v-for="skill in skills" :key="skill.name">
 

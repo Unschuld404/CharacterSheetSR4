@@ -3,7 +3,7 @@
   import {char} from "@/composables/char";
   import {uploadSheet} from "@/composables/fetch";
   import {computed} from "vue";
-  import {DialogRollDice} from "@/composables/dialogs";
+  import {DialogChooseSkill, DialogRollDice} from "@/composables/dialogs";
 
   function toggleSkill(value: string)
   {
@@ -22,8 +22,8 @@
 
 <template>
 
-  <div class="overlay">
-    <div class="dialog-box column">
+  <div v-if="DialogChooseSkill.visible" class="overlay" @click="DialogChooseSkill.hide">
+    <div class="dialog-box column" @click.stop>
       <strong>Wissensfertigkeiten</strong>
       <ul>
         <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">
@@ -40,7 +40,7 @@
     <strong>Aktionsfertigkeiten</strong>
     <ul>
       <li v-for="skill in char.actionSkills" :key="skill.name">
-      <div class="item" v-if="skill.rating != 0">
+      <div class="item">
         <div>{{ skill.name }} ( {{skill.rating}} )</div>
         <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
       </div>
