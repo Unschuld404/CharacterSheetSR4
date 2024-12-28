@@ -1,22 +1,7 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
-import {DialogRollDice, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
-import {uploadSheet} from "@/composables/fetch";
-import {Vehicle} from "@/composables/vehicle";
+import { DialogVehicleSheet } from "@/composables/dialogs";
 
-function toggleSelection(item: Vehicle): void
-{
-  if (char.isItemSelected(item))
-  {
-    char.unselectItem(item);
-  }
-  else
-  {
-    char.selectItem(item);
-  }
-
-  uploadSheet().then();
-}
 </script>
 
 <template>
@@ -25,7 +10,6 @@ function toggleSelection(item: Vehicle): void
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
       <div class="transparent-box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div class="row">
-          <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(vehicle)" @change="toggleSelection(vehicle)">
           <div class="clickable-name">{{ vehicle.name }} </div>
         </div>
 
@@ -62,6 +46,10 @@ li {
 
 .transparent-box {
   padding-top: 2vh;
+}
+
+.clickable-name {
+  padding-left: 2dvw;
 }
 
 </style>
