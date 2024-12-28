@@ -29,18 +29,14 @@ function toggleSelection(item: Weapon): void
       <li v-for="weapon in char.weapons" :key="weapon.name" class="item">
 
         <div v-if="!weapon.isMelee" @click="DialogWeapon.setWeapon(weapon).show()">
-         <div class="item column">
+         <div class="column">
            <div class="row">
-             <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
              <div class="clickable-name">{{ weapon.name }}</div>
            </div>
 
            <div class="row">
-
              <div class="damage-code">Schaden: <strong>{{ weapon.damage }}</strong></div>
-
              <div v-if="weapon.ap != '-'">PB: <strong>{{ weapon.ap }}</strong></div>
-
            </div>
 
            <div class="row">
@@ -61,19 +57,11 @@ function toggleSelection(item: Weapon): void
                 }
                 ).show()">
           <div class="column">
+            <div class="clickable-name">{{ weapon.name }}</div>
             <div class="row">
-              <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
-              <div class="clickable-name">{{ weapon.name }}</div>
-            </div>
-
-            <div class="row">
-
               <div class="damage-code">Schaden: <strong>{{ weapon.damage }}</strong></div>
-
               <div v-if="weapon.ap != '-'">PB: <strong>{{ weapon.ap }}</strong></div>
-
             </div>
-
           </div>
         </div>
       </li>

@@ -36,6 +36,11 @@
     background-color: var(--background-color);
 }
 
+.dialog-box::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
 .sheet {
     position: relative;
     width: 100%;
@@ -43,6 +48,11 @@
     padding: 2vh 0 0 0;
     background-color: var(--background-color);
     overflow: scroll;
+}
+
+.sheet::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .sheet-header {

@@ -5,7 +5,13 @@ import {Spell} from "@/composables/types";
 import {Spirit} from "@/composables/spirits";
 import {Vehicle} from "@/composables/vehicle";
 import {Weapon} from "@/composables/weapons";
-import {DialogRollDice, DialogSpiritSheet, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
+import {
+  DialogChooseAction,
+  DialogRollDice,
+  DialogSpiritSheet,
+  DialogVehicleSheet,
+  DialogWeapon
+} from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
 
 function handleWeapon() {
@@ -29,7 +35,7 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
   <div class="transparent-box">
 
-    <div class="left-header">Aktionen <i class='bx bxs-cog'></i></div>
+    <div class="left-header" @click="DialogChooseAction.show">Aktionen <i class='bx bxs-cog'></i></div>
 
     <div>
 

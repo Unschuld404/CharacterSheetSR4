@@ -2,24 +2,9 @@
 import { computed } from 'vue';
 import {DialogSpiritSheet, DialogAddSpirit} from "@/composables/dialogs";
 import {char} from "@/composables/char";
-import type {Spirit} from "@/composables/spirits";
-import {uploadSheet} from "@/composables/fetch";
 
 const spirits = computed(() => char.spirits);
 
-function toggleSelection(item: Spirit): void
-{
-  if (char.isItemSelected(item))
-  {
-    char.unselectItem(item);
-  }
-  else
-  {
-    char.selectItem(item);
-  }
-
-  uploadSheet().then();
-}
 </script>
 
 <template>

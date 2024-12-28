@@ -3,7 +3,6 @@ import {char} from "@/composables/char";
 import {DialogRollDice, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
 import {uploadSheet} from "@/composables/fetch";
 import {Vehicle} from "@/composables/vehicle";
-import {toInt} from "@/composables/utils";
 
 function toggleSelection(item: Vehicle): void
 {

@@ -29,7 +29,6 @@ function toggleSelection(item: Spell): void
     <li v-for="spell in char.spells" :key="spell.name" class="item">
       <div class="column">
         <div class="row">
-          <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(spell)" @change="toggleSelection(spell)">
           <div  class="name">{{ spell.name }}</div>
         </div>
         <div class="row info">

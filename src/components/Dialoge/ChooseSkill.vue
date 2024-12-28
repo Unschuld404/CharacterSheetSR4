@@ -2,8 +2,7 @@
 
   import {char} from "@/composables/char";
   import {uploadSheet} from "@/composables/fetch";
-  import {computed} from "vue";
-  import {DialogChooseSkill, DialogRollDice} from "@/composables/dialogs";
+  import {DialogChooseSkill} from "@/composables/dialogs";
 
   function toggleSkill(value: string)
   {

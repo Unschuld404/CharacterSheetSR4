@@ -193,3 +193,4 @@ export const DialogDiceResult = reactive(new Dialog());
 export const DialogEdgeDiceResult = reactive(new Dialog());
 export const DialogCommlink = reactive(new Dialog());
 export const DialogChooseSkill = reactive(new Dialog());
+export const DialogChooseAction = reactive(new Dialog());
