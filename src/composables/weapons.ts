@@ -109,9 +109,9 @@ export function getModeModifier(mode: string, ammoLeft: number, rc: number, seco
     let modifier = Math.min(item.count, Math.max(ammoLeft, 1)) -1;
     if (secondPhase)
     {
-        modifier--;
+        modifier++;
     }
-    return modifier + rc;
+    return -1* Math.max(0, modifier - rc);
 }
 
 function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting

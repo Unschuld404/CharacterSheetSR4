@@ -86,7 +86,7 @@ function shoot()
         </div>
         <div class="column">
           <strong>Modus-Mod</strong>
-          <div>-{{ modeModifier }}</div>
+          <div>{{ modeModifier }}</div>
           <div>Schussmodus</div>
           <RadioButtons class="mode" v-model="selectShootingMode" :options="shootingMode" group="modes"/>
         </div>
@@ -112,20 +112,18 @@ function shoot()
           <button class="weapon-buttons" @click="DialogRollDice.setValues(
           {
             name: weapon.name,
-            value: toInt(weapon.dicepool) + rangeModifier - modeModifier,
+            value: toInt(weapon.dicepool) + rangeModifier + modeModifier,
             values: [
                 {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
                 {name: 'Geschicklichkeit', value: char.attributes.agility.total},
                 {name: 'Distanz', value: rangeModifier},
-                {name: 'Modus', value: -modeModifier},
+                {name: 'Modus', value: modeModifier},
                 ]
           }
           ).show()">
-            ({{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}) Würfel
+            ({{ toInt(weapon.dicepool) + rangeModifier + modeModifier }}) Würfel
           </button>
         </div>
-
-
       </div>
       <div class="gap">
         <div class="item">
