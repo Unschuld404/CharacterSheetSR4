@@ -9,7 +9,6 @@ import {char} from "@/composables/char";
 
 
 const selectReach = ref<string>('short');
-const selectShootingMode = ref<string>('einzelschuss');
 const chooseAmmoDialogVisible = ref(false);
 
 const weapon  = computed( () => {
@@ -18,6 +17,13 @@ const weapon  = computed( () => {
 
 const setting = computed(() => {
   return DialogWeapon.setting;
+})
+
+const selectShootingMode = computed({
+  get: () => DialogWeapon.setting.selectedMode,
+  set: (value) => {
+    DialogWeapon.setting.selectedMode = value;
+  }
 })
 
 const ranges = computed(() => {
