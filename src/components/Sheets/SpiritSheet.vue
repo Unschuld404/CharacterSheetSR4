@@ -72,7 +72,7 @@ function onCancelPowersDialog() {
         <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
         <button class="close" @click="DialogSpiritSheet.hide"><i class='bx bx-x'></i></button>
       </div>
-      <div class="row" v-if="selectedSpiritPlane=='material'">
+      <div class="row">
         <div class="column">
           <div>Konsti</div>
           <div>{{  spirit.attributeTotal('BOD') }}</div>
@@ -256,13 +256,13 @@ function onCancelPowersDialog() {
 }
 
 .release {
-  width: 5vh;
-  height: 5vh;
+  width: 4vh;
+  height: 4vh;
   padding: 0;
   margin: 0;
-  font-size: 5vh;
+  font-size: 3.8vh;
   color: var(--accent-color);
-  background-color: var(--background-color);
+  border: none;
 }
 
 .sheet-header {
