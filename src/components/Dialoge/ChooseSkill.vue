@@ -17,6 +17,7 @@
 
     uploadSheet().then();
   }
+
 </script>/
 
 <template>
@@ -52,16 +53,16 @@
 
 <style scoped>
 
+strong {
+  padding-left: 4dvw;
+  padding-top: 4vh;
+}
+
 .dialog-box {
   height: 80dvh;
   width: 90dvw;
   overflow: scroll;
   padding-top: 0;
-}
-
-strong {
-  padding-left: 4dvw;
-  padding-top: 4vh;
 }
 
 .item {

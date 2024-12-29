@@ -9,7 +9,7 @@ import Widerstand from "@/components/Widerstand.vue";
 import Edge from "@/components/Edge.vue";
 import Nuyen from "@/components/Nuyen.vue";
 import Ausweichen from "@/components/Ausweichen.vue";
-import EdgeDiceResult from "@/components/Dialoge/EdgeDiceResult.vue";
+import EdgeDiceResult from "@/components/Archiv für Später/EdgeDiceResult.vue";
 import {DialogEdgeDiceResult} from "@/composables/dialogs";
 
 </script>

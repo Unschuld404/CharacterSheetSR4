@@ -2,11 +2,11 @@
 import {DialogManageSpiritEdge, DialogRollDice, DialogSpiritPowerInfo, DialogSpiritSheet} from "@/composables/dialogs";
 import {computed, ref} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
-import ReleaseSpirit from "@/components/Dialoge/ReleaseSpirit.vue";
+import ReleaseSpirit from "@/components/Dialoge/Spirits/ReleaseSpirit.vue";
 import {char} from "@/composables/char";
 import ChangeSpiritPowers from "@/components/Dialoge/ChangeSpiritPowers.vue";
 import {BoundModes, powerHasPool, SpiritPlanes} from "@/composables/spirits";
-import SpiritPowerInfo from "@/components/Dialoge/SpiritPowerInfo.vue";
+import SpiritPowerInfo from "@/components/Dialoge/Spirits/SpiritPowerInfo.vue";
 
 const releaseDialogVisible = ref(false);
 const powersDialogVisible = ref(false);
