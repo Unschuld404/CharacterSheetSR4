@@ -20,9 +20,9 @@ const setting = computed(() => {
 })
 
 const selectShootingMode = computed({
-  get: () => DialogWeapon.setting.selectedMode,
+  get: () => setting.value.selectedMode,
   set: (value) => {
-    DialogWeapon.setting.selectedMode = value;
+    setting.value.selectedMode = value;
   }
 })
 
@@ -113,7 +113,7 @@ function shoot()
           </div>
         </div>
         <div class="column">
-          <button class="weapon-buttons">schiessen</button>
+          <button class="weapon-buttons" @click="shoot">schiessen</button>
 
           <button class="weapon-buttons" @click="DialogRollDice.setValues(
           {
@@ -139,6 +139,26 @@ function shoot()
         <div class="item">
           <div>Pool</div>
           <div>{{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}</div>
+        </div>
+        <div class="item">
+          <div>Mode</div>
+          <div>{{ weapon.mode }}</div>
+        </div>
+        <div class="item">
+          <div>Kategorie</div>
+          <div>{{ weapon.category }}</div>
+        </div>
+        <div class="item">
+          <div>Ammo</div>
+          <div>{{ weapon.ammo }}</div>
+        </div>
+        <div class="item">
+          <div>Name</div>
+          <div>{{ weapon.weaponname }}</div>
+        </div>
+        <div class="item">
+          <div>Conceal</div>
+          <div>{{ weapon.conceal }}</div>
         </div>
         <div class="item">
           <div>Panzerbrechend</div>
