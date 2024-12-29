@@ -72,6 +72,24 @@ function onCancelPowersDialog() {
         <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
         <button class="release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></button>
       </div>
+      <div class="row" v-if="selectedSpiritPlane=='material'">
+        <div class="column">
+          <div>Konsti</div>
+          <div>{{  spirit.attributeTotal('BOD') }}</div>
+        </div>
+        <div class="column">
+          <div>Geschick</div>
+          <div>{{  spirit.attributeTotal('AGI') }}</div>
+        </div>
+        <div class="column">
+          <div>Reaktion</div>
+          <div>{{  spirit.attributeTotal('REA') }}</div>
+        </div>
+        <div class="column">
+          <div>Stärke</div>
+          <div>{{  spirit.attributeTotal('STR') }}</div>
+        </div>
+      </div>
       <div class="row powers">
         <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
         <div class="formula" @click="DialogManageSpiritEdge.show">{{spirit.edge}} Edge</div>
@@ -209,7 +227,7 @@ function onCancelPowersDialog() {
 
 .powers {
   justify-content: space-between;
-  padding: 0 2dvw 0 2dvw;
+  padding: 6dvw 2dvw 0 2dvw;
   color: var(--accent-color)
 }
 
@@ -248,6 +266,11 @@ function onCancelPowersDialog() {
 
 .sheet-header {
   padding: 0 2dvw 2vw 2dvw;
+}
+
+.column {
+  width: 25%;
+  text-align: center;
 }
 
 </style>/
