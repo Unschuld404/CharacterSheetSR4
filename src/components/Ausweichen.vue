@@ -60,8 +60,6 @@ const evadeRanged = computed( () => {
 
 .defense {
   width: 15vh;
-  font-weight: normal;
-  font-size: 2vh;
 }
 
 .defense.active {

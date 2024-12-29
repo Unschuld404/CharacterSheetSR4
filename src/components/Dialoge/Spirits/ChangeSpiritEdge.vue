@@ -17,7 +17,7 @@ function substract()
 <template>
 
   <div v-if="DialogManageSpiritEdge.visible" class="overlay" @click="DialogManageSpiritEdge.hide">
-    <div class="dialog-box" @click.stop>
+    <div class="dialog-box column" @click.stop>
 
       <h1>Edge</h1>
       <div class="row">

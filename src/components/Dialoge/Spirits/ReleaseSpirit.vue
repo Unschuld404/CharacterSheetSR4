@@ -47,6 +47,7 @@ p {
 
 .dialog-box {
   padding-top: 2vh;
+  width: 90dvw;
 }
 
 .overlay {

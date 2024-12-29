@@ -65,7 +65,7 @@ import {DialogChangeKarma} from "@/composables/dialogs";
         <div class="upper-header">EDG</div>
         <strong>{{ char.attributes.edge.total }}</strong>
       </div>
-      <div class="transparent-box column mag">
+      <div class="transparent-box column">
         <div class="upper-header">MAG</div>
         <strong>{{ char.attributes.magic.total }}</strong>
       </div>
@@ -176,10 +176,6 @@ p {
 
 .armor {
   margin-left: 2dvw;
-}
-
-.mag {
-  border-bottom: 2px solid var(--primary-color);
 }
 
 .column {

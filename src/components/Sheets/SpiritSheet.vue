@@ -68,9 +68,9 @@ function onCancelPowersDialog() {
   <div v-if="DialogSpiritSheet.visible" class="overlay">
     <div class="sheet" @click.stop>
       <div class="sheet-header row">
-        <button class="close" @click="DialogSpiritSheet.hide"><i class='bx bx-x'></i></button>
-        <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
         <button class="release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></button>
+        <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
+        <button class="close" @click="DialogSpiritSheet.hide"><i class='bx bx-x'></i></button>
       </div>
       <div class="row" v-if="selectedSpiritPlane=='material'">
         <div class="column">
@@ -206,9 +206,9 @@ function onCancelPowersDialog() {
             </div>
           </div>
 
-          <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power" @click="DialogSpiritPowerInfo.setPower(power).show()">
-            <div class="formula">{{ power.name }}</div>
-            <div v-if="powerHasPool(power)"  class="dice skill-dice" @click="DialogRollDice.show()">X</div>
+          <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power">
+            <div @click="DialogSpiritPowerInfo.setPower(power).show()">{{ power.name }}</div>
+            <button v-if="powerHasPool(power)"  class="dice" @click="DialogRollDice.show()">X</button>
           </div>
 
         </div>
@@ -241,6 +241,7 @@ function onCancelPowersDialog() {
 
 .services {
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .transparent-box {

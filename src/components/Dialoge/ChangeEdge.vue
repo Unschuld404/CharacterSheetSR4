@@ -22,14 +22,11 @@
 <template>
 
   <div v-if="DialogManageEdge.visible" class="overlay" @click="DialogManageEdge.hide">
-    <div class="popup dialog-box" @click.stop>
-      <div class="upper-header">Edge</div>
+    <div class="dialog-box column" @click.stop>
+      <div class="upper-header">Edge (max. {{ char.attributes.edge.base }})</div>
       <div class="row">
         <div class="mutator" @click="substract">-</div>
-        <div class="edge">
-          <div>{{ char.attributes.edge.total }}</div>
-          <div class="max-edge">/ {{ char.attributes.edge.base }}</div>
-        </div>
+        <strong>{{ char.attributes.edge.total }}</strong>
         <div class="mutator" @click="add">+</div>
       </div>
       <button class="confirm" @click="DialogManageEdge.hide">OK</button>
@@ -40,32 +37,14 @@
 
 <style scoped>
 
-.mutator {
-  width: 7vh;
-  height: 7vh;
-  line-height: 7.5vh;
-  font-size: 7vh;
-}
-
-.edge {
-  display: flex;
-  align-items: center;
-}
-
-.max-edge {
-  font-size: 2vh;
-  font-weight: normal;
-  margin-left: 1vh;
-  padding-top: 3vh;
+strong {
+  font-size: 12dvw;
 }
 
 .row {
-  justify-content: space-evenly;
-  width: 70vw;
-  height: 15vh;
   align-items: center;
-  font-size: 8vh;
-  font-weight: bold;
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 </style>/

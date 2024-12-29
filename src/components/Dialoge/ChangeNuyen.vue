@@ -47,11 +47,11 @@ function spend()
 .row {
   width: 100%;
   justify-content: space-between;
-  gap: 2dvw;
 }
 
-button {
-  background-color: transparent;
+.confirm {
+  width: 50%;
 }
+
 
 </style>/
