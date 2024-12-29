@@ -15,32 +15,23 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
 </script>
 
 <template>
-
   <div class="collection">
-
-      <div class="row">
-        <div class="column">
-          <Edge/>
-          <Nuyen/>
-        </div>
-        <Initiative/>
-      </div>
-
-      <Widerstand/>
-      <Ausweichen/>
-
-      <div class="row">
-        <KoerperlicherSchadensmonitor/>
-        <GeistigerSchadensmonitor/>
-      </div>
+    <div class="row">
+      <Edge/>
+      <Nuyen/>
+    </div>
+    <Initiative/>
+    <Widerstand/>
+    <Ausweichen/>
+    <div class="row">
+      <KoerperlicherSchadensmonitor/>
+      <GeistigerSchadensmonitor/>
+    </div>
     <div class="column">
       <FavAktionen/>
       <FavFertigkeiten/>
     </div>
-
-
-    </div>
-
+  </div>
 </template>
 
 <style scoped>

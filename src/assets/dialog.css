@@ -65,11 +65,11 @@
 }
 
 .close {
-    width: 5vh;
-    height: 5vh;
+    width: 4vh;
+    height: 4vh;
     padding: 0;
     margin: 0;
-    font-size: 5vh;
+    font-size: 3.8vh;
     color: var(--background-color);
     background-color: var(--accent-color);
 }
