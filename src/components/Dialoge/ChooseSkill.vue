@@ -65,8 +65,8 @@ strong {
 }
 
 .item {
-  padding: 2vh 4dvw 2vh 4dvw;
-  border-bottom: 0.5px solid var(--primary-color);
+  padding-left: 4dvw;
+  padding-right: 4dvw;
 }
 
 </style>/

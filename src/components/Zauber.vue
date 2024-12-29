@@ -79,12 +79,9 @@ function toggleSelection(item: Spell): void
 }
 
 button {
-  height: 70px;
   width: 100%;
-  font-size: 36px;
+  font-size: 6dvw;
   font-weight: bold;
-  padding-top: 10px;
-  margin-top: 10px;
 }
 
 .left-header {

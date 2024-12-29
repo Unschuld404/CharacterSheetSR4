@@ -13,20 +13,20 @@ import { DialogVehicleSheet } from "@/composables/dialogs";
           <div class="clickable-name">{{ vehicle.name }} </div>
         </div>
 
-        <div class="item" v-if="vehicle.weapons.length">
-          <div v-for="weapon in vehicle.weapons">
+        <div v-if="vehicle.weapons.length">
+          <div class="item" v-for="weapon in vehicle.weapons">
             {{ weapon.name }}
           </div>
         </div>
 
-        <div class="item" v-if="vehicle.sensors.length">
-          <div v-for="sensor in vehicle.sensors">
+        <div v-if="vehicle.sensors.length">
+          <div class="item" v-for="sensor in vehicle.sensors">
             {{ sensor.name }} ({{ sensor.rating }})
           </div>
         </div>
 
-        <div class="item" v-if="vehicle.mods.length">
-          <div v-for="mod in vehicle.mods">
+        <div v-if="vehicle.mods.length">
+          <div class="item" v-for="mod in vehicle.mods">
             {{ mod.name }}
           </div>
         </div>

@@ -45,7 +45,7 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
       </div>
 
       <div v-for="spirit in spirits" class="item" @click="DialogSpiritSheet.setSpirit(spirit).show()">
-        <div>{{ spirit.type }}</div>
+        <div>{{ spirit.type }} ({{ spirit.force }})</div>
         <div>{{ spirit.bound ? 'gebunden' : 'ungebunden' }}</div>
       </div>
 
@@ -79,14 +79,7 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
 <style scoped>
 
-.item {
-  display: flex;
-  height: 6vh;
-  line-height: 6vh;
-  justify-content: space-between;
-}
-
-.item:last-child {
+.transparent-box {
   border-bottom: none;
 }
 
