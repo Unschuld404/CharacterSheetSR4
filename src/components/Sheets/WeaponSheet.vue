@@ -21,7 +21,7 @@ const setting = computed(() => {
 })
 
 const selectShootingMode = computed({
-  get: () => setting.value.selectedMode,
+  get: () => setting.value == null ? 'einzelschuss' : setting.value.selectedMode,
   set: (value) => {
     setting.value.selectedMode = value;
   }
@@ -44,11 +44,13 @@ const modeModifier = computed(() => {
   return getModeModifier( selectShootingMode.value, toInt(weapon.value.rc), 0, bulletsToFire.value );
 })
 
+const ammoLeft = computed(() =>  DialogWeapon?.setting?.ammoLeft ?? 0 )
+
 const bulletsToFire = computed(() => {
-  return Math.min(setting.value.ammoLeft, getShootingMode(selectShootingMode.value)?.count ?? 0);
+  return Math.min(ammoLeft.value, getShootingMode(selectShootingMode.value)?.count ?? 0);
 })
 const bulletsLeftAfterFire = computed(() => {
-  return Math.max(setting.value.ammoLeft - bulletsToFire.value, 0);
+  return Math.max(ammoLeft.value - bulletsToFire.value, 0);
 })
 const bulletStyle = computed(() => {
   const maxWith = 200;
@@ -66,6 +68,7 @@ watch(bulletsToFire, (newVal, oldVal) => {
     }, 500);
   }
 });
+
 
 function reload()
 {
