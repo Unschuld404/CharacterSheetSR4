@@ -19,11 +19,11 @@ function confirm(): void  {
     const regex = /^(\d+)\s*\(([^)]+)\)$/;
     const match = size.match(regex);
 
-    DialogWeapon.setting.ammoLoaded = selectedItem.value.name;
-    DialogWeapon.setting.magType = match ? match[2].trim() : '';
-    DialogWeapon.setting.magSize = match ? toInt(match[1]) : 0;
-    DialogWeapon.setting.ammoLeft = Math.min(DialogWeapon.setting.magSize, selectedItem.value.count);
-    selectedItem.value.count -= DialogWeapon.setting.ammoLeft;
+    DialogWeapon.weapon.settings.ammoLoaded = selectedItem.value.name;
+    DialogWeapon.weapon.settings.magType = match ? match[2].trim() : '';
+    DialogWeapon.weapon.settings.magSize = match ? toInt(match[1]) : 0;
+    DialogWeapon.weapon.settings.ammoLeft = Math.min(DialogWeapon.weapon.settings.magSize, selectedItem.value.count);
+    selectedItem.value.count -= DialogWeapon.weapon.settings.ammoLeft;
   }
 
   emit('confirm');
