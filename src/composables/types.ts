@@ -29,6 +29,13 @@ export type WeaponSetting = {
     ammoLeft: number;
 }
 
+export type ShootingMode = {
+    label: string;
+    value: string;
+    count: number;
+    mode: string;
+}
+
 export type VehicleMod = {
     name: string;
     rating: number;

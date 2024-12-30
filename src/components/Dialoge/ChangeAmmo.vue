@@ -39,7 +39,7 @@ const sizeSelection = computed(() => {
   }));
 })
 
-const selectedSize = ref<string>(sizeSelection.value[0]?.label ?? '');
+const selectedSize = ref<string>(sizeSelection.value[0]?.value ?? '');
 
 const items = computed(() => {
   return char.gear.filter((item: Gear) => {
@@ -61,7 +61,7 @@ function setSelection(item: Gear) {
       <div class="dialog-box" @click.stop>
 
         <div v-if="sizeSelection.length > 1" class="size">
-          <RadioButtons :options="sizeSelection" model-value="selectedSize" />
+          <RadioButtons :options="sizeSelection" v-model="selectedSize" group="magSize"/>
         </div>
 
         <div class="scroll-box">
@@ -92,10 +92,6 @@ function setSelection(item: Gear) {
 
 .size {
   height: 10vh;
-}
-
-.radio {
-  height: 6vh;
 }
 
 ul {
