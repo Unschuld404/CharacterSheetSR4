@@ -1,4 +1,4 @@
-import type {IdObject, WeaponMod, WeaponSetting} from "@/composables/types";
+import type {IdObject, ShootingMode, WeaponMod, WeaponSetting} from "@/composables/types";
 import {char} from "@/composables/char";
 import {getWeaponModsFromData} from "@/composables/data";
 
@@ -74,12 +74,12 @@ export class Weapon implements IdObject  {
     }
 }
 
-export const shootingMode = [
-    { label: 'Einzelschuss', value: 'einzelschuss', count: 1, secondPhase: true },
-    { label: 'Kurze Salve', value: 'kurzeSalve', count: 3,secondPhase: true },
-    { label: 'Lange Salve', value: 'langeSalve', count: 6, secondPhase: true},
-    { label: 'Autofeuer', value: 'autofeuer', count: 10, secondPhase: false },
-    { label: 'Sperrfeuer', value: 'sperrfeuer', count: 20, secondPhase: false },
+export const shootingMode: ShootingMode[] = [
+    { label: 'Einzelschuss', value: 'einzelschuss', count: 1, mode: 'EM,HM,SM,AM' },
+    { label: 'Kurze Salve', value: 'kurzeSalve', count: 3, mode: 'SM,AM' },
+    { label: 'Lange Salve', value: 'langeSalve', count: 6, mode: 'AM'},
+    { label: 'Autofeuer', value: 'autofeuer', count: 10, mode: 'AM' },
+    { label: 'Sperrfeuer', value: 'sperrfeuer', count: 20, mode: 'AM'},
 ];
 
 export const reachModifiers = [
@@ -89,29 +89,38 @@ export const reachModifiers = [
     { value: 'extreme', modifier: -6 },
 ];
 
+export const weaponMode = [
+    { label: 'Einzelschuss', value: 'EM' , secondPhase: false },
+    { label: 'Halbautomatik', value: 'HM', secondPhase: true },
+    { label: 'Salve', value: 'SM', secondPhase: true },
+    { label: 'Vollautomatik', value: 'AM', secondPhase: true },
+];
+
 export function getRangeModifierForRange(range: string): number {
     return reachModifiers.find((item) => { return item.value === range})?.modifier ?? 0;
 }
 
-export function getModeModifier(mode: string, ammoLeft: number, rc: number, secondPhase: boolean): number {
+export function getShootingMode(mode: string): ShootingMode|null
+{
     const item = shootingMode.find((item) => { return item.value === mode}) ?? null;
     if (item === null)
     {
         console.error('mode not found: ' + mode)
-        return 0;
     }
+    return item;
+}
 
-    if (item.value === 'sperrfeuer')
+export function getModeModifier(mode: string, rc: number, bulletsFired: number, bulletsToFire: number): number {
+    const item = getShootingMode(mode);
+
+    if (item == null || item.value === 'sperrfeuer')
     {
         return 0;
     }
 
-    let modifier = Math.min(item.count, Math.max(ammoLeft, 1)) -1;
-    if (secondPhase)
-    {
-        modifier++;
-    }
-    return -1* Math.max(0, modifier - rc);
+    let modifier = bulletsFired + bulletsToFire -1;
+
+    return -1 * Math.max(0, modifier - rc);
 }
 
 function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting

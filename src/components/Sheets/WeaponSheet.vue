@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {DialogRollDice, DialogWeapon} from "@/composables/dialogs";
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
-import {getModeModifier, getRangeModifierForRange, shootingMode} from "@/composables/weapons";
+import {getModeModifier, getRangeModifierForRange, getShootingMode, shootingMode} from "@/composables/weapons";
 import {toInt} from "@/composables/utils";
 import ChangeAmmo from "@/components/Dialoge/ChangeAmmo.vue";
 import {char} from "@/composables/char";
@@ -10,6 +10,7 @@ import {char} from "@/composables/char";
 
 const selectReach = ref<string>('short');
 const chooseAmmoDialogVisible = ref(false);
+const isBlinking = ref(false);
 
 const weapon  = computed( () => {
     return DialogWeapon.weapon;
@@ -40,8 +41,31 @@ const rangeModifier = computed(() => {
 })
 
 const modeModifier = computed(() => {
-  return getModeModifier( selectShootingMode.value, setting.value.ammoLeft, toInt(weapon.value.rc), false );
+  return getModeModifier( selectShootingMode.value, toInt(weapon.value.rc), 0, bulletsToFire.value );
 })
+
+const bulletsToFire = computed(() => {
+  return Math.min(setting.value.ammoLeft, getShootingMode(selectShootingMode.value)?.count ?? 0);
+})
+const bulletsLeftAfterFire = computed(() => {
+  return Math.max(setting.value.ammoLeft - bulletsToFire.value, 0);
+})
+const bulletStyle = computed(() => {
+  const maxWith = 200;
+  const widthPerBullet = Math.max(4, maxWith/ setting.value.magSize);
+  return {
+    width: widthPerBullet + 'px',
+  }
+})
+
+watch(bulletsToFire, (newVal, oldVal) => {
+  if (newVal !== oldVal) {
+    isBlinking.value = true;
+    setTimeout(() => {
+      isBlinking.value = false;
+    }, 500);
+  }
+});
 
 function reload()
 {
@@ -98,8 +122,25 @@ function shoot()
         </div>
       </div>
       <div v-if="isLoaded()" class="ammo">
-        {{ setting.ammoLoaded }} {{ setting.ammoLeft }} / {{ setting.magSize }} ({{ setting.magType }})
+       {{ setting.ammoLoaded }}  ({{ setting.magType }})
       </div>
+      <div v-if="isLoaded()" class="ammo">
+        Anzahl Kugeln: {{ bulletsToFire }}
+      </div>
+      <div v-if="isLoaded()" class="magazine">
+        {{ bulletsLeftAfterFire }}  ({{ setting.ammoLeft }}) <span
+            v-for="index in setting.magSize"
+            :key="index"
+            class="bullet"
+            :style="bulletStyle"
+            :class="{
+              'used': index > setting.ammoLeft,
+              'to-fire': index > bulletsLeftAfterFire && index <= setting.ammoLeft,
+              'blink': isBlinking && index > bulletsLeftAfterFire && index <= setting.ammoLeft,
+            }"
+        ></span> {{ setting.magSize }}
+      </div>
+
       <div class="row">
         <div class="column">
           <div v-if="isLoaded()">
@@ -205,6 +246,36 @@ function shoot()
 .ammo {
   margin-top: 2vh;
   text-align: center;
+}
+
+ .magazine {
+   display: flex;
+   justify-content: center;
+ }
+
+.bullet {
+  height: 20px;
+  margin-right: 1px;
+  background-color: green;
+}
+.bullet.used {
+  background-color: dimgray;
+}
+.bullet.to-fire {
+  background-color: red;
+}
+
+/* Einfaches Blinken */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+.blink {
+  animation: blink 0.5s linear 1;
 }
 
 .item {
