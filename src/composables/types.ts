@@ -20,14 +20,6 @@ export type KarmaEntry = {
     value: number;
     reason: string;
 }
-export type WeaponSetting = {
-    weaponId: string;
-    selectedMode: string;
-    ammoLoaded: string;
-    magType: string;
-    magSize: number;
-    ammoLeft: number;
-}
 
 export type ShootingMode = {
     label: string;

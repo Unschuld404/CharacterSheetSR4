@@ -1,6 +1,8 @@
-import type {IdObject, ShootingMode, WeaponMod, WeaponSetting} from "@/composables/types";
+import type {IdObject, ShootingMode, WeaponMod } from "@/composables/types";
 import {char} from "@/composables/char";
 import {getWeaponModsFromData} from "@/composables/data";
+import {toInt} from "@/composables/utils";
+
 
 export type WeaponRange = {
     short: string;
@@ -9,10 +11,23 @@ export type WeaponRange = {
     extreme: string;
 }
 
+export class WeaponSetting  {
+    weaponId: string = '?';
+    selectedMode: string = 'einzelschuss';
+    ammoLoaded: string = '';
+    magType: string = '';
+    magSize: number = 0;
+    ammoLeft: number = 0;
+    bulletsFired: number = 0;
+}
+
+
 export class Weapon implements IdObject  {
     static nextId: number = 0;
-    id: number = 0;
 
+    ranges: WeaponRange = { short: '', medium: '', long: '', extreme: '' };
+
+    id: number = 0;
     name: string = '';
     damage: string = '';
     ap: string = '';
@@ -23,18 +38,11 @@ export class Weapon implements IdObject  {
     ammo: string = '';
     type: string = '';
     weaponname: string = '';
-    ranges: WeaponRange = { short: '', medium: '', long: '', extreme: '' };
+
     dicepool: string = '';
     mods: WeaponMod[] = [];
+    settings : WeaponSetting = new WeaponSetting();
 
-    get isMelee(): boolean {
-        return this.type == 'Melee';
-    }
-
-    get settings(): WeaponSetting
-    {
-        return validateWeaponSettingForWeapon(this);
-    }
 
     setNextId(): Weapon
     {
@@ -46,6 +54,60 @@ export class Weapon implements IdObject  {
         return this.category
             + '.' + this.name
             + '.' + this.id;
+    }
+
+    get isMelee(): boolean {
+        return this.type == 'Melee';
+    }
+
+    get getRanges() {
+        return [
+            { label: this.ranges.short, value: 'short'},
+            { label: this.ranges.medium, value: 'medium' },
+            { label: this.ranges.long, value: 'long'},
+            { label: this.ranges.extreme, value: 'extreme' },
+        ];
+    }
+
+    get shootingMode(): string
+    {
+        return this.settings.selectedMode;
+    }
+    set shootingMode(value) {
+        this.settings.selectedMode = value;
+    }
+    get shootingModeModifier(): number {
+        return getModeModifier( this.shootingMode, toInt(this.rc), 0, this.bulletsToFire );
+    }
+    get bulletsToFire(): number {
+        return Math.min(this.settings.ammoLeft, getShootingMode(this.shootingMode)?.count ?? 0);
+    }
+    get bulletsLeft(): number {
+        return this.settings.ammoLeft;
+    }
+    get bulletsLeftAfterFire(): number {
+        return this.bulletsLeft - this.bulletsToFire;
+    }
+    get magSize(): number {
+        return this.settings.magSize;
+    }
+    get magType(): string {
+        return this.settings.magType;
+    }
+    get ammoLoaded(): string {
+        return this.settings.ammoLoaded;
+    }
+
+    reload() {
+        this.settings.ammoLeft = this.settings.magSize;
+    }
+
+    shoot() {
+        this.settings.ammoLeft -= this.bulletsToFire;
+    }
+
+    get isLoaded(): boolean {
+        return this.settings.ammoLoaded !== '';
     }
 
     loadFromData(data: any): Weapon {
@@ -67,8 +129,11 @@ export class Weapon implements IdObject  {
         };
         this.dicepool= data.dicepool || '0';
         this.mods = getWeaponModsFromData(data.mods || []);
+        this.settings = validateWeaponSettingForWeapon(this);
+
         return this;
     }
+
     static createFromDataObject(data: any): Weapon {
         return (new Weapon()).setNextId().loadFromData(data);
     }
@@ -100,7 +165,7 @@ export function getRangeModifierForRange(range: string): number {
     return reachModifiers.find((item) => { return item.value === range})?.modifier ?? 0;
 }
 
-export function getShootingMode(mode: string): ShootingMode|null
+function getShootingMode(mode: string): ShootingMode|null
 {
     const item = shootingMode.find((item) => { return item.value === mode}) ?? null;
     if (item === null)
@@ -110,7 +175,7 @@ export function getShootingMode(mode: string): ShootingMode|null
     return item;
 }
 
-export function getModeModifier(mode: string, rc: number, bulletsFired: number, bulletsToFire: number): number {
+function getModeModifier(mode: string, rc: number, bulletsFired: number, bulletsToFire: number): number {
     const item = getShootingMode(mode);
 
     if (item == null || item.value === 'sperrfeuer')
@@ -127,14 +192,8 @@ function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
 {
     let setting = char.sheet.weaponSettings.find((item: WeaponSetting) => { return item.weaponId == weapon.generateId() }) ?? null;
     if (setting == null) {
-        setting = {
-            weaponId:  weapon.generateId(),
-            selectedMode: 'einzelschuss',
-            ammoLoaded: '',
-            magType: '',
-            magSize: 0,
-            ammoLeft: 0,
-        }
+        setting = new WeaponSetting();
+        setting.weaponId = weapon.generateId();
         char.sheet.weaponSettings.push(setting);
     }
     return setting;

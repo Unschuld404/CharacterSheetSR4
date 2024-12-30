@@ -1,20 +1,18 @@
 import {ref} from "vue";
 import {
     type Armor, type ArmorMod, type ArmorValues,
-    type AutoSoft,
     type Commlink, type CommlinkMod, type Contact,
     type Gear,
     GearType,
     type KarmaEntry, type Lifestyle,
     type NuyenEntry, type Program,
     type SelectedItem,
-    type Skill, Spell, type WeaponMod,
-    type WeaponSetting
+    type Skill, Spell, type WeaponMod
 } from "@/composables/types";
 import {toBool, toGearType, toInt} from "@/composables/utils";
 import {Spirit} from "@/composables/spirits";
 import {Vehicle} from "@/composables/vehicle";
-import {Weapon} from "@/composables/weapons";
+import {Weapon, WeaponSetting} from "@/composables/weapons";
 
 export const data = ref<any | null>(null);
 
@@ -69,6 +67,7 @@ export function getWeaponSettings(data: any): WeaponSetting[] {
         magSize: toInt(entry.magSize),
         magType: entry.magType,
         ammoLeft : toInt(entry.ammoLeft),
+        bulletsFired: toInt(entry.bulletsFired),
     }));
 }
 export function getSkills(data: any, knowledge: boolean): Array<Skill> {

@@ -1,7 +1,8 @@
 import {ref} from "vue";
 import {Spirit} from "@/composables/spirits";
-import type {DamageTaken, KarmaEntry, NuyenEntry, SelectedItem, WeaponSetting} from "@/composables/types";
+import type {DamageTaken, KarmaEntry, NuyenEntry, SelectedItem} from "@/composables/types";
 import {getKarmaLog, getNuyenLog, getSelectedItems, getWeaponSettings} from "@/composables/data";
+import {WeaponSetting} from "@/composables/weapons";
 
 export const sheet_data = ref<any | null>(null);
 

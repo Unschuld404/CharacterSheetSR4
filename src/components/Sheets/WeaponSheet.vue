@@ -2,59 +2,36 @@
 import {DialogRollDice, DialogWeapon} from "@/composables/dialogs";
 import {computed, ref, watch} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
-import {getModeModifier, getRangeModifierForRange, getShootingMode, shootingMode} from "@/composables/weapons";
+import {
+  getRangeModifierForRange,
+  shootingMode,
+  WeaponSetting
+} from "@/composables/weapons";
 import {toInt} from "@/composables/utils";
 import ChangeAmmo from "@/components/Dialoge/ChangeAmmo.vue";
 import {char} from "@/composables/char";
 
 
-const selectReach = ref<string>('short');
+const selectedRange = ref<string>('short');
 const chooseAmmoDialogVisible = ref(false);
 const isBlinking = ref(false);
 
-const weapon  = computed( () => {
-    return DialogWeapon.weapon;
+const weapon  = computed( () => DialogWeapon.weapon  )
+const ranges  = computed( () => DialogWeapon.weapon.getRanges )
+const rangeModifier = computed(() => getRangeModifierForRange(selectedRange.value))
+const modeModifier = computed(() => DialogWeapon.weapon.shootingModeModifier )
+const bulletsLeft = computed(() =>  DialogWeapon.weapon.bulletsLeft )
+const bulletsToFire = computed(() => DialogWeapon?.weapon?.bulletsToFire ?? 0 )
+const bulletsLeftAfterFire = computed(() => DialogWeapon.weapon.bulletsLeftAfterFire)
+const isLoaded = computed(() => DialogWeapon.weapon.isLoaded )
+const selectedShootingMode = computed({
+  get: () => DialogWeapon.weapon?.shootingMode ?? (new WeaponSetting()).selectedMode,
+  set: (value) => DialogWeapon.weapon.shootingMode = value
 })
 
-const setting = computed(() => {
-  return DialogWeapon.setting;
-})
-
-const selectShootingMode = computed({
-  get: () => setting.value == null ? 'einzelschuss' : setting.value.selectedMode,
-  set: (value) => {
-    setting.value.selectedMode = value;
-  }
-})
-
-const ranges = computed(() => {
-    return [
-      { label: DialogWeapon.weapon.ranges.short, value: 'short'},
-      { label: DialogWeapon.weapon.ranges.medium, value: 'medium' },
-      { label: DialogWeapon.weapon.ranges.long, value: 'long'},
-      { label: DialogWeapon.weapon.ranges.extreme, value: 'extreme' },
-    ];
-})
-
-const rangeModifier = computed(() => {
-  return getRangeModifierForRange(selectReach.value);
-})
-
-const modeModifier = computed(() => {
-  return getModeModifier( selectShootingMode.value, toInt(weapon.value.rc), 0, bulletsToFire.value );
-})
-
-const ammoLeft = computed(() =>  DialogWeapon?.setting?.ammoLeft ?? 0 )
-
-const bulletsToFire = computed(() => {
-  return Math.min(ammoLeft.value, getShootingMode(selectShootingMode.value)?.count ?? 0);
-})
-const bulletsLeftAfterFire = computed(() => {
-  return Math.max(ammoLeft.value - bulletsToFire.value, 0);
-})
 const bulletStyle = computed(() => {
   const maxWith = 200;
-  const widthPerBullet = maxWith/ Math.max(1, setting.value.magSize);
+  const widthPerBullet = maxWith/ Math.max(1, weapon.value.magSize);
   return {
     width: widthPerBullet + 'px',
   }
@@ -69,10 +46,9 @@ watch(bulletsToFire, (newVal, oldVal) => {
   }
 });
 
-
 function reload()
 {
-  setting.value.ammoLeft = setting.value.magSize;
+  weapon.value.reload();
 }
 
 function load()
@@ -80,21 +56,9 @@ function load()
   chooseAmmoDialogVisible.value = true;
 }
 
-function isLoaded(): boolean
-{
-  return setting.value.ammoLoaded !== '';
-}
-
 function shoot()
 {
-  const item = shootingMode.find((item) => { return item.value === selectShootingMode.value}) ?? null;
-  if (item === null)
-  {
-    console.error('mode not found: ' + selectShootingMode.value)
-    return;
-  }
-
-  setting.value.ammoLeft -= item.count;
+  weapon.value.shoot();
 }
 
 </script>/
@@ -115,41 +79,41 @@ function shoot()
           <strong>Distanz-Mod</strong>
           <div>{{ rangeModifier }}</div>
           <div>Entfernung</div>
-          <RadioButtons class="mode" v-model="selectReach" :options="ranges" group="distances"/>
+          <RadioButtons class="mode" v-model="selectedRange" :options="ranges" group="distances"/>
         </div>
         <div class="column">
           <strong>Modus-Mod</strong>
           <div>{{ modeModifier }}</div>
           <div>Schussmodus</div>
-          <RadioButtons class="mode" v-model="selectShootingMode" :options="shootingMode" group="modes"/>
+          <RadioButtons class="mode" v-model="selectedShootingMode" :options="shootingMode" group="modes"/>
         </div>
       </div>
-      <div v-if="isLoaded()" class="ammo">
-       {{ setting.ammoLoaded }}  ({{ setting.magType }})
+      <div v-if="isLoaded" class="ammo">
+       {{ weapon.ammoLoaded }}  ({{ weapon.magType }})
       </div>
-      <div v-if="isLoaded()" class="ammo">
+      <div v-if="isLoaded" class="ammo">
         Anzahl Kugeln: {{ bulletsToFire }}
       </div>
-      <div v-if="isLoaded()" class="magazine">
-        {{ bulletsLeftAfterFire }}  ({{ setting.ammoLeft }}) <span
-            v-for="index in setting.magSize"
+      <div v-if="isLoaded" class="magazine">
+        {{ bulletsLeftAfterFire }}  ({{ bulletsLeft }}) <span
+            v-for="index in weapon.magSize"
             :key="index"
             class="bullet"
             :style="bulletStyle"
             :class="{
-              'used': index > setting.ammoLeft,
-              'to-fire': index > bulletsLeftAfterFire && index <= setting.ammoLeft,
-              'blink': isBlinking && index > bulletsLeftAfterFire && index <= setting.ammoLeft,
+              'used': index > bulletsLeft,
+              'to-fire': index > bulletsLeftAfterFire && index <= bulletsLeft,
+              'blink': isBlinking && index > bulletsLeftAfterFire && index <= bulletsLeft,
             }"
-        ></span> {{ setting.magSize }}
+        ></span> {{ weapon.magSize }}
       </div>
 
       <div class="row">
         <div class="column">
-          <div v-if="isLoaded()">
+          <div v-if="isLoaded">
             <button class="weapon-buttons" @click="load">switch ammo</button>
           </div>
-          <div v-if="isLoaded()">
+          <div v-if="isLoaded">
             <button class="weapon-buttons" @click="reload">reload</button>
           </div>
           <div v-else class="empty" >
@@ -265,6 +229,9 @@ function shoot()
   background-color: dimgray;
 }
 .bullet.to-fire {
+  background-color: yellow;
+}
+.bullet.fired {
   background-color: red;
 }
 

@@ -4,8 +4,7 @@ import {isWatcher, Spirit, type SpiritPower, type SpiritType} from "@/composable
 import {char} from "@/composables/char";
 import {
     type RollDiceResult,
-    type RollDiceValues,
-    type WeaponSetting
+    type RollDiceValues
 } from "@/composables/types";
 import {Weapon} from "@/composables/weapons";
 import {Vehicle} from "@/composables/vehicle";
@@ -113,16 +112,12 @@ export class SpiritPowerInfoDialog extends Dialog {
 
 export class WeaponDialog extends Dialog {
     weapon!: Weapon;
-    setting!:WeaponSetting;
-
     show() {
-
         if ( this.weapon == null)
         {
             return;
         }
 
-        this.setting = this.weapon.settings;
         super.show();
     }
 
