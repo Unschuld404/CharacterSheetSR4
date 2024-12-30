@@ -14,7 +14,7 @@ import {
 } from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
 
-function handleWeapon() {
+function handleWeapon(weapon: Weapon) {
   if (weapon.isMelee) {
     // Aktion, wenn die Bedingung erfüllt ist
     console.log("Bedingung ist wahr");
