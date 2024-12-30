@@ -54,7 +54,7 @@ const bulletsLeftAfterFire = computed(() => {
 })
 const bulletStyle = computed(() => {
   const maxWith = 200;
-  const widthPerBullet = Math.max(4, maxWith/ setting.value.magSize);
+  const widthPerBullet = maxWith/ Math.max(1, setting.value.magSize);
   return {
     width: widthPerBullet + 'px',
   }
