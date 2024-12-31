@@ -67,12 +67,11 @@ function shoot()
 
   <ChangeAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
 
-  <div v-if="DialogWeapon.visible" class="overlay" @click="DialogWeapon.hide">
+  <div v-if="DialogWeapon.visible" class="overlay">
     <div class="sheet" @click.stop>
       <div class="sheet-header row">
-        <button class="close" @click="DialogWeapon.hide"><i class='bx bx-x'></i></button>
         <h1>{{ weapon.name }}</h1>
-        <div style="width: 5vh;"></div>
+        <button class="close" @click="DialogWeapon.hide"><i class='bx bx-x'></i></button>
       </div>
       <div class="row gap">
         <div class="column">
@@ -190,6 +189,10 @@ function shoot()
 </template>
 
 <style scoped>
+
+.overlay {
+  z-index: 50000;
+}
 
 .item:last-of-type {
   border-bottom: none;
