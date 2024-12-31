@@ -25,7 +25,7 @@ export type ShootingMode = {
     label: string;
     value: string;
     count: number;
-    mode: string;
+    modes: string;
 }
 
 export type VehicleMod = {
