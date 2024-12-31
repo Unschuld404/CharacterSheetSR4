@@ -121,13 +121,15 @@ export class Charakter implements Container{
     get spirits(): Spirit[] { return this.sheet.spirits; }
 
     update(data: any, sheet: any) {
+        //ids initialisieren
+        Weapon.nextId = 1;
+        Vehicle.nextId = 1;
+        Spirit.nextId = 1;
+
         this.sheet = new Sheet(sheet);
         this.sheet.nuyen = sheet?.nuyen ?? toInt(data?.nuyen);
         this.sheet.karma = sheet?.karma ?? toInt(data?.karma);
-
-        let sheetSpirits = getSpirits(sheet);
-        let dataSpirits = getSpirits(data);
-        this.sheet.spirits =  sheetSpirits ?? dataSpirits ?? [];
+        this.sheet.spirits =  getSpirits(sheet) ?? getSpirits(data) ?? [];
 
         this.name = data?.name ?? 'The Shadow';
         this.initiative = {
@@ -303,37 +305,25 @@ export class Charakter implements Container{
 
         this.commlink = getCommlink(data);
 
-        //ids festlegen
-        Weapon.nextId = 1;
-        Vehicle.nextId = 1;
-        Spirit.nextId = 1;
         let selectedItems = [];
         for (let weapon of this.weapons) {
-            weapon.setNextId();
             if (this.isItemSelected(weapon))
             {
                 selectedItems.push(toSelectedItem(weapon));
             }
         }
         for (let vehicle of this.vehicles) {
-            vehicle.setNextId();
             if (this.isItemSelected(vehicle))
             {
                 selectedItems.push(toSelectedItem(vehicle));
             }
-
-            for (let weapon of vehicle.weapons) {
-                weapon.setNextId();
-            }
         }
         for (let spirit of this.spirits) {
-            spirit.setNextId();
             if (this.isItemSelected(spirit))
             {
                 selectedItems.push(toSelectedItem(spirit));
             }
         }
-
         for (let spell of this.spells) {
             if (this.isItemSelected(spell))
             {
