@@ -1,7 +1,7 @@
 import {ref} from "vue";
 import {
     type Armor, type ArmorMod, type ArmorValues,
-    type Commlink, type CommlinkMod, type Contact,
+    type Commlink, type CommlinkMod, type Contact, type Container,
     type Gear,
     GearType,
     type KarmaEntry, type Lifestyle,
@@ -170,11 +170,11 @@ export function getVehicles(data: any): Array<Vehicle> {
 
     return vehicles.map((vehicle: any) => Vehicle.createFromDataObject(vehicle));
 }
-export function getWeapons(data: any): Array<Weapon> {
+export function getWeapons(data: any, parent: Container): Array<Weapon> {
     let weapons = data?.weapons;
     weapons = Array.isArray(weapons) ? weapons : [];
 
-    return weapons.map((weapon: any) => Weapon.createFromDataObject(weapon));
+    return weapons.map((weapon: any) => Weapon.createFromDataObject(weapon, parent));
 }
 export function getGear(data: any): Array<Gear> {
     let items = data?.gears;

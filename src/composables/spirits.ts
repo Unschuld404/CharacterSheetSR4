@@ -133,12 +133,7 @@ export class Spirit implements IdObject {
             + '.' + this.id;
     }
     equals(spirit: Spirit): boolean {
-        return this.type === spirit.type
-            && this.name === spirit.name
-            && this.force === spirit.force
-            && this.services === spirit.services
-            && this.created === spirit.created
-            && this.bound === spirit.bound;
+        return this.id === spirit.id;
     }
 
     attributeTotal(attribute: string): number {

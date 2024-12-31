@@ -1,7 +1,7 @@
 import {toBool, toInt} from "@/composables/utils";
 import {
     type Ammunition,
-    type AutoSoft,
+    type AutoSoft, type Container,
     type Damage, EvadeType,
     type Gear, type IdObject,
     type Initiative, type Sensor, type SensorMod, type Skill,
@@ -10,10 +10,10 @@ import {
     type VehicleResistance,
 } from "@/composables/types";
 
-import type {Weapon} from "@/composables/weapons";
+import  {type Weapon} from "@/composables/weapons";
 import {getGearFromGearData, getWeapons} from "@/composables/data";
 
-export class Vehicle implements IdObject  {
+export class Vehicle implements IdObject,Container  {
     static nextId: number = 0;
     id: number = 0;
 
@@ -148,7 +148,7 @@ export class Vehicle implements IdObject  {
         {
             if (Array.isArray(mod.weapons))
             {
-                this.weapons.push(...getWeapons(mod));
+                this.weapons.push(...getWeapons(mod, this));
             }
             else
             {
@@ -167,6 +167,10 @@ export class Vehicle implements IdObject  {
 
     static createFromDataObject(data: any): Vehicle {
         return (new Vehicle()).setNextId().loadFromData(data);
+    }
+
+    getName(): string {
+        return this.name;
     }
 
 }
