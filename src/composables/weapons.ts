@@ -1,7 +1,8 @@
-import type {IdObject, ShootingMode, WeaponMod } from "@/composables/types";
-import {char} from "@/composables/char";
+import type {Container, IdObject, ShootingMode, WeaponMod} from "@/composables/types";
+import {char, Charakter} from "@/composables/char";
 import {getWeaponModsFromData} from "@/composables/data";
 import {toInt} from "@/composables/utils";
+import type {Vehicle} from "@/composables/vehicle";
 
 
 export type WeaponRange = {
@@ -26,7 +27,7 @@ export class Weapon implements IdObject  {
     static nextId: number = 0;
 
     ranges: WeaponRange = { short: '', medium: '', long: '', extreme: '' };
-
+    parent: Container|null = null;
     id: number = 0;
     name: string = '';
     damage: string = '';
@@ -44,6 +45,10 @@ export class Weapon implements IdObject  {
     settings : WeaponSetting = new WeaponSetting();
 
 
+    setParent(parent: Container): Weapon {
+        this.parent = parent;
+        return this;
+    }
     setNextId(): Weapon
     {
         this.id = Weapon.nextId++;
@@ -51,9 +56,16 @@ export class Weapon implements IdObject  {
     }
 
     generateId(): string {
-        return this.category
+
+        let id = this.category
             + '.' + this.name
             + '.' + this.id;
+
+        if (this.parent !== null)
+        {
+            id =  this.parent.getName() + '.' + id;
+        }
+        return id;
     }
 
     get isMelee(): boolean {
@@ -138,8 +150,8 @@ export class Weapon implements IdObject  {
         return this;
     }
 
-    static createFromDataObject(data: any): Weapon {
-        return (new Weapon()).setNextId().loadFromData(data);
+    static createFromDataObject(data: any, parent: Container): Weapon {
+        return (new Weapon()).setParent(parent).setNextId().loadFromData(data);
     }
 }
 

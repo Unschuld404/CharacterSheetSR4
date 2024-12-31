@@ -64,9 +64,6 @@ function shoot()
 </script>/
 
 <template>
-
-  <ChangeAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
-
   <div v-if="DialogWeapon.visible" class="overlay">
     <div class="sheet" @click.stop>
       <div class="sheet-header row">
@@ -186,6 +183,7 @@ function shoot()
     </div>
   </div>
 
+  <ChangeAmmo v-if="chooseAmmoDialogVisible" @confirm="chooseAmmoDialogVisible = false" @cancel="chooseAmmoDialogVisible = false" />
 </template>
 
 <style scoped>

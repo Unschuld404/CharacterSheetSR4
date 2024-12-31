@@ -17,7 +17,7 @@ import {
     type Armor,
     type ArmorValues,
     type Attributes,
-    type CharInitiative, type Commlink, type Contact,
+    type CharInitiative, type Commlink, type Contact, type Container,
     type DamageMonitor,
     type Drain,
     EvadeType,
@@ -32,7 +32,7 @@ import {Vehicle} from "@/composables/vehicle";
 import {Weapon} from "@/composables/weapons";
 
 
-export class Charakter {
+export class Charakter implements Container{
     name!: string;
     initiative!: CharInitiative;
     metatype! : string;
@@ -294,7 +294,7 @@ export class Charakter {
         this.actionSkills = getActionSkills(data);
 
         this.vehicles = getVehicles(data);
-        this.weapons = getWeapons(data);
+        this.weapons = getWeapons(data, self);
         this.armors = getArmors(data);
         this.gear = getGear(data);
         this.spells = getSpells(data);
@@ -542,6 +542,10 @@ export class Charakter {
                 rating: 0,
                 total: 0,
             };
+    }
+
+    getName(): string {
+        return this.name;
     }
 }
 

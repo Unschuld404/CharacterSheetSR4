@@ -168,6 +168,10 @@ export interface IdObject {
     generateId(): string;
 }
 
+export interface Container {
+    getName(): string;
+}
+
 export class Spell implements IdObject {
 
     name!: string;
