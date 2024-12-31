@@ -16,11 +16,11 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
 
 <template>
   <div class="collection">
+    <Nuyen/>
     <div class="row">
       <Edge/>
-      <Nuyen/>
+      <Initiative/>
     </div>
-    <Initiative/>
     <Widerstand/>
     <Ausweichen/>
     <div class="row">
@@ -43,11 +43,11 @@ import {DialogEdgeDiceResult} from "@/composables/dialogs";
   }
 
   .row {
-    gap: 1vh;
+    gap: 2dvw;
   }
 
   .column {
-    gap: 1vh;
+    gap: 2dvw;
   }
 
 </style>

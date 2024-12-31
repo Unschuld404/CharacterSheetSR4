@@ -5,14 +5,21 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
 </script>
 
 <template>
-  <div class="item">
-    <div>Nuyen</div>
-    <button @click="DialogChangeNuyen.show">{{ char.nuyen }} ¥</button>
+  <div class="divider row">
+    <strong>Nuyen</strong>
+    <strong class="click" @click="DialogChangeNuyen.show">{{ char.nuyen }} ¥</strong>
   </div>
 </template>
 
 <style scoped>
-  button {
-    border: none;
-  }
+
+.divider {
+  background-color: var(--primary-color);
+  padding-left: 2dvw;
+  padding-right: 2dvw;
+  height: 5vh;
+  align-items: center;
+  justify-content: space-between;
+}
+
 </style>

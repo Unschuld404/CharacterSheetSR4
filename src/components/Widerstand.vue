@@ -5,79 +5,75 @@ import {char} from "@/composables/char";
 
 <template>
   <div class="transparent-box">
-    <div class="upper-header">Widerstand</div>
-    <div class="row item">
-      <div class="column">
-        <button class="dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Ballistischer Widerstand',
-            value: char.resist.ballistic,
-            values: [
-                {name: 'Konstitution', value: char.attributes.body.total},
-                {name: 'Rüstung', value: char.armorValues.ballistic
-                },
-                ]
-          }
-          ).show()">{{ char.resist.ballistic }}
+    <div class="left-header">Widerstand</div>
+    <div class="row">
+      <div class="column" @click="DialogRollDice.setValues(
+        {
+          name: 'Ballistischer Widerstand',
+          value: char.resist.ballistic,
+          values: [
+              {name: 'Konstitution', value: char.attributes.body.total},
+              {name: 'Rüstung', value: char.armorValues.ballistic
+              },
+              ]
+        }
+        ).show()">
+        <button>{{ char.resist.ballistic }}
         </button>
-        <div class="resistance-category">Ballis.</div>
+        <div class="resistance-category">Ballistisch</div>
       </div>
-      <div class="column">
-        <button class="dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Stoßwiderstand',
-            value: char.resist.impact,
-            values: [
-                {name: 'Konstitution', value: char.attributes.body.total},
-                {name: 'Rüstung', value: char.armorValues.impact
-                },
-                ]
-          }
-          ).show()">{{ char.resist.impact }}
+      <div class="column" @click="DialogRollDice.setValues(
+        {
+          name: 'Stoßwiderstand',
+          value: char.resist.impact,
+          values: [
+              {name: 'Konstitution', value: char.attributes.body.total},
+              {name: 'Rüstung', value: char.armorValues.impact
+              },
+              ]
+        }
+        ).show()">
+        <button>{{ char.resist.impact }}
         </button>
         <div class="resistance-category">Stoß</div>
       </div>
-    </div>
-    <div class="row item">
-      <div class="column">
-        <button class="dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Physischer Widerstand',
-            value: char.resist.physical,
-            values: [
-                {name: 'Konstitution', value: char.attributes.body.total},
-                ]
-          }
-          ).show()">{{ char.resist.physical }}
+      <div class="column" @click="DialogRollDice.setValues(
+        {
+          name: 'Physischer Widerstand',
+          value: char.resist.physical,
+          values: [
+              {name: 'Konstitution', value: char.attributes.body.total},
+              ]
+        }
+        ).show()">
+        <button>{{ char.resist.physical }}
         </button>
         <div class="resistance-category">Physisch</div>
       </div>
-      <div class="column">
-        <button class="dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Manawiderstand',
-            value: char.resist.mana,
-            values: [
-                {name: 'Willenskraft', value: char.attributes.willpower.total},
-                ]
-          }
-          ).show()">{{ char.resist.mana }}
+      <div class="column" @click="DialogRollDice.setValues(
+        {
+          name: 'Manawiderstand',
+          value: char.resist.mana,
+          values: [
+              {name: 'Willenskraft', value: char.attributes.willpower.total},
+              ]
+        }
+        ).show()">
+        <button>{{ char.resist.mana }}
         </button>
         <div class="resistance-category">Mana</div>
       </div>
-    </div>
-    <div class="row item" v-if="char.magician">
-      <div v-if="char.magician" class="column">
-        <button class="dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Widerstand gegen magischen Entzug',
-            value: char.resist.drain,
-            values: [
-                {name: 'Traditionsattribut', value: char.resist.drain - char.attributes.willpower.total},
-                {name: 'WIL', value: char.attributes.willpower.total},
-                ]
-          }
-          ).show()">{{ char.resist.drain }}
+      <div class="column" @click="DialogRollDice.setValues(
+        {
+          name: 'Widerstand gegen magischen Entzug',
+          value: char.resist.drain,
+          values: [
+              {name: 'Traditionsattribut', value: char.resist.drain - char.attributes.willpower.total},
+              {name: 'WIL', value: char.attributes.willpower.total},
+              ]
+        }
+        ).show()">
+        <button>{{ char.resist.drain }}
         </button>
         <div class="resistance-category">Entzug</div>
       </div>
@@ -89,14 +85,24 @@ import {char} from "@/composables/char";
 <style scoped>
 
 button {
-  position: relative;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
+  padding-bottom: 1dvw;
+}
+
+.row {
+  padding-left: 2dvw;
+  padding-right: 2dvw;
+  justify-content: space-between;
+  gap: 1vh;
 }
 
 .column {
+  width: 20dvw;
   align-items: center;
-  width: 30dvw;
+  background-color: var(--primary-color);
+  border-radius: 2dvw;
+  padding-top: 4dvw;
+  padding-bottom: 4dvw;
+  font-size: 4dvw;
 }
 
 </style>

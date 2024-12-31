@@ -5,16 +5,36 @@ import {DialogManageEdge} from "@/composables/dialogs";
 </script>
 
 <template>
-
-  <div class="item">
-    <div>Edge</div>
-    <button @click="DialogManageEdge.show">{{ char.attributes.edge.total }}</button>
+  <div class="transparent-box">
+    <div class="left-header">Edge</div>
+    <div class="row">
+      <div class="column">
+        <button @click="DialogManageEdge.show">{{ char.attributes.edge.total }}</button>
+        <div>max. {{ char.attributes.edge.base }}</div>
+      </div>
+    </div>
   </div>
-
 </template>
 
 <style scoped>
-  button {
-    border: none;
+
+button {
+  padding-bottom: 1dvw;
+}
+
+  .row {
+    padding-left: 2dvw;
+    justify-content: space-between;
   }
+
+  .column {
+    width: 14dvw;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 2dvw;
+    padding-top: 4dvw;
+    padding-bottom: 4dvw;
+    font-size: 4dvw;
+  }
+
 </style>

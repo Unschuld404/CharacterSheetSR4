@@ -1,9 +1,5 @@
 body {
-    font-size: 4vw;
-}
-
-strong {
-    font-size: 4vw;
+    font-size: 5vw;
 }
 
 h1 {
@@ -21,6 +17,10 @@ h1 {
     font-size: 5.5vw;
     font-weight: bold;
     align-content: center;
+    color: var(--accent-color);
+}
+
+.click {
     color: var(--accent-color);
 }
 

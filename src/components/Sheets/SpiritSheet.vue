@@ -68,9 +68,9 @@ function onCancelPowersDialog() {
   <div v-if="DialogSpiritSheet.visible" class="overlay">
     <div class="sheet" @click.stop>
       <div class="sheet-header row">
-        <button class="release" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></button>
+        <button class="sheet-control" @click="showReleaseDialog()"><i class='bx bx-unlink'></i></button>
         <h1>{{ spirit.caption }} ({{ spirit.force }})</h1>
-        <button class="close" @click="DialogSpiritSheet.hide"><i class='bx bx-x'></i></button>
+        <button class="sheet-control" @click="DialogSpiritSheet.hide"><i class='bx bxs-x-square'></i></button>
       </div>
       <div class="row">
         <div class="column">
@@ -255,7 +255,7 @@ function onCancelPowersDialog() {
   margin: 2dvh 2dvw 0 2dvw;
 }
 
-.release {
+.sheet-control {
   width: 4vh;
   height: 4vh;
   padding: 0;
