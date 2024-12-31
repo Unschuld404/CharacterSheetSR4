@@ -176,16 +176,51 @@ export function getWeapons(data: any, parent: Container): Array<Weapon> {
 
     return weapons.map((weapon: any) => Weapon.createFromDataObject(weapon, parent));
 }
-export function getGear(data: any): Array<Gear> {
-    let items = data?.gears;
-    items = Array.isArray(items) ? items : [];
 
-    return items.map((item: any) => getGearFromGearData(item));
+function isGearEqual(gear1: Gear, gear2: Gear): boolean {
+    return     gear1.name === gear2.name
+            && gear1.category === gear2.category
+            && gear1.extra === gear2.extra;
+}
+
+export function getGear(data: any): Array<Gear> {
+    let gears = data?.gears;
+    gears = Array.isArray(gears) ? gears : [];
+
+    let items: Gear[] = [];
+    for (let gear of gears)
+    {
+        const item = getGearFromGearData(gear);
+        const ind = items.findIndex(aItem => isGearEqual(aItem, item));
+        if (ind < 0)
+        {
+            items.push(item);
+        }
+        else
+        {
+            items[ind].count += item.count;
+        }
+    }
+
+    items.sort((a: Gear, b: Gear) => {
+        let result = a.category.localeCompare(b.category);
+        if (result == 0)
+        {
+            result = a.extra.localeCompare(b.extra);
+        }
+        if (result == 0)
+        {
+            result = a.name.localeCompare(b.name);
+        }
+        return result;
+    });
+
+    return items;
 }
 export function getGearFromGearData(data: any): Gear {
     return {
         name: data.name || 'Unknown',
-            category: data.category || 'Unknown',
+        category: data.category || 'Unknown',
         type: toGearType(data),
         extra: data.extra || '',
         equipped: toBool(data.equipped),
