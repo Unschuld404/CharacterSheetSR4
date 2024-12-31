@@ -8,13 +8,13 @@ h1 {
 }
 
 .name {
-    font-size: 5.5vw;
+    font-size: 4.5vw;
     font-weight: bold;
     align-content: center;
 }
 
 .clickable-name {
-    font-size: 5.5vw;
+    font-size: 4.5vw;
     font-weight: bold;
     align-content: center;
     color: var(--accent-color);
@@ -46,6 +46,15 @@ h1 {
     top: 0.5dvh;
     left: 2dvw;
     width: 90%;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.right-header {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0.5dvh;
+    right: 2dvw;
     font-size: 1.2rem;
     font-weight: bold;
 }

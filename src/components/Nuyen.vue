@@ -17,7 +17,7 @@ import {DialogChangeNuyen} from "@/composables/dialogs";
   background-color: var(--primary-color);
   padding-left: 2dvw;
   padding-right: 2dvw;
-  height: 5vh;
+  height: 6vh;
   align-items: center;
   justify-content: space-between;
 }

@@ -96,7 +96,7 @@ button {
 }
 
 .column {
-  width: 20dvw;
+  width: 18dvw;
   align-items: center;
   background-color: var(--primary-color);
   border-radius: 2dvw;
