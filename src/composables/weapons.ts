@@ -60,13 +60,17 @@ export class Weapon implements IdObject  {
         return this.type == 'Melee';
     }
 
-    get getRanges() {
+    getRanges() {
         return [
             { label: this.ranges.short, value: 'short'},
             { label: this.ranges.medium, value: 'medium' },
             { label: this.ranges.long, value: 'long'},
             { label: this.ranges.extreme, value: 'extreme' },
         ];
+    }
+    getShootingModes() {
+        const weaponModes = this.mode.split('/');
+        return shootingMode.filter(mode => weaponModes.some(weaponMode => mode.modes.split(',').includes(weaponMode)));
     }
 
     get shootingMode(): string
@@ -140,11 +144,11 @@ export class Weapon implements IdObject  {
 }
 
 export const shootingMode: ShootingMode[] = [
-    { label: 'Einzelschuss', value: 'einzelschuss', count: 1, mode: 'EM,HM,SM,AM' },
-    { label: 'Kurze Salve', value: 'kurzeSalve', count: 3, mode: 'SM,AM' },
-    { label: 'Lange Salve', value: 'langeSalve', count: 6, mode: 'AM'},
-    { label: 'Autofeuer', value: 'autofeuer', count: 10, mode: 'AM' },
-    { label: 'Sperrfeuer', value: 'sperrfeuer', count: 20, mode: 'AM'},
+    { label: 'Einzelschuss', value: 'einzelschuss', count: 1, modes: 'EM,HM' },
+    { label: 'Kurze Salve', value: 'kurzeSalve', count: 3, modes: 'SM' },
+    { label: 'Lange Salve', value: 'langeSalve', count: 6, modes: 'AM'},
+    { label: 'Autofeuer', value: 'autofeuer', count: 10, modes: 'AM' },
+    { label: 'Sperrfeuer', value: 'sperrfeuer', count: 20, modes: 'AM'},
 ];
 
 export const reachModifiers = [
@@ -194,6 +198,7 @@ function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
     if (setting == null) {
         setting = new WeaponSetting();
         setting.weaponId = weapon.generateId();
+        setting.selectedMode = weapon.getShootingModes()[0]?.value ?? '';
         char.sheet.weaponSettings.push(setting);
     }
     return setting;

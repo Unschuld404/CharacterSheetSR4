@@ -4,7 +4,6 @@ import {computed, ref, watch} from "vue";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {
   getRangeModifierForRange,
-  shootingMode,
   WeaponSetting
 } from "@/composables/weapons";
 import {toInt} from "@/composables/utils";
@@ -17,7 +16,8 @@ const chooseAmmoDialogVisible = ref(false);
 const isBlinking = ref(false);
 
 const weapon  = computed( () => DialogWeapon.weapon  )
-const ranges  = computed( () => DialogWeapon.weapon.getRanges )
+const ranges  = computed( () => DialogWeapon.weapon.getRanges() )
+const shootingModes = computed(() => DialogWeapon.weapon.getShootingModes() )
 const rangeModifier = computed(() => getRangeModifierForRange(selectedRange.value))
 const modeModifier = computed(() => DialogWeapon.weapon.shootingModeModifier )
 const bulletsLeft = computed(() =>  DialogWeapon.weapon.bulletsLeft )
@@ -85,7 +85,7 @@ function shoot()
           <strong>Modus-Mod</strong>
           <div>{{ modeModifier }}</div>
           <div>Schussmodus</div>
-          <RadioButtons class="mode" v-model="selectedShootingMode" :options="shootingMode" group="modes"/>
+          <RadioButtons class="mode" v-model="selectedShootingMode" :options="shootingModes" group="modes"/>
         </div>
       </div>
       <div v-if="isLoaded" class="ammo">
