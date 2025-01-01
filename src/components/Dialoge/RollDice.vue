@@ -25,17 +25,12 @@
 <template>
 
   <div v-if="DialogRollDice.visible" class="overlay" @click="DialogRollDice.hide">
-    <div class="popup dialog-box" @click.stop>
-
-      <div class="upper-header">{{ DialogRollDice.name }}</div>
-
+    <div class="dialog-box" @click.stop>
+      <div>{{ DialogRollDice.name }}</div>
       <div class="row">
-        <div class="pool">
-          {{ DialogRollDice.dice_count}}
-        </div>
+        <div>{{ DialogRollDice.dice_count}}</div>
         <i class='bx bxs-dice-6'></i>
       </div>
-
       <div class="column">
         <div v-for="(value, index) in values" class="line">{{ value.name }} ({{ value.value }})</div>
       </div>
@@ -46,25 +41,23 @@
 
 <style scoped>
 
-.overlay {
-  z-index: 100000;
-}
-
 i {
-  height: 10dvh;
-  font-size: 8.5dvh;
-  padding-top: 2dvh;
-  padding-left: 1dvh;
+  font-size: 1.9rem;
 }
 
-.pool {
-  font-size: 10dvh;
-  font-weight: bold;
+.row {
+  font-size: 2rem;
+  align-items: center;
+  margin-top: 1rem;
 }
 
-.line {
-  margin-top: 2vh;
+.overlay {
+  z-index: 5000;
+}
+
+.column {
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 </style>/

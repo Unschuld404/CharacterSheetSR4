@@ -3,26 +3,9 @@
     border-radius: 0.2rem;
     background-color: var(--background-color);
     border: 1px solid var(--accent-color);
-    width: 5dvw;
-    height: 5dvw;
     margin: 0;
 }
 
 .favourite:checked {
-    background-color: var(--accent-color);
-}
-
-.damage-box {
-    appearance: none;
-    width: 8vw;
-    height: 8vw;
-    border-radius: 0.5vw;
-    background-color: var(--background-color);
-    position: relative;
-    bottom: 2vh;
-    border: 1px solid var(--background-color);
-}
-
-.damage-box:checked {
     background-color: var(--accent-color);
 }

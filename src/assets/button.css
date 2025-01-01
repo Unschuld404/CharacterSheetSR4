@@ -5,30 +5,12 @@ button, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-sele
 button {
     background-color: transparent;
     color: var(--accent-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 0.5vh;
-    font-weight: bold;
-    font-size: 3vh;
-    text-align: center;
-}
-
-.confirm {
     border: none;
-    padding: 2vh;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
 }
 
 .dice {
-    border: none;
     background-color: var(--primary-color);
-    color: var(--accent-color);
-    height: 4vh;
-    width: 4vh;
-}
-
-.mutator {
-    color: var(--accent-color);
-    font-size: 15dvw;
-    font-weight: bold;
-    width: 20dvw;
-    text-align: center;
 }

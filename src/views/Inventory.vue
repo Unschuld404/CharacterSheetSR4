@@ -5,7 +5,7 @@ import Kommlink from "@/components/Kommlink.vue";
 </script>
 
 <template>
-  <div class="collection column">
+  <div class="content column">
     <Kommlink/>
     <Weapons/>
     <Items/>

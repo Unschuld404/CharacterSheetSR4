@@ -6,7 +6,7 @@ import {DialogChangeKarma} from "@/composables/dialogs";
 
 <template>
 
-  <div class="collection">
+  <div class="content">
 
     <div class="transparent-box chummer">
       <h1>{{ char.name }}</h1>

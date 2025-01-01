@@ -23,24 +23,17 @@ const evadeRanged = computed( () => {
 <template>
 
   <div class="box row">
-
     <div class="column">
-      <div class="dice" @click="DialogRollDice.setValues(evadeRanged).show()">{{ evadeRanged.value }}</div>
+      <div :class="{'active': isActive}" class="defense" @click="fullDefense">Volle Abwehr</div>
     </div>
-
     <div class="column">
-      <div :class="{'active': isActive}" class="dice defense" @click="fullDefense">Volle Abwehr</div>
+      <button @click="DialogRollDice.setValues(evadeMelee).show()">{{ evadeMelee.value }}</button>
+      <div>Nahkampf</div>
     </div>
-
     <div class="column">
-      <div class="dice" @click="DialogRollDice.setValues(evadeMelee).show()">{{ evadeMelee.value }}</div>
+      <button @click="DialogRollDice.setValues(evadeRanged).show()">{{ evadeRanged.value }}</button>
+      <div>Fernkampf</div>
     </div>
-
-  <div class="upper-header row">
-    <div>Fernkampf</div>
-    <div>Nahkampf</div>
-  </div>
-
   </div>
 
 </template>
@@ -54,12 +47,7 @@ const evadeRanged = computed( () => {
 
 .row{
   justify-content: space-between;
-  padding-left: 3vh;
-  padding-right: 3vh;
-}
-
-.defense {
-  width: 15vh;
+  padding: 0.5rem 2dvw;
 }
 
 .defense.active {

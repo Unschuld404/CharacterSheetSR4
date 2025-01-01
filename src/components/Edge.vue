@@ -19,22 +19,22 @@ import {DialogManageEdge} from "@/composables/dialogs";
 <style scoped>
 
 button {
-  padding-bottom: 1dvw;
+  padding-bottom: 1vw;
 }
 
   .row {
-    padding-left: 2dvw;
+    padding-left: 2vw;
     justify-content: space-between;
   }
 
   .column {
-    width: 18dvw;
+    width: 18vw;
     align-items: center;
     background-color: var(--primary-color);
-    border-radius: 2dvw;
-    padding-top: 4dvw;
-    padding-bottom: 4dvw;
-    font-size: 4dvw;
+    border-radius: 2vw;
+    padding-top: 4vw;
+    padding-bottom: 4vw;
+    font-size: 4vw;
   }
 
 </style>

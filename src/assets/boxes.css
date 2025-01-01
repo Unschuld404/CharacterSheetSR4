@@ -1,22 +1,9 @@
-.box {
-    background-color: var(--primary-color);
-    border-radius: 1dvh;
-    position: relative;
-    border: 1px solid var(--font-color);
-    padding: 4vh 1dvw 2vh 1dvw;
-}
-
 .transparent-box {
     position: relative;
-    padding: 4vh 0 2dvh 0;
 }
 
 .transparent-box:last-of-type {
     border-bottom: none;
-}
-
-.bxs-cog {
-    font-size: 1rem;
 }
 
 .item {
@@ -24,8 +11,6 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    padding: 1vh 2dvw 1vh 2dvw;
     align-items: center;
     width: 100%;
-    min-height: 6vh;
 }

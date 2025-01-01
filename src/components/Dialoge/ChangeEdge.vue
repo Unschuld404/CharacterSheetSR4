@@ -23,13 +23,13 @@
 
   <div v-if="DialogManageEdge.visible" class="overlay" @click="DialogManageEdge.hide">
     <div class="dialog-box column" @click.stop>
-      <div class="upper-header">Edge (max. {{ char.attributes.edge.base }})</div>
+      <div>Edge (max. {{ char.attributes.edge.base }})</div>
       <div class="row">
-        <div class="mutator" @click="substract">-</div>
+        <i class='bx bxs-minus-square' @click="substract"></i>
         <strong>{{ char.attributes.edge.total }}</strong>
-        <div class="mutator" @click="add">+</div>
+        <i class='bx bxs-plus-square' @click="add"></i>
       </div>
-      <button class="confirm" @click="DialogManageEdge.hide">OK</button>
+      <button @click="DialogManageEdge.hide">OK</button>
     </div>
   </div>
 
@@ -37,13 +37,18 @@
 
 <style scoped>
 
+i {
+  color: var(--accent-color);
+}
+
 strong {
-  font-size: 12dvw;
+  margin: 2rem;
+  width: 1rem;
 }
 
 .row {
+  font-size: 2rem;
   align-items: center;
-  width: 100%;
   justify-content: space-evenly;
 }
 

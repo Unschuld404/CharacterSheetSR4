@@ -2,10 +2,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90dvw;
     max-height: 80dvh;
     overflow: scroll;
-    padding-bottom: 1dvh;
+    padding-bottom: 1vh;
 }
 
 .popup::-webkit-scrollbar {
@@ -28,12 +27,15 @@
 }
 
 .dialog-box {
-    position: relative;
-    width: 80dvw;
-    padding: 5vh 0 1vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: 2px solid var(--font-color);
-    border-radius: 5vh;
+    border-radius: 0.5rem;
     background-color: var(--background-color);
+    padding: 1rem 2rem;
+    max-width: 90vw;
+    max-height: 80dvh;
 }
 
 .dialog-box::-webkit-scrollbar {

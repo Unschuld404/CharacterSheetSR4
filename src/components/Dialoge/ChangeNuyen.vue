@@ -28,13 +28,13 @@ function spend()
 <template>
 
   <div v-if="DialogChangeNuyen.visible" class="overlay" @click="DialogChangeNuyen.hide">
-    <div class="popup dialog-box" @click.stop>
-      <div class="upper-header">Nuyen</div>
+    <div class="dialog-box" @click.stop>
+      <div>Nuyen</div>
         <input v-model="nuyen" type="number" placeholder="Summe ¥" autofocus style="-moz-appearance: textfield">
         <input v-model="reason" type="text" placeholder="Grund">
       <div class="row">
-        <button class="confirm" @click="spend()">Ausgeben</button>
-        <button class="confirm" @click="add()">Einnahmen</button>
+        <button @click="spend()">Ausgabe</button>
+        <button @click="add()">Einnahme</button>
       </div>
 
     </div>
@@ -49,9 +49,8 @@ function spend()
   justify-content: space-between;
 }
 
-.confirm {
+button {
   width: 50%;
 }
-
 
 </style>/

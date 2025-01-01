@@ -5,7 +5,7 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
 
 <template>
   <div class="transparent-box">
-    <div class="left-header">Initiative</div>
+    <div>Initiative</div>
     <div class="row">
       <div class="special-row">
         <div class="column" @click="DialogRollDice.setValues(
@@ -66,9 +66,8 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
           <div>Astral</div>
         </div>
       </div>
-      <div class="blank"></div>
-      <div class="column">
-        <button @click="DialogManageEdge.show">{{ char.attributes.edge.total }}</button>
+      <div class="column" @click="DialogManageEdge.show">
+        <button>{{ char.attributes.edge.total }}</button>
         <div>Edge ({{ char.attributes.edge.base }})</div>
       </div>
     </div>
@@ -78,31 +77,30 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
 <style scoped>
 
 button {
-  padding-bottom: 1dvw;
+  margin-bottom: 0.5rem;
 }
 
 .row {
-  padding-left: 2dvw;
-  padding-right: 2dvw;
   justify-content: space-between;
-  gap: 1vh;
 }
 
 .column {
-  width: 18dvw;
   align-items: center;
   background-color: var(--primary-color);
-  border-radius: 2dvw;
-  padding-top: 4dvw;
-  padding-bottom: 4dvw;
-  font-size: 4dvw;
+  border-radius: 0.3rem;
+  width: 18vw;
+  padding: 0.5rem 0;
 }
 
 .special-row {
   display: flex;
   justify-content: space-between;
-  gap: 1vh;
   position: relative;
+  gap: 2vw;
+}
+
+.transparent-box {
+  margin: 0.5rem 1vw;
 }
 
 </style>

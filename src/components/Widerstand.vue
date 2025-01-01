@@ -20,7 +20,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.ballistic }}
         </button>
-        <div class="resistance-category">Ballistisch</div>
+        <div class="resistance-category">Ballist.</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -85,24 +85,30 @@ import {char} from "@/composables/char";
 <style scoped>
 
 button {
-  padding-bottom: 1dvw;
+  margin-bottom: 0.5rem;
 }
 
 .row {
-  padding-left: 2dvw;
-  padding-right: 2dvw;
   justify-content: space-between;
-  gap: 1vh;
 }
 
 .column {
-  width: 18dvw;
   align-items: center;
   background-color: var(--primary-color);
-  border-radius: 2dvw;
-  padding-top: 4dvw;
-  padding-bottom: 4dvw;
-  font-size: 4dvw;
+  border-radius: 0.3rem;
+  width: 18vw;
+  padding: 0.5rem 0;
+}
+
+.special-row {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  gap: 2vw;
+}
+
+.transparent-box {
+  margin: 0.5rem 1vw;
 }
 
 </style>
