@@ -86,6 +86,10 @@ export class Weapon implements IdObject  {
     }
     get shootingMode(): string
     {
+        if (!this.settings.selectedShootingMode)
+        {
+            this.settings.selectedShootingMode = this.getShootingModes()[0]?.value ?? '';
+        }
         return this.settings.selectedShootingMode;
     }
     set shootingMode(value) {
@@ -99,6 +103,10 @@ export class Weapon implements IdObject  {
     }
     get weaponMode(): string
     {
+        if (!this.settings.selectedWeaponMode)
+        {
+            this.settings.selectedWeaponMode = this.getWeaponModes()[0] ?? '';
+        }
         return this.settings.selectedWeaponMode;
     }
     set weaponMode(value: string)

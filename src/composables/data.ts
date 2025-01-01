@@ -62,7 +62,8 @@ export function getWeaponSettings(data: any): WeaponSetting[] {
     list = Array.isArray(list) ? list : [];
     return list.map((entry: any) => ({
         weaponId: entry.weaponId,
-        selectedShootingMode: entry.selectedMode,
+        selectedWeaponMode: entry.selectedWeaponMode,
+        selectedShootingMode: entry.selectedShootingMode,
         ammoLoaded: entry.ammoLoaded,
         magSize: toInt(entry.magSize),
         magType: entry.magType,

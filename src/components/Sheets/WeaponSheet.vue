@@ -9,6 +9,7 @@ import {
 import {toInt} from "@/composables/utils";
 import ChangeAmmo from "@/components/Dialoge/ChangeAmmo.vue";
 import {char} from "@/composables/char";
+import {uploadSheet} from "@/composables/fetch";
 
 
 const selectedRange = ref<string>('short');
@@ -47,9 +48,15 @@ watch(bulletsToFire, (newVal, oldVal) => {
   }
 });
 
+function store()
+{
+  uploadSheet().then(() => {});
+}
+
 function reload()
 {
   weapon.value.reload();
+  store();
 }
 
 function load()
@@ -60,6 +67,13 @@ function load()
 function shoot()
 {
   weapon.value.shoot();
+  store();
+}
+
+function resetPhase()
+{
+  weapon.value.resetPhase();
+  store();
 }
 
 </script>/
