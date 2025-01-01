@@ -28,6 +28,12 @@ export type ShootingMode = {
     modes: string;
 }
 
+export type WeaponMode = {
+    label: string;
+    value: string;
+    secondPhase: boolean;
+}
+
 export type VehicleMod = {
     name: string;
     rating: number;

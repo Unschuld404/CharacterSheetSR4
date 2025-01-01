@@ -1,8 +1,7 @@
-import type {Container, IdObject, ShootingMode, WeaponMod} from "@/composables/types";
-import {char, Charakter} from "@/composables/char";
+import type {Container, IdObject, ShootingMode, WeaponMod, WeaponMode} from "@/composables/types";
+import {char} from "@/composables/char";
 import {getWeaponModsFromData} from "@/composables/data";
 import {toInt} from "@/composables/utils";
-import type {Vehicle} from "@/composables/vehicle";
 
 
 export type WeaponRange = {
@@ -14,7 +13,8 @@ export type WeaponRange = {
 
 export class WeaponSetting  {
     weaponId: string = '?';
-    selectedMode: string = 'einzelschuss';
+    selectedWeaponMode: string = '';
+    selectedShootingMode: string = '';
     ammoLoaded: string = '';
     magType: string = '';
     magSize: number = 0;
@@ -81,19 +81,29 @@ export class Weapon implements IdObject  {
         ];
     }
     getShootingModes() {
-        const weaponModes = this.mode.split('/');
+        const weaponModes = this.getWeaponModes();
         return shootingMode.filter(mode => weaponModes.some(weaponMode => mode.modes.split(',').includes(weaponMode)));
     }
-
     get shootingMode(): string
     {
-        return this.settings.selectedMode;
+        return this.settings.selectedShootingMode;
     }
     set shootingMode(value) {
-        this.settings.selectedMode = value;
+        this.settings.selectedShootingMode = value;
     }
     get shootingModeModifier(): number {
-        return getModeModifier( this.shootingMode, toInt(this.rc), 0, this.bulletsToFire );
+        return getModeModifier( this.shootingMode, toInt(this.rc), this.bulletsFired, this.bulletsToFire );
+    }
+    getWeaponModes() {
+        return this.mode.split('/');
+    }
+    get weaponMode(): string
+    {
+        return this.settings.selectedWeaponMode;
+    }
+    set weaponMode(value: string)
+    {
+        this.settings.selectedWeaponMode = value;
     }
     get bulletsToFire(): number {
         return Math.min(this.settings.ammoLeft, getShootingMode(this.shootingMode)?.count ?? 0);
@@ -104,6 +114,9 @@ export class Weapon implements IdObject  {
     get bulletsLeftAfterFire(): number {
         return this.bulletsLeft - this.bulletsToFire;
     }
+    get bulletsFired(): number {
+        return this.settings.bulletsFired;
+    }
     get magSize(): number {
         return this.settings.magSize;
     }
@@ -113,17 +126,36 @@ export class Weapon implements IdObject  {
     get ammoLoaded(): string {
         return this.settings.ammoLoaded;
     }
-
     reload() {
         this.settings.ammoLeft = this.settings.magSize;
     }
 
+    get hasSecondPhase(): boolean {
+        return getWeaponMode(this.weaponMode)?.secondPhase ?? false;
+    }
+
     shoot() {
+        if (this.isSecondPhase)
+        {
+            this.resetPhase();
+        }
+        else if (this.hasSecondPhase && this.bulletsToFire <= 6)
+        {
+            this.settings.bulletsFired = this.bulletsToFire;
+        }
         this.settings.ammoLeft -= this.bulletsToFire;
     }
 
     get isLoaded(): boolean {
         return this.settings.ammoLoaded !== '';
+    }
+
+    get isSecondPhase(): boolean {
+        return this.settings.bulletsFired > 0;
+    }
+
+    resetPhase(): void {
+        this.settings.bulletsFired = 0;
     }
 
     loadFromData(data: any): Weapon {
@@ -157,7 +189,7 @@ export class Weapon implements IdObject  {
 
 export const shootingMode: ShootingMode[] = [
     { label: 'Einzelschuss', value: 'einzelschuss', count: 1, modes: 'EM,HM' },
-    { label: 'Kurze Salve', value: 'kurzeSalve', count: 3, modes: 'SM' },
+    { label: 'Kurze Salve', value: 'kurzeSalve', count: 3, modes: 'SM,AM' },
     { label: 'Lange Salve', value: 'langeSalve', count: 6, modes: 'AM'},
     { label: 'Autofeuer', value: 'autofeuer', count: 10, modes: 'AM' },
     { label: 'Sperrfeuer', value: 'sperrfeuer', count: 20, modes: 'AM'},
@@ -170,7 +202,7 @@ export const reachModifiers = [
     { value: 'extreme', modifier: -6 },
 ];
 
-export const weaponMode = [
+export const weaponMode: WeaponMode[] = [
     { label: 'Einzelschuss', value: 'EM' , secondPhase: false },
     { label: 'Halbautomatik', value: 'HM', secondPhase: true },
     { label: 'Salve', value: 'SM', secondPhase: true },
@@ -181,12 +213,22 @@ export function getRangeModifierForRange(range: string): number {
     return reachModifiers.find((item) => { return item.value === range})?.modifier ?? 0;
 }
 
+function getWeaponMode(mode: string): WeaponMode|null
+{
+    const item = weaponMode.find((item) => { return item.value === mode}) ?? null;
+    if (item === null)
+    {
+        console.error('WeaponMode not found: ' + mode)
+    }
+    return item;
+}
+
 function getShootingMode(mode: string): ShootingMode|null
 {
     const item = shootingMode.find((item) => { return item.value === mode}) ?? null;
     if (item === null)
     {
-        console.error('mode not found: ' + mode)
+        console.error('ShootingMode not found: ' + mode)
     }
     return item;
 }
@@ -210,7 +252,8 @@ function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
     if (setting == null) {
         setting = new WeaponSetting();
         setting.weaponId = weapon.generateId();
-        setting.selectedMode = weapon.getShootingModes()[0]?.value ?? '';
+        setting.selectedShootingMode = weapon.getShootingModes()[0]?.value ?? '';
+        setting.selectedWeaponMode = weapon.getWeaponModes()[0] ?? '';
         char.sheet.weaponSettings.push(setting);
     }
     return setting;

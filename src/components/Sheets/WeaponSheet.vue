@@ -22,10 +22,11 @@ const rangeModifier = computed(() => getRangeModifierForRange(selectedRange.valu
 const modeModifier = computed(() => DialogWeapon.weapon.shootingModeModifier )
 const bulletsLeft = computed(() =>  DialogWeapon.weapon.bulletsLeft )
 const bulletsToFire = computed(() => DialogWeapon?.weapon?.bulletsToFire ?? 0 )
+const bulletsFired = computed(() => DialogWeapon?.weapon?.bulletsFired ?? 0 )
 const bulletsLeftAfterFire = computed(() => DialogWeapon.weapon.bulletsLeftAfterFire)
 const isLoaded = computed(() => DialogWeapon.weapon.isLoaded )
 const selectedShootingMode = computed({
-  get: () => DialogWeapon.weapon?.shootingMode ?? (new WeaponSetting()).selectedMode,
+  get: () => DialogWeapon.weapon?.shootingMode ?? (new WeaponSetting()).selectedShootingMode,
   set: (value) => DialogWeapon.weapon.shootingMode = value
 })
 
@@ -87,6 +88,7 @@ function shoot()
       <div v-if="isLoaded" class="ammo">
        {{ weapon.ammoLoaded }}  ({{ weapon.magType }})
       </div>
+      <div v-if="weapon.isSecondPhase" class="phase">Anzahl Kugeln aus Phase 1: {{ bulletsFired }} <button @click="weapon.resetPhase()"> x </button></div>
       <div v-if="isLoaded" class="ammo">
         Anzahl Kugeln: {{ bulletsToFire }}
       </div>
@@ -142,7 +144,7 @@ function shoot()
         </div>
         <div class="item">
           <div>Pool</div>
-          <div>{{ toInt(weapon.dicepool) + rangeModifier - modeModifier }}</div>
+          <div>{{ toInt(weapon.dicepool) + rangeModifier + modeModifier }}</div>
         </div>
         <div class="item">
           <div>Mode</div>
@@ -204,6 +206,11 @@ function shoot()
   padding-left: 2dvw;
   padding-right: 2dvw;
   margin-top: 1vh;
+}
+
+.phase {
+  width: 100%;
+  text-align: center;
 }
 
 .gap {
