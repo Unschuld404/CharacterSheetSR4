@@ -4,6 +4,8 @@
     background-color: var(--background-color);
     border: 1px solid var(--accent-color);
     margin: 0;
+    height: 1rem;
+    width: 1rem;
 }
 
 .favourite:checked {

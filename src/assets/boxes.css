@@ -1,16 +1,21 @@
-.transparent-box {
+.box {
     position: relative;
 }
 
-.transparent-box:last-of-type {
+.box:last-of-type {
     border-bottom: none;
 }
 
 .item {
-    border-bottom: 0.5px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
     display: flex;
     justify-content: space-between;
-    position: relative;
     align-items: center;
     width: 100%;
+    min-height: 2.5rem;
+    padding: 1vw;
+}
+
+.category {
+    padding-left: 1vw;
 }

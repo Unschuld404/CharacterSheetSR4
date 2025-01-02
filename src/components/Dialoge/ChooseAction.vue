@@ -103,20 +103,20 @@ function toggleSelection(item: any): void
 <style scoped>
 
 strong {
-  padding-left: 4dvw;
-  padding-top: 4vh;
+  padding-top: 1rem;
+  padding-left: 2vw;
 }
 
 .dialog-box {
   height: 80dvh;
   width: 90dvw;
   overflow: scroll;
-  padding-top: 0;
+  padding: 0;
+  align-items: normal;
 }
 
 .item {
-  padding-left: 4dvw;
-  padding-right: 4dvw;
+  padding: 0 2vw;
 }
 
 .row {
@@ -125,7 +125,7 @@ strong {
 }
 
 .extra {
-  font-size: 3.5dvw;
+  font-size: 0.8rem;
 }
 
 </style>/

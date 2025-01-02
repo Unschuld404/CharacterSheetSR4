@@ -14,8 +14,8 @@ import Damage from "@/components/Damage.vue";
     <Nuyen/>
     <Damage/>
     <InitiativeEdge/>
-    <Widerstand/>
     <Ausweichen/>
+    <Widerstand/>
     <FavAktionen/>
     <FavFertigkeiten/>
   </div>

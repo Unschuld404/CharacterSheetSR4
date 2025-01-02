@@ -4,8 +4,8 @@ import {char} from "@/composables/char";
 </script>
 
 <template>
-  <div class="transparent-box">
-    <div class="left-header">Widerstand</div>
+  <div class="box">
+    <strong class="category">Widerstand</strong>
     <div class="row">
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -20,7 +20,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.ballistic }}
         </button>
-        <div class="resistance-category">Ballist.</div>
+        <div>Ballist.</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -35,7 +35,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.impact }}
         </button>
-        <div class="resistance-category">Stoß</div>
+        <div>Stoß</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -48,7 +48,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.physical }}
         </button>
-        <div class="resistance-category">Physisch</div>
+        <div>Physisch</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -61,7 +61,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.mana }}
         </button>
-        <div class="resistance-category">Mana</div>
+        <div>Mana</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -75,7 +75,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.drain }}
         </button>
-        <div class="resistance-category">Entzug</div>
+        <div>Entzug</div>
       </div>
     </div>
   </div>
@@ -90,25 +90,19 @@ button {
 
 .row {
   justify-content: space-between;
+  padding: 0 1vw;
 }
 
 .column {
   align-items: center;
   background-color: var(--primary-color);
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   width: 18vw;
   padding: 0.5rem 0;
 }
 
-.special-row {
-  display: flex;
-  justify-content: space-between;
-  position: relative;
-  gap: 2vw;
-}
-
-.transparent-box {
-  margin: 0.5rem 1vw;
+.box {
+  margin: 0.5rem 0;
 }
 
 </style>

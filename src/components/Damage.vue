@@ -22,6 +22,9 @@ import {char} from "@/composables/char";
       </div>
     </div>
   </div>
+  <div class="box">
+    <strong>Du stirbst!</strong>
+  </div>
 </template>
 
 <style scoped>
@@ -29,6 +32,14 @@ import {char} from "@/composables/char";
 i {
   color: var(--accent-color);
   font-size: 1.5rem;
+}
+
+.box {
+  background-color: var(--primary-color);
+  padding: 0.5rem 1vw;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .dmg  {

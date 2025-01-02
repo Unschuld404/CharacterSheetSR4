@@ -103,7 +103,7 @@ function onCancelPowersDialog() {
           <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
         </div>
 
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Dienste</div>
           <div class="row services">
             <div class="mutator" @click="removeService">-</div>
@@ -112,7 +112,7 @@ function onCancelPowersDialog() {
           </div>
         </div>
 
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Initiative</div>
           <div class="row item">
             <div>Initiative</div>
@@ -138,7 +138,7 @@ function onCancelPowersDialog() {
 
         </div>
 
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Widerstände</div>
           <div class="row item">
             <div>Panzerung</div>
@@ -185,7 +185,7 @@ function onCancelPowersDialog() {
 
         </div>
 
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Skills</div>
           <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
             <div>
@@ -213,7 +213,7 @@ function onCancelPowersDialog() {
 
         </div>
 
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Allergien</div>
           <div class="item">{{ spirit.spiritType?.flaws }}</div>
         </div>
@@ -244,7 +244,7 @@ function onCancelPowersDialog() {
   align-items: center;
 }
 
-.transparent-box {
+.box {
   width: 100%;
   margin-top: 2vh;
 }

@@ -30,9 +30,9 @@ const skills = computed(() => {
 
 <template>
 
-  <div class="transparent-box">
+  <div class="box">
 
-    <div class="left-header" @click="DialogChooseSkill.show">Fähigkeiten <i class='bx bxs-cog'></i></div>
+    <strong class="category clickable" @click="DialogChooseSkill.show">Fähigkeiten <i class='bx bxs-cog'></i></strong>
     <div>
       <div class="item" v-for="skill in skills" :key="skill.name">
 
@@ -65,16 +65,13 @@ const skills = computed(() => {
 
 <style scoped>
 
-  .item {
-    display: flex;
-    height: 6vh;
-    line-height: 6vh;
-    justify-content: space-between;
-    position: relative;
-  }
 
-  button {
-    position: relative;
-  }
+.box {
+  padding: 0.5rem 0;
+}
+
+.dice {
+  margin-right: 3vw;
+}
 
 </style>

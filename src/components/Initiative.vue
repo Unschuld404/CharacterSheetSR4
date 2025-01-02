@@ -4,26 +4,27 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
 </script>
 
 <template>
-  <div class="transparent-box">
-    <div>Initiative</div>
+  <div class="box">
+    <strong class="category">Initiative</strong>
     <div class="row">
       <div class="special-row">
-        <div class="column" @click="DialogRollDice.setValues(
-          {
-            name: 'Normal',
-            value: char.initiative.normal.value,
-            values: [
-                {name: 'Reaktion', value: char.attributes.reaction.total},
-                {name: 'Intuition', value: char.attributes.intuition.total},
-                ]
-          }
+        <div class="column"
+             @click="DialogRollDice.setValues(
+                {
+                  name: 'Normal',
+                  value: char.initiative.normal.value,
+                  values: [
+                      {name: 'Reaktion', value: char.attributes.reaction.total},
+                      {name: 'Intuition', value: char.attributes.intuition.total},
+                      ]
+                }
           ).show()">
           <button>{{ char.initiative.normal.value }}
           </button>
           <div>Normal</div>
         </div>
-        <div class="column" v-if="char.initiative.matrix.passes==3">
-          <button class="dice" @click="DialogRollDice.setValues(
+        <div class="column" v-if="char.initiative.matrix.passes==3"
+             @click="DialogRollDice.setValues(
                   {
                     name: 'Matrix',
                     value: char.initiative.matrix.value,
@@ -33,13 +34,14 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
                         {name: 'Heiße Sim', value: 1},
                         ]
                   }
-                  ).show()">{{ char.initiative.matrix.value }}
+                  ).show()">
+          <button>
+            {{ char.initiative.matrix.value }}
           </button>
           <div>Matrix</div>
         </div>
         <div class="column"  v-else>
-
-          <button class="dice" @click="DialogRollDice.setValues(
+          <button @click="DialogRollDice.setValues(
                   {
                     name: 'Matrix',
                     value: char.initiative.matrix.value,
@@ -48,12 +50,13 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
                         {name: 'Intuition', value: char.attributes.intuition.total},
                         ]
                   }
-                  ).show()">{{ char.initiative.matrix.value }}
+                  ).show()">
+            {{ char.initiative.matrix.value }}
           </button>
           <div>Matrix</div>
         </div>
-        <div class="column">
-          <button @click="DialogRollDice.setValues(
+        <div class="column"
+             @click="DialogRollDice.setValues(
                 {
                   name: 'Astral',
                   value: char.initiative.astral.value,
@@ -61,7 +64,8 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
                       {name: '2 x Intuition', value: (char.attributes.intuition.total)*2},
                       ]
                 }
-                ).show()">{{ char.initiative.astral.value }}
+                ).show()">
+          <button>{{ char.initiative.astral.value }}
           </button>
           <div>Astral</div>
         </div>
@@ -82,12 +86,13 @@ button {
 
 .row {
   justify-content: space-between;
+  padding: 0 1vw;
 }
 
 .column {
   align-items: center;
   background-color: var(--primary-color);
-  border-radius: 0.3rem;
+  border-radius: 0.5rem;
   width: 18vw;
   padding: 0.5rem 0;
 }
@@ -99,8 +104,8 @@ button {
   gap: 2vw;
 }
 
-.transparent-box {
-  margin: 0.5rem 1vw;
+.box {
+  margin: 0.5rem 0;
 }
 
 </style>

@@ -5,7 +5,7 @@ import {DialogManageEdge} from "@/composables/dialogs";
 </script>
 
 <template>
-  <div class="transparent-box">
+  <div class="box">
     <div class="left-header">Edge</div>
     <div class="row">
       <div class="column">

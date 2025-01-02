@@ -39,7 +39,7 @@ const initiative = computed<Initiative>(() =>
         <RadioButtons class="mode" v-model="selectedVehicleMode" :options="VehicleModes" group="pilot"/>
       </div>
       <div class="row">
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Schadenswiderstand</div>
           <div class="row">
             <div class="button-box" @click="DialogRollDice.setValues(
@@ -71,7 +71,7 @@ const initiative = computed<Initiative>(() =>
             </div>
           </div>
         </div>
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Initiative</div>
           <div class="column button-box" @click="DialogRollDice.setValues(
             {
@@ -88,21 +88,21 @@ const initiative = computed<Initiative>(() =>
 
         </div>
       </div>
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Stats</div>
           <div class="item">Handling<span>{{ vehicle.handling }}</span></div>
           <div class="item">Beschleunigung<span>{{ vehicle.accel }}</span></div>
           <div class="item">Geschwindigkeit<span>{{ vehicle.speed }}</span></div>
           <div class="item">Gerätestufe<span>{{ vehicle.rating }}</span></div>
         </div>
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Chip</div>
           <div class="item">Prozessor<span>{{ vehicle.processor }}</span></div>
           <div class="item">Signal<span>{{ vehicle.signal }}</span></div>
           <div class="item">System<span>{{ vehicle.system }}</span></div>
           <div class="item">Firewall<span>{{ vehicle.firewall }}</span></div>
         </div>
-        <div class="transparent-box">
+        <div class="box">
           <div class="left-header">Hardware</div>
           <div class="item">Rumpf<span>{{ vehicle.body }}</span></div>
           <div class="item">Panzerung<span>{{ vehicle.armor }}</span></div>
@@ -112,7 +112,7 @@ const initiative = computed<Initiative>(() =>
         <div>
           <VehicleAusweichen/>
         </div>
-        <div class="transparent-box" v-if="vehicle.sensors.length > 0">
+        <div class="box" v-if="vehicle.sensors.length > 0">
           <div class="left-header">Sensoren</div>
           <div v-for="sensor in vehicle.sensors">
            <div class="item column">
@@ -129,13 +129,13 @@ const initiative = computed<Initiative>(() =>
               <div>XX</div>
             </div>
           </div>
-          <div class="transparent-box" v-if="vehicle.mods.length > 0">
+          <div class="box" v-if="vehicle.mods.length > 0">
             <div class="left-header">Mods</div>
             <div class="item" v-for="mod in vehicle.mods">
               {{ mod.name }}
             </div>
           </div>
-          <div class="transparent-box" v-if="vehicle.weapons.length > 0">
+          <div class="box" v-if="vehicle.weapons.length > 0">
             <div class="left-header">Waffen</div>
             <div class="item" v-for="weapon in vehicle.weapons" @click="!weapon.isMelee
             ? DialogWeapon.setWeapon(weapon).show()
@@ -152,7 +152,7 @@ const initiative = computed<Initiative>(() =>
               {{ weapon.name }}
             </div>
           </div>
-          <div class="transparent-box" v-if="vehicle.ammunitions.length > 0">
+          <div class="box" v-if="vehicle.ammunitions.length > 0">
             <div class="left-header">Munition</div>
             <div class="item" v-for="ammunition in vehicle.ammunitions">
               {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
@@ -183,7 +183,7 @@ button {
   border: none;
 }
 
-.transparent-box {
+.box {
   padding-left: 2dvw;
   padding-right: 2dvw;
 }
