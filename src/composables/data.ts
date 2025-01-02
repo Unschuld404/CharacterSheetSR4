@@ -5,7 +5,7 @@ import {
     type Gear,
     GearType,
     type KarmaEntry, type Lifestyle,
-    type NuyenEntry, type Program,
+    type NuyenEntry, type Program, type Rigger,
     type SelectedItem,
     type Skill, Spell, type WeaponMod
 } from "@/composables/types";
@@ -165,11 +165,11 @@ export function getSpirits(data: any): Spirit[] | null {
 
     return spiritsArray.map((spiritObj: any) => Spirit.createFromDataObject(spiritObj));
 }
-export function getVehicles(data: any): Array<Vehicle> {
+export function getVehicles(data: any, rigger: Rigger): Array<Vehicle> {
     let vehicles = data?.vehicles;
     vehicles = Array.isArray(vehicles) ? vehicles : [];
 
-    return vehicles.map((vehicle: any) => Vehicle.createFromDataObject(vehicle));
+    return vehicles.map((vehicle: any) => Vehicle.createFromDataObject(vehicle, rigger));
 }
 export function getWeapons(data: any, parent: Container): Array<Weapon> {
     let weapons = data?.weapons;

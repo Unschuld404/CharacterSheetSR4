@@ -178,6 +178,11 @@ export interface Container {
     getName(): string;
 }
 
+export interface Rigger {
+    getInitiativeVR(): Initiative;
+    getInitiativeRemote(): Initiative;
+}
+
 export class Spell implements IdObject {
 
     name!: string;

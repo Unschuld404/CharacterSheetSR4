@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import {DialogRollDice, DialogSpiritSheet, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
+import {DialogRollDice,  DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
 import {computed} from "vue";
-import Ausweichen from "@/components/Ausweichen.vue";
+
 import {Vehicle} from "@/composables/vehicle";
 import {char} from "@/composables/char";
 import {type Initiative, VehicleMode} from "@/composables/types";
@@ -18,13 +18,7 @@ const selectedVehicleMode = computed ({
   set(value) { vehicle.value.mode = value  }
 })
 
-const initiative = computed<Initiative>(() =>
-    vehicle.value.initiative
-      ?? (selectedVehicleMode.value == VehicleMode.Remote
-            ? char.initiative.normal
-            : char.initiative.matrix) );
-
-
+const initiative = computed<Initiative>(() => vehicle.value.initiative );
 </script>/
 
 <template>

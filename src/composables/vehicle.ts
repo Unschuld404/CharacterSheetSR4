@@ -4,7 +4,7 @@ import {
     type AutoSoft, type Container,
     type Damage, EvadeType,
     type Gear, type IdObject,
-    type Initiative, type Sensor, type SensorMod, type Skill,
+    type Initiative, type Rigger, type Sensor, type SensorMod, type Skill,
     type VehicleMod,
     VehicleMode,
     type VehicleResistance,
@@ -12,10 +12,12 @@ import {
 
 import  {type Weapon} from "@/composables/weapons";
 import {getGearFromGearData, getWeapons} from "@/composables/data";
+import {char} from "@/composables/char";
 
 export class Vehicle implements IdObject,Container  {
     static nextId: number = 0;
     id: number = 0;
+    rigger!: Rigger;
 
     name: string = '';
     nickname: string = '';
@@ -47,16 +49,15 @@ export class Vehicle implements IdObject,Container  {
     maneuver: number = 0;
     mode: VehicleMode = VehicleMode.Auto;      // (Auto /  Remote / VR)
 
-    get initiative(): Initiative | null {
-        if (this.mode == VehicleMode.Auto)
-        {
-            return {
+    get initiative(): Initiative {
+        switch (this.mode) {
+            case VehicleMode.Auto: return {
                 value: this.pilot + this.processor,
                 passes: 3,
             }
+            case VehicleMode.VR: return this.rigger.getInitiativeVR();
+            default: return this.rigger?.getInitiativeRemote();
         }
-
-        return null;
     }
 
     get resistance(): VehicleResistance {
@@ -165,8 +166,14 @@ export class Vehicle implements IdObject,Container  {
         return this;
     }
 
-    static createFromDataObject(data: any): Vehicle {
-        return (new Vehicle()).setNextId().loadFromData(data);
+    setRigger(rigger: Rigger): Vehicle
+    {
+        this.rigger  = rigger;
+        return this;
+    }
+
+    static createFromDataObject(data: any, rigger: Rigger): Vehicle {
+        return (new Vehicle()).setNextId().setRigger(rigger).loadFromData(data);
     }
 
     getName(): string {
