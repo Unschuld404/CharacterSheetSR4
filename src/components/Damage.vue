@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
-import {char} from "../composables/char";
+import {char} from "@/composables/char";
 </script>
 
 <template>
-  <div class="transparent-box row">
+  <div class="row space">
     <div class="column">
       <div>Körperlicher Schaden</div>
       <div class="row dmg">
@@ -22,34 +22,44 @@ import {char} from "../composables/char";
       </div>
     </div>
   </div>
+  <div class="box">
+    <strong>Du stirbst!</strong>
+  </div>
 </template>
 
 <style scoped>
 
 i {
   color: var(--accent-color);
-  font-size: 8vw;
+  font-size: 1.5rem;
+}
+
+.box {
+  background-color: var(--primary-color);
+  padding: 0.5rem 1vw;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
 }
 
 .dmg  {
-  padding-left: 4dvw;
-  padding-right: 4dvw;
-  align-items: center;
-}
-
-.transparent-box {
-  padding-left: 2dvw;
-  padding-right: 2dvw;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .row {
   display: flex;
   text-align: center;
+  align-items: center;
   justify-content: space-between;
 }
 
 .column {
   width: 100%;
+}
+
+.space {
+  margin: 0.5rem 0;
 }
 
 </style>

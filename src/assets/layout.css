@@ -1,10 +1,10 @@
-.collection {
+.content {
     margin-top: 65px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.collection::-webkit-scrollbar {
+.content::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
@@ -21,18 +21,4 @@
 
 ul {
     list-style: none;
-}
-
-li {
-    padding-left: 2dvw;
-    padding-right: 2dvw;
-}
-
-.bx-chevron-down {
-    color: var(--accent-color);
-    font-weight: bold;
-    font-size: 5vh;
-    position: absolute;
-    top: 80vh;
-    align-self: center;
 }

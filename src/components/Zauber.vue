@@ -24,7 +24,7 @@ function toggleSelection(item: Spell): void
 
 <template>
 
-  <ul class="transparent-box">
+  <ul class="box">
     <li class="left-header">Zaubersprüche</li>
     <li v-for="spell in char.spells" :key="spell.name" class="item">
       <div class="column">

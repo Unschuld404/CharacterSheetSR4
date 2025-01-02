@@ -8,7 +8,7 @@ import { DialogVehicleSheet } from "@/composables/dialogs";
 
   <ul>
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
-      <div class="transparent-box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
+      <div class="box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div class="row">
           <div class="clickable-name">{{ vehicle.name }} </div>
         </div>
@@ -44,7 +44,7 @@ li {
   margin-bottom: 1vh;
 }
 
-.transparent-box {
+.box {
   padding-top: 2vh;
 }
 

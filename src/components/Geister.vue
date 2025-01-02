@@ -10,7 +10,7 @@ const spirits = computed(() => char.spirits);
 <template>
 
   <div class="column">
-    <div class="transparent-box">
+    <div class="box">
       <div>
         <div class="left-header">Geister <i class='bx bxs-cog' @click="DialogAddSpirit.show()"></i></div>
       </div>

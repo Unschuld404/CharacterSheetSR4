@@ -4,7 +4,7 @@ import Geister from "@/components/Geister.vue";
 </script>
 
 <template>
-  <div class="collection">
+  <div class="content">
     <Geister/>
     <Zauber/>
   </div>

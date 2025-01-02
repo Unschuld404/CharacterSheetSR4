@@ -23,7 +23,7 @@ function toggleSelection(item: Weapon): void
 </script>
 
 <template>
-  <div class="transparent-box">
+  <div class="box">
     <div class="left-header">Waffen</div>
   <ul>
       <li v-for="weapon in char.weapons" :key="weapon.name" class="item">

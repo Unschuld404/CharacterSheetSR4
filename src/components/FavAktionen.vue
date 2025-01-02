@@ -33,27 +33,33 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
 <template>
 
-  <div class="transparent-box">
-
-    <div class="left-header" @click="DialogChooseAction.show">Aktionen <i class='bx bxs-cog'></i></div>
-
+  <div class="box">
+    <strong class="category clickable" @click="DialogChooseAction.show">Aktionen <i class='bx bxs-cog'></i></strong>
     <div>
-
       <div v-for="spell in spells" class="item" >
-        <div>{{ spell.name }}</div>
+        <div>
+          <div>{{ spell.name }}</div>
+          <div class="subcaption">{{ spell.category }}</div>
+        </div>
         <div>{{ spell.dv }}</div>
       </div>
-
       <div v-for="spirit in spirits" class="item" @click="DialogSpiritSheet.setSpirit(spirit).show()">
-        <div>{{ spirit.type }} ({{ spirit.force }})</div>
-        <div>{{ spirit.bound ? 'gebunden' : 'ungebunden' }}</div>
+        <div>
+          <div class="clickable">{{ spirit.type }} ({{ spirit.force }})</div>
+          <div class="subcaption">Geist</div>
+        </div>
+        <div class="right">
+          <div>{{ spirit.plane }}-Ebene</div>
+          <div>Dienste: {{ spirit.services }}</div>
+        </div>
       </div>
-
       <div v-for="vehicle in vehicles" class="item" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
-        <div>{{ vehicle.name }}</div>
-        <div>{{ vehicle.mode }}</div>
+        <div>
+          <div class="clickable">{{ vehicle.name }}</div>
+          <div class="subcaption">Fahrzeug oder Drohne</div>
+        </div>
+        <div>Modus: {{ vehicle.mode }}</div>
       </div>
-
       <div v-for="weapon in weapons" class="item"
            @click="!weapon.isMelee
               ? DialogWeapon.setWeapon(weapon).show()
@@ -67,20 +73,30 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
                     ]
               }
               ).show()">
-        <div>{{ weapon.name }}</div>
-        <div class="extra">{{ weapon.category }}  ({{ toInt(weapon.dicepool)-char.attributes.agility.total }})</div>
+        <div>
+          <div class="clickable">{{ weapon.name }}</div>
+          <div class="subcaption">{{ weapon.category }}</div>
+        </div>
+        <div class="right">{{ weapon.ammoLoaded }}</div>
       </div>
-
     </div>
-
   </div>
 
 </template>
 
 <style scoped>
 
-.transparent-box {
-  border-bottom: none;
+.box {
+  padding: 0.5rem 0;
+}
+
+.right {
+  text-align: right;
+  text-transform: capitalize;
+}
+
+.subcaption {
+  font-size: 0.8rem;
 }
 
 </style>

@@ -4,7 +4,7 @@ import FahrzeugeUndDrohnen from "@/components/FahrzeugeUndDrohnen.vue";
 
 <template>
 
-  <div class="collection">
+  <div class="content">
     <FahrzeugeUndDrohnen/>
   </div>
 

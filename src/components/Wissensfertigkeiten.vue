@@ -5,7 +5,7 @@ import {char} from "@/composables/char";
 
 <template>
 
-  <div class="knowledge-skills transparent-box">
+  <div class="knowledge-skills box">
     <div class="left-header">Wissensfertigkeiten</div>
     <ul>
       <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">

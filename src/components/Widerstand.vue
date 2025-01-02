@@ -4,8 +4,8 @@ import {char} from "@/composables/char";
 </script>
 
 <template>
-  <div class="transparent-box">
-    <div class="left-header">Widerstand</div>
+  <div class="box">
+    <strong class="category">Widerstand</strong>
     <div class="row">
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -20,7 +20,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.ballistic }}
         </button>
-        <div class="resistance-category">Ballistisch</div>
+        <div>Ballist.</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -35,7 +35,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.impact }}
         </button>
-        <div class="resistance-category">Stoß</div>
+        <div>Stoß</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -48,7 +48,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.physical }}
         </button>
-        <div class="resistance-category">Physisch</div>
+        <div>Physisch</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -61,7 +61,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.mana }}
         </button>
-        <div class="resistance-category">Mana</div>
+        <div>Mana</div>
       </div>
       <div class="column" @click="DialogRollDice.setValues(
         {
@@ -75,7 +75,7 @@ import {char} from "@/composables/char";
         ).show()">
         <button>{{ char.resist.drain }}
         </button>
-        <div class="resistance-category">Entzug</div>
+        <div>Entzug</div>
       </div>
     </div>
   </div>
@@ -85,24 +85,24 @@ import {char} from "@/composables/char";
 <style scoped>
 
 button {
-  padding-bottom: 1dvw;
+  margin-bottom: 0.5rem;
 }
 
 .row {
-  padding-left: 2dvw;
-  padding-right: 2dvw;
   justify-content: space-between;
-  gap: 1vh;
+  padding: 0 1vw;
 }
 
 .column {
-  width: 18dvw;
   align-items: center;
   background-color: var(--primary-color);
-  border-radius: 2dvw;
-  padding-top: 4dvw;
-  padding-bottom: 4dvw;
-  font-size: 4dvw;
+  border-radius: 0.5rem;
+  width: 18vw;
+  padding: 0.5rem 0;
+}
+
+.box {
+  margin: 0.5rem 0;
 }
 
 </style>

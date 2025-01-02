@@ -9,7 +9,7 @@ import {SpiritPlanes} from "@/composables/spirits";
 
 <template>
 
-  <div class="collection column">
+  <div class="content column">
     <Wissensfertigkeiten />
     <AktionsFertigkeiten />
   </div>
