@@ -22,7 +22,7 @@ const evadeRanged = computed( () => {
 
 <template>
   <div class="box">
-    <strong class="category">Ausweichen</strong>
+    <strong class="category">Ausweichen </strong> <i class='clickable bx bxs-cog'></i>
     <div class="row">
       <div class="special-row">
         <div class="column" @click="DialogRollDice.setValues(evadeMelee).show()">
@@ -35,7 +35,6 @@ const evadeRanged = computed( () => {
         </div>
       </div>
       <div>
-        <div class="skill">blocken <i class='bx bxs-cog'></i></div>
         <button :class="{'active': isActive}" class="defense" @click="fullDefense">Volle Abwehr</button>
       </div>
     </div>
@@ -79,7 +78,7 @@ const evadeRanged = computed( () => {
 
 .defense {
   width: 40vw;
-  height: 3rem;
+  height: 5em;
   border-radius: 0.5rem;
   background-color: var(--primary-color);
 }

@@ -12,7 +12,7 @@ export class Sheet {
     selectedSkills : string[];
     selectedItems : SelectedItem[];
     weaponSettings : WeaponSetting[];
-    defenseMeleeSkill: string = 'Waffenlos';
+    defenseMeleeSkill: string = 'Waffenloser Kampf';
 
     edge : number | null;
     nuyen!: number;

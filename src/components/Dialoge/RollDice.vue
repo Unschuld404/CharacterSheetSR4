@@ -4,7 +4,7 @@
   import {fetchRoll} from "@/composables/fetch";
   import type {RollDiceResult} from "@/composables/types";
 
-  const values = computed(() => DialogRollDice.values?.values ?? [])
+  const values = computed(() => DialogRollDice.values)
 
   const rollResult = ref<RollDiceResult | null >(null);
 
@@ -32,7 +32,7 @@
         <i class='bx bxs-dice-6'></i>
       </div>
       <div class="column">
-        <div v-for="(value, index) in values" class="line">{{ value.name }} ({{ value.value }})</div>
+        <div v-for="(value) in values" class="line">{{ value.name }} ({{ value.value }})</div>
       </div>
     </div>
   </div>

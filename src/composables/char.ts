@@ -22,17 +22,17 @@ import {
     type Drain,
     EvadeType,
     type Gear, type IdObject, type Lifestyle,
-    type Movement,
+    type Movement, type Rigger,
     type Resistance, type SelectedItem,
     type SheetData,
     type Skill,
-    Spell
+    Spell, type Initiative, type PoolValue
 } from "@/composables/types";
 import {Vehicle} from "@/composables/vehicle";
 import {Weapon} from "@/composables/weapons";
 
 
-export class Charakter implements Container{
+export class Charakter implements Container, Rigger {
     name!: string;
     initiative!: CharInitiative;
     metatype! : string;
@@ -295,7 +295,7 @@ export class Charakter implements Container{
         this.knowledgeSkills = getKnowledgeSkills(data);
         this.actionSkills = getActionSkills(data);
 
-        this.vehicles = getVehicles(data);
+        this.vehicles = getVehicles(data, self);
         this.weapons = getWeapons(data, self);
         this.armors = getArmors(data);
         this.gear = getGear(data);
@@ -536,6 +536,28 @@ export class Charakter implements Container{
 
     getName(): string {
         return this.name;
+    }
+
+    getInitiativeVR(): Initiative {
+        return this.initiative.matrix;
+    }
+    getInitiativeRemote(): Initiative {
+        return this.initiative.normal;
+    }
+
+    getDefenseMeleeSkill(): PoolValue {
+        const skill = this.skillByName(this.sheet.defenseMeleeSkill);
+        return { name: skill.name, value: skill.total};
+    }
+
+    getEvadeSkill(): PoolValue {
+        const skill = this.skillByName('Ausweichen');
+        return { name: skill.name, value: skill.total};
+    }
+
+    getCommandValue(): PoolValue {
+        const value = this.commlink?.programs?.find(item => item.name === 'Befehl')?.rating ?? 0;
+        return { name: 'Befehl', value: value };
     }
 }
 

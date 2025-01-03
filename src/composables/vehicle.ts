@@ -1,21 +1,30 @@
 import {toBool, toInt} from "@/composables/utils";
 import {
     type Ammunition,
-    type AutoSoft, type Container,
-    type Damage, EvadeType,
-    type Gear, type IdObject,
-    type Initiative, type Sensor, type SensorMod, type Skill,
+    type AutoSoft,
+    type Container,
+    type Damage,
+    EvadeType,
+    type Gear,
+    type IdObject,
+    Pool,
+    type PoolValue,
+    type Rigger,
+    type Sensor,
+    type SensorMod,
+    type VehicleInitiative,
     type VehicleMod,
     VehicleMode,
     type VehicleResistance,
 } from "@/composables/types";
 
-import  {type Weapon} from "@/composables/weapons";
+import {type Weapon} from "@/composables/weapons";
 import {getGearFromGearData, getWeapons} from "@/composables/data";
 
 export class Vehicle implements IdObject,Container  {
     static nextId: number = 0;
     id: number = 0;
+    rigger!: Rigger;
 
     name: string = '';
     nickname: string = '';
@@ -47,49 +56,101 @@ export class Vehicle implements IdObject,Container  {
     maneuver: number = 0;
     mode: VehicleMode = VehicleMode.Auto;      // (Auto /  Remote / VR)
 
-    get initiative(): Initiative | null {
-        if (this.mode == VehicleMode.Auto)
-        {
-            return {
-                value: this.pilot + this.processor,
+
+
+    get initiative(): VehicleInitiative {
+        switch (this.mode) {
+            case VehicleMode.Auto: return {
+                pool: new Pool('Initiative Autopilot')
+                    .add('Pilot', this.pilot)
+                    .add('Prozessor', this.processor),
                 passes: 3,
             }
+            case VehicleMode.VR: return {
+                pool: new Pool('Initiative VR')
+                    .add('Matrix-Initiative des Riggers', this.rigger.getInitiativeVR().value),
+                passes: this.rigger.getInitiativeVR().passes,
+            }
+            default: return {
+                pool: new Pool('Initiative Remote')
+                    .add('Initiative des Riggers', this.rigger.getInitiativeRemote().value),
+                passes: this.rigger.getInitiativeRemote().passes,
+            }
         }
-
-        return null;
     }
 
     get resistance(): VehicleResistance {
         return {
-            mundan: this.body + this.armor,
-            magic: this.rating,
-            elemental: this.armor * 2,
+            physical: new Pool('Normaler Widerstand')
+                .add('Rumpf', this.body)
+                .add('Panzerung', this.armor),
+            elemental: new Pool('Elementarwiderstand')
+                .add('Rumpf', this.body)
+                .add('Panzerung x 2', this.armor * 2),
         }
     }
 
-    evade(type: EvadeType, fullDefense: boolean, evadeSkill: Skill, combatSkill: Skill, commandRating: number, responseRating: number) {
+    evade(type: EvadeType, fullDefense: boolean, mode: VehicleMode): Pool {
+
+        const melee = this.rigger.getDefenseMeleeSkill();
+        const evade = this.rigger.getEvadeSkill();
+        const befehl = this.rigger.getCommandValue();
+        const pilot = {name: 'Pilot', value: this.pilot};
+        const abwehr = this.autoSoftValue('Abwehr');
+        const prozessor = {name: 'Prozessor', value: this.processor};
+
         /*
         Verteidigung
             Nahkampf
                 Pilot + Abwehr (AUTO)
-                Prozessor + Nahkampffertigkeit (VR)
-                Befehl + Nahkampffertigkeit (CMD)
+                Prozessor + Nahkampf-Fertigkeit (VR)
+                Befehl + Nahkampf-Fertigkeit (CMD)
             Fernkampf
                 Pilot (AUTO)
                 Prozessor (VR)
                 Befehl (CMD)
-            Voll Abwehr
-                 + Abwehr  (AUTO)
+            volle Abwehr
+                 + Abwehr (AUTO)
                  + Ausweichen (VR + CMD)
-
         */
 
-        
-        return {
-            name: 'Ausweichen',
-            value: 0,
-            values: [],
+        const pool = new Pool('Ausweichen');
+
+        if (type == EvadeType.Melee)
+        {
+            switch (mode) {
+                case VehicleMode.Auto: pool.addPoolValue(pilot).addPoolValue(abwehr);
+                break;
+                case VehicleMode.VR: pool.addPoolValue(prozessor).addPoolValue(melee);
+                break;
+                case VehicleMode.Remote: pool.addPoolValue(befehl).addPoolValue(melee);
+            }
         }
+        else if (type == EvadeType.Ranged)
+        {
+            switch (mode) {
+                case VehicleMode.Auto: pool.addPoolValue(pilot);
+                break;
+                case VehicleMode.VR: pool.addPoolValue(prozessor);
+                break;
+                case VehicleMode.Remote: pool.addPoolValue(befehl);
+                break;
+            }
+        }
+
+        if (fullDefense) {
+            pool.name = 'Volle Abwehr';
+            if (mode == VehicleMode.Auto)
+            {
+                pool.addPoolValue(abwehr);
+            }
+            else
+            {
+                pool.addPoolValue(evade);
+            }
+        }
+
+        return pool;
     }
 
     generateId(): string {
@@ -112,6 +173,7 @@ export class Vehicle implements IdObject,Container  {
         this.processor = toInt(data.response);
         this.system = toInt(data.system);
         this.maneuver = toInt(data.maneuver);
+        this.rating = toInt(data.devicerating);
 
         this.mode = VehicleMode.Auto;
 
@@ -129,7 +191,7 @@ export class Vehicle implements IdObject,Container  {
             {
                 this.sensors.push(...getSensorFunctionsFromSensorData(gear));
             }
-            else if (gear.category_english == 'Autosofts')
+            else if (gear.category_english == 'Autosofts' || gear.category_english == 'Autosofts, Drone')
             {
                 this.autosofts.push(getAutoSoftFromAutoSoftData(gear));
             }
@@ -165,12 +227,23 @@ export class Vehicle implements IdObject,Container  {
         return this;
     }
 
-    static createFromDataObject(data: any): Vehicle {
-        return (new Vehicle()).setNextId().loadFromData(data);
+    setRigger(rigger: Rigger): Vehicle
+    {
+        this.rigger  = rigger;
+        return this;
+    }
+
+    static createFromDataObject(data: any, rigger: Rigger): Vehicle {
+        return (new Vehicle()).setNextId().setRigger(rigger).loadFromData(data);
     }
 
     getName(): string {
         return this.name;
+    }
+
+    autoSoftValue(name: string): PoolValue {
+        const value = this.autosofts.find((item: any) => item.name === name)?.rating ?? 0;
+        return {name: name, value: value};
     }
 
 }

@@ -1,32 +1,21 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import {EvadeType} from "@/composables/types";
-import {char} from "@/composables/char";
 import {DialogRollDice, DialogVehicleSheet} from "@/composables/dialogs";
 import {Vehicle} from "@/composables/vehicle";
 
 const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
-const isActive = ref(false);
-
-function fullDefense() {
-  isActive.value = !isActive.value;
-}
-
-function evade(type: EvadeType, fullDefense: boolean)
-{
-  const evade = char.skillByName('Ausweichen');
-  const melee = char.skillByName(char.sheet.defenseMeleeSkill);
-
-  return vehicle.value.evade(type, fullDefense, evade, melee,0, 0);
+const fullDefense = ref(false);
+function toggleFullDefense() {
+  fullDefense.value = !fullDefense.value;
 }
 
 const evadeMelee = computed( () => {
-    return evade(EvadeType.Melee, isActive.value );
+  return vehicle.value.evade(EvadeType.Melee, fullDefense.value, vehicle.value.mode);
 });
-
 const evadeRanged = computed( () => {
-  return evade(EvadeType.Ranged, isActive.value );
+  return vehicle.value.evade(EvadeType.Ranged, fullDefense.value, vehicle.value.mode);
 });
 
 </script>
@@ -40,7 +29,7 @@ const evadeRanged = computed( () => {
     </div>
 
     <div class="column">
-      <div :class="{'active': isActive}" class="dice defense" @click="fullDefense">Volle Abwehr</div>
+      <div :class="{'active': fullDefense}" class="dice defense" @click="toggleFullDefense">Volle Abwehr</div>
     </div>
 
     <div class="column">

@@ -4,7 +4,7 @@
   import {fetchRoll} from "@/composables/fetch";
   import type {RollDiceResult} from "@/composables/types";
 
-  const values = computed(() => DialogRollDice.values?.values ?? [])
+  const values = computed(() => DialogRollDice.values)
 
   const rollResult = ref<RollDiceResult | null >(null);
 
