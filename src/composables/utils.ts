@@ -1,8 +1,5 @@
 import {GearType, type IdObject, type SelectedItem, Spell} from "@/composables/types";
 import {translations} from "@/composables/consts";
-import {Spirit} from "@/composables/spirits";
-import {Weapon} from "@/composables/weapons";
-import {Vehicle} from "@/composables/vehicle";
 
 export function toInt(value: string|number|undefined|null): number {
     if (value === undefined || value === null) {

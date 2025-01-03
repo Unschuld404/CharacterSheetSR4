@@ -9,7 +9,7 @@ import {Vehicle} from "@/composables/vehicle";
 import {char} from "@/composables/char";
 import {type VehicleInitiative} from "@/composables/types";
 import VehicleAusweichen from "@/components/VehicleAusweichen.vue";
-import {toInt} from "@/composables/utils";
+import {toInt, translate} from "@/composables/utils";
 
 const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
@@ -102,7 +102,6 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
           <div class="item">Rumpf<span>{{ vehicle.body }}</span></div>
           <div class="item">Panzerung<span>{{ vehicle.armor }}</span></div>
           <div class="item">Sensor<span>{{ vehicle.sensor }}</span></div>
-          <div class="item">Pilot/Befehl/Prozessor<span>X</span></div>
         </div>
         <div>
           <VehicleAusweichen/>

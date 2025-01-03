@@ -191,7 +191,7 @@ export class Vehicle implements IdObject,Container  {
             {
                 this.sensors.push(...getSensorFunctionsFromSensorData(gear));
             }
-            else if (gear.category_english == 'Autosofts')
+            else if (gear.category_english == 'Autosofts' || gear.category_english == 'Autosofts, Drone')
             {
                 this.autosofts.push(getAutoSoftFromAutoSoftData(gear));
             }

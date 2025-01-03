@@ -16,7 +16,7 @@ export const SignalTiers: Signal[] = [
 
 export const translations: Translation = {
     Spruchzauberei: 'Spellcasting',
-    Waffenlos: 'Unarmed Attack',
+    'Waffenloser Kampf': 'Unarmed Attack',
     Ausweichen: 'Dodge',
     Akrobatik: 'Gymnastics',
 }
