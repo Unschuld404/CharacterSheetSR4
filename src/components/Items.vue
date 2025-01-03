@@ -4,36 +4,48 @@ import {GearType} from "@/composables/types";
 </script>
 
 <template>
-
   <div class="box">
-    <div class="left-header">Gegenstände</div>
+    <strong>Gegenstände</strong>
     <template v-for="item in char.gear">
-      <div class="item" v-if="item.type!==GearType.Commlink && item.type!==GearType.Program">
-        <div class="row name">
-            <template v-if="item.count!=1||item.type==GearType.Ammo">
-              {{item.count}} -
-            </template>
-            {{item.name}}
-            <template v-if="item.rating > 1">
-              ({{item.rating}})
-            </template>
+      <div class="item" v-if="item.type!==GearType.Commlink && item.type!==GearType.Program && item.type!==GearType.Ammo">
+        <div>
+          <template v-if="item.count!=1">
+            {{item.count}} -
+          </template>
+          {{item.name}}
+          <template v-if="item.rating > 1">
+            ({{item.rating}})
+          </template>
         </div>
-        <div class="row">
+        <div class="subcaption">
           {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
         </div>
-    </div>
+      </div>
     </template>
-
   </div>
-
+  <div class="box">
+    <strong>Munition</strong>
+    <template v-for="item in char.gear">
+      <div class="item" v-if="item.type!==GearType.Commlink && item.type==GearType.Ammo">
+        <div>{{item.count}} - {{item.name}}</div>
+        <div class="subcaption">
+          {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
+        </div>
+      </div>
+    </template>
+  </div>
 </template>
 
 <style scoped>
 
+strong {
+  padding-top: 0.5rem;
+  padding-left: 1vw;
+}
+
 .item {
-  display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: normal;
 }
 
 </style>

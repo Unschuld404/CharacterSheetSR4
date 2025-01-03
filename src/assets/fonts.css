@@ -17,3 +17,7 @@
 .clickable {
     color: var(--accent-color);
 }
+
+.subcaption {
+    font-size: 0.8rem;
+}

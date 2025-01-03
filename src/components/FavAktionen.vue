@@ -95,8 +95,4 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
   text-transform: capitalize;
 }
 
-.subcaption {
-  font-size: 0.8rem;
-}
-
 </style>

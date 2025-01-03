@@ -24,64 +24,50 @@ function toggleSelection(item: Weapon): void
 
 <template>
   <div class="box">
-    <div class="left-header">Waffen</div>
-  <ul>
-      <li v-for="weapon in char.weapons" :key="weapon.name" class="item">
+    <strong>Waffen</strong>
+    <ul>
+        <li v-for="weapon in char.weapons" :key="weapon.name" class="item">
 
-        <div v-if="!weapon.isMelee" @click="DialogWeapon.setWeapon(weapon).show()">
-         <div class="column">
-           <div class="row">
-             <div class="clickable-name">{{ weapon.name }}</div>
-           </div>
-
-           <div class="row">
-             <div class="damage-code">Schaden: <strong>{{ weapon.damage }}</strong></div>
+          <div v-if="!weapon.isMelee" @click="DialogWeapon.setWeapon(weapon).show()">
+           <div class="column">
+             <div class="clickable">{{ weapon.name }}</div>
+             <div>Schaden: <strong>{{ weapon.damage }}</strong></div>
              <div v-if="weapon.ap != '-'">PB: <strong>{{ weapon.ap }}</strong></div>
-           </div>
-
-           <div class="row">
              <div>{{ weapon.settings.ammoLoaded}}</div>
            </div>
+          </div>
 
-         </div>
-        </div>
-
-        <div v-else @click="DialogRollDice.setValues(
-                {
-                  name: weapon.name,
-                  value: toInt(weapon.dicepool),
-                  values: [
-                      {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
-                      {name: 'Geschicklichkeit', value: char.attributes.agility.total},
-                      ]
-                }
-                ).show()">
-          <div class="column">
-            <div class="clickable-name">{{ weapon.name }}</div>
-            <div class="row">
-              <div class="damage-code">Schaden: <strong>{{ weapon.damage }}</strong></div>
+          <div v-else @click="DialogRollDice.setValues(
+                  {
+                    name: weapon.name,
+                    value: toInt(weapon.dicepool),
+                    values: [
+                        {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                        {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                        ]
+                  }
+                  ).show()">
+            <div class="column">
+              <div>{{ weapon.name }}</div>
+              <div>Schaden: <strong>{{ weapon.damage }}</strong></div>
               <div v-if="weapon.ap != '-'">PB: <strong>{{ weapon.ap }}</strong></div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
   </div>
 </template>
 
 <style scoped>
 
+strong {
+  padding-top: 0.5rem;
+  padding-left: 1vw;
+}
+
 .column {
   align-items: start;
   padding-bottom: 0;
-}
-
-.damage-code {
-  width: 40vw;
-}
-
-li:last-child {
-  margin-bottom: 0;
 }
 
 </style>/
