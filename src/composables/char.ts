@@ -26,7 +26,7 @@ import {
     type Resistance, type SelectedItem,
     type SheetData,
     type Skill,
-    Spell, type Initiative
+    Spell, type Initiative, type PoolValue
 } from "@/composables/types";
 import {Vehicle} from "@/composables/vehicle";
 import {Weapon} from "@/composables/weapons";
@@ -543,6 +543,21 @@ export class Charakter implements Container, Rigger {
     }
     getInitiativeRemote(): Initiative {
         return this.initiative.normal;
+    }
+
+    getDefenseMeleeSkill(): PoolValue {
+        const skill = this.skillByName(this.sheet.defenseMeleeSkill);
+        return { name: skill.name, value: skill.total};
+    }
+
+    getEvadeSkill(): PoolValue {
+        const skill = this.skillByName('Ausweichen');
+        return { name: skill.name, value: skill.total};
+    }
+
+    getCommandValue(): PoolValue {
+        const value = this.commlink?.programs?.find(item => item.name === 'Befehl')?.rating ?? 0;
+        return { name: 'Befehl', value: value };
     }
 }
 

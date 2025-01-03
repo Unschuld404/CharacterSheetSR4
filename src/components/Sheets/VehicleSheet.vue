@@ -3,11 +3,11 @@
 import {DialogRollDice,  DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
-import {computed} from "vue";
+import {computed, ref} from "vue";
 
 import {Vehicle} from "@/composables/vehicle";
 import {char} from "@/composables/char";
-import {type Initiative, VehicleMode} from "@/composables/types";
+import {type VehicleInitiative} from "@/composables/types";
 import VehicleAusweichen from "@/components/VehicleAusweichen.vue";
 import {toInt} from "@/composables/utils";
 
@@ -18,7 +18,8 @@ const selectedVehicleMode = computed ({
   set(value) { vehicle.value.mode = value  }
 })
 
-const initiative = computed<Initiative>(() => vehicle.value.initiative );
+const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
+
 </script>/
 
 <template>
@@ -38,28 +39,23 @@ const initiative = computed<Initiative>(() => vehicle.value.initiative );
           <div class="row">
             <div class="button-box" @click="DialogRollDice.setValues(
             {
-              name: 'Normaler Widerstand',
-              value: vehicle.resistance.mundan,
-              values: [
-                  {name: 'Rumpf', value: vehicle.body},
-                  ...(vehicle.armor > 0 ? [{ name: 'Panzerung', value: vehicle.armor }] : []),
-                  ]
+              name: vehicle.resistance.physical.name,
+              value: vehicle.resistance.physical.value,
+              values: vehicle.resistance.physical.values,
             }
             ).show()">
-              <button>{{ vehicle.resistance.mundan }}
+              <button>{{ vehicle.resistance.physical.value }}
               </button>
               <div>Normal</div>
             </div>
             <div class="button-box" @click="DialogRollDice.setValues(
             {
-              name: 'Elementarwiderstand',
-              value: vehicle.resistance.elemental,
-              values: [
-                  ...(vehicle.armor > 0 ? [{ name: '2x Panzerung', value: (vehicle.armor)*2 }] : []),
-                  ]
+              name: vehicle.resistance.elemental.name,
+              value: vehicle.resistance.elemental.value,
+              values: vehicle.resistance.elemental.values,
             }
             ).show()">
-              <button>{{ vehicle.resistance.elemental }}
+              <button>{{ vehicle.resistance.elemental.value }}
               </button>
               <div>Elementar</div>
             </div>
@@ -69,19 +65,24 @@ const initiative = computed<Initiative>(() => vehicle.value.initiative );
           <div class="left-header">Initiative</div>
           <div class="column button-box" @click="DialogRollDice.setValues(
             {
-              name: 'Initiative',
-              value: initiative.value,
-              values: [
-                  {name: 'Initiative', value: initiative.value},
-                  ]
+              name: initiative.pool.name,
+              value: initiative.pool.value,
+              values: initiative.pool.values,
             }
             ).show()">
-            <button>{{ initiative.value }}</button>
+            <button>{{ initiative.pool.value }}</button>
             <div>Initiative</div>
           </div>
-
+        </div>
+        <div class="box">
+          <div class="left-header">Passes</div>
+          <div class="column button-box">
+            {{ initiative.passes }}
+          </div>
         </div>
       </div>
+
+
         <div class="box">
           <div class="left-header">Stats</div>
           <div class="item">Handling<span>{{ vehicle.handling }}</span></div>

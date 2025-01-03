@@ -3,7 +3,8 @@ import {uploadSheet} from "@/composables/fetch";
 import {isWatcher, Spirit, type SpiritPower, type SpiritType} from "@/composables/spirits";
 import {char} from "@/composables/char";
 import {
-    type RollDiceResult,
+    Pool,
+    type RollDiceResult, type RollDiceValue,
     type RollDiceValues
 } from "@/composables/types";
 import {Weapon} from "@/composables/weapons";
@@ -137,12 +138,18 @@ export class RollDiceDialog extends Dialog {
 
     result : RollDiceResult | null = null;
 
-    values: RollDiceValues | null = null;
+    values: RollDiceValue[] = [];
 
     setValues(values: RollDiceValues): RollDiceDialog {
-        this.values = values;
+        this.values = values.values;
         this.name = values.name;
         this.dice_count = values.value;
+        return this;
+    }
+    setPool(pool: Pool): RollDiceDialog {
+        this.values = pool.values;
+        this.name = pool.name;
+        this.dice_count = pool.value;
         return this;
     }
 

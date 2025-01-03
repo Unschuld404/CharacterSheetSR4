@@ -1,3 +1,31 @@
+
+export type PoolValue = {
+    name: string;
+    value: number;
+}
+export class Pool  {
+    name: string;
+    value: number;
+    values: PoolValue[];
+
+    constructor(name: string) {
+        this.name = name;
+        this.value = 0;
+        this.values = [];
+    }
+
+    add(name: string, value: number): Pool {
+        this.values.push({name: name, value: value});
+        this.value += value;
+        return this;
+    }
+    addPoolValue(value: PoolValue): Pool {
+        this.values.push(value);
+        this.value += value.value;
+        return this;
+    }
+}
+
 export type Ammunition = {
     name: string;
     extra: string;
@@ -156,9 +184,13 @@ export type Resistance = {
 }
 
 export type VehicleResistance = {
-    mundan: number; //weltlicher Schaden
-    magic: number;  //direkte Zauber
-    elemental: number; //indirekte Zauber
+    physical: Pool; //weltlicher Schaden
+    elemental: Pool; //indirekte Zauber oder Feuer
+}
+
+export type VehicleInitiative = {
+    pool: Pool;
+    passes: number;
 }
 
 export type Skill = {
@@ -181,6 +213,9 @@ export interface Container {
 export interface Rigger {
     getInitiativeVR(): Initiative;
     getInitiativeRemote(): Initiative;
+    getDefenseMeleeSkill(): PoolValue;
+    getEvadeSkill(): PoolValue;
+    getCommandValue(): PoolValue;
 }
 
 export class Spell implements IdObject {
