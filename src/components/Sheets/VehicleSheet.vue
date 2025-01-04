@@ -139,7 +139,7 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
         <div v-for="sensor in vehicle.sensors">
          <div class="item normal-column">
            <div>{{ sensor.name }} <span v-if="sensor.rating > 0">({{ sensor.rating }})</span></div>
-           <div v-for="mod in sensor.mods">{{ mod.name }}
+           <div class="mods" v-for="mod in sensor.mods">{{ mod.name }}
              <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
            </div>
          </div>
@@ -166,6 +166,10 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
 
 button {
   padding-bottom: 0.5rem;
+}
+
+.mods {
+  padding-left: 0.5rem;
 }
 
 .sheet-header {
