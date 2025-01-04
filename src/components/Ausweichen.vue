@@ -24,18 +24,17 @@ const evadeRanged = computed( () => {
   <div class="box">
     <strong class="category">Ausweichen </strong> <i class='clickable bx bxs-cog'></i>
     <div class="row">
-      <div class="special-row">
-        <div class="column" @click="DialogRollDice.setValues(evadeMelee).show()">
-          <button>{{ evadeMelee.value }}</button>
-          <div>Nahkampf</div>
-        </div>
-        <div class="column" @click="DialogRollDice.setValues(evadeRanged).show()">
-          <button>{{ evadeRanged.value }}</button>
-          <div>Fernkampf</div>
-        </div>
+      <div class="dice-column" @click="DialogRollDice.setValues(evadeMelee).show()">
+        <button>{{ evadeMelee.value }}</button>
+        <div>Nahkampf</div>
       </div>
-      <div>
-        <button :class="{'active': isActive}" class="defense" @click="fullDefense">Volle Abwehr</button>
+      <div class="dice-column" @click="DialogRollDice.setValues(evadeRanged).show()">
+        <button>{{ evadeRanged.value }}</button>
+        <div>Fernkampf</div>
+      </div>
+      <div :class="{'active': isActive}" class="defense dice-column" @click="fullDefense">
+        <button :class="{'active': isActive}" class="defense">Volle Abwehr</button>
+        <div>Skill</div>
       </div>
     </div>
   </div>
@@ -43,25 +42,16 @@ const evadeRanged = computed( () => {
 
 <style scoped>
 
-.skill {
-  text-align: center;
-  font-weight: bold;
-  color: var(--accent-color);
-  padding-bottom: 0.5rem;
+button {
+  margin-bottom: 0.5rem;
+}
+
+.dice-column {
+  width: 31dvw;
 }
 
 .box {
   margin: 0.5rem 0;
-}
-
-.column {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  height: 5rem;
-  width: 25vw;
-  background-color: var(--primary-color);
-  border-radius: 0.5rem;
 }
 
 .row{
@@ -71,15 +61,7 @@ const evadeRanged = computed( () => {
   gap: 2vw;
 }
 
-.special-row {
-  display: flex;
-  gap: 2vw;
-}
-
 .defense {
-  width: 40vw;
-  height: 5em;
-  border-radius: 0.5rem;
   background-color: var(--primary-color);
 }
 

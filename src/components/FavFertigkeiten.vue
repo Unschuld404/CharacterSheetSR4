@@ -32,7 +32,7 @@ const skills = computed(() => {
 
   <div class="box">
 
-    <strong class="category clickable" @click="DialogChooseSkill.show">Fähigkeiten <i class='bx bxs-cog'></i></strong>
+    <strong class="category" @click="DialogChooseSkill.show">Fähigkeiten <i class='bx bxs-cog'></i></strong>
     <div>
       <div class="item" v-for="skill in skills" :key="skill.name">
 

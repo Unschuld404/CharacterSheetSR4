@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
-import { DialogVehicleSheet } from "@/composables/dialogs";
-
+import {DialogVehicleSheet} from "@/composables/dialogs";
+import MagazinInfo from "@/components/MagazinInfo.vue";
 </script>
 
 <template>
@@ -10,24 +10,17 @@ import { DialogVehicleSheet } from "@/composables/dialogs";
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
       <div class="box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div class="row">
-          <div class="clickable-name">{{ vehicle.name }} </div>
+          <h1 class="clickable">{{ vehicle.name }}</h1>
+          <div>{{ vehicle.mode }}</div>
         </div>
 
         <div v-if="vehicle.weapons.length">
-          <div class="item" v-for="weapon in vehicle.weapons">
-            {{ weapon.name }}
-          </div>
-        </div>
-
-        <div v-if="vehicle.sensors.length">
-          <div class="item" v-for="sensor in vehicle.sensors">
-            {{ sensor.name }} ({{ sensor.rating }})
-          </div>
-        </div>
-
-        <div v-if="vehicle.mods.length">
-          <div class="item" v-for="mod in vehicle.mods">
-            {{ mod.name }}
+          <div v-for="weapon in vehicle.weapons">
+            <div>{{ weapon.name }}</div>
+            <div class="row" v-if="weapon.isLoaded">
+              <div>{{ weapon.ammoLoaded }}</div>
+              <MagazinInfo :bulletsLeft="weapon.bulletsLeft" :magSize="weapon.magSize" />
+            </div>
           </div>
         </div>
 
@@ -41,15 +34,23 @@ import { DialogVehicleSheet } from "@/composables/dialogs";
 
 li {
   padding: 0;
-  margin-bottom: 1vh;
+  margin-bottom: 2vh;
+  margin-left: 1vw;
+  margin-right: 1vw;
 }
 
 .box {
   padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 2vw;
+  background-color: var(--primary-color);
+  border-radius: 0.5rem;
 }
 
-.clickable-name {
-  padding-left: 2dvw;
+.row {
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 2vw;
 }
 
 </style>

@@ -1,4 +1,4 @@
-button, .nuyen, .edge, .formula, .favourite, .add, .boost, .mod, i, .spirit-selection, .dice, .mutator, .type, .ghost, .spirit-power, .damage-box {
+button, .nuyen, .edge, .formula, .favourite, .radio_label, .add, .boost, .mod, i, .spirit-selection, .dice, .mutator, .type, .ghost, .spirit-power, .damage-box {
     cursor: pointer;
 }
 
@@ -16,4 +16,14 @@ button {
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 15%;
+}
+
+.dice-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 0.5rem;
+    width: 18vw;
+    padding: 0.5rem 0;
 }

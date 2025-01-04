@@ -7,7 +7,7 @@ import {char} from "@/composables/char";
   <div class="box">
     <strong class="category">Widerstand</strong>
     <div class="row">
-      <div class="column" @click="DialogRollDice.setValues(
+      <div class="dice-column" @click="DialogRollDice.setValues(
         {
           name: 'Ballistischer Widerstand',
           value: char.resist.ballistic,
@@ -22,7 +22,7 @@ import {char} from "@/composables/char";
         </button>
         <div>Ballist.</div>
       </div>
-      <div class="column" @click="DialogRollDice.setValues(
+      <div class="dice-column" @click="DialogRollDice.setValues(
         {
           name: 'Stoßwiderstand',
           value: char.resist.impact,
@@ -37,7 +37,7 @@ import {char} from "@/composables/char";
         </button>
         <div>Stoß</div>
       </div>
-      <div class="column" @click="DialogRollDice.setValues(
+      <div class="dice-column" @click="DialogRollDice.setValues(
         {
           name: 'Physischer Widerstand',
           value: char.resist.physical,
@@ -50,7 +50,7 @@ import {char} from "@/composables/char";
         </button>
         <div>Physisch</div>
       </div>
-      <div class="column" @click="DialogRollDice.setValues(
+      <div class="dice-column" @click="DialogRollDice.setValues(
         {
           name: 'Manawiderstand',
           value: char.resist.mana,
@@ -63,7 +63,7 @@ import {char} from "@/composables/char";
         </button>
         <div>Mana</div>
       </div>
-      <div class="column" @click="DialogRollDice.setValues(
+      <div class="dice-column" @click="DialogRollDice.setValues(
         {
           name: 'Widerstand gegen magischen Entzug',
           value: char.resist.drain,
@@ -91,14 +91,6 @@ button {
 .row {
   justify-content: space-between;
   padding: 0 1vw;
-}
-
-.column {
-  align-items: center;
-  background-color: var(--primary-color);
-  border-radius: 0.5rem;
-  width: 18vw;
-  padding: 0.5rem 0;
 }
 
 .box {

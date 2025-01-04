@@ -60,9 +60,8 @@
 .sheet-header {
     justify-content: space-between;
     height: 7vh;
-    margin-bottom: 3vh;
     padding-bottom: 2vh;
-    border-bottom: 1px solid var(--font-color);
+
     align-items: center;
 }
 

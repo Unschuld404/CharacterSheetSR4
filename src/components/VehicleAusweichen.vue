@@ -21,57 +21,48 @@ const evadeRanged = computed( () => {
 </script>
 
 <template>
-
-  <div class="box row">
-
-    <div class="column">
-      <div class="dice" @click="DialogRollDice.setValues(evadeRanged).show()">{{ evadeRanged.value }}</div>
+<div class="box">
+  <strong class="category">Ausweichen</strong>
+    <div class="row">
+      <div class="dice-column" @click="DialogRollDice.setValues(evadeMelee).show()">
+        <button class="dice">{{ evadeMelee.value }}</button>
+        <div>Nahkampf</div>
+      </div>
+      <div class="dice-column" @click="DialogRollDice.setValues(evadeRanged).show()">
+        <button class="dice">{{ evadeRanged.value }}</button>
+        <div>Fernkampf</div>
+      </div>
+      <div :class="{'active': fullDefense}" class="dice-column defense" @click="toggleFullDefense">
+        <button :class="{'active': fullDefense}" class="defense">Volle Abwehr</button>
+        <div>Skill</div>
+      </div>
     </div>
-
-    <div class="column">
-      <div :class="{'active': fullDefense}" class="dice defense" @click="toggleFullDefense">Volle Abwehr</div>
-    </div>
-
-    <div class="column">
-      <div class="dice" @click="DialogRollDice.setValues(evadeMelee).show()">{{ evadeMelee.value }}</div>
-    </div>
-
-  <div class="lower-header">
-    <div>{{ evadeRanged.name }}</div>
-    <div>{{ evadeMelee.name }}</div>
   </div>
-
-  </div>
-
 </template>
 
 <style scoped>
 
-.lower-header {
-  display: flex;
-  justify-content: space-evenly;
+button {
+  margin-bottom: 0.5rem;
+}
+
+.dice-column {
+  width: 31dvw;
 }
 
 .box {
-  height: 100%;
-  padding-top: 3vh;
-}
-
-.column {
-  text-align: center;
-  align-items: center;
+  margin: 0.5rem 0;
 }
 
 .row{
   justify-content: space-between;
-  padding-left: 3vh;
-  padding-right: 3vh;
+  align-items: center;
+  padding: 0 1dvw;
+  gap: 2vw;
 }
 
 .defense {
-  width: 15vh;
-  font-weight: normal;
-  font-size: 2vh;
+  background-color: var(--primary-color);
 }
 
 .defense.active {

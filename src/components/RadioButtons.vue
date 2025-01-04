@@ -45,9 +45,6 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
 .radio {
   display: flex; /* Ändere von inline-flex zu flex für bessere Kontrolle */
   align-items: stretch; /* Streckt die Items, sodass sie die gleiche Höhe haben */
-  overflow: hidden;
-  border-radius: 0.9vh;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
 .radio_item {
@@ -61,18 +58,16 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
 }
 
 .radio_label {
-  flex: 1; /* Label nimmt die gesamte Breite des Containers ein */
-  display: flex; /* Ermöglicht die Zentrierung des Textes */
-  justify-content: center; /* Horizontale Zentrierung */
-  align-items: center; /* Vertikale Zentrierung */
-  font-size: 2vh;
-  line-height: 1;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
   color: var(--accent-color);
-  background: var(--background-color);
-  cursor: pointer;
+  background: var(--primary-color);
   transition: background 0.1s;
-  box-sizing: border-box; /* Sorgt dafür, dass Padding und Border in der Breite enthalten sind */
-  margin: 0; /* Entfernt eventuelle Margins */
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .radio_label:not(:last-of-type) {
@@ -83,7 +78,6 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
   background: var(--accent-color);
   font-weight: bold;
   color: var(--background-color);
-  border-radius: 0.85vh;
 }
 
 </style>

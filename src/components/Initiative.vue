@@ -8,7 +8,7 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
     <strong class="category">Initiative</strong>
     <div class="row">
       <div class="special-row">
-        <div class="column"
+        <div class="dice-column"
              @click="DialogRollDice.setValues(
                 {
                   name: 'Normal',
@@ -23,7 +23,7 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
           </button>
           <div>Normal</div>
         </div>
-        <div class="column" v-if="char.initiative.matrix.passes==3"
+        <div class="dice-column" v-if="char.initiative.matrix.passes==3"
              @click="DialogRollDice.setValues(
                   {
                     name: 'Matrix',
@@ -40,7 +40,7 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
           </button>
           <div>Matrix</div>
         </div>
-        <div class="column"  v-else>
+        <div class="dice-column"  v-else>
           <button @click="DialogRollDice.setValues(
                   {
                     name: 'Matrix',
@@ -55,7 +55,7 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
           </button>
           <div>Matrix</div>
         </div>
-        <div class="column"
+        <div class="dice-column"
              @click="DialogRollDice.setValues(
                 {
                   name: 'Astral',
@@ -70,7 +70,7 @@ import {DialogManageEdge, DialogRollDice} from "@/composables/dialogs";
           <div>Astral</div>
         </div>
       </div>
-      <div class="column" @click="DialogManageEdge.show">
+      <div class="dice-column" @click="DialogManageEdge.show">
         <button>{{ char.attributes.edge.total }}</button>
         <div>Edge ({{ char.attributes.edge.base }})</div>
       </div>
@@ -87,14 +87,6 @@ button {
 .row {
   justify-content: space-between;
   padding: 0 1vw;
-}
-
-.column {
-  align-items: center;
-  background-color: var(--primary-color);
-  border-radius: 0.5rem;
-  width: 18vw;
-  padding: 0.5rem 0;
 }
 
 .special-row {

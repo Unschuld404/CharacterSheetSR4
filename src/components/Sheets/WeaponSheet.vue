@@ -8,45 +8,25 @@ import {
 } from "@/composables/weapons";
 import {toInt} from "@/composables/utils";
 import ChangeAmmo from "@/components/Dialoge/ChangeAmmo.vue";
-import {char} from "@/composables/char";
 import {uploadSheet} from "@/composables/fetch";
+import Magazin from "@/components/Magazin.vue";
 
 
 const selectedRange = ref<string>('short');
 const chooseAmmoDialogVisible = ref(false);
-const isBlinking = ref(false);
 
 const weapon  = computed( () => DialogWeapon.weapon  )
 const ranges  = computed( () => DialogWeapon.weapon.getRanges() )
 const shootingModes = computed(() => DialogWeapon.weapon.getShootingModes() )
 const rangeModifier = computed(() => getRangeModifierForRange(selectedRange.value))
 const modeModifier = computed(() => DialogWeapon.weapon.shootingModeModifier )
-const bulletsLeft = computed(() =>  DialogWeapon.weapon.bulletsLeft )
 const bulletsToFire = computed(() => DialogWeapon?.weapon?.bulletsToFire ?? 0 )
 const bulletsFired = computed(() => DialogWeapon?.weapon?.bulletsFired ?? 0 )
-const bulletsLeftAfterFire = computed(() => DialogWeapon.weapon.bulletsLeftAfterFire)
 const isLoaded = computed(() => DialogWeapon.weapon.isLoaded )
 const selectedShootingMode = computed({
   get: () => DialogWeapon.weapon?.shootingMode ?? (new WeaponSetting()).selectedShootingMode,
   set: (value) => DialogWeapon.weapon.shootingMode = value
 })
-
-const bulletStyle = computed(() => {
-  const maxWith = 200;
-  const widthPerBullet = maxWith/ Math.max(1, weapon.value.magSize);
-  return {
-    width: widthPerBullet + 'px',
-  }
-})
-
-watch(bulletsToFire, (newVal, oldVal) => {
-  if (newVal !== oldVal) {
-    isBlinking.value = true;
-    setTimeout(() => {
-      isBlinking.value = false;
-    }, 500);
-  }
-});
 
 function store()
 {
@@ -106,19 +86,8 @@ function resetPhase()
       <div v-if="isLoaded" class="ammo">
         Anzahl Kugeln: {{ bulletsToFire }}
       </div>
-      <div v-if="isLoaded" class="magazine">
-        {{ bulletsLeftAfterFire }}  ({{ bulletsLeft }}) <span
-            v-for="index in weapon.magSize"
-            :key="index"
-            class="bullet"
-            :style="bulletStyle"
-            :class="{
-              'used': index > bulletsLeft,
-              'to-fire': index > bulletsLeftAfterFire && index <= bulletsLeft,
-              'blink': isBlinking && index > bulletsLeftAfterFire && index <= bulletsLeft,
-            }"
-        ></span> {{ weapon.magSize }}
-      </div>
+
+      <magazin v-if="isLoaded"/>
 
       <div class="row">
         <div class="column">
@@ -235,39 +204,6 @@ function resetPhase()
 .ammo {
   margin-top: 2vh;
   text-align: center;
-}
-
- .magazine {
-   display: flex;
-   justify-content: center;
- }
-
-.bullet {
-  height: 20px;
-  margin-right: 1px;
-  background-color: green;
-}
-.bullet.used {
-  background-color: dimgray;
-}
-.bullet.to-fire {
-  background-color: yellow;
-}
-.bullet.fired {
-  background-color: red;
-}
-
-/* Einfaches Blinken */
-@keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-}
-.blink {
-  animation: blink 0.5s linear 1;
 }
 
 .item {

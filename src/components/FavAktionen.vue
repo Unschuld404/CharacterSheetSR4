@@ -34,7 +34,7 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 <template>
 
   <div class="box">
-    <strong class="category clickable" @click="DialogChooseAction.show">Aktionen <i class='bx bxs-cog'></i></strong>
+    <strong class="category" @click="DialogChooseAction.show">Aktionen <i class='bx bxs-cog'></i></strong>
     <div>
       <div v-for="spell in spells" class="item" >
         <div>
