@@ -23,26 +23,27 @@ function toggleSelection(item: Spell): void
 </script>
 
 <template>
-
-  <ul class="box">
-    <li class="left-header">Zaubersprüche</li>
-    <li v-for="spell in char.spells" :key="spell.name" class="item">
-      <div class="column">
-        <div class="row">
-          <div  class="name">{{ spell.name }}</div>
-        </div>
-        <div class="row info">
-          <div>{{ spell.category }}</div>
-          <div class="row group">
-            <div class="value">{{ spell.type }}</div>
-            <div class="value">{{ spell.range }}</div>
-            <div class="value">{{ spell.duration }}</div>
+  <div class="box">
+    <strong class="category">Zaubersprüche</strong>
+    <ul>
+      <li v-for="spell in char.spells" :key="spell.name" class="item">
+        <div class="column">
+          <div class="row">
+            <div  class="name">{{ spell.name }}</div>
           </div>
-          <div class="drain">{{ spell.dv }}</div>
+          <div class="row info">
+            <div>{{ spell.category }}</div>
+            <div class="row group">
+              <div class="value">{{ spell.type }}</div>
+              <div class="value">{{ spell.range }}</div>
+              <div class="value">{{ spell.duration }}</div>
+            </div>
+            <div class="drain">{{ spell.dv }}</div>
+          </div>
         </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+  </div>
   <button @click="DialogRollDice.setValues(
               {
                 name: 'Spruchzauberei',
@@ -58,6 +59,10 @@ function toggleSelection(item: Spell): void
 </template>
 
 <style scoped>
+
+.box {
+  margin-top: 2rem;
+}
 
 .info {
   justify-content: space-between;
@@ -82,10 +87,6 @@ button {
   width: 100%;
   font-size: 6dvw;
   font-weight: bold;
-}
-
-.left-header {
-  padding: 0;
 }
 
 </style>/

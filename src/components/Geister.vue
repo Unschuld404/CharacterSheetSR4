@@ -8,31 +8,28 @@ const spirits = computed(() => char.spirits);
 </script>
 
 <template>
-
-  <div class="column">
-    <div class="box">
-      <div>
-        <div class="left-header">Geister <i class='bx bxs-cog' @click="DialogAddSpirit.show()"></i></div>
-      </div>
-      <ul>
-        <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()" class="item">
-          <div class="column">
-            <div class="row">
-              <div  class="clickable-name">{{ spirit.caption }} ( {{ spirit.force }} )</div>
-            </div>
-            <div class="row">
-              <div>Dienste: {{ spirit.services }}</div>
-              <div class="bound">{{ spirit.bound ? 'Gebunden' : 'Ungebunden' }}</div>
-            </div>
-          </div>
-        </li>
-      </ul>
+  <div class="box">
+    <div>
+      <strong class="category">Geister <i class='bx bxs-cog' @click="DialogAddSpirit.show()"></i></strong>
     </div>
+    <ul>
+      <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()" class="item">
+        <div class="column">
+          <div class="row">
+            <div  class="clickable-name">{{ spirit.caption }} ( {{ spirit.force }} )</div>
+          </div>
+          <div class="row">
+            <div>Dienste: {{ spirit.services }}</div>
+            <div class="bound">{{ spirit.bound ? 'Gebunden' : 'Ungebunden' }}</div>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
-
 </template>
 
 <style scoped>
+
 
 .bound {
   position: absolute;

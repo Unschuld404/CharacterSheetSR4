@@ -4,6 +4,7 @@ import {DialogWeapon, DialogRollDice} from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
 import {uploadSheet} from "@/composables/fetch";
 import {Weapon} from "@/composables/weapons";
+import MagazinInfo from "@/components/MagazinInfo.vue";
 
 function toggleSelection(item: Weapon): void
 {
@@ -33,8 +34,11 @@ function toggleSelection(item: Weapon): void
              <div class="clickable">{{ weapon.name }}</div>
              <div>Schaden: <strong>{{ weapon.damage }}</strong></div>
              <div v-if="weapon.ap != '-'">PB: <strong>{{ weapon.ap }}</strong></div>
-             <div>{{ weapon.settings.ammoLoaded}}</div>
            </div>
+            <div class="row" v-if="weapon.isLoaded">
+                <div>{{ weapon.ammoLoaded }}</div>
+                <MagazinInfo :bulletsLeft="weapon.bulletsLeft" :magSize="weapon.magSize" />
+            </div>
           </div>
 
           <div v-else @click="DialogRollDice.setValues(
@@ -68,6 +72,11 @@ strong {
 .column {
   align-items: start;
   padding-bottom: 0;
+}
+
+.row {
+  width: 95dvw;
+  justify-content: space-between;
 }
 
 </style>/

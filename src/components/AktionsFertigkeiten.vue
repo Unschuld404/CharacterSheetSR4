@@ -6,7 +6,7 @@
 <template>
 
   <div class="box">
-    <div class="left-header">Aktionsfertigkeiten</div>
+    <strong class="category">Aktionsfertigkeiten</strong>
     <ul>
       <li v-for="skill in char.actionSkills" :key="skill.name" class="item">
 

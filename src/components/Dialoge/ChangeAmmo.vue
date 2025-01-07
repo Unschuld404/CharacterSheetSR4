@@ -59,29 +59,23 @@ function setSelection(item: Gear) {
 
     <div class="overlay" @click.self="cancel">
       <div class="dialog-box" @click.stop>
-
         <div v-if="sizeSelection.length > 1" class="size">
           <RadioButtons :options="sizeSelection" v-model="selectedSize" group="magSize"/>
         </div>
-
-        <div class="scroll-box">
-          <ul class="selection-list">
-            <li
-                v-for="(item, index) in items"
-                :key="index"
-                :class="{ selected: selectedItem === item }"
-                @click="setSelection(item)"
-            >
-              <div>
-                {{ item.name }}
-              </div>
-              <div>
-                ({{ item.count }})
-              </div>
-            </li>
-          </ul>
-        </div>
-
+        <ul class="selection-list">
+          <li
+            v-for="(item, index) in items"
+            :key="index"
+            :class="{ selected: selectedItem === item }"
+            @click="setSelection(item)">
+            <div>
+              {{ item.name }}
+            </div>
+            <div>
+              ({{ item.count }})
+            </div>
+          </li>
+        </ul>
         <button class="confirm" @click="confirm()">that's the stuff</button>
       </div>
     </div>
@@ -90,53 +84,37 @@ function setSelection(item: Gear) {
 
 <style scoped>
 
-.size {
-  height: 10vh;
-}
-
 ul {
   list-style-type: none;
   max-height: 70vh;
-  width: 90%;
   padding: 0;
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+}
+
+.size {
+  margin-bottom: 2rem;
 }
 
 .selection-list li {
-  padding: 10px;
   cursor: pointer;
   border-radius: 1vh;
-  border: 1px solid var(--primary-color);
   margin-bottom: 2vh;
+  padding: 0.5rem 1rem;
   text-align: center;
-  font-size: 6dvw;
-  background-color: var(--background-color);
+  background-color: var(--primary-color);
   color: var(--accent-color);
+  border: none;
 }
 
 .selection-list li + li {
-  border-top: none;
+  border: none;
 }
 
 .selection-list li.selected {
   background-color: var(--accent-color);
   color: var(--background-color);
   font-weight: bold;
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 6000;
+  border: none;
 }
 
 .confirm {
