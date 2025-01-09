@@ -1,3 +1,4 @@
+import {Weapon, WeaponSetting} from "@/composables/weapons";
 
 export type PoolValue = {
     name: string;
@@ -25,6 +26,17 @@ export class Pool  {
         return this;
     }
 }
+
+export type Gear = {
+    name: string;
+    category : string;
+    type: GearType,
+    extra: string,
+    equipped: boolean,
+    count: number,
+    rating: number;
+}
+
 
 export type Ammunition = {
     name: string;
@@ -137,8 +149,8 @@ export type DamageMonitor = {
     overflow: number;
 }
 export type DamageTaken = {
-    physical: number | null;
-    stun: number | null;
+    physical: number;
+    stun: number;
 }
 
 export type Initiative = {
@@ -208,6 +220,9 @@ export interface IdObject {
 
 export interface Container {
     getName(): string;
+    addWeapon(weapon: Weapon): Container;
+    getWeaponSettings(): WeaponSetting[];
+    getAmmunitions(): Ammunition[];
 }
 
 export interface Rigger {
@@ -280,21 +295,6 @@ export type Commlink = {
     programs: Program[];
     mods: CommlinkMod[];
     autosofts: Program[];
-}
-
-export type Gear = {
-    name: string;
-    category : string;
-    type: GearType,
-    extra: string,
-    equipped: boolean,
-    count: number,
-    rating: number;
-}
-
-export type SheetData = {
-    edge : number;
-    damage: DamageTaken;
 }
 
 export enum VehicleMode {

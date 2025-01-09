@@ -1,8 +1,8 @@
 import {ref} from "vue";
 import {
-    type Armor, type ArmorMod, type ArmorValues,
-    type Commlink, type CommlinkMod, type Contact, type Container,
-    type Gear,
+    type Ammunition,
+    type Armor, type ArmorMod, type ArmorValues, type Attributes, type AutoSoft,
+    type Commlink, type CommlinkMod, type Contact, type Container, type DamageTaken, type Drain, type Gear,
     GearType,
     type KarmaEntry, type Lifestyle,
     type NuyenEntry, type Program, type Rigger,
@@ -71,6 +71,88 @@ export function getWeaponSettings(data: any): WeaponSetting[] {
         bulletsFired: toInt(entry.bulletsFired),
     }));
 }
+
+function gearEquals(one: any, other: any): boolean {
+    return one.name === other.name
+        && one.category === other.category
+        && one.extra === other.extra;
+}
+
+function gearCompare(one: any, other: any) {
+    let result = one.category.localeCompare(other.category);
+    if (result == 0)
+    {
+        result = one.extra.localeCompare(other.extra);
+    }
+    if (result == 0)
+    {
+        result = one.name.localeCompare(other.name);
+    }
+    return result;
+}
+
+function gearCompress(list: any[]): any[] {
+    const result = [];
+
+    for (let item of list)
+    {
+        const ind = result.findIndex(aItem => gearEquals(aItem, item));
+        if (ind < 0)
+        {
+            result.push(item);
+        }
+        else
+        {
+            result[ind].qty = toInt(result[ind].qty) + toInt(item.qty);
+        }
+    }
+
+    return result;
+}
+
+export function getAmmunitions(data: any): Ammunition[] {
+    let list = data?.gears;
+    list = (Array.isArray(list) ? list : [])
+        .filter((entry) => toBool(entry.isammo))
+
+    const a = gearCompress( list)
+        .sort((a, b) => gearCompare(a, b))
+
+    return a
+        .map((entry: any) => getAmmunitionFromData(entry));
+}
+
+export function getAmmunitionFromData(data: any): Ammunition {
+    return {
+        name: data.name,
+        extra: data.extra,
+        count: toInt(data.qty),
+        dmg: toInt(data.weaponbonusdamage),
+        ap: toInt(data.weaponbonusap),
+    }
+}
+
+export function getEdge(data: any): number {
+    let attributes = data?.attributes;
+    attributes = Array.isArray(attributes) ? attributes : [];
+
+    return toInt(attributes.find((item: any) => item.name === 'EDG')?.total);
+}
+
+export function getDamageTaken(data: any): DamageTaken|null {
+    const physical = data?.physicalcmfilled ?? null;
+    const stun  = data?.stuncmfilled ?? null;
+
+    if (physical === null || stun === null) {
+        return null;
+    }
+
+    return {
+        physical: toInt(physical),
+        stun: toInt(stun),
+    };
+}
+
 export function getSkills(data: any, knowledge: boolean): Array<Skill> {
     let skills = data?.skills;
     skills = Array.isArray(skills) ? skills : [];
@@ -178,46 +260,16 @@ export function getWeapons(data: any, parent: Container): Array<Weapon> {
     return weapons.map((weapon: any) => Weapon.createFromDataObject(weapon, parent));
 }
 
-function isGearEqual(gear1: Gear, gear2: Gear): boolean {
-    return     gear1.name === gear2.name
-            && gear1.category === gear2.category
-            && gear1.extra === gear2.extra;
+export function getGear(data: any): Gear[] {
+    let list = data?.gears;
+    list = (Array.isArray(list) ? list : [])
+        .filter((entry) => !toBool(entry.isammo))
+
+    return gearCompress( list)
+        .sort((a: Gear, b: Gear) => gearCompare(a, b))
+        .map((entry: any) => getGearFromGearData(entry));
 }
 
-export function getGear(data: any): Array<Gear> {
-    let gears = data?.gears;
-    gears = Array.isArray(gears) ? gears : [];
-
-    let items: Gear[] = [];
-    for (let gear of gears)
-    {
-        const item = getGearFromGearData(gear);
-        const ind = items.findIndex(aItem => isGearEqual(aItem, item));
-        if (ind < 0)
-        {
-            items.push(item);
-        }
-        else
-        {
-            items[ind].count += item.count;
-        }
-    }
-
-    items.sort((a: Gear, b: Gear) => {
-        let result = a.category.localeCompare(b.category);
-        if (result == 0)
-        {
-            result = a.extra.localeCompare(b.extra);
-        }
-        if (result == 0)
-        {
-            result = a.name.localeCompare(b.name);
-        }
-        return result;
-    });
-
-    return items;
-}
 export function getGearFromGearData(data: any): Gear {
     return {
         name: data.name || 'Unknown',
@@ -229,6 +281,7 @@ export function getGearFromGearData(data: any): Gear {
         rating: toInt(data.rating),
     }
 }
+
 export function getCommlink(data: any): Commlink | null {
     let items = data?.gears;
     items = Array.isArray(items) ? items : [];
@@ -302,6 +355,85 @@ export function getProgramsFromData(data: any[]): Program[] {
             rating: toInt(item.rating),
             extra: item.extra || '',
         }));
+}
+
+export function getDrain(data: any): Drain {
+    const attributes = data?.attributes ?? [];
+    const attribute = extractAttributeFromDrain(data?.drain) ?? '';
+    const willpowerValue = toInt(attributes.find((item: any) => item.name === 'WIL')?.total);
+    const attributeValue = toInt(attributes.find((item: any) => item.name === attribute)?.total)
+
+    return  {
+        caption : data?.drain ?? '',
+        attribute: attribute,
+        total : willpowerValue + attributeValue,
+    }
+}
+
+export function getAttributes(data: any): Attributes {
+    const attributes = data?.attributes ?? [];
+    return {
+        edge: {
+            name: 'EDG',
+                base : toInt(attributes.find((item: any) => item.name === 'EDG')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
+        },
+        body: {
+            name: 'BOD',
+                base : toInt(attributes.find((item: any) => item.name === 'BOD')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'BOD')?.total),
+        },
+        agility: {
+            name: 'AGI',
+                base : toInt(attributes.find((item: any) => item.name === 'AGI')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'AGI')?.total),
+        },
+        reaction: {
+            name: 'REA',
+                base : toInt(attributes.find((item: any) => item.name === 'REA')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'REA')?.total),
+        },
+        strength: {
+            name: 'STR',
+                base : toInt(attributes.find((item: any) => item.name === 'STR')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'STR')?.total),
+        },
+        charisma: {
+            name: 'CHA',
+                base : toInt(attributes.find((item: any) => item.name === 'CHA')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'CHA')?.total),
+        },
+        intuition: {
+            name: 'INT',
+                base : toInt(attributes.find((item: any) => item.name === 'INT')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'INT')?.total),
+        },
+        logic: {
+            name: 'LOG',
+                base : toInt(attributes.find((item: any) => item.name === 'LOG')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'LOG')?.total),
+        },
+        willpower: {
+            name: 'WIL',
+                base : toInt(attributes.find((item: any) => item.name === 'WIL')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'WIL')?.total),
+        },
+        magic: {
+            name: 'MAG',
+                base : toInt(attributes.find((item: any) => item.name === 'MAG')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'MAG')?.total),
+        },
+        resonance: {
+            name: 'RES',
+                base : toInt(attributes.find((item: any) => item.name === 'RES')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'RES')?.total),
+        },
+        essens: {
+            name: 'ESS',
+                base : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
+                total : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
+        },
+    }
 }
 
 

@@ -1,4 +1,4 @@
-import type {Container, IdObject, ShootingMode, WeaponMod, WeaponMode} from "@/composables/types";
+import type {Ammunition, Container, IdObject, ShootingMode, WeaponMod, WeaponMode} from "@/composables/types";
 import {char} from "@/composables/char";
 import {getWeaponModsFromData} from "@/composables/data";
 import {toInt} from "@/composables/utils";
@@ -135,7 +135,18 @@ export class Weapon implements IdObject  {
         return this.settings.ammoLoaded;
     }
     reload() {
-        this.settings.ammoLeft = this.settings.magSize;
+        const ammunitions = this.parent?.getAmmunitions() ?? [];
+        let count = 0;
+
+        const ind = ammunitions.findIndex((a: Ammunition) => a.name === this.settings.ammoLoaded && a.extra === this.category);
+
+        if (ind >= 0)
+        {
+            count = Math.min(ammunitions[ind].count, this.settings.magSize);
+            ammunitions[ind].count -= count;
+        }
+
+        this.settings.ammoLeft = count;
     }
 
     get hasSecondPhase(): boolean {
@@ -256,13 +267,16 @@ function getModeModifier(mode: string, rc: number, bulletsFired: number, bullets
 
 function validateWeaponSettingForWeapon(weapon: Weapon): WeaponSetting
 {
-    let setting = char.sheet.weaponSettings.find((item: WeaponSetting) => { return item.weaponId == weapon.generateId() }) ?? null;
+    let setting = weapon.parent?.getWeaponSettings()?.find((item) => {
+        return item.weaponId == weapon.generateId();
+    }) ?? null;
+
     if (setting == null) {
         setting = new WeaponSetting();
         setting.weaponId = weapon.generateId();
         setting.selectedShootingMode = weapon.getShootingModes()[0]?.value ?? '';
         setting.selectedWeaponMode = weapon.getWeaponModes()[0] ?? '';
-        char.sheet.weaponSettings.push(setting);
+        weapon.parent?.getWeaponSettings()?.push(setting);
     }
     return setting;
 }

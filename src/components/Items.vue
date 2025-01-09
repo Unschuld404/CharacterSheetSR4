@@ -25,11 +25,11 @@ import {GearType} from "@/composables/types";
   </div>
   <div class="box">
     <strong>Munition</strong>
-    <template v-for="item in char.gear">
-      <div class="item" v-if="item.type!==GearType.Commlink && item.type==GearType.Ammo">
+    <template v-for="item in char.ammunitions">
+      <div class="item">
         <div>{{item.count}} - {{item.name}}</div>
         <div class="subcaption">
-          {{ item.category }} <template v-if="item.extra!=''"> - {{item.extra}}</template>
+          <template v-if="item.extra">{{item.extra}}</template>
         </div>
       </div>
     </template>
