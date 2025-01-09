@@ -29,7 +29,7 @@ import {
     type Movement, type Rigger,
     type Resistance, type SelectedItem,
     type Skill,
-    Spell, type Initiative, type PoolValue, type AutoSoft, type Ammunition, type Gear
+    Spell, type Initiative, type PoolValue, type AutoSoft, type Ammunition, type Gear, Pool
 } from "@/composables/types";
 import {Vehicle} from "@/composables/vehicle";
 import {Weapon, WeaponSetting} from "@/composables/weapons";
@@ -502,6 +502,12 @@ export class Charakter implements Container, Rigger {
     getAmmunitions(): Ammunition[] {
         return this.ammunitions;
     }
+
+    getWeaponPoolValues(weapon: Weapon): PoolValue[] | null
+    {
+        return null;
+    }
+
 }
 
 

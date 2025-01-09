@@ -16,13 +16,44 @@ export class Pool  {
     }
 
     add(name: string, value: number): Pool {
-        this.values.push({name: name, value: value});
-        this.value += value;
+        if (value !== 0)
+        {
+            this.values.push({name: name, value: value});
+            this.value += value;
+        }
+
         return this;
     }
+
+    addValues(values: PoolValue[] | null): Pool {
+        if (values !== null)
+        {
+            for (const value of values) {
+                this.addPoolValue(value);
+            }
+        }
+
+        return this;
+    }
+
     addPoolValue(value: PoolValue): Pool {
-        this.values.push(value);
-        this.value += value.value;
+        if (value.value !== 0)
+        {
+            this.values.push(value);
+            this.value += value.value;
+        }
+
+        return this;
+    }
+
+    setValue(value: number): Pool {
+        let diff = value - this.value;
+        if (diff != 0)
+        {
+            this.values.push({name: 'Modifier', value: diff});
+            this.value = value;
+        }
+
         return this;
     }
 }
@@ -223,6 +254,7 @@ export interface Container {
     addWeapon(weapon: Weapon): Container;
     getWeaponSettings(): WeaponSetting[];
     getAmmunitions(): Ammunition[];
+    getWeaponPoolValues(weapon: Weapon): PoolValue[] | null;
 }
 
 export interface Rigger {

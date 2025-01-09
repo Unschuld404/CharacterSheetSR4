@@ -264,6 +264,11 @@ export class Vehicle implements IdObject,Container  {
         return this;
     }
 
+    getWeaponPoolValues(weapon: Weapon): PoolValue[] | null
+    {
+        return null;
+    }
+
     getWeaponSettings(): WeaponSetting[] {
         return this.settings.weaponSettings;
     }

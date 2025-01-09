@@ -1,4 +1,12 @@
-import type {Ammunition, Container, IdObject, ShootingMode, WeaponMod, WeaponMode} from "@/composables/types";
+import {
+    type Ammunition,
+    type Container,
+    type IdObject,
+    Pool,
+    type ShootingMode,
+    type WeaponMod,
+    type WeaponMode
+} from "@/composables/types";
 import {char} from "@/composables/char";
 import {getWeaponModsFromData} from "@/composables/data";
 import {toInt} from "@/composables/utils";
@@ -134,6 +142,25 @@ export class Weapon implements IdObject  {
     get ammoLoaded(): string {
         return this.settings.ammoLoaded;
     }
+    getPool(): Pool {
+        /*
+          {
+            name: weapon.name,
+            value: toInt(weapon.dicepool) + rangeModifier + modeModifier,
+            values: [
+                {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                {name: 'Distanz', value: rangeModifier},
+                {name: 'Modus', value: modeModifier},
+                ]
+          }
+         */
+        return new Pool(this.name)
+            .addValues(this.parent?.getWeaponPoolValues(this) ?? [{ name: 'Pool', value: toInt(this.dicepool) }])
+            .setValue(toInt(this.dicepool))
+            .add('Modus', this.shootingModeModifier);
+    }
+
     reload() {
         const ammunitions = this.parent?.getAmmunitions() ?? [];
         let count = 0;
