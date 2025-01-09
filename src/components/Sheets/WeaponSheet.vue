@@ -10,7 +10,7 @@ import {toInt} from "@/composables/utils";
 import ChangeAmmo from "@/components/Dialoge/ChangeAmmo.vue";
 import {uploadSheet} from "@/composables/fetch";
 import Magazin from "@/components/Magazin.vue";
-
+import {Pool} from "@/composables/types";
 
 const selectedRange = ref<string>('short');
 const chooseAmmoDialogVisible = ref(false);
@@ -26,6 +26,10 @@ const isLoaded = computed(() => DialogWeapon.weapon.isLoaded )
 const selectedShootingMode = computed({
   get: () => DialogWeapon.weapon?.shootingMode ?? (new WeaponSetting()).selectedShootingMode,
   set: (value) => DialogWeapon.weapon.shootingMode = value
+})
+const pool = computed(() => {
+    return DialogWeapon.weapon.getPool()
+        .add('Distanz', rangeModifier.value);
 })
 
 function store()
@@ -104,19 +108,8 @@ function resetPhase()
         <div class="column">
           <button class="weapon-buttons" @click="shoot">Schiessen</button>
 
-          <button class="weapon-buttons" @click="DialogRollDice.setValues(
-          {
-            name: weapon.name,
-            value: toInt(weapon.dicepool) + rangeModifier + modeModifier,
-            values: [
-                {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
-                {name: 'Geschicklichkeit', value: char.attributes.agility.total},
-                {name: 'Distanz', value: rangeModifier},
-                {name: 'Modus', value: modeModifier},
-                ]
-          }
-          ).show()">
-            ({{ toInt(weapon.dicepool) + rangeModifier + modeModifier }}) Würfel
+          <button class="weapon-buttons" @click="DialogRollDice.setPool(pool).show()">
+            ({{ pool.value }}) Würfel
           </button>
         </div>
       </div>
@@ -174,7 +167,7 @@ function resetPhase()
 <style scoped>
 
 .overlay {
-  z-index: 50000;
+  z-index: 3000;
 }
 
 .item:last-of-type {
