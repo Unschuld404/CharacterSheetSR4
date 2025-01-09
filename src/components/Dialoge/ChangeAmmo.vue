@@ -3,9 +3,8 @@ import {computed, ref} from "vue";
 import {DialogWeapon} from "@/composables/dialogs";
 import {getSizeTypesFromAmmo} from "@/composables/weapons";
 import RadioButtons from "@/components/RadioButtons.vue";
-import {char} from "@/composables/char";
-import {type Gear, GearType} from "@/composables/types";
 import {toInt} from "@/composables/utils";
+import type {Ammunition} from "@/composables/types";
 
 const emit = defineEmits<{
   (e: 'confirm'): void;
@@ -42,14 +41,14 @@ const sizeSelection = computed(() => {
 const selectedSize = ref<string>(sizeSelection.value[0]?.value ?? '');
 
 const items = computed(() => {
-  return char.gear.filter((item: Gear) => {
-    return item.type === GearType.Ammo && item.extra == DialogWeapon.weapon.category && item.count > 0
+  return DialogWeapon.weapon.parent?.getAmmunitions()?.filter((item: Ammunition) => {
+    return item.extra == DialogWeapon.weapon.category && item.count > 0
   }) ?? [];
 })
 
-const selectedItem = ref<Gear|null>(null );
+const selectedItem = ref<Ammunition|null>(null );
 
-function setSelection(item: Gear) {
+function setSelection(item: Ammunition) {
   selectedItem.value = item;
 }
 
@@ -99,9 +98,7 @@ ul {
   max-height: 70vh;
   width: 90%;
   padding: 0;
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .selection-list li {

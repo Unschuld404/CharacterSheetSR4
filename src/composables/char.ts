@@ -1,16 +1,20 @@
 import {Spirit, type SpiritType} from "@/composables/spirits";
-import {selectedItemEquals, toBool, toInt, toSelectedItem, translate} from "@/composables/utils";
+import { selectedItemEquals, toBool, toInt, toSelectedItem, translate} from "@/composables/utils";
 import {reactive} from "vue";
 import {
     data,
-    extractAttributeFromDrain,
-    getActionSkills, getArmors, getCommlink, getContacts,
+    getActionSkills, getAmmunitions, getArmors,
+    getAttributes,
+    getCommlink,
+    getContacts, getDamageTaken,
+    getDrain,
+    getEdge,
     getGear,
-    getKnowledgeSkills, getLifestyles,
-    getSpells,
-    getSpirits,
+    getKnowledgeSkills,
+    getLifestyles,
+    getSpells, getSpirits,
     getVehicles,
-    getWeapons
+    getWeapons,
 } from "@/composables/data";
 import {Sheet, sheet_data} from "@/composables/sheet";
 import {
@@ -21,15 +25,14 @@ import {
     type DamageMonitor,
     type Drain,
     EvadeType,
-    type Gear, type IdObject, type Lifestyle,
+    type IdObject, type Lifestyle,
     type Movement, type Rigger,
     type Resistance, type SelectedItem,
-    type SheetData,
     type Skill,
-    Spell, type Initiative, type PoolValue
+    Spell, type Initiative, type PoolValue, type AutoSoft, type Ammunition, type Gear
 } from "@/composables/types";
 import {Vehicle} from "@/composables/vehicle";
-import {Weapon} from "@/composables/weapons";
+import {Weapon, WeaponSetting} from "@/composables/weapons";
 
 
 export class Charakter implements Container, Rigger {
@@ -52,7 +55,8 @@ export class Charakter implements Container, Rigger {
     spells!: Spell[];
     vehicles!: Vehicle[];
     weapons!: Weapon[];
-    gear!: Gear[];
+    gear: Gear[] = [];
+    autosofts: AutoSoft[] = [];
     monitor!: DamageMonitor;
     magician!: boolean;
     initiategrade!: number;
@@ -74,13 +78,12 @@ export class Charakter implements Container, Rigger {
 
 
     sheet! : Sheet;
-    data! : SheetData;
 
     constructor(data: any, sheet: any ) {
         this.update(data, sheet);
     }
 
-    get edge(): number { return this.sheet.edge ?? this.data.edge }
+    get edge(): number { return this.sheet.edge }
     set edge(value: number) { this.sheet.edge = value }
     get nuyen(): number { return this.sheet.nuyen }
     private alterNuyen(value: number, reason: string) {
@@ -119,6 +122,7 @@ export class Charakter implements Container, Rigger {
         this.sheet.karma += value;
     }
     get spirits(): Spirit[] { return this.sheet.spirits; }
+    get ammunitions(): Ammunition[] { return this.sheet.ammunitions; }
 
     update(data: any, sheet: any) {
         //ids initialisieren
@@ -127,9 +131,15 @@ export class Charakter implements Container, Rigger {
         Spirit.nextId = 1;
 
         this.sheet = new Sheet(sheet);
-        this.sheet.nuyen = sheet?.nuyen ?? toInt(data?.nuyen);
-        this.sheet.karma = sheet?.karma ?? toInt(data?.karma);
-        this.sheet.spirits =  getSpirits(sheet) ?? getSpirits(data) ?? [];
+        if (sheet === null || Object.keys(sheet).length === 0)
+        {
+            this.sheet.edge = getEdge(data);
+            this.sheet.nuyen = toInt(data?.nuyen);
+            this.sheet.karma = toInt(data?.karma);
+            this.sheet.damage = getDamageTaken(data) ?? { physical: 0, stun: 0 };
+            this.sheet.spirits = getSpirits(data) ?? [];
+            this.sheet.ammunitions = getAmmunitions(data) ?? [];
+        }
 
         this.name = data?.name ?? 'The Shadow';
         this.initiative = {
@@ -193,25 +203,29 @@ export class Charakter implements Container, Rigger {
             ballistic : toInt(data?.armorb),
         }
 
-        let attributes = data?.attributes ?? [];
+        this.knowledgeSkills = getKnowledgeSkills(data);
+        this.actionSkills = getActionSkills(data);
+        this.vehicles = getVehicles(data, this);
+        this.weapons = getWeapons(data, this);
+        this.armors = getArmors(data);
+        this.gear = getGear(data);
+        this.spells = getSpells(data);
+        this.contacts = getContacts(data);
+        this.lifestyles = getLifestyles(data);
+        this.commlink = getCommlink(data);
+        this.attributes = getAttributes(data);
+        this.drain = getDrain(data);
 
-        this.data = {
-            edge : toInt(attributes.find((item: any) => item.name === 'EDG')?.total),
-            damage : {
-                physical: toInt(data?.physicalcmfilled),
-                stun: toInt(data?.stuncmfilled),
-            },
-        }
         const self = this;
 
         this.monitor = {
             physical: {
-                get filled(): number { return self.sheet.damage?.physical ?? self.data.damage.physical ?? 0 },
+                get filled(): number { return self.sheet.damage.physical },
                 set filled(value: number) { self.sheet.damage.physical = value; },
                 max: toInt(data?.physicalcm),
             },
             stun: {
-                get filled(): number { return self.sheet.damage?.stun ?? self.data.damage.stun ?? 0 },
+                get filled(): number { return self.sheet.damage.stun},
                 set filled(value: number) { self.sheet.damage.stun = value; },
                 max: toInt(data?.stuncm),
             },
@@ -219,91 +233,6 @@ export class Charakter implements Container, Rigger {
             offset: toInt(data?.cmthresholdoffset),
             overflow: toInt(data?.cmoverflow),
         }
-
-        this.attributes = {
-            edge: {
-                name: 'EDG',
-                base : toInt(attributes.find((item: any) => item.name === 'EDG')?.base),
-                get total() : number { return self.sheet.edge ?? self.data.edge},
-                set total(value: number) { self.sheet.edge = value; },
-            },
-            body: {
-                name: 'BOD',
-                base : toInt(attributes.find((item: any) => item.name === 'BOD')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'BOD')?.total),
-            },
-            agility: {
-                name: 'AGI',
-                base : toInt(attributes.find((item: any) => item.name === 'AGI')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'AGI')?.total),
-            },
-            reaction: {
-                name: 'REA',
-                base : toInt(attributes.find((item: any) => item.name === 'REA')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'REA')?.total),
-            },
-            strength: {
-                name: 'STR',
-                base : toInt(attributes.find((item: any) => item.name === 'STR')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'STR')?.total),
-            },
-            charisma: {
-                name: 'CHA',
-                base : toInt(attributes.find((item: any) => item.name === 'CHA')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'CHA')?.total),
-            },
-            intuition: {
-                name: 'INT',
-                base : toInt(attributes.find((item: any) => item.name === 'INT')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'INT')?.total),
-            },
-            logic: {
-                name: 'LOG',
-                base : toInt(attributes.find((item: any) => item.name === 'LOG')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'LOG')?.total),
-            },
-            willpower: {
-                name: 'WIL',
-                base : toInt(attributes.find((item: any) => item.name === 'WIL')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'WIL')?.total),
-            },
-            magic: {
-                name: 'MAG',
-                base : toInt(attributes.find((item: any) => item.name === 'MAG')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'MAG')?.total),
-            },
-            resonance: {
-                name: 'RES',
-                base : toInt(attributes.find((item: any) => item.name === 'RES')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'RES')?.total),
-            },
-            essens: {
-                name: 'ESS',
-                base : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
-                total : toInt(attributes.find((item: any) => item.name === 'ESS')?.base),
-            },
-        }
-
-        this.drain = {
-            caption : data?.drain ?? '',
-            attribute : extractAttributeFromDrain(data?.drain) ?? '',
-            total : 0,
-        }
-        this.drain.total = toInt(attributes.find((item: any) => item.name === this.drain.attribute)?.base)
-            + this.attributes.willpower.total;
-
-        this.knowledgeSkills = getKnowledgeSkills(data);
-        this.actionSkills = getActionSkills(data);
-
-        this.vehicles = getVehicles(data, self);
-        this.weapons = getWeapons(data, self);
-        this.armors = getArmors(data);
-        this.gear = getGear(data);
-        this.spells = getSpells(data);
-        this.contacts = getContacts(data);
-        this.lifestyles = getLifestyles(data);
-
-        this.commlink = getCommlink(data);
 
         let selectedItems = [];
         for (let weapon of this.weapons) {
@@ -558,6 +487,20 @@ export class Charakter implements Container, Rigger {
     getCommandValue(): PoolValue {
         const value = this.commlink?.programs?.find(item => item.name === 'Befehl')?.rating ?? 0;
         return { name: 'Befehl', value: value };
+    }
+
+    getWeaponSettings(): WeaponSetting[]
+    {
+        return this.sheet.weaponSettings;
+    }
+
+    addWeapon(weapon: Weapon): Container {
+        this.weapons.push(weapon);
+        return this;
+    }
+
+    getAmmunitions(): Ammunition[] {
+        return this.ammunitions;
     }
 }
 

@@ -43,7 +43,6 @@ export class Spirit implements IdObject {
     plane: string = 'heimat';
     spentEdge: number = 0;
 
-    get valid(): boolean { return this.spiritType !== null }
     get spiritType(): SpiritType | null { return SpiritTypes.find((item: SpiritType) => { return item.name === this.type }) ?? null };
     set spiritType(value: SpiritType) { this.type = value.name }
     get caption(): string { return (this.name ?? '') || this.type }

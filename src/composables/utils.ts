@@ -1,4 +1,4 @@
-import {GearType, type IdObject, type SelectedItem, Spell} from "@/composables/types";
+import {type Ammunition, GearType, type IdObject, type SelectedItem, Spell} from "@/composables/types";
 import {translations} from "@/composables/consts";
 
 export function toInt(value: string|number|undefined|null): number {
@@ -56,6 +56,11 @@ export function toSelectedItem(obj: any): SelectedItem {
         type: obj?.constructor?.name ?? '',
         id: isIdObject(obj) ? obj.generateId() : obj?.toString() ?? '',
     }
+}
+
+export function ammunitionEquals(a: Ammunition, b: Ammunition): boolean {
+    return a.name === b.name
+        && a.extra === b.extra;
 }
 
 export function selectedItemEquals(item1: SelectedItem, item2: SelectedItem): boolean {

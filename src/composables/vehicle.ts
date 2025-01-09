@@ -4,11 +4,9 @@ import {
     type AutoSoft,
     type Container,
     type Damage,
-    EvadeType,
-    type Gear,
+    EvadeType, type Gear,
     type IdObject,
-    Pool,
-    type PoolValue,
+    Pool, type PoolValue,
     type Rigger,
     type Sensor,
     type SensorMod,
@@ -18,8 +16,17 @@ import {
     type VehicleResistance,
 } from "@/composables/types";
 
-import {type Weapon} from "@/composables/weapons";
-import {getGearFromGearData, getWeapons} from "@/composables/data";
+import {type Weapon, WeaponSetting} from "@/composables/weapons";
+import {getAmmunitionFromData, getGearFromGearData, getWeapons} from "@/composables/data";
+import {char} from "@/composables/char";
+
+export class VehicleSetting  {
+    vehicleId: string = '?';
+    selectedVehicleMode: VehicleMode = VehicleMode.Auto;
+    ammunitions: Ammunition[] = [];
+    autosofts: AutoSoft[] = [];
+    weaponSettings : WeaponSetting[] = [];
+}
 
 export class Vehicle implements IdObject,Container  {
     static nextId: number = 0;
@@ -48,15 +55,12 @@ export class Vehicle implements IdObject,Container  {
 
     weapons: Weapon[] = [];
     sensors: Sensor[] = [];
-    autosofts: AutoSoft[] = [];
     mods : VehicleMod[] = [];
     items: Gear[] = [];
-    ammunitions: Ammunition[] = [];
 
     maneuver: number = 0;
-    mode: VehicleMode = VehicleMode.Auto;      // (Auto /  Remote / VR)
 
-
+    settings: VehicleSetting = new VehicleSetting();
 
     get initiative(): VehicleInitiative {
         switch (this.mode) {
@@ -89,6 +93,12 @@ export class Vehicle implements IdObject,Container  {
                 .add('Panzerung x 2', this.armor * 2),
         }
     }
+
+    get mode(): VehicleMode { return this.settings.selectedVehicleMode }
+    set mode(mode: VehicleMode) { this.settings.selectedVehicleMode = mode }
+    get autosofts(): AutoSoft[] { return this.settings.autosofts }
+    get ammunitions(): Ammunition[] { return this.settings.ammunitions }
+    getAmmunitions(): Ammunition[] { return this.settings.ammunitions }
 
     evade(type: EvadeType, fullDefense: boolean, mode: VehicleMode): Pool {
 
@@ -153,9 +163,7 @@ export class Vehicle implements IdObject,Container  {
         return pool;
     }
 
-    generateId(): string {
-        return this.name + '.' + this.id;
-    }
+    generateId(): string { return this.name + '.' + this.id }
 
     loadFromData(data: any): Vehicle {
         this.name = data.name || 'Unknown';
@@ -175,13 +183,17 @@ export class Vehicle implements IdObject,Container  {
         this.maneuver = toInt(data.maneuver);
         this.rating = toInt(data.devicerating);
 
-        this.mode = VehicleMode.Auto;
-
         this.weapons = [];
         this.sensors = [];
-        this.autosofts = [];
         this.mods = [];
         this.items = [];
+
+        const ammunitions : Ammunition[] = [];
+        const autosofts : AutoSoft[] = [];
+
+        const settings = findVehicleSettingsForVehicle(this);
+        const newSettings = settings === null;
+        this.settings = settings ?? createVehicleSettings(this);
 
         const gears = getGearsFromData(data);
 
@@ -193,11 +205,11 @@ export class Vehicle implements IdObject,Container  {
             }
             else if (gear.category_english == 'Autosofts' || gear.category_english == 'Autosofts, Drone')
             {
-                this.autosofts.push(getAutoSoftFromAutoSoftData(gear));
+                autosofts.push(getAutoSoftFromAutoSoftData(gear));
             }
             else if (toBool(gear.isammo))
             {
-                this.ammunitions.push(getAmmunitionFromGearData(gear))
+                ammunitions.push(getAmmunitionFromData(gear))
             }
             else {
                 this.items.push(getGearFromGearData(gear));
@@ -216,6 +228,12 @@ export class Vehicle implements IdObject,Container  {
             {
                 this.mods.push(getVehicleModFromModData(mod));
             }
+        }
+
+        if (newSettings)
+        {
+            this.settings.autosofts = autosofts;
+            this.settings.ammunitions = ammunitions;
         }
 
         return this;
@@ -241,6 +259,15 @@ export class Vehicle implements IdObject,Container  {
         return this.name;
     }
 
+    addWeapon(weapon: Weapon): Container {
+        this.weapons.push(weapon);
+        return this;
+    }
+
+    getWeaponSettings(): WeaponSetting[] {
+        return this.settings.weaponSettings;
+    }
+
     autoSoftValue(name: string): PoolValue {
         const value = this.autosofts.find((item: any) => item.name === name)?.rating ?? 0;
         return {name: name, value: value};
@@ -248,20 +275,25 @@ export class Vehicle implements IdObject,Container  {
 
 }
 
+function findVehicleSettingsForVehicle(vehicle: Vehicle): VehicleSetting | null {
+    return char.sheet.vehicleSettings.find((item: VehicleSetting) => {
+        return item.vehicleId == vehicle.generateId();
+    }) ?? null;
+}
+
+function createVehicleSettings(vehicle: Vehicle): VehicleSetting {
+    const settings = new VehicleSetting();
+    settings.vehicleId = vehicle.generateId();
+    char.sheet.vehicleSettings.push(settings);
+
+    return settings;
+}
+
 function getVehicleModFromModData(data: any): VehicleMod {
     return {
         name: data.name || '',
         rating: toInt(data.rating),
         limit: data.limit || '',
-    }
-}
-
-function getAutoSoftFromAutoSoftData(data: any): AutoSoft {
-    return {
-        name : data.name,
-        rating: toInt(data.rating),
-        skill: autoSoftNameToSkillName(data.name_english),
-        sensorBased: data.name_english == 'Clearsight',
     }
 }
 
@@ -286,16 +318,6 @@ function getSensorModsFromSensorFunctionData(data: any): SensorMod[] {
         }));
 }
 
-function getAmmunitionFromGearData(data: any): Ammunition {
-    return {
-        name: data.name,
-        extra: data.extra,
-        count: toInt(data.qty),
-        dmg: toInt(data.weaponbonusdamage),
-        ap: toInt(data.weaponbonusap),
-    }
-}
-
 function getModsFromData(data: any): any[] {
     let mods = data?.mods ?? [];
     return Array.isArray(mods) ? mods : [];
@@ -309,6 +331,15 @@ function getGearsFromData(data: any): any[] {
 function getChildrenFromData(data: any): any[]  {
     let children = data?.children ?? [];
     return Array.isArray(children) ? children : [];
+}
+
+function getAutoSoftFromAutoSoftData(data: any): AutoSoft {
+    return {
+        name : data.name,
+        rating: toInt(data.rating),
+        skill: autoSoftNameToSkillName(data.name_english),
+        sensorBased: data.name_english == 'Clearsight',
+    }
 }
 
 function autoSoftNameToSkillName(name: string): string {
