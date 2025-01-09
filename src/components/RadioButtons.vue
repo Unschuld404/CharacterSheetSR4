@@ -68,6 +68,7 @@ const groupName = computed(() => props.group || `radio-group-${Math.random().toS
   transition: background 0.1s;
   box-sizing: border-box;
   margin: 0;
+  border-radius: 1rem;
 }
 
 .radio_label:not(:last-of-type) {

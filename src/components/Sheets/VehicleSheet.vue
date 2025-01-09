@@ -194,7 +194,8 @@ button {
 
 .mode {
   height: 3rem;
-  margin-bottom: 1rem;
+  margin: 0 1dvw 1rem;
+  gap: 0.5rem;
 }
 
 .item {

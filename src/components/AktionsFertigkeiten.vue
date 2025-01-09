@@ -38,4 +38,8 @@
 
 <style scoped>
 
+.dice {
+  margin-right: 3dvw;
+}
+
 </style>

@@ -71,7 +71,7 @@ const skills = computed(() => {
 }
 
 .dice {
-  margin-right: 3vw;
+  margin-right: 3dvw;
 }
 
 </style>

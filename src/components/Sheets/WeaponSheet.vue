@@ -92,17 +92,17 @@ function resetPhase()
       <div class="row">
         <div class="column">
           <div v-if="isLoaded">
-            <button class="weapon-buttons" @click="load">switch ammo</button>
+            <button class="weapon-buttons" @click="load">Ammo wechseln</button>
           </div>
           <div v-if="isLoaded">
-            <button class="weapon-buttons" @click="reload">reload</button>
+            <button class="weapon-buttons" @click="reload">Nachladen</button>
           </div>
           <div v-else class="empty" >
             <button class="weapon-buttons" @click="load">Munition laden</button>
           </div>
         </div>
         <div class="column">
-          <button class="weapon-buttons" @click="shoot">schiessen</button>
+          <button class="weapon-buttons" @click="shoot">Schiessen</button>
 
           <button class="weapon-buttons" @click="DialogRollDice.setValues(
           {

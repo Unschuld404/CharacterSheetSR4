@@ -14,7 +14,7 @@ const commlink = computed(()=>{
 <template>
 
   <div v-if="DialogCommlink.visible && char.commlink" class="overlay" @click="DialogCommlink.hide">
-    <div class="popup dialog-box" @click.stop>
+    <div class="dialog-box" @click.stop>
       <h1>{{ char.commlink.name}}</h1>
       <div v-for="mod in char.commlink.mods">{{ mod.name }}</div>
       <div class="row">
@@ -35,33 +35,32 @@ const commlink = computed(()=>{
           <div>Signal</div>
         </div>
       </div>
-      <strong class="name" v-if="char.commlink.programs.length != 0">Programme</strong>
+
+      <strong class="category" v-if="char.commlink.programs.length != 0">Programme</strong>
       <template v-for="item in char.commlink.programs">
         <div class="item">
           <div class="column">
-            <strong>
+            <div>
               {{item.name}}
               <template v-if="item.rating > 1">
                 ({{item.rating}})
               </template>
-            </strong>
-            <div v-if="item.extra"> {{ item.extra }}</div>
+            </div>
           </div>
 
         </div>
       </template>
-      <strong class="name" v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
+      <strong class="category" v-if="char.commlink.autosofts.length != 0">Autosofts</strong>
       <template v-for="item in char.commlink.autosofts">
         <div class="item">
-          <div class="column">
-            <strong>{{item.name}}
+          <div>
+            <div>{{item.name}}
               <template v-if="item.rating > 1">
                 ({{item.rating}})
               </template>
-            </strong>
-            <div v-if="item.extra"> {{ item.extra }}</div>
+            </div>
+            <div v-if="item.extra" class="subcaption"> {{ item.extra }}</div>
           </div>
-          <i class='bx bx-transfer-alt'></i>
         </div>
       </template>
     </div>
@@ -71,41 +70,35 @@ const commlink = computed(()=>{
 
 <style scoped>
 
-strong {
-  margin-top: 2dvh;
-  width: 100%;
-}
-
-i{
-  padding-right: 2dvw;
-}
-
-.name {
-  padding-left: 2dvw;
+.dialog-box {
+  overflow: scroll;
+  padding: 2rem 0 1rem;
+  width: 90dvw;
 }
 
 .row {
   justify-content: space-between;
+  width: 100%;
 }
 
 .value {
-  text-align: center;
-  align-items: center;
-  width: 20vh;
+  width: 100%;
+ text-align: center;
+  margin: 2rem 0 0;
 }
 
-.bx-transfer-alt {
-  color: var(--accent-color);
-  font-weight: bold;
-  font-size: 3dvh;
-  position: absolute;
-  right: 0;
-  align-self: center;
+.item {
+  padding-left: 3dvw;
 }
 
-.dialog-box {
-  padding-top: 2vh;
-  width: 90dvw;
+.item:last-child {
+  border-bottom: none;
+}
+
+.category {
+  align-self: start;
+  margin-top: 1rem;
+  margin-left: 2dvw;
 }
 
 

@@ -43,6 +43,7 @@ p {
 .confirm {
   width: 100%;
   background-color: transparent;
+  margin-top: 1rem;
 }
 
 .dialog-box {
@@ -51,16 +52,7 @@ p {
 }
 
 .overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 6000;
+  z-index: 3000;
 }
 
 </style>/

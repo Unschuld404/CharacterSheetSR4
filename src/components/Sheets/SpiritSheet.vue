@@ -90,153 +90,146 @@ function onCancelPowersDialog() {
           <div>{{  spirit.attributeTotal('STR') }}</div>
         </div>
       </div>
-      <div class="row powers">
-        <div @click="showPowersDialog()" class="formula optional-powers">powers {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
+      <div class="row powers clickable">
+        <div @click="showPowersDialog()" class="formula optional-powers">Kräfte {{ spirit.optionalPowersCount }} / {{ spirit.maxOptionalPowersCount }}</div>
         <div class="formula" @click="DialogManageSpiritEdge.show">{{spirit.edge}} Edge</div>
       </div>
-
-        <div class="toggle">
-          <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/>
+      <div class="toggle">
+        <RadioButtons class="mode" v-model="selectedBoundMode" :options="BoundModes" group="bounded"/>
+      </div>
+      <div class="toggle">
+        <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
+      </div>
+      <div class="category">Dienste</div>
+      <div class="row services">
+        <div @click="removeService"><i class='bx bxs-minus-square mutator'></i></div>
+        <h1>{{ services }}</h1>
+        <div @click="addService"><i class='bx bxs-plus-square mutator'></i></div>
+      </div>
+      <div>
+        <div class="category">Initiative</div>
+        <div class="row item">
+          <div>Initiative</div>
+          <button class="dice skill-dice" @click="DialogRollDice.setValues(
+        {
+          name: 'Initiative',
+          value: spirit.initiative.pool,
+          values: [
+              {name: 'Initiative', value: spirit.initiative.pool},
+              ]
+        }
+        ).show()">{{ spirit.initiative.pool }}
+          </button>
         </div>
-
-        <div class="toggle">
-          <RadioButtons class="mode" v-model="selectedSpiritPlane" :options="SpiritPlanes" group="planes"/>
+        <div class="row item passes">
+          <div>Durchgänge</div>
+          <strong>{{spirit.initiative.passes}}</strong>
         </div>
-
-        <div class="box">
-          <div class="left-header">Dienste</div>
-          <div class="row services">
-            <div class="mutator" @click="removeService">-</div>
-            <h1>{{ services }}</h1>
-            <div class="mutator" @click="addService">+</div>
+        <div class="row item">
+          <div>Bewegung</div>
+          <div>{{spirit.spiritType?.movement ?? ''}}</div>
+        </div>
+      </div>
+      <div>
+        <div class="category">Widerstände</div>
+        <div class="row item">
+          <div>Panzerung</div>
+          <button class="dice skill-dice" @click="DialogRollDice.setValues(
+        {
+          name: 'Panzerung',
+          value: spirit.armor,
+          values: [
+              {name: '2 x Kraftstufe', value: spirit.force},
+              ]
+        }
+        ).show()">{{ spirit.armor }}
+          </button>
+        </div>
+        <div class="row item">
+          <div>Widerstand: Bannen</div>
+          <button class="dice skill-dice" @click="DialogRollDice.setValues(
+        {
+          name: 'Widerstand gegen Bannen',
+          value: spirit.force + char.attributes.magic.total,
+          values: [
+              {name: 'MAG', value: char.attributes.magic.total},
+              {name: 'Kraftstufe', value: spirit.force},
+              ]
+        }
+        ).show()">{{ spirit.force + char.attributes.magic.total }}
+          </button>
+        </div>
+        <div class="row item">
+          <div>Widerstand: Binden</div>
+          <button class="dice skill-dice" @click="DialogRollDice.setValues(
+        {
+          name: 'Widerstand gegen Binden',
+          value: (spirit.force)*2,
+          values: [
+              {name: '2 x Kraftstufe', value: spirit.force},
+              ]
+        }
+        ).show()">{{ (spirit.force)*2 }}
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="category">Fertigkeiten</div>
+        <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
+          <div>
+            {{ skill.name }} ({{ skill.rating }})
           </div>
-        </div>
-
-        <div class="box">
-          <div class="left-header">Initiative</div>
-          <div class="row item">
-            <div>Initiative</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
+          <button class="dice" @click="DialogRollDice.setValues(
           {
-            name: 'Initiative',
-            value: spirit.initiative.pool,
+            name: skill.name,
+            value: skill.total,
             values: [
-                {name: 'Initiative', value: spirit.initiative.pool},
+                {name: skill.attribute, value: skill.attribute_value},
+                {name: skill.name, value: skill.rating},
                 ]
           }
-          ).show()">{{ spirit.initiative.pool }}
-            </button>
-          </div>
-          <div class="row item">
-            <div>Durchgänge</div>
-            <strong>{{spirit.initiative.passes}}</strong>
-          </div>
-          <div class="row item">
-            <div>Bewegung</div>
-            <div>{{spirit.spiritType?.movement ?? ''}}</div>
-          </div>
-
+          ).show()">{{ skill.total }}
+          </button>
         </div>
-
-        <div class="box">
-          <div class="left-header">Widerstände</div>
-          <div class="row item">
-            <div>Panzerung</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Panzerung',
-            value: spirit.armor,
-            values: [
-                {name: '2 x Kraftstufe', value: spirit.force},
-                ]
-          }
-          ).show()">{{ spirit.armor }}
-            </button>
-          </div>
-
-          <div class="row item">
-            <div>Widerstand: Bannen</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Widerstand gegen Bannen',
-            value: spirit.force + char.attributes.magic.total,
-            values: [
-                {name: 'MAG', value: char.attributes.magic.total},
-                {name: 'Kraftstufe', value: spirit.force},
-                ]
-          }
-          ).show()">{{ spirit.force + char.attributes.magic.total }}
-            </button>
-          </div>
-
-          <div class="row item">
-            <div>Widerstand: Binden</div>
-            <button class="dice skill-dice" @click="DialogRollDice.setValues(
-          {
-            name: 'Widerstand gegen Binden',
-            value: (spirit.force)*2,
-            values: [
-                {name: '2 x Kraftstufe', value: spirit.force},
-                ]
-          }
-          ).show()">{{ (spirit.force)*2 }}
-            </button>
-          </div>
-
+        <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power clickable">
+          <div @click="DialogSpiritPowerInfo.setPower(power).show()">{{ power.name }}</div>
+          <button v-if="powerHasPool(power)"  class="dice" @click="DialogRollDice.show()">X</button>
         </div>
-
-        <div class="box">
-          <div class="left-header">Skills</div>
-          <div  v-for="(skill, index) in spirit.skills"  :key="index" class="item" >
-            <div>
-              {{ skill.name }} ({{ skill.rating }})
-            </div>
-            <div>
-              <button class="dice" @click="DialogRollDice.setValues(
-              {
-                name: skill.name,
-                value: skill.total,
-                values: [
-                    {name: skill.attribute, value: skill.attribute_value},
-                    {name: skill.name, value: skill.rating},
-                    ]
-              }
-              ).show()">{{ skill.total }}
-              </button>
-            </div>
-          </div>
-
-          <div  v-for="(power, index) in spirit.powers"  :key="index" class="item spirit-power">
-            <div @click="DialogSpiritPowerInfo.setPower(power).show()">{{ power.name }}</div>
-            <button v-if="powerHasPool(power)"  class="dice" @click="DialogRollDice.show()">X</button>
-          </div>
-
-        </div>
-
-        <div class="box">
-          <div class="left-header">Allergien</div>
-          <div class="item">{{ spirit.spiritType?.flaws }}</div>
-        </div>
+        <div class="category">Allergien</div>
+        <div class="item">{{ spirit.spiritType?.flaws }}</div>
+      </div>
     </div>
-
   </div>
 
 </template>
 
 <style scoped>
 
+.passes {
+  padding-right: 6dvw;
+}
+
+.category {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
 .powers {
   justify-content: space-between;
   padding: 6dvw 2dvw 0 2dvw;
-  color: var(--accent-color)
 }
 
 .mode {
-  height: 8vh;
+  height: 3rem;
+  gap: 0.5rem;
 }
 
 .item {
-  height: 5vh;
+  min-height: 8vh;
+}
+
+.item:last-child {
+  border-bottom: none;
 }
 
 .services {
@@ -244,15 +237,8 @@ function onCancelPowersDialog() {
   align-items: center;
 }
 
-.box {
-  width: 100%;
-  margin-top: 2vh;
-}
-
 .toggle {
-  border: 1px solid var(--primary-color);
-  border-radius: 1vh;
-  margin: 2dvh 2dvw 0 2dvw;
+  margin: 2dvh 1dvw 0 1dvw;
 }
 
 .sheet-control {
@@ -272,6 +258,15 @@ function onCancelPowersDialog() {
 .column {
   width: 25%;
   text-align: center;
+}
+
+.mutator {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+}
+
+.dice {
+  margin-right: 3dvw;
 }
 
 </style>/

@@ -28,17 +28,15 @@ function toggleSelection(item: Spell): void
     <ul>
       <li v-for="spell in char.spells" :key="spell.name" class="item">
         <div class="column">
+          <div  class="name">{{ spell.name }}</div>
           <div class="row">
-            <div  class="name">{{ spell.name }}</div>
-          </div>
-          <div class="row info">
-            <div>{{ spell.category }}</div>
-            <div class="row group">
+            <div class="subcaption">{{ spell.category }}</div>
+            <div class="row">
               <div class="value">{{ spell.type }}</div>
               <div class="value">{{ spell.range }}</div>
               <div class="value">{{ spell.duration }}</div>
+              <div class="drain">{{ spell.dv }}</div>
             </div>
-            <div class="drain">{{ spell.dv }}</div>
           </div>
         </div>
       </li>
@@ -53,7 +51,7 @@ function toggleSelection(item: Spell): void
                     {name: 'Zauberwirken', value: char.spellcasting.total - char.attributes.magic.total},
                     ]
               }
-              ).show()">Spruchzauberei: {{ char.spellcasting.total }}
+              ).show()">Spruchzauberei ( {{ char.spellcasting.total }} )
   </button>
 
 </template>
@@ -64,29 +62,33 @@ function toggleSelection(item: Spell): void
   margin-top: 2rem;
 }
 
-.info {
+button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.column {
+  width: 100%;
+}
+
+.row {
   justify-content: space-between;
 }
 
-.value {
-  width: 20px;
-  text-align: center;
-}
-
-.group {
-  position: absolute;
-  right: 80px;
-}
-
 .drain {
-  position: absolute;
-  right: 10px;
+  text-align: right;
+  width: 3rem;
+  margin-left: 1rem;
+  margin-right: 1dvw;
 }
 
-button {
-  width: 100%;
-  font-size: 6dvw;
-  font-weight: bold;
+.value {
+  width: 1rem;
+  margin-left: 0.5rem;
 }
 
 </style>/

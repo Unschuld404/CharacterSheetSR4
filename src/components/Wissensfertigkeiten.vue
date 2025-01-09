@@ -38,4 +38,8 @@ import {char} from "@/composables/char";
 
 <style scoped>
 
+.dice {
+  margin-right: 3dvw;
+}
+
 </style>

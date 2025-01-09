@@ -15,12 +15,10 @@ const spirits = computed(() => char.spirits);
     <ul>
       <li v-for="(spirit, index) in spirits" :key="index" @click="DialogSpiritSheet.setSpirit(spirit).show()" class="item">
         <div class="column">
-          <div class="row">
-            <div  class="clickable-name">{{ spirit.caption }} ( {{ spirit.force }} )</div>
-          </div>
+          <div  class="clickable">{{ spirit.caption }} ( {{ spirit.force }} )</div>
           <div class="row">
             <div>Dienste: {{ spirit.services }}</div>
-            <div class="bound">{{ spirit.bound ? 'Gebunden' : 'Ungebunden' }}</div>
+            <div>{{ spirit.bound ? 'Gebunden' : 'Ungebunden' }}</div>
           </div>
         </div>
       </li>
@@ -30,21 +28,20 @@ const spirits = computed(() => char.spirits);
 
 <style scoped>
 
-
-.bound {
-  position: absolute;
-  right: 10px;
-}
-
 .column {
   width: 100%;
 }
 
-button {
-  height: 70px;
-  font-size: 42px;
-  padding-top: 10px;
-  margin-bottom: 10px;
+.row {
+  justify-content: space-between;
+}
+
+.box {
+  padding-top: 1rem;
+}
+
+.item:last-child {
+  border-bottom: none;
 }
 
 </style>
