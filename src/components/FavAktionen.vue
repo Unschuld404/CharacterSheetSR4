@@ -13,6 +13,7 @@ import {
   DialogWeapon
 } from "@/composables/dialogs";
 import {toInt} from "@/composables/utils";
+import MagazinInfo from "@/components/MagazinInfo.vue";
 
 function handleWeapon(weapon: Weapon) {
   if (weapon.isMelee) {
@@ -55,7 +56,8 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
       </div>
       <div v-for="vehicle in vehicles" class="item" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div>
-          <div class="clickable">{{ vehicle.name }}</div>
+          <div class="clickable" v-if="vehicle.nickname">{{ vehicle.nickname }}</div>
+          <div class="clickable" v-else>{{ vehicle.name }}</div>
           <div class="subcaption">Fahrzeug oder Drohne</div>
         </div>
         <div>Modus: {{ vehicle.mode }}</div>
@@ -73,11 +75,11 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
                     ]
               }
               ).show()">
-        <div>
-          <div class="clickable">{{ weapon.name }}</div>
-          <div class="subcaption">{{ weapon.category }}</div>
-        </div>
-        <div class="right">{{ weapon.ammoLoaded }}</div>
+                <div class="column">
+                  <div class="clickable" v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
+                  <div class="clickable" v-else>{{ weapon.name }}</div>
+                  <div class="subcaption">{{ weapon.category }}</div>
+                </div>
       </div>
     </div>
   </div>
@@ -86,6 +88,11 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
 <style scoped>
 
+.mag {
+  text-align: right;
+  width: 50dvw;
+}
+
 .box {
   padding: 0.5rem 0;
 }
@@ -93,6 +100,11 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 .right {
   text-align: right;
   text-transform: capitalize;
+}
+
+.row {
+  width: 98dvw;
+  justify-content: space-between;
 }
 
 </style>

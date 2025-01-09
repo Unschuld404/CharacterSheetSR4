@@ -10,7 +10,8 @@ import MagazinInfo from "@/components/MagazinInfo.vue";
     <li v-for="vehicle in char.vehicles" :key="vehicle.name">
       <div class="box" @click="DialogVehicleSheet.setVehicle(vehicle).show()">
         <div class="row">
-          <h1 class="clickable">{{ vehicle.name }}</h1>
+          <h1 class="clickable" v-if="vehicle.nickname">{{ vehicle.nickname }}</h1>
+          <h1 class="clickable" v-else>{{ vehicle.name }}</h1>
           <div>{{ vehicle.mode }}</div>
         </div>
 

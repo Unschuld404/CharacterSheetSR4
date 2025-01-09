@@ -57,7 +57,8 @@ function toggleSelection(item: any): void
         <li v-for="weapon in char.weapons" :key="weapon.name" class="item">
           <template v-if="!weapon.isMelee">
             <div class="column">
-              <div>{{ weapon.name }}</div>
+              <div v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
+              <div v-else>{{ weapon.name }}</div>
               <div class="extra">Schaden: {{ weapon.damage }}</div>
               <div v-if="weapon.ap != '-'" class="extra">PB ({{ weapon.ap }})</div>
             </div>
@@ -65,7 +66,8 @@ function toggleSelection(item: any): void
           </template>
 
           <div v-else class="row">
-              <div>{{ weapon.name }}</div>
+              <div v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
+              <div v-else>{{ weapon.name }}</div>
               <input type="checkbox" class="favourite" @click.stop :checked="char.isItemSelected(weapon)" @change="toggleSelection(weapon)">
           </div>
         </li>
@@ -74,7 +76,8 @@ function toggleSelection(item: any): void
       <ul>
         <li v-for="vehicle in char.vehicles" :key="vehicle.name" class="item">
             <div class="column">
-              <div>{{ vehicle.name }} </div>
+              <div v-if="vehicle.nickname">{{ vehicle.nickname }}</div>
+              <div v-else>{{ vehicle.name }}</div>
               <div class="extra" v-if="vehicle.weapons.length">
                 <div v-for="weapon in vehicle.weapons">
                   {{ weapon.name }}

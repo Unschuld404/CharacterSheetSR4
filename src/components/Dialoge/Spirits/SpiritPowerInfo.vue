@@ -39,12 +39,7 @@ import {DialogSpiritPowerInfo} from "@/composables/dialogs";
 
 p {
   text-transform: none;
-  margin: 2dvh 4dvw 2dvh 4dvw;
-}
-
-.item {
-  padding-left: 4dvw;
-  padding-right: 4dvw;
+  margin-top: 2dvh;
 }
 
 .overlay {
@@ -54,7 +49,8 @@ p {
 .dialog-box {
   width: 90dvw;
   max-height: 70vh;
-  overflow: scroll
+  overflow: scroll;
+  padding: 2dvw;
 }
 
 </style>/

@@ -6,10 +6,8 @@ import {VehicleModes} from "@/composables/consts";
 import {computed} from "vue";
 
 import {Vehicle} from "@/composables/vehicle";
-import {char} from "@/composables/char";
 import {type VehicleInitiative} from "@/composables/types";
 import VehicleAusweichen from "@/components/VehicleAusweichen.vue";
-import {toInt} from "@/composables/utils";
 import MagazinInfo from "@/components/MagazinInfo.vue";
 
 const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
@@ -28,7 +26,13 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
   <div v-if="DialogVehicleSheet.visible" class="overlay" @click.stop>
     <div class="sheet">
       <div class="sheet-header row">
-        <h1>{{ vehicle.name }}</h1>
+        <div v-if="vehicle.nickname" class="column">
+          <h1>{{vehicle.nickname}}</h1>
+          <div>{{ vehicle.name }}</div>
+        </div>
+        <div v-else>
+          <h1>{{ vehicle.name }}</h1>
+        </div>
         <button class="sheet-control" @click="DialogVehicleSheet.hide"><i class='bx bxs-x-square'></i></button>
       </div>
       <RadioButtons class="mode" v-model="selectedVehicleMode" :options="VehicleModes" group="pilot"/>
@@ -174,6 +178,7 @@ button {
 
 .sheet-header {
   padding: 0 2dvw 2vw 2dvw;
+  margin-bottom: 1rem;
 }
 
 .sheet-control {

@@ -63,8 +63,8 @@ function toggleSelection(item: string) {
         </ul>
 
       <div class="row">
-        <button class="confirm" v-if="countLeft > 0"> wähle {{ countLeft }}</button class="confirm">
-        <button v-else class="confirm" @click="confirm()">Bestätigen</button>
+        <button class="confirm" v-if="countLeft > 0"> Nimm {{ countLeft }}</button class="confirm">
+        <button v-else class="confirm" @click="confirm()">OK</button>
       </div>
 
       </div>
@@ -92,7 +92,7 @@ ul {
   border-radius: 1vh;
   margin-bottom: 2vh;
   text-align: center;
-  font-size: 4vw;
+  font-size: 1.5rem;
   background-color: var(--background-color);
   color: var(--accent-color);
 }
@@ -108,11 +108,12 @@ ul {
 }
 
 .overlay {
-  z-index: 6000;
+  z-index: 3000;
 }
 
 .confirm {
   background-color: transparent;
+  margin-top: 1rem;
 }
 
 </style>

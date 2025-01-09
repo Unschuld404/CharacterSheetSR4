@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {DialogManageSpiritEdge, DialogSpiritSheet} from "@/composables/dialogs";
+import {DialogManageEdge, DialogManageSpiritEdge, DialogSpiritSheet} from "@/composables/dialogs";
 import {char} from "@/composables/char";
 
 function add()
@@ -15,61 +15,35 @@ function substract()
 </script>/
 
 <template>
-
   <div v-if="DialogManageSpiritEdge.visible" class="overlay" @click="DialogManageSpiritEdge.hide">
     <div class="dialog-box column" @click.stop>
-
-      <h1>Edge</h1>
+      <div>Edge (max. {{DialogSpiritSheet.spirit.edgeMax }})</div>
       <div class="row">
-        <div class="mutator" @click="substract">-</div>
-        <div class="edge">
-          <div>{{DialogSpiritSheet.spirit.edge}}</div>
-          <div class="max-edge">/ {{ DialogSpiritSheet.spirit.edgeMax }}</div>
-        </div>
-        <div class="mutator" @click="add">+</div>
+        <i class='bx bxs-minus-square' @click="substract"></i>
+        <strong>{{ DialogSpiritSheet.spirit.edge }}</strong>
+        <i class='bx bxs-plus-square' @click="add"></i>
       </div>
-      <button class="confirm" @click="DialogManageSpiritEdge.hide">OK</button>
-
+      <button @click="DialogManageSpiritEdge.hide">OK</button>
     </div>
   </div>
-
 </template>
 
 <style scoped>
 
-.confirm {
-  background-color: transparent;
+i {
+  color: var(--accent-color);
 }
 
-.mutator {
-  width: 7vh;
-  height: 7vh;
-  line-height: 7.5vh;
-  font-size: 7vh;
-}
-
-.edge {
-  display: flex;
-  align-items: center;
-}
-
-.max-edge {
-  font-size: 2vh;
-  font-weight: normal;
-  margin-left: 1vh;
-  padding-top: 3vh;
-}
-
-h1 {
-  font-weight: normal;
+strong {
+  margin: 2rem;
+  width: 1rem;
 }
 
 .row {
-  justify-content: space-around;
-  height: 15vh;
+  font-size: 2rem;
   align-items: center;
-  font-size: 8vh;
-  font-weight: bold;
+  justify-content: space-evenly;
 }
+
 
 </style>/
