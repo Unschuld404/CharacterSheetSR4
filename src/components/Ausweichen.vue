@@ -22,7 +22,7 @@ const evadeRanged = computed( () => {
 
 <template>
   <div class="box">
-    <strong class="category">Ausweichen </strong> <i class='clickable bx bxs-cog'></i>
+    <strong class="category">Ausweichen </strong> <i class='bx bxs-cog'></i>
     <div class="row">
       <div class="dice-column" @click="DialogRollDice.setValues(evadeMelee).show()">
         <button>{{ evadeMelee.value }}</button>

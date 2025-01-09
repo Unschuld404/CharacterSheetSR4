@@ -66,8 +66,12 @@ function resetPhase()
   <div v-if="DialogWeapon.visible" class="overlay">
     <div class="sheet" @click.stop>
       <div class="sheet-header row">
-        <h1>{{ weapon.name }}</h1>
-        <button class="close" @click="DialogWeapon.hide"><i class='bx bx-x'></i></button>
+        <div v-if="weapon.weaponname">
+          <h1>{{ weapon.weaponname }}</h1>
+          <div>{{ weapon.name }}</div>
+        </div>
+        <h1 v-else>{{ weapon.name }}</h1>
+        <button class="sheet-control" @click="DialogWeapon.hide"><i class='bx bxs-x-square'></i></button>
       </div>
       <div class="row gap">
         <div class="column">
@@ -227,6 +231,16 @@ function resetPhase()
   justify-content: space-between;
   padding-left: 2dvw;
   padding-right: 2dvw;
+}
+
+.sheet-control {
+  width: 4vh;
+  height: 4vh;
+  padding: 0;
+  margin: 0;
+  font-size: 3.8vh;
+  color: var(--accent-color);
+  border: none;
 }
 
 </style>/

@@ -80,6 +80,10 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
                   <div class="clickable" v-else>{{ weapon.name }}</div>
                   <div class="subcaption">{{ weapon.category }}</div>
                 </div>
+                <div class="column mag" v-if="weapon.isLoaded">
+                  <div class="ammo">{{ weapon.ammoLoaded }}</div>
+                  <MagazinInfo :bulletsLeft="weapon.bulletsLeft" :magSize="weapon.magSize" />
+                </div>
       </div>
     </div>
   </div>
@@ -88,9 +92,17 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 
 <style scoped>
 
+.ammo {
+  margin-bottom: 0.25rem;
+}
+
 .mag {
-  text-align: right;
-  width: 50dvw;
+  width: 60dvw;
+  align-items: end;
+}
+
+::v-deep(.magazine) {
+  width: 50%;
 }
 
 .box {
