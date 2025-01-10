@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {DialogRollDice,  DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
+import {DialogLoadAutosoft, DialogRollDice, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
 import {computed} from "vue";
@@ -9,6 +9,8 @@ import {Vehicle} from "@/composables/vehicle";
 import {type VehicleInitiative} from "@/composables/types";
 import VehicleAusweichen from "@/components/VehicleAusweichen.vue";
 import MagazinInfo from "@/components/MagazinInfo.vue";
+import {char} from "@/composables/char";
+import {toInt} from "@/composables/utils";
 
 const vehicle = computed<Vehicle>(() => DialogVehicleSheet.getVehicle());
 
@@ -58,7 +60,7 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
               values: vehicle.resistance.elemental.values,
             }
             ).show()">
-              <button>{{ vehicle.resistance.elemental.value }}
+              <button class="dice">{{ vehicle.resistance.elemental.value }}
               </button>
               <div>Elementar</div>
             </div>
@@ -93,31 +95,68 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
       </div>
       <div class="box" v-if="vehicle.weapons.length > 0">
         <strong class="category">Waffen</strong>
-        <div class="item normal-column" v-for="weapon in vehicle.weapons" @click="!weapon.isMelee
-            ? DialogWeapon.setWeapon(weapon).show()
-            : DialogRollDice.setValues(
-            {
-              name: weapon.name,
-              value: toInt(weapon.dicepool),
-              values: [
-                  {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
-                  {name: 'Geschicklichkeit', value: char.attributes.agility.total},
-                  ]
-            }
-            ).show()">
-          <div class="clickable">{{ weapon.name }}</div>
-          <div class="combo-row" v-if="weapon.isLoaded">
-            <div>{{ weapon.ammoLoaded }}</div>
-            <MagazinInfo :bulletsLeft="weapon.bulletsLeft" :magSize="weapon.magSize" />
-          </div>
-        </div>
+        <template v-for="weapon in vehicle.weapons">
+          <template v-if="weapon.isMelee">
+            <div class="item normal-column" @click="
+                DialogRollDice.setValues(
+                {
+                  name: weapon.name,
+                  value: toInt(weapon.dicepool),
+                  values: [
+                      {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                      {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                      ]
+                }
+                ).show()">
+              <div>{{ weapon.name }}</div>
+              <button class="dice" >{{ weapon.dicepool }}</button>
+            </div>
+          </template>
+          <template v-else>
+            <div class="item normal-column" @click="DialogWeapon.setWeapon(weapon).show()">
+              <div class="clickable">{{ weapon.name }}</div>
+              <div class="combo-row" v-if="weapon.isLoaded">
+                <div>{{ weapon.ammoLoaded }}</div>
+                <MagazinInfo :bulletsLeft="weapon.bulletsLeft" :magSize="weapon.magSize" />
+              </div>
+            </div>
+          </template>
+        </template>
       </div>
-      <div class="box" v-if="vehicle.ammunitions.length > 0">
+
+      <div class="box" v-if="vehicle.getAmmunitions().length > 0">
         <strong class="category">Munition</strong>
-        <div class="item" v-for="ammunition in vehicle.ammunitions">
+        <div class="item" v-for="ammunition in vehicle.getAmmunitions()">
           {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
         </div>
       </div>
+
+      <div class="box" v-if="vehicle.sensors.length > 0">
+        <strong class="category">Sensoren</strong>
+        <div v-for="sensor in vehicle.sensors">
+          <div class="item normal-column">
+            <div>{{ sensor.name }} <span v-if="sensor.rating > 0">({{ sensor.rating }})</span></div>
+            <div class="mods" v-for="mod in sensor.mods">{{ mod.name }}
+              <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="box">
+        <strong class="category">Autosofts <i class='bx bxs-cog' @click="DialogLoadAutosoft.show()" ></i></strong>
+        <template v-for="autosoft in vehicle.getAutosofts()">
+          <div class="item">{{ autosoft.name }} ({{ autosoft.rating }}) <template v-if="autosoft.extra">- {{ autosoft.extra}}</template> <span>{{ autosoft.skill }}</span></div>
+        </template>
+      </div>
+
+      <div class="box" v-if="vehicle.mods.length > 0">
+        <strong class="category">Mods</strong>
+        <div class="item" v-for="mod in vehicle.mods">
+          {{ mod.name }}
+        </div>
+      </div>
+
       <div class="box">
         <strong class="category">Stats</strong>
         <div class="item">Handling<span>{{ vehicle.handling }}</span></div>
@@ -125,6 +164,7 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
         <div class="item">Geschwindigkeit<span>{{ vehicle.speed }}</span></div>
         <div class="item">Gerätestufe<span>{{ vehicle.rating }}</span></div>
       </div>
+
       <div class="box">
         <strong class="category">Chip</strong>
         <div class="item">Prozessor<span>{{ vehicle.processor }}</span></div>
@@ -132,35 +172,14 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
         <div class="item">System<span>{{ vehicle.system }}</span></div>
         <div class="item">Firewall<span>{{ vehicle.firewall }}</span></div>
       </div>
+
       <div class="box">
         <strong class="category">Hardware</strong>
         <div class="item">Rumpf<span>{{ vehicle.body }}</span></div>
         <div class="item">Panzerung<span>{{ vehicle.armor }}</span></div>
         <div class="item">Sensor<span>{{ vehicle.sensor }}</span></div>
       </div>
-      <div class="box" v-if="vehicle.sensors.length > 0">
-        <strong class="category">Sensoren</strong>
-        <div v-for="sensor in vehicle.sensors">
-         <div class="item normal-column">
-           <div>{{ sensor.name }} <span v-if="sensor.rating > 0">({{ sensor.rating }})</span></div>
-           <div class="mods" v-for="mod in sensor.mods">{{ mod.name }}
-             <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
-           </div>
-         </div>
-        </div>
-      </div>
-      <div class="box" v-if="vehicle.autosofts.length > 0">
-        <div v-for="autosoft in vehicle.autosofts">
-          <div>{{ autosoft.name }} ({{ autosoft.rating }}) {{ autosoft.skill }}</div>
-          <div>XX</div>
-        </div>
-      </div>
-      <div class="box" v-if="vehicle.mods.length > 0">
-        <strong class="category">Mods</strong>
-        <div class="item" v-for="mod in vehicle.mods">
-          {{ mod.name }}
-        </div>
-      </div>
+
     </div>
   </div>
 
@@ -170,6 +189,10 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
 
 button {
   padding-bottom: 0.5rem;
+}
+
+.dice {
+  margin-right: 3dvw;
 }
 
 .mods {

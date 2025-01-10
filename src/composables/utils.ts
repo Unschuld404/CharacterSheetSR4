@@ -1,4 +1,4 @@
-import {type Ammunition, GearType, type IdObject, type SelectedItem, Spell} from "@/composables/types";
+import {type Ammunition, type AutoSoft, GearType, type IdObject, type SelectedItem, Spell} from "@/composables/types";
 import {translations} from "@/composables/consts";
 
 export function toInt(value: string|number|undefined|null): number {
@@ -47,6 +47,19 @@ export function toArray(valuesAsString: string | null): string[] {
         .filter(item => item.length > 0);
 }
 
+export function removeDuplicates<T>(arr: T[], comparer: (a: T, b: T) => boolean): T[] {
+    const result: T[] = [];
+
+    for (const item of arr)
+    {
+        if (result.findIndex(el => comparer(el, item)) === -1) {
+            result.push(item);
+        }
+    }
+
+    return result;
+}
+
 function isIdObject(obj: any): obj is IdObject {
     return obj && typeof obj.generateId === 'function';
 }
@@ -61,6 +74,10 @@ export function toSelectedItem(obj: any): SelectedItem {
 export function ammunitionEquals(a: Ammunition, b: Ammunition): boolean {
     return a.name === b.name
         && a.extra === b.extra;
+}
+
+export function autosoftEquals(one: AutoSoft, other: AutoSoft): boolean {
+    return one.name === other.name && one.rating === other.rating && one.extra === other.extra;
 }
 
 export function selectedItemEquals(item1: SelectedItem, item2: SelectedItem): boolean {

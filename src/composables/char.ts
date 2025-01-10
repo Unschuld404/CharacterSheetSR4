@@ -29,7 +29,7 @@ import {
     type Movement, type Rigger,
     type Resistance, type SelectedItem,
     type Skill,
-    Spell, type Initiative, type PoolValue, type AutoSoft, type Ammunition, type Gear, Pool
+    Spell, type Initiative, type PoolValue, type Ammunition, type Gear, Pool
 } from "@/composables/types";
 import {Vehicle} from "@/composables/vehicle";
 import {Weapon, WeaponSetting} from "@/composables/weapons";
@@ -56,7 +56,6 @@ export class Charakter implements Container, Rigger {
     vehicles!: Vehicle[];
     weapons!: Weapon[];
     gear: Gear[] = [];
-    autosofts: AutoSoft[] = [];
     monitor!: DamageMonitor;
     magician!: boolean;
     initiategrade!: number;

@@ -312,7 +312,7 @@ export function getCommlink(data: any): Commlink | null {
         response: toInt(item.response),
         rating: toInt(item.rating),
         programs: getProgramsFromData(item.children || []),
-        autosofts: getAutoSoftFromData(item.children || []),
+        autosofts: getAutoSoftsFromData(item.children || []),
         mods: getCommlinkModsFromData(item.children || []),
     }
 }
@@ -337,16 +337,50 @@ export function getWeaponModsFromData(data: any[]): WeaponMod[] {
         }));
 }
 
-export function getAutoSoftFromData(data: any[]): Program[] {
-
+export function getAutoSoftsFromData(data: any[]): AutoSoft[] {
     return data
-        .filter((item: any) => item.category_english == 'Autosofts')
-        .map((item: any) => ({
-            name: item.name || '',
-            rating: toInt(item.rating),
-            extra: item.extra || '',
-        }));
+        .filter((item: any) => item.category_english == 'Autosofts' || item.category_english == 'Autosofts, Drone')
+        .map((item: any) => getAutosoftFromData(item));
 }
+
+function removeGehackt(str: string): string {
+    return str
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s !== 'gehackt')
+        .join(', ');
+}
+
+export function getAutosoftFromData(data: any): AutoSoft {
+    let extra = removeGehackt(data.extra || '')
+
+    return {
+        name: data.name || '',
+        rating: toInt(data.rating),
+        extra: extra,
+        skill: autoSoftNameToSkillName(data.name_english || ''),
+    }
+}
+
+function autoSoftNameToSkillName(name: string): string {
+    switch (name) {
+        case 'Clearsight':
+            return 'Wahrnehmung';
+        case 'Maneuver':
+            return 'Manövrieren';
+        case 'Targeting':
+            return 'Angriff';
+        case 'Covert Ops':
+            return 'Infiltration / Heimlichkeit';
+        case 'Defense':
+            return 'Verteidigung';
+        case 'Electronic Warfare':
+            return 'Signale abfangen/stören';
+        default:
+            return '';
+    }
+}
+
 export function getProgramsFromData(data: any[]): Program[] {
     return data
         .filter((item: any) => item.category_english == 'Matrix Programs')

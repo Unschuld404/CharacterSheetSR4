@@ -1,4 +1,4 @@
-import {toBool, toInt} from "@/composables/utils";
+import {autosoftEquals, toBool, toInt} from "@/composables/utils";
 import {
     type Ammunition,
     type AutoSoft,
@@ -17,7 +17,7 @@ import {
 } from "@/composables/types";
 
 import {type Weapon, WeaponSetting} from "@/composables/weapons";
-import {getAmmunitionFromData, getGearFromGearData, getWeapons} from "@/composables/data";
+import {getAmmunitionFromData, getAutosoftFromData, getGearFromGearData, getWeapons} from "@/composables/data";
 import {char} from "@/composables/char";
 
 export class VehicleSetting  {
@@ -53,6 +53,8 @@ export class Vehicle implements IdObject,Container  {
 
     monitor: Damage = { filled: 0, max:0 };
 
+
+    autosofts: AutoSoft[] = [];
     weapons: Weapon[] = [];
     sensors: Sensor[] = [];
     mods : VehicleMod[] = [];
@@ -96,9 +98,9 @@ export class Vehicle implements IdObject,Container  {
 
     get mode(): VehicleMode { return this.settings.selectedVehicleMode }
     set mode(mode: VehicleMode) { this.settings.selectedVehicleMode = mode }
-    get autosofts(): AutoSoft[] { return this.settings.autosofts }
-    get ammunitions(): Ammunition[] { return this.settings.ammunitions }
     getAmmunitions(): Ammunition[] { return this.settings.ammunitions }
+    getAutosofts(): AutoSoft[] { return this.settings.autosofts }
+    getAutosoftsFromStorage(): AutoSoft[] { return this.autosofts }
 
     evade(type: EvadeType, fullDefense: boolean, mode: VehicleMode): Pool {
 
@@ -189,7 +191,6 @@ export class Vehicle implements IdObject,Container  {
         this.items = [];
 
         const ammunitions : Ammunition[] = [];
-        const autosofts : AutoSoft[] = [];
 
         const settings = findVehicleSettingsForVehicle(this);
         const newSettings = settings === null;
@@ -205,7 +206,7 @@ export class Vehicle implements IdObject,Container  {
             }
             else if (gear.category_english == 'Autosofts' || gear.category_english == 'Autosofts, Drone')
             {
-                autosofts.push(getAutoSoftFromAutoSoftData(gear));
+                this.autosofts.push(getAutosoftFromData(gear));
             }
             else if (toBool(gear.isammo))
             {
@@ -232,7 +233,7 @@ export class Vehicle implements IdObject,Container  {
 
         if (newSettings)
         {
-            this.settings.autosofts = autosofts;
+            this.settings.autosofts = this.autosofts;
             this.settings.ammunitions = ammunitions;
         }
 
@@ -273,8 +274,23 @@ export class Vehicle implements IdObject,Container  {
         return this.settings.weaponSettings;
     }
 
+    loadAutosoft(value: AutoSoft): void  {
+        const index = this.settings.autosofts.findIndex((item: AutoSoft) => autosoftEquals(item, value));
+        if (index == -1) {
+            this.settings.autosofts.push(value);
+        }
+    }
+
+    unloadAutosoft(value: AutoSoft): void  {
+        const index = this.settings.autosofts.findIndex((item: AutoSoft) => autosoftEquals(item, value));
+        if (index >= 0)
+        {
+            this.settings.autosofts.splice(index, 1);
+        }
+    }
+
     autoSoftValue(name: string): PoolValue {
-        const value = this.autosofts.find((item: any) => item.name === name)?.rating ?? 0;
+        const value = this.getAutosofts().find((item: any) => item.name === name)?.rating ?? 0;
         return {name: name, value: value};
     }
 
@@ -336,32 +352,4 @@ function getGearsFromData(data: any): any[] {
 function getChildrenFromData(data: any): any[]  {
     let children = data?.children ?? [];
     return Array.isArray(children) ? children : [];
-}
-
-function getAutoSoftFromAutoSoftData(data: any): AutoSoft {
-    return {
-        name : data.name,
-        rating: toInt(data.rating),
-        skill: autoSoftNameToSkillName(data.name_english),
-        sensorBased: data.name_english == 'Clearsight',
-    }
-}
-
-function autoSoftNameToSkillName(name: string): string {
-    switch (name) {
-        case 'Clearsight':
-            return 'Wahrnehmung';
-        case 'Maneuver':
-            return 'Manövrieren';
-        case 'Targeting':
-            return 'Angriff';
-        case 'Covert Ops':
-            return 'Infiltration / Heimlichkeit';
-        case 'Defense':
-            return 'Verteidigung';
-        case 'Electronic Warfare':
-            return 'Signale abfangen/stören';
-        default:
-            return '';
-    }
 }

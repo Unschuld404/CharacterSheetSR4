@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import {char} from "@/composables/char";
 import {DialogCommlink} from "@/composables/dialogs";
-import {computed} from "vue";
-import {type Gear, GearType} from "@/composables/types";
-const commlink = computed(()=>{
-  return char.gear.find((item:Gear) =>{
-    return (item.type == GearType.Commlink) && item.equipped;
-  }) ?? null;
-})
-
 </script>/
 
 <template>

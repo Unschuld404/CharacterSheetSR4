@@ -16,6 +16,7 @@ import CommlinkSheet from "@/components/Sheets/CommlinkSheet.vue";
 import VehicleSheet from "@/components/Sheets/VehicleSheet.vue";
 import ChooseAction from "@/components/Dialoge/ChooseAction.vue";
 import ChooseSkill from "@/components/Dialoge/ChooseSkill.vue";
+import LoadAutosoft from "@/components/Dialoge/LoadAutosoft.vue";
 
 </script>
 
@@ -39,7 +40,7 @@ import ChooseSkill from "@/components/Dialoge/ChooseSkill.vue";
   <VehicleSheet/>
   <ChooseSkill/>
   <ChooseAction/>
-
+  <LoadAutosoft/>
   <Header  v-if="dataIsValid()"/>
 
 </template>

@@ -9,7 +9,7 @@ import {
 } from "@/composables/data";
 import {WeaponSetting} from "@/composables/weapons";
 import type {VehicleSetting} from "@/composables/vehicle";
-import {toBool, toInt} from "@/composables/utils";
+import {toInt} from "@/composables/utils";
 
 export const sheet_data = ref<any | null>(null);
 
@@ -101,7 +101,7 @@ function getAutoSoftFromSheetData(data: any): AutoSoft {
         name: data.name,
         rating: toInt(data.rating),
         skill: data.skill,
-        sensorBased: toBool(data.sensorBased),
+        extra: data.extra,
     }
 }
 

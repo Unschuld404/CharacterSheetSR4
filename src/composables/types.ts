@@ -132,8 +132,8 @@ export type Sensor = {
 export type AutoSoft = {
     name: string;
     rating: number;
+    extra: string;
     skill: string;
-    sensorBased: boolean;
 }
 
 export type Attribute = {
@@ -326,7 +326,7 @@ export type Commlink = {
     rating: number;
     programs: Program[];
     mods: CommlinkMod[];
-    autosofts: Program[];
+    autosofts: AutoSoft[];
 }
 
 export enum VehicleMode {

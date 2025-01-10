@@ -9,6 +9,7 @@ import {
 } from "@/composables/types";
 import {Weapon} from "@/composables/weapons";
 import {Vehicle} from "@/composables/vehicle";
+import ChooseAutosoft from "@/components/Dialoge/LoadAutosoft.vue";
 
 export class Dialog  {
     visible: boolean;
@@ -128,6 +129,7 @@ export class WeaponDialog extends Dialog {
     }
 }
 
+
 export class RollDiceDialog extends Dialog {
 
     name: string = 'Würfeln';
@@ -196,3 +198,4 @@ export const DialogEdgeDiceResult = reactive(new Dialog());
 export const DialogCommlink = reactive(new Dialog());
 export const DialogChooseSkill = reactive(new Dialog());
 export const DialogChooseAction = reactive(new Dialog());
+export const DialogLoadAutosoft = reactive(new Dialog());
