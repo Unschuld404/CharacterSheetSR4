@@ -4,9 +4,11 @@ import {
     type AutoSoft,
     type Container,
     type Damage,
-    EvadeType, type Gear,
+    EvadeType,
+    type Gear,
     type IdObject,
-    Pool, type PoolValue,
+    Pool,
+    type PoolValue,
     type Rigger,
     type Sensor,
     type SensorMod,
@@ -26,6 +28,7 @@ export class VehicleSetting  {
     ammunitions: Ammunition[] = [];
     autosofts: AutoSoft[] = [];
     weaponSettings : WeaponSetting[] = [];
+    maneuverSkill: string = '';
 }
 
 export class Vehicle implements IdObject,Container  {
@@ -231,10 +234,21 @@ export class Vehicle implements IdObject,Container  {
             }
         }
 
-        if (newSettings)
-        {
+        if (newSettings) {
             this.settings.autosofts = this.autosofts;
             this.settings.ammunitions = ammunitions;
+            if (this.mods.find((mod) =>  mod.name.includes('Start-/Landeprofil') || mod.limit.includes('Aircraft')))
+            {
+                this.settings.maneuverSkill = 'Flugzeuge';
+            }
+            else if (this.mods.find((mod) =>  mod.name.includes('Geckofüße')))
+            {
+                this.settings.maneuverSkill = 'Läufer';
+            }
+            else
+            {
+                this.settings.maneuverSkill = 'Bodenfahrzeuge';
+            }
         }
 
         return this;
@@ -292,6 +306,71 @@ export class Vehicle implements IdObject,Container  {
     autoSoftValue(name: string): PoolValue {
         const value = this.getAutosofts().find((item: any) => item.name === name)?.rating ?? 0;
         return {name: name, value: value};
+    }
+
+    getSensorPoolValue(): PoolValue {
+        const cam = this.sensors.find((item) => item.name == 'Kamera') ?? null;
+        if (cam !== null)
+        {
+            return {
+                name: cam.name,
+                value: cam.rating,
+            }
+        }
+        return {
+            name: 'Sensor',
+            value: this.sensor,
+        }
+    }
+
+    getAutosoftPoolValueFor(skill: string): PoolValue {
+        const autosoft = this.getAutosofts().find((item) => item.skill == skill) ?? null;
+        if (autosoft == null)
+        {
+            return {name: 'Autosoft', value: 0};
+        }
+        return {name: autosoft.name, value: autosoft.rating};
+    }
+
+    getRiggerSkillPoolValueFor(skill: string): PoolValue {
+        return this.rigger.getSkill(skill);
+    }
+
+    getPilotPoolValue(): PoolValue {
+        return {name: 'Pilot', value: this.pilot};
+    }
+
+    getProzessorPoolValue(): PoolValue {
+        return {name: 'Prozessor', value: this.processor};
+    }
+
+    getRiggerCommandPoolValue(): PoolValue {
+        return this.rigger.getCommandValue();
+    }
+
+    getActions(): Pool[]
+    {
+        switch (this.mode) {
+            case VehicleMode.Auto: return [
+                new Pool('Wahrnehmung').addPoolValue(this.getSensorPoolValue()).addPoolValue(this.getAutosoftPoolValueFor('Wahrnehmung')),
+                new Pool('Manövrieren').addPoolValue(this.getPilotPoolValue()).addPoolValue(this.getAutosoftPoolValueFor('Manövrieren')),
+                new Pool('Heimlichkeit').addPoolValue(this.getPilotPoolValue()).addPoolValue(this.getAutosoftPoolValueFor('Infiltration / Heimlichkeit')),
+                new Pool('Elektronische Kriegsführung').addPoolValue(this.getPilotPoolValue()).addPoolValue(this.getAutosoftPoolValueFor('Signale abfangen/stören')),
+            ]
+            case VehicleMode.VR: return [
+                new Pool('Wahrnehmung').addPoolValue(this.getSensorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Wahrnehmung')),
+                new Pool('Manövrieren').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor(this.settings.maneuverSkill)),
+                new Pool('Heimlichkeit').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Infiltration')),
+                new Pool('Elektronische Kriegsführung').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Elektronische Kriegsführung')),
+            ]
+            case VehicleMode.Remote: return [
+                new Pool('Wahrnehmung').addPoolValue(this.getSensorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Wahrnehmung')),
+                new Pool('Manövrieren').addPoolValue(this.getRiggerCommandPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor(this.settings.maneuverSkill)),
+                new Pool('Heimlichkeit').addPoolValue(this.getRiggerCommandPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Infiltration')),
+                new Pool('Elektronische Kriegsführung').addPoolValue(this.getRiggerCommandPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Elektronische Kriegsführung')),
+            ]
+            default: return [];
+        }
     }
 
 }

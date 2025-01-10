@@ -263,6 +263,7 @@ export interface Rigger {
     getDefenseMeleeSkill(): PoolValue;
     getEvadeSkill(): PoolValue;
     getCommandValue(): PoolValue;
+    getSkill(name: string): PoolValue;
 }
 
 export class Spell implements IdObject {
