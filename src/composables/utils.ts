@@ -76,6 +76,16 @@ export function ammunitionEquals(a: Ammunition, b: Ammunition): boolean {
         && a.extra === b.extra;
 }
 
+export function cloneAmmunition(ammo: Ammunition): Ammunition {
+    return {
+        name : ammo.name,
+        extra: ammo.extra,
+        count: ammo.count,
+        dmg: ammo.dmg,
+        ap: ammo.ap,
+    }
+}
+
 export function autosoftEquals(one: AutoSoft, other: AutoSoft): boolean {
     return one.name === other.name && one.rating === other.rating && one.extra === other.extra;
 }

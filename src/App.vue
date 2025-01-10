@@ -17,6 +17,7 @@ import VehicleSheet from "@/components/Sheets/VehicleSheet.vue";
 import ChooseAction from "@/components/Dialoge/ChooseAction.vue";
 import ChooseSkill from "@/components/Dialoge/ChooseSkill.vue";
 import LoadAutosoft from "@/components/Dialoge/LoadAutosoft.vue";
+import TransferAmmunition from "@/components/Dialoge/TransferAmmunition.vue";
 
 </script>
 
@@ -41,6 +42,7 @@ import LoadAutosoft from "@/components/Dialoge/LoadAutosoft.vue";
   <ChooseSkill/>
   <ChooseAction/>
   <LoadAutosoft/>
+  <TransferAmmunition/>
   <Header  v-if="dataIsValid()"/>
 
 </template>

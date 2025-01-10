@@ -1,6 +1,12 @@
 <script setup lang="ts">
 
-import {DialogLoadAutosoft, DialogRollDice, DialogVehicleSheet, DialogWeapon} from "@/composables/dialogs";
+import {
+  DialogLoadAutosoft,
+  DialogRollDice,
+  DialogTransferAmmunition,
+  DialogVehicleSheet,
+  DialogWeapon
+} from "@/composables/dialogs";
 import RadioButtons from "@/components/RadioButtons.vue";
 import {VehicleModes} from "@/composables/consts";
 import {computed} from "vue";
@@ -124,10 +130,10 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
         </template>
       </div>
 
-      <div class="box" v-if="vehicle.getAmmunitions().length > 0">
-        <strong class="category">Munition</strong>
+      <div class="box">
+        <strong class="category">Munition <i class='bx bx-transfer-alt' @click="DialogTransferAmmunition.show()" ></i></strong>
         <div class="item" v-for="ammunition in vehicle.getAmmunitions()">
-          {{ ammunition.count }} x {{ ammunition.name }}<i class='bx bx-transfer-alt'></i>
+          {{ ammunition.count }} x {{ ammunition.name }}
         </div>
       </div>
 

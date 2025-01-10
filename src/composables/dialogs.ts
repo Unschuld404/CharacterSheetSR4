@@ -199,3 +199,4 @@ export const DialogCommlink = reactive(new Dialog());
 export const DialogChooseSkill = reactive(new Dialog());
 export const DialogChooseAction = reactive(new Dialog());
 export const DialogLoadAutosoft = reactive(new Dialog());
+export const DialogTransferAmmunition = reactive(new Dialog());
