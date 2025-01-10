@@ -51,8 +51,8 @@ export class Sheet {
 
 function getDamageTaken(data: any): DamageTaken {
     return {
-        physical: toInt(data?.physical ?? null),
-        stun: toInt(data?.stun ?? null),
+        physical: toInt(data?.damage?.physical ?? null),
+        stun: toInt(data?.damage?.stun ?? null),
     };
 }
 

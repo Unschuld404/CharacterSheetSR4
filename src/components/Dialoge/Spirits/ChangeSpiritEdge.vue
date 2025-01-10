@@ -4,12 +4,18 @@ import {char} from "@/composables/char";
 
 function add()
 {
-  DialogSpiritSheet.spirit.edge++;
+  if(DialogSpiritSheet.spirit.edge < DialogSpiritSheet.spirit.edgeMax)
+  {
+    DialogSpiritSheet.spirit.edge++;
+  }
 }
 
 function substract()
 {
-  DialogSpiritSheet.spirit.edge--;
+  if(DialogSpiritSheet.spirit.edge > 0)
+  {
+    DialogSpiritSheet.spirit.edge--;
+  }
 }
 
 </script>/

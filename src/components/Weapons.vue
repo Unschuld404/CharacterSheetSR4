@@ -53,8 +53,8 @@ function toggleSelection(item: Weapon): void
                   }
                   ).show()">
             <div class="column">
-              <div v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
-              <div v-else>{{ weapon.name }}</div>
+              <div v-if="weapon.weaponname" class="clickable">{{ weapon.weaponname }}</div>
+              <div v-else class="clickable">{{ weapon.name }}</div>
               <div>Schaden: <strong>{{ weapon.damage }}</strong></div>
               <div v-if="weapon.ap != '-'">PB: <strong>{{ weapon.ap }}</strong></div>
             </div>
