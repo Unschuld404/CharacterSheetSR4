@@ -509,6 +509,19 @@ export class Charakter implements Container, Rigger {
 
     getWeaponPoolValues(weapon: Weapon): PoolValue[] | null
     {
+        /*  der Skill ist nicht bekannt. ein zusätzlicher Modifier zB vom Smartgun würde auf den Skill gerechnet werden.
+          {
+            name: weapon.name,
+            value: toInt(weapon.dicepool) + rangeModifier + modeModifier,
+            values: [
+                {name: 'Fertigkeit', value: toInt(weapon.dicepool)-char.attributes.agility.total},
+                {name: 'Geschicklichkeit', value: char.attributes.agility.total},
+                {name: 'Distanz', value: rangeModifier},
+                {name: 'Modus', value: modeModifier},
+                ]
+          }
+         */
+
         return null;
     }
 

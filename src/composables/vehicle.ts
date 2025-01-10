@@ -279,11 +279,6 @@ export class Vehicle implements IdObject,Container  {
         return this;
     }
 
-    getWeaponPoolValues(weapon: Weapon): PoolValue[] | null
-    {
-        return null;
-    }
-
     getWeaponSettings(): WeaponSetting[] {
         return this.settings.weaponSettings;
     }
@@ -348,6 +343,20 @@ export class Vehicle implements IdObject,Container  {
         return this.rigger.getCommandValue();
     }
 
+    getWeaponPoolValues(weapon: Weapon): PoolValue[] | null
+    {
+        switch (this.mode) {
+            case VehicleMode.Auto:
+                return [this.getPilotPoolValue(), this.getAutosoftPoolValueFor('Angriff')]
+            case VehicleMode.VR:
+                return [this.getSensorPoolValue(), this.getRiggerSkillPoolValueFor('Geschütze'), {name: 'HOT Sim', value: 2}]
+            case VehicleMode.Remote:
+                return [this.getRiggerCommandPoolValue(), this.getRiggerSkillPoolValueFor('Geschütze')]
+            default:
+                return [];
+        }
+    }
+
     getActions(): Pool[]
     {
         switch (this.mode) {
@@ -358,10 +367,10 @@ export class Vehicle implements IdObject,Container  {
                 new Pool('Elektronische Kriegsführung').addPoolValue(this.getPilotPoolValue()).addPoolValue(this.getAutosoftPoolValueFor('Signale abfangen/stören')),
             ]
             case VehicleMode.VR: return [
-                new Pool('Wahrnehmung').addPoolValue(this.getSensorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Wahrnehmung')),
-                new Pool('Manövrieren').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor(this.settings.maneuverSkill)),
-                new Pool('Heimlichkeit').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Infiltration')),
-                new Pool('Elektronische Kriegsführung').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Elektronische Kriegsführung')),
+                new Pool('Wahrnehmung').addPoolValue(this.getSensorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Wahrnehmung')).add('HOT Sim', 2),
+                new Pool('Manövrieren').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor(this.settings.maneuverSkill)).add('HOT Sim', 2),
+                new Pool('Heimlichkeit').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Infiltration')).add('HOT Sim', 2),
+                new Pool('Elektronische Kriegsführung').addPoolValue(this.getProzessorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Elektronische Kriegsführung')).add('HOT Sim', 2),
             ]
             case VehicleMode.Remote: return [
                 new Pool('Wahrnehmung').addPoolValue(this.getSensorPoolValue()).addPoolValue(this.getRiggerSkillPoolValueFor('Wahrnehmung')),
