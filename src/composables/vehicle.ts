@@ -165,6 +165,11 @@ export class Vehicle implements IdObject,Container  {
             }
         }
 
+        if (mode == VehicleMode.VR)
+        {
+            pool.add('HOT Sim', 2);
+        }
+
         return pool;
     }
 
