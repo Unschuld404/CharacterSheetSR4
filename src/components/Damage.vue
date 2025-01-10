@@ -2,6 +2,7 @@
 
 import {char} from "@/composables/char";
 import {uploadSheet} from "@/composables/fetch";
+import {computed} from "vue";
 
 function store()
 {
@@ -10,7 +11,7 @@ function store()
 
 function takePhysicalDamage()
 {
-  if (char.monitor.physical.filled < char.monitor.physical.max)
+  if (char.monitor.physical.filled < deathPool)
   {
     char.monitor.physical.filled++;
     store();
@@ -33,6 +34,9 @@ function takeStunDamage()
     char.monitor.stun.filled++;
     store();
   }
+  else {
+    char.monitor.physical.filled++;
+  }
 }
 
 function healStunDamage()
@@ -43,6 +47,17 @@ function healStunDamage()
     store();
   }
 }
+
+const deathPool = char.monitor.physical.max + char.monitor.overflow;
+
+const damageModifier = computed(() => {
+  return (Math.floor(Math.max(0, char.monitor.physical.filled - char.monitor.offset) / char.monitor.threshold))
+  + (Math.floor(Math.max(0, char.monitor.stun.filled - char.monitor.offset) / char.monitor.threshold));
+})
+
+const unconscious = computed(() => {
+  return (char.monitor.physical.filled >= char.monitor.physical.max) || (char.monitor.stun.filled >= char.monitor.stun.max);
+})
 
 </script>
 
@@ -65,8 +80,21 @@ function healStunDamage()
       </div>
     </div>
   </div>
-  <div class="box">
-    <strong>Du stirbst!</strong>
+  <div class="box" v-if="damageModifier > 0">
+    <div v-if="char.monitor.physical.filled == deathPool">
+      <i class='bx bxs-skull'></i>
+      <div><strong>{{char.monitor.physical.filled}}</strong> / {{ deathPool }}</div>
+      <div>Du bist tot</div>
+    </div>
+    <div v-else>
+      <div v-if="unconscious">
+        <div><strong>{{char.monitor.physical.filled}}</strong> / {{ deathPool }}</div>
+        <div>Du bist bewusstlos</div>
+      </div>
+      <div v-else>
+        Du hast einen Abzug von {{damageModifier}} auf deine Würfelproben
+      </div>
+    </div>
   </div>
 </template>
 
