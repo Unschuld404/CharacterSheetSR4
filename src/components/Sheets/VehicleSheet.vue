@@ -94,11 +94,26 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </div>
+
       <div>
         <VehicleAusweichen/>
       </div>
+
+      <div class="combo-row">
+        <div class="box">
+          <strong class="category">Aktionen</strong>
+          <div class="row">
+            <div class="dice-column" v-for="action in vehicle.getActions()" :key="action.name" @click="DialogRollDice.setPool(action).show()">
+              <button>{{ action.value}}</button>
+              <div>{{ action.name }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <div class="box" v-if="vehicle.weapons.length > 0">
         <strong class="category">Waffen</strong>
         <template v-for="weapon in vehicle.weapons">

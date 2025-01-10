@@ -8,8 +8,8 @@
   import {autosoftEquals, removeDuplicates} from "@/composables/utils";
 
   const commlinkAutosofts = computed(() => char.commlink?.autosofts ?? []);
-  const storageAutosofts = computed(() => DialogVehicleSheet.vehicle?.getAutosoftsFromStorage() ?? []);
-  const loadedAutosofts = computed(() => DialogVehicleSheet.vehicle?.getAutosofts() ?? []);
+  const storageAutosofts = computed(() => DialogVehicleSheet.getVehicle().getAutosoftsFromStorage());
+  const loadedAutosofts = computed(() => DialogVehicleSheet.getVehicle().getAutosofts());
 
   const autosofts = computed(() => {
     return removeDuplicates(
@@ -38,11 +38,11 @@
   {
     if (isLoaded(value))
     {
-      DialogVehicleSheet.vehicle?.unloadAutosoft(value);
+      DialogVehicleSheet.getVehicle().unloadAutosoft(value);
     }
     else
     {
-      DialogVehicleSheet.vehicle?.loadAutosoft(value);
+      DialogVehicleSheet.getVehicle().loadAutosoft(value);
     }
 
     uploadSheet().then();

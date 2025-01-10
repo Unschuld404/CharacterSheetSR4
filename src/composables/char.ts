@@ -483,6 +483,11 @@ export class Charakter implements Container, Rigger {
         return { name: skill.name, value: skill.total};
     }
 
+    getSkill(name: string): PoolValue {
+        const skill = this.skillByName(name);
+        return { name: skill.name, value: skill.total};
+    }
+
     getCommandValue(): PoolValue {
         const value = this.commlink?.programs?.find(item => item.name === 'Befehl')?.rating ?? 0;
         return { name: 'Befehl', value: value };
