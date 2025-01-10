@@ -3,6 +3,10 @@
   import {char} from "@/composables/char";
   import {uploadSheet} from "@/composables/fetch";
   import {DialogChooseSkill} from "@/composables/dialogs";
+  import {computed} from "vue";
+
+  const knowledgeSkills = computed(() => char.knowledgeSkills.filter((skill) => skill.total > 0 || char.isSkillSelected(skill.name)));
+  const activeSkills = computed(() => char.actionSkills.filter((skill) => skill.total > 0 || char.isSkillSelected(skill.name)));
 
   function toggleSkill(value: string)
   {
@@ -26,22 +30,22 @@
     <div class="dialog-box column" @click.stop>
       <strong>Wissensfertigkeiten</strong>
       <ul>
-        <li v-for="skill in char.knowledgeSkills" :key="skill.name" class="item">
+        <li v-for="skill in knowledgeSkills" :key="skill.name" class="item">
           <template v-if="skill.rating == 0 && skill.type == 'Language'">
             <div>{{ skill.name }} ( nat )</div>
           </template>
 
           <template v-else>
-            <div>{{ skill.name }} ( {{skill.rating}} )</div>
+            <div>{{ skill.name }} {{skill.total}} ( {{skill.rating}} )</div>
           </template>
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
         </li>
       </ul>
     <strong>Aktionsfertigkeiten</strong>
     <ul>
-      <li v-for="skill in char.actionSkills" :key="skill.name">
+      <li v-for="skill in activeSkills" :key="skill.name">
       <div class="item">
-        <div>{{ skill.name }} ( {{skill.rating}} )</div>
+        <div>{{ skill.name }} {{skill.total}} ( {{skill.rating}} ) </div>
         <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
       </div>
       </li>
