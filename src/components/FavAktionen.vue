@@ -75,10 +75,19 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
                     ]
               }
               ).show()">
-                <div class="column">
-                  <div class="clickable" v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
-                  <div class="clickable" v-else>{{ weapon.name }}</div>
-                  <div class="subcaption">{{ weapon.category }}</div>
+                <div class="row">
+                  <div class="column">
+                    <div v-if="!weapon.isMelee">
+                      <div class="clickable" v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
+                      <div class="clickable" v-else>{{ weapon.name }}</div>
+                    </div>
+                    <div v-else>
+                      <div v-if="weapon.weaponname">{{ weapon.weaponname }}</div>
+                      <div v-else>{{ weapon.name }}</div>
+                    </div>
+                    <div class="subcaption">{{ weapon.category }}</div>
+                  </div>
+                  <button v-if="weapon.isMelee" class="dice">{{ weapon.dicepool }}</button>
                 </div>
                 <div class="column mag" v-if="weapon.isLoaded">
                   <div class="ammo">{{ weapon.ammoLoaded }}</div>
@@ -91,6 +100,11 @@ const weapons = computed<Weapon[]>(() => char.weapons.filter((obj) =>  char.isIt
 </template>
 
 <style scoped>
+
+.dice {
+  margin-right: 3dvw;
+  align-self: center;
+}
 
 .ammo {
   margin-bottom: 0.25rem;

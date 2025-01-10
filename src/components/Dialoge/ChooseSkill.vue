@@ -36,7 +36,7 @@
           </template>
 
           <template v-else>
-            <div>{{ skill.name }} {{skill.total}} ( {{skill.rating}} )</div>
+            <div>{{ skill.name }}<strong> {{skill.total}} </strong> ( {{skill.rating}} )</div>
           </template>
           <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
         </li>
@@ -45,7 +45,7 @@
     <ul>
       <li v-for="skill in activeSkills" :key="skill.name">
       <div class="item">
-        <div>{{ skill.name }} {{skill.total}} ( {{skill.rating}} ) </div>
+        <div>{{ skill.name }}<strong> {{skill.total}} </strong> ( {{skill.rating}} ) </div>
         <input type="checkbox" class="favourite" :checked="char.isSkillSelected(skill.name)" @change="toggleSkill(skill.name)">
       </div>
       </li>

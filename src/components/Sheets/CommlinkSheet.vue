@@ -81,6 +81,7 @@ import {DialogCommlink} from "@/composables/dialogs";
 
 .item {
   padding-left: 3dvw;
+  min-height: 3rem;
 }
 
 .item:last-child {

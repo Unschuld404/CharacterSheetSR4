@@ -55,19 +55,25 @@
 <template>
 
   <div v-if="DialogTransferAmmunition.visible" class="overlay" @click="DialogTransferAmmunition.hide()">
-    <div class="dialog-box column" @click.stop>
+    <div class="dialog-box" @click.stop>
       <ul>
         <li v-for="ammo in ammunitions" :key="ammo.name" class="item">
-          <div>{{ ammo.name }} - {{ ammo.extra }}</div>
-          <span>{{ charCount(ammo) }}</span>
-          <input
-              type="range"
-              min="0"
-              :max="maxCount(ammo)"
-              step="1"
-              :value="vehicleCount(ammo)"
-              @input="onSliderChange($event, ammo)"
-          /><span>{{ vehicleCount(ammo) }}</span>
+         <div class="column">
+           <div>{{ ammo.name }} - {{ ammo.extra }}</div>
+           <div class="row">
+             <div class="count">{{ charCount(ammo) }}</div>
+             <input
+                 class="slider"
+                 type="range"
+                 min="0"
+                 :max="maxCount(ammo)"
+                 step="10"
+                 :value="vehicleCount(ammo)"
+                 @input="onSliderChange($event, ammo)"
+             />
+             <div class="count">{{ vehicleCount(ammo) }}</div>
+           </div>
+         </div>
         </li>
       </ul>
     </div>
@@ -77,22 +83,57 @@
 
 <style scoped>
 
-strong {
-  padding-top: 1rem;
-  padding-left: 2vw;
+input {
+  width: 70%;
+  margin: 0.5rem 1rem 0;
+}
+
+.count {
+  width: 15%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  height: 1rem;
+  background: var(--primary-color);
+  outline: none;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  border-bottom: none;
+  border-radius: 1rem;
+}
+
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: var(--accent-color);
+  cursor: pointer;
+  border-radius: 50%;
 }
 
 .dialog-box {
-  height: 80dvh;
+  height: 80vh;
   width: 90dvw;
   overflow: scroll;
-  padding: 0;
+  padding: 2vh 0 1vh;
   align-items: normal;
 }
 
 .item {
-  padding: 0 2vw;
+  padding: 0.5rem 2dvw;
+  justify-content: space-between;
 }
 
+.item:last-child {
+  border-bottom: none;
+}
+
+.column {
+  text-align: center;
+  width: 100%;
+}
 
 </style>/

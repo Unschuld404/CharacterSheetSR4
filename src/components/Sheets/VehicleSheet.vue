@@ -114,8 +114,10 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
                       ]
                 }
                 ).show()">
-              <div>{{ weapon.name }}</div>
-              <button class="dice" >{{ weapon.dicepool }}</button>
+              <div class="melee">
+                <div>{{ weapon.name }}</div>
+                <button class="dice" >{{ weapon.dicepool }}</button>
+              </div>
             </div>
           </template>
           <template v-else>
@@ -131,8 +133,8 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
       </div>
 
       <div class="box">
-        <strong class="category">Munition <i class='bx bx-transfer-alt' @click="DialogTransferAmmunition.show()" ></i></strong>
-        <div class="item" v-for="ammunition in vehicle.getAmmunitions()">
+        <strong class="category">Munition <i class='bx bx-transfer-alt clickable' @click="DialogTransferAmmunition.show()" ></i></strong>
+        <div class="item" v-for="ammunition in vehicle.getAmmunitions()" @click="DialogTransferAmmunition.show()">
           {{ ammunition.count }} x {{ ammunition.name }}
         </div>
       </div>
@@ -142,7 +144,7 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
         <div v-for="sensor in vehicle.sensors">
           <div class="item normal-column">
             <div>{{ sensor.name }} <span v-if="sensor.rating > 0">({{ sensor.rating }})</span></div>
-            <div class="mods" v-for="mod in sensor.mods">{{ mod.name }}
+            <div class="subcaption" v-for="mod in sensor.mods">{{ mod.name }}
               <template v-if="mod.rating > 0">( {{ mod.rating }} )</template>
             </div>
           </div>
@@ -150,9 +152,14 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
       </div>
 
       <div class="box">
-        <strong class="category">Autosofts <i class='bx bxs-cog' @click="DialogLoadAutosoft.show()" ></i></strong>
+        <strong class="category">Autosofts <i class='bx bxs-cog clickable' @click="DialogLoadAutosoft.show()" ></i></strong>
         <template v-for="autosoft in vehicle.getAutosofts()">
-          <div class="item">{{ autosoft.name }} ({{ autosoft.rating }}) <template v-if="autosoft.extra">- {{ autosoft.extra}}</template> <span>{{ autosoft.skill }}</span></div>
+          <div class="normal-column item">
+            <div>{{ autosoft.name }} ({{ autosoft.rating }})</div>
+            <div class="subcaption">
+              <template v-if="autosoft.extra">{{ autosoft.extra}}</template> <span>{{ autosoft.skill }}</span>
+            </div>
+          </div>
         </template>
       </div>
 
@@ -169,6 +176,7 @@ const initiative = computed<VehicleInitiative>(() => vehicle.value.initiative );
         <div class="item">Beschleunigung<span>{{ vehicle.accel }}</span></div>
         <div class="item">Geschwindigkeit<span>{{ vehicle.speed }}</span></div>
         <div class="item">Gerätestufe<span>{{ vehicle.rating }}</span></div>
+        <div class="item">Pilot<span>{{ vehicle.pilot }}</span></div>
       </div>
 
       <div class="box">
@@ -197,12 +205,16 @@ button {
   padding-bottom: 0.5rem;
 }
 
-.dice {
-  margin-right: 3dvw;
+.melee {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.mods {
-  padding-left: 0.5rem;
+.dice {
+  margin-right: 3dvw;
 }
 
 .sheet-header {
