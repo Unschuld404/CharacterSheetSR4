@@ -10,7 +10,7 @@ const commlink = computed(()=>{
 <template>
 
   <div v-if="commlink != null" class="box" @click="DialogCommlink.show">
-    <strong>Kommlink</strong>
+    <strong>Kommlink !</strong>
     <div class="clickable">{{commlink.name}}</div>
     <div class="row">
       <div v-if="commlink.system > 0" class="column">
