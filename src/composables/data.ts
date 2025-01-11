@@ -314,6 +314,7 @@ export function getCommlink(data: any): Commlink | null {
         programs: getProgramsFromData(item.children || []),
         autosofts: getAutoSoftsFromData(item.children || []),
         mods: getCommlinkModsFromData(item.children || []),
+        sins: getSinsFromData(item.children || []),
     }
 }
 
@@ -326,6 +327,11 @@ export function getCommlinkModsFromData(data: any[]): CommlinkMod[] {
             rating: toInt(item.rating),
             category: item.category || '',
         }));
+}
+export function getSinsFromData(data: any[]): Gear[] {
+    return data
+        .filter((item: any) => toBool(item.issin))
+        .map((item: any) => getGearFromGearData(item));
 }
 export function getWeaponModsFromData(data: any[]): WeaponMod[] {
 

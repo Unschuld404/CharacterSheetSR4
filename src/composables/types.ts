@@ -328,6 +328,7 @@ export type Commlink = {
     programs: Program[];
     mods: CommlinkMod[];
     autosofts: AutoSoft[];
+    sins: Gear[];
 }
 
 export enum VehicleMode {

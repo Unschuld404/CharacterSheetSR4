@@ -28,6 +28,20 @@ import {DialogCommlink} from "@/composables/dialogs";
         </div>
       </div>
 
+      <strong class="category" v-if="char.commlink.sins.length != 0">SIN's</strong>
+      <template v-for="item in char.commlink.sins">
+        <div class="item">
+          <div>
+            <div>{{item.name}}
+              <template v-if="item.rating > 1">
+                ({{item.rating}})
+              </template>
+            </div>
+            <div v-if="item.extra" class="subcaption"> {{ item.extra }}</div>
+          </div>
+        </div>
+      </template>
+
       <strong class="category" v-if="char.commlink.programs.length != 0">Programme</strong>
       <template v-for="item in char.commlink.programs">
         <div class="item">

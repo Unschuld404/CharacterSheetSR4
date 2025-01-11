@@ -352,11 +352,11 @@ export class Vehicle implements IdObject,Container  {
     {
         switch (this.mode) {
             case VehicleMode.Auto:
-                return [this.getPilotPoolValue(), this.getAutosoftPoolValueFor('Angriff')]
+                return [this.getPilotPoolValue(), this.getAutosoftPoolValueFor('Angriff'), {name: 'Smartlink', value: 2}]
             case VehicleMode.VR:
-                return [this.getSensorPoolValue(), this.getRiggerSkillPoolValueFor('Geschütze'), {name: 'HOT Sim', value: 2}]
+                return [this.getSensorPoolValue(), this.getRiggerSkillPoolValueFor('Geschütze'), {name: 'Smartlink', value: 2}, {name: 'HOT Sim', value: 2}]
             case VehicleMode.Remote:
-                return [this.getRiggerCommandPoolValue(), this.getRiggerSkillPoolValueFor('Geschütze')]
+                return [this.getRiggerCommandPoolValue(), this.getRiggerSkillPoolValueFor('Geschütze'), {name: 'Smartlink', value: 2}]
             default:
                 return [];
         }

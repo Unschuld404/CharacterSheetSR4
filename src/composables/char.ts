@@ -323,64 +323,64 @@ export class Charakter implements Container, Rigger {
             if (fullDefense)
             {
                 const maxSkill = Math.max(
-                    evade.total * 2,
-                    unarmed.total + evade.total,
-                    melee.total + evade.total,
-                    melee.total * 2,
-                    acrobatic.total + evade.total,
+                    evade.rating * 2,
+                    unarmed.rating + evade.rating,
+                    melee.rating + evade.rating,
+                    melee.rating * 2,
+                    acrobatic.rating + evade.rating,
                 );
 
-                if ((acrobatic.total + evade.total) >= maxSkill)
+                if ((acrobatic.rating + evade.rating) >= maxSkill)
                 {
                     name = 'Akrobatisches Ausweichen';
-                    values.push({ name: acrobatic.name, value: acrobatic.total });
-                    values.push({ name: evade.name, value: evade.total });
+                    values.push({ name: acrobatic.name, value: acrobatic.rating });
+                    values.push({ name: evade.name, value: evade.rating });
                 }
 
-                if ((melee.total * 2) >= maxSkill)
+                if ((melee.rating * 2) >= maxSkill)
                 {
                     name = 'Volles Parieren';
-                    values.push({ name: melee.name + ' x2', value: melee.total * 2 });
+                    values.push({ name: melee.name + ' x2', value: melee.rating * 2 });
                 }
 
-                if ((melee.total + evade.total) >= maxSkill)
+                if ((melee.rating + evade.rating) >= maxSkill)
                 {
                     name = 'Volles Ausweichen';
-                    values.push({ name: melee.name, value: melee.total });
-                    values.push({ name: evade.name, value: evade.total });
+                    values.push({ name: melee.name, value: melee.rating });
+                    values.push({ name: evade.name, value: evade.rating });
                 }
 
-                if ((unarmed.total + evade.total) >= maxSkill)
+                if ((unarmed.rating + evade.rating) >= maxSkill)
                 {
                     name = 'Volles Ausweichen';
-                    values.push({ name: unarmed.name, value: unarmed.total });
-                    values.push({ name: evade.name, value: evade.total });
+                    values.push({ name: unarmed.name, value: unarmed.rating });
+                    values.push({ name: evade.name, value: evade.rating });
                 }
 
-                if (evade.total * 2 >= maxSkill)
+                if (evade.rating * 2 >= maxSkill)
                 {
                     name = 'Volles Ausweichen';
-                    values.push({ name: evade.name + ' x2', value: evade.total * 2 });
+                    values.push({ name: evade.name + ' x2', value: evade.rating * 2 });
                 }
             }
             else
             {
-                const maxSkill = Math.max(evade.total, unarmed.total, melee.total);
+                const maxSkill = Math.max(evade.rating, unarmed.rating, melee.rating);
 
-                if (evade.total >= maxSkill)
+                if (evade.rating >= maxSkill)
                 {
                     name = 'Ausweichen';
-                    values.push({ name: evade.name, value: evade.total });
+                    values.push({ name: evade.name, value: evade.rating });
                 }
-                if (unarmed.total >= maxSkill)
+                if (unarmed.rating >= maxSkill)
                 {
                     name = 'Blocken';
-                    values.push({ name: unarmed.name, value: unarmed.total });
+                    values.push({ name: unarmed.name, value: unarmed.rating });
                 }
-                if (melee.total >= maxSkill)
+                if (melee.rating >= maxSkill)
                 {
                     name = 'Parieren';
-                    values.push({ name: melee.name, value: melee.total });
+                    values.push({ name: melee.name, value: melee.rating });
                 }
             }
         }
@@ -388,15 +388,15 @@ export class Charakter implements Container, Rigger {
         {
             if (fullDefense)
             {
-                if (evade.total > acrobatic.total)
+                if (evade.rating > acrobatic.rating)
                 {
                     name = 'Volles Ausweichen';
-                    values.push({ name: evade.name, value: evade.total });
+                    values.push({ name: evade.name, value: evade.rating });
                 }
                 else
                 {
                     name = 'Akrobatisches Ausweichen';
-                    values.push({ name: acrobatic.name, value: acrobatic.total });
+                    values.push({ name: acrobatic.name, value: acrobatic.rating });
                 }
             }
             else
@@ -475,17 +475,17 @@ export class Charakter implements Container, Rigger {
 
     getDefenseMeleeSkill(): PoolValue {
         const skill = this.skillByName(this.sheet.defenseMeleeSkill);
-        return { name: skill.name, value: skill.total};
+        return { name: skill.name, value: skill.rating};
     }
 
     getEvadeSkill(): PoolValue {
         const skill = this.skillByName('Ausweichen');
-        return { name: skill.name, value: skill.total};
+        return { name: skill.name, value: skill.rating};
     }
 
     getSkill(name: string): PoolValue {
         const skill = this.skillByName(name);
-        return { name: skill.name, value: skill.total};
+        return { name: skill.name, value: skill.rating};
     }
 
     getCommandValue(): PoolValue {
