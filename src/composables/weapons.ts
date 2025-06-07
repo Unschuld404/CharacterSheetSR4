@@ -157,7 +157,8 @@ export class Weapon implements IdObject  {
         if (ind >= 0)
         {
             count = Math.min(ammunitions[ind].count, this.settings.magSize);
-            ammunitions[ind].count -= count;
+            ammunitions[ind].count -= (count);
+            ammunitions[ind].count += this.settings.ammoLeft;
         }
 
         this.settings.ammoLeft = count;
