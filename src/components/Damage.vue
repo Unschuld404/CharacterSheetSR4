@@ -4,6 +4,8 @@ import {char} from "@/composables/char";
 import {uploadSheet} from "@/composables/fetch";
 import {computed} from "vue";
 
+const deathPool = char.monitor.physical.max + char.monitor.overflow;
+
 function store()
 {
   uploadSheet().then(() => {});
@@ -35,7 +37,10 @@ function takeStunDamage()
     store();
   }
   else {
-    char.monitor.physical.filled++;
+    if (char.monitor.physical.filled < deathPool) {
+      char.monitor.physical.filled++;
+    }
+    // hier könnte noch ein else mit einem Feedback hin, dass der Char bereits tot ist
   }
 }
 
@@ -47,8 +52,6 @@ function healStunDamage()
     store();
   }
 }
-
-const deathPool = char.monitor.physical.max + char.monitor.overflow;
 
 const damageModifier = computed(() => {
   return (Math.floor(Math.max(0, char.monitor.physical.filled - char.monitor.offset) / char.monitor.threshold))
