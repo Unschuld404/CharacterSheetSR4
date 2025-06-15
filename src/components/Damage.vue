@@ -4,7 +4,10 @@ import {char} from "@/composables/char";
 import {uploadSheet} from "@/composables/fetch";
 import {computed} from "vue";
 
-const deathPool = char.monitor.physical.max + char.monitor.overflow;
+
+function getDeathPool(){
+  return char.monitor.physical.max + char.monitor.overflow;
+}
 
 function store()
 {
@@ -13,10 +16,14 @@ function store()
 
 function takePhysicalDamage()
 {
-  if (char.monitor.physical.filled < deathPool)
+  if (char.monitor.physical.filled < getDeathPool())
   {
     char.monitor.physical.filled++;
     store();
+    console.log(char.monitor.physical.filled);
+  }
+  else {
+    console.log("Dein Chummer ist tot");
   }
 }
 
@@ -26,6 +33,7 @@ function healPhysicalDamage()
   {
     char.monitor.physical.filled--;
     store();
+    console.log(char.monitor.physical.filled);
   }
 }
 
@@ -35,10 +43,16 @@ function takeStunDamage()
   {
     char.monitor.stun.filled++;
     store();
+    console.log(char.monitor.physical.filled);
   }
   else {
-    if (char.monitor.physical.filled < deathPool) {
+    if (char.monitor.physical.filled < getDeathPool()) {
       char.monitor.physical.filled++;
+      store();
+      console.log(char.monitor.physical.filled);
+    }
+    else {
+      console.log("Dein Chummer ist tot", char.monitor.physical.filled);
     }
     // hier könnte noch ein else mit einem Feedback hin, dass der Char bereits tot ist
   }
@@ -84,14 +98,14 @@ const unconscious = computed(() => {
     </div>
   </div>
   <div class="box" v-if="damageModifier > 0">
-    <div v-if="char.monitor.physical.filled == deathPool">
+    <div v-if="char.monitor.physical.filled == getDeathPool()">
       <i class='bx bxs-skull'></i>
-      <div><strong>{{char.monitor.physical.filled}}</strong> / {{ deathPool }}</div>
+      <div><strong>{{char.monitor.physical.filled}}</strong> / {{ getDeathPool() }}</div>
       <div>Du bist tot</div>
     </div>
     <div v-else>
       <div v-if="unconscious">
-        <div><strong>{{char.monitor.physical.filled}}</strong> / {{ deathPool }}</div>
+        <div><strong>{{char.monitor.physical.filled}}</strong> / {{ getDeathPool() }}</div>
         <div>Du bist bewusstlos</div>
       </div>
       <div v-else>
