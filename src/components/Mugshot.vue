@@ -112,8 +112,8 @@ import {DialogChangeKarma} from "@/composables/dialogs";
     <div class="box">
       <div class="left-header">Karma</div>
       <button class="confirm" @click="DialogChangeKarma.show">Karma hinzufügen</button>
-      <p class="line" style="border-bottom: none"><span>Gesamt</span><span>8</span></p>
-      <p class="line" style="border-bottom: none"><span>Aktuell</span><span>4</span></p>
+      <p class="line" style="border-bottom: none"><span>Gesamt</span><span>{{ char.karma }}</span></p>
+      <p class="line" style="border-bottom: none"><span>Aktuell</span><span>?</span></p>
     </div>
 
     <div class="box">
